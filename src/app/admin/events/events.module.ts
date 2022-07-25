@@ -5,6 +5,8 @@ import { EventsRoutingModule } from './events-routing.module';
 import { EventsComponent } from './events.component';
 import { EventListComponent } from './events/event-list/event-list.component';
 
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import { EventListComponent } from './events/event-list/event-list.component';
   ],
   imports: [
     CommonModule,
-    EventsRoutingModule
+    EventsRoutingModule,
+    MatTableModule,
+    MatButtonModule
   ]
 })
 export class EventsModule { }
