@@ -2,12 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LocationDto } from '../models/location.model';
+import { AreaDto } from '../models/area.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocationService {
+export class AreaService {
   apiUrl = `${environment.apiUrl}/locations`;
 
   httpOptions = {
@@ -19,12 +19,12 @@ export class LocationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getLocations(): Observable<LocationDto[]> {
-    return this.httpClient.get<LocationDto[]>(this.apiUrl, this.httpOptions);
+  getAreas(locationId: string): Observable<AreaDto[]> {
+    const url = `${this.apiUrl}/${locationId}/areas`;
+    return this.httpClient.get<AreaDto[]>(url, this.httpOptions);
   }
 
-  getLocationById(id: string): Observable<LocationDto> {
-    return this.httpClient.get<LocationDto>(`${this.apiUrl}/${id}`, this.httpOptions);
-  }
-
+//  getLocationById(id: string): Observable<AreaDto> {
+//    return this.httpClient.get<AreaDto>(`${this.apiUrl}/${id}`, this.httpOptions);
+//  }
 }
