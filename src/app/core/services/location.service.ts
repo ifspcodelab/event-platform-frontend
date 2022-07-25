@@ -23,4 +23,8 @@ export class LocationService {
     return this.httpClient.get<LocationDto[]>(this.apiUrl, this.httpOptions);
   }
 
+  getLocationById(id: string): Observable<LocationDto> {
+    return this.httpClient.get<LocationDto>(`${this.apiUrl}/${id}`, this.httpOptions);
+  }
+
 }

@@ -1,1 +1,4 @@
-<p>location-show works!</p>
+<div *ngIf="locationDto!=null">
+  <h1>{{ locationDto.name }} Detalhes</h1>
+  <p>{{ locationDto.address }}</p>
+</div>
