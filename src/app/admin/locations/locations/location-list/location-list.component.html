@@ -1,4 +1,10 @@
-<h1>Locais</h1>
+<header class="header">
+  <h1 class="header__title">Locais</h1>
+  <div class="header__actions">
+    <button mat-button color="primary">Novo Local</button>
+    <button mat-button color="primary">Outra Ação</button>
+  </div>
+</header>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
  <ng-container matColumnDef="name">

@@ -8,6 +8,7 @@ import { LocationShowComponent } from './locations/location-show/location-show.c
 import { AreaShowComponent } from './areas/area-show/area-show.component';
 import { LocationFormComponent } from './locations/location-form/location-form.component';
 
+import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 
 
@@ -22,7 +23,8 @@ import { MatTableModule } from '@angular/material/table';
   imports: [
     CommonModule,
     LocationsRoutingModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonModule
   ]
 })
 export class LocationsModule { }
