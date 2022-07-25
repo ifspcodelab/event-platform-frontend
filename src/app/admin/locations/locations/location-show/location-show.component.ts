@@ -3,7 +3,7 @@ import { AreaDto } from './../../../../core/models/area.model';
 import { LocationService } from './../../../../core/services/location.service';
 import { LocationDto } from './../../../../core/models/location.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { first } from "rxjs/operators";
 
 @Component({
@@ -20,7 +20,8 @@ export class LocationShowComponent implements OnInit {
   constructor(
     private locationService: LocationService,
     private areaService: AreaService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +53,11 @@ export class LocationShowComponent implements OnInit {
           console.log(areasDto);
         }
       )
+  }
+
+  openAreaShow(areaDto: AreaDto) {
+    console.log(areaDto);
+    this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
 
 }
