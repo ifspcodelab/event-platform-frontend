@@ -8,6 +8,8 @@ import { LocationShowComponent } from './locations/location-show/location-show.c
 import { AreaShowComponent } from './areas/area-show/area-show.component';
 import { LocationFormComponent } from './locations/location-form/location-form.component';
 
+import { MatTableModule } from '@angular/material/table';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { LocationFormComponent } from './locations/location-form/location-form.c
   ],
   imports: [
     CommonModule,
-    LocationsRoutingModule
+    LocationsRoutingModule,
+    MatTableModule
   ]
 })
 export class LocationsModule { }

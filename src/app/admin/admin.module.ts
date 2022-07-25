@@ -6,8 +6,6 @@ import { AdminComponent } from './admin.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-
-
 @NgModule({
   declarations: [
     AdminComponent
@@ -15,7 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MatToolbarModule
+    MatToolbarModule,
   ]
 })
 export class AdminModule { }

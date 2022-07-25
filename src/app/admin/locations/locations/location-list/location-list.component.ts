@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LocationDto } from 'src/app/core/models/location.model';
+import { LocationService } from 'src/app/core/services/location.service';
 
 @Component({
   selector: 'app-location-list',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LocationListComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns: string[] = ['name', 'address'];
+  dataSource: LocationDto[] = [];
+  
+
+  constructor(private locationService: LocationService) { }
 
   ngOnInit(): void {
+
+    this.locationService.getLocations().subscribe(
+      locations => {
+        this.dataSource = locations;
+      }
+    )
   }
 
 }
