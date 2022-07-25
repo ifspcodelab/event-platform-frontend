@@ -9,6 +9,7 @@ import { AreaShowComponent } from './areas/area-show/area-show.component';
 import { LocationFormComponent } from './locations/location-form/location-form.component';
 
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MatTableModule } from '@angular/material/table';
   imports: [
     CommonModule,
     LocationsRoutingModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonModule
   ]
 })
 export class LocationsModule { }
