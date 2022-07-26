@@ -37,7 +37,6 @@ export class SpaceShowComponent implements OnInit {
       .subscribe(
         spaceDto => {
           this.spaceDto = spaceDto;
-          console.log(spaceDto);
         }
       )
   }
