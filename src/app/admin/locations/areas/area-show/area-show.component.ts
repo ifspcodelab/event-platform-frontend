@@ -58,7 +58,7 @@ export class AreaShowComponent implements OnInit {
       )
   }
 
-  openAreaShow(spaceDto: SpaceDto) {
+  openSpaceShow(spaceDto: SpaceDto) {
     console.log(spaceDto);
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId, 'spaces', spaceDto.id]);
   }
