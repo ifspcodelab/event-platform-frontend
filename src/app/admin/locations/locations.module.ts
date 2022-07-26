@@ -9,6 +9,7 @@ import { AreaShowComponent } from './areas/area-show/area-show.component';
 import { LocationFormComponent } from './locations/location-form/location-form.component';
 
 import { MatTableModule } from '@angular/material/table';
+import { SpaceShowComponent } from './spaces/space-show/space-show.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MatTableModule } from '@angular/material/table';
     LocationListComponent,
     LocationShowComponent,
     AreaShowComponent,
-    LocationFormComponent
+    LocationFormComponent,
+    SpaceShowComponent
   ],
   imports: [
     CommonModule,

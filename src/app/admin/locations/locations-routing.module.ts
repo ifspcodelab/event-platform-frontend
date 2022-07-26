@@ -5,6 +5,7 @@ import { LocationsComponent } from './locations.component';
 import { LocationFormComponent } from './locations/location-form/location-form.component';
 import { LocationListComponent } from './locations/location-list/location-list.component';
 import { LocationShowComponent } from './locations/location-show/location-show.component';
+import {SpaceShowComponent} from "./spaces/space-show/space-show.component";
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
       // { path: 'novo', component: LocationFormComponent },
       { path: ':locationId', component: LocationShowComponent },
       // { path: ':locationId/editar', component: LocationFormComponent },
-      { path: ':locationId/areas/:areaId', component: AreaShowComponent }
+      { path: ':locationId/areas/:areaId', component: AreaShowComponent },
+      { path: ':locationId/areas/:areaId/spaces/:spaceId', component: SpaceShowComponent}
     ]
   }
 ];
