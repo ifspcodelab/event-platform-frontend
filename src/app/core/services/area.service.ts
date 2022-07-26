@@ -1,3 +1,4 @@
+import { LocationDto } from 'src/app/core/models/location.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -24,7 +25,11 @@ export class AreaService {
     return this.httpClient.get<AreaDto[]>(url, this.httpOptions);
   }
 
-//  getLocationById(id: string): Observable<AreaDto> {
-//    return this.httpClient.get<AreaDto>(`${this.apiUrl}/${id}`, this.httpOptions);
+//  getLocationById(id: string): Observable<LocationDto> {
+//    return this.httpClient.get<LocationDto>(`${this.apiUrl}/${id}`, this.httpOptions);
 //  }
+
+  getAreaById(locationId?: string | null, areaId?: string | null): Observable<AreaDto> {
+    return this.httpClient.get<AreaDto>(`${this.apiUrl}/${locationId}/areas/${areaId}`, this.httpOptions);
+  }
 }

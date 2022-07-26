@@ -5,10 +5,12 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { SpaceShowComponent } from './spaces/space-show/space-show.component';
 
 @NgModule({
   declarations: [
-    AdminComponent
+    AdminComponent,
+    SpaceShowComponent
   ],
   imports: [
     CommonModule,
