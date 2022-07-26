@@ -12,9 +12,9 @@ import { first } from "rxjs/operators";
   styleUrls: ['./location-show.component.scss']
 })
 export class LocationShowComponent implements OnInit {
-  locationId?: string | null;
-  locationDto?: LocationDto | null;
-  areasDto: AreaDto[] = [];
+  locationId: string;
+  locationDto: LocationDto;
+  areasDto: AreaDto[];
   displayedColumns: string[] = ['name', 'reference'];
 
   constructor(
