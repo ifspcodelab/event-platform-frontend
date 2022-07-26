@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LocationDto } from '../models/location.model';
+import { LocationCreateDto, LocationDto } from '../models/location.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,10 @@ export class LocationService {
 
   getLocationById(id: string): Observable<LocationDto> {
     return this.httpClient.get<LocationDto>(`${this.apiUrl}/${id}`, this.httpOptions);
+  }
+
+  postLocation(locationCreateDto: LocationCreateDto): Observable<LocationDto> {
+    return this.httpClient.post<LocationDto>(this.apiUrl, locationCreateDto, this.httpOptions);
   }
 
 }
