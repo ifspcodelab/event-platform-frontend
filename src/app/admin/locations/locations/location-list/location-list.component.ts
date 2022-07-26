@@ -11,7 +11,7 @@ export class LocationListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'address'];
   dataSource: LocationDto[] = [];
-  
+
 
   constructor(private locationService: LocationService) { }
 

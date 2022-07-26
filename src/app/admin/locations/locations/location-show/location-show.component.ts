@@ -1,9 +1,11 @@
+import { AreaFormComponent } from './../../areas/area-form/area-form.component';
 import { AreaService } from './../../../../core/services/area.service';
 import { AreaDto } from './../../../../core/models/area.model';
 import { LocationService } from './../../../../core/services/location.service';
 import { LocationDto } from './../../../../core/models/location.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { first } from "rxjs/operators";
 
 @Component({
@@ -21,7 +23,8 @@ export class LocationShowComponent implements OnInit {
     private locationService: LocationService,
     private areaService: AreaService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -58,6 +61,23 @@ export class LocationShowComponent implements OnInit {
   openAreaShow(areaDto: AreaDto) {
     console.log(areaDto);
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
+  }
+
+  private getDialogConfig(locationDto?: LocationDto) {
+    return {
+      autoFocus: true,
+      data: {
+        locationDto: this.locationDto
+      }
+    };
+  }
+
+  openFormAreaDialog() {
+    const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfig(undefined));
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }

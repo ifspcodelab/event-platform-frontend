@@ -1,3 +1,4 @@
+import { CoreModule } from './../../core/core.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -6,11 +7,14 @@ import { LocationsComponent } from './locations.component';
 import { LocationListComponent } from './locations/location-list/location-list.component';
 import { LocationShowComponent } from './locations/location-show/location-show.component';
 import { AreaShowComponent } from './areas/area-show/area-show.component';
+import { AreaFormComponent } from './areas/area-form/area-form.component';
 import { LocationFormComponent } from './locations/location-form/location-form.component';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-
 
 @NgModule({
   declarations: [
@@ -18,13 +22,18 @@ import { MatTableModule } from '@angular/material/table';
     LocationListComponent,
     LocationShowComponent,
     AreaShowComponent,
-    LocationFormComponent
+    LocationFormComponent,
+    AreaFormComponent
   ],
   imports: [
     CommonModule,
     LocationsRoutingModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatTableModule,
-    MatButtonModule
+    CoreModule
   ]
 })
 export class LocationsModule { }

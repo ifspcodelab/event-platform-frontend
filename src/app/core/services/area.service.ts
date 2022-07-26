@@ -1,3 +1,4 @@
+import { AreaCreateDto } from './../models/area.model';
 import { LocationDto } from 'src/app/core/models/location.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -31,5 +32,10 @@ export class AreaService {
 
   getAreaById(locationId: string, areaId: string): Observable<AreaDto> {
     return this.httpClient.get<AreaDto>(`${this.apiUrl}/${locationId}/areas/${areaId}`, this.httpOptions);
+  }
+
+  postArea(locationId: string, areaCreateDto: AreaCreateDto): Observable<AreaDto> {
+    const url = `${this.apiUrl}/${locationId}/areas`;
+    return this.httpClient.post<AreaDto>(url, areaCreateDto, this.httpOptions);
   }
 }
