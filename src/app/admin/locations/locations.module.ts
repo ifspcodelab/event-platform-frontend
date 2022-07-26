@@ -13,6 +13,8 @@ import { SpaceShowComponent } from './spaces/space-show/space-show.component';
 import { MatButtonModule } from "@angular/material/button";
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from "@angular/material/icon";
+import {SpaceTypesPipe} from "../../core/pipes/space-types.pipe";
+
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { MatIconModule } from "@angular/material/icon";
     AreaShowComponent,
     LocationFormComponent,
     SpaceShowComponent,
+    SpaceTypesPipe
   ],
   imports: [
     CommonModule,
