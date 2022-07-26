@@ -29,10 +29,7 @@ export class AreaShowComponent implements OnInit {
   ngOnInit(): void {
     this.locationId = this.route.snapshot.paramMap.get('locationId');
     this.areaId = this.route.snapshot.paramMap.get('areaId');
-
-    if(this.locationId && this.areaId) {
-      this.fetchArea(this.locationId, this.areaId);
-    }
+    this.fetchArea(this.locationId, this.areaId);
   }
 
   fetchArea(locationId: string, areaId: string) {
@@ -57,7 +54,6 @@ export class AreaShowComponent implements OnInit {
   }
 
   openSpaceShow(spaceDto: SpaceDto) {
-    console.log(spaceDto);
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId, 'spaces', spaceDto.id]);
   }
 }

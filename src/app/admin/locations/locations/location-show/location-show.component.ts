@@ -29,10 +29,7 @@ export class LocationShowComponent implements OnInit {
 
   ngOnInit(): void {
     this.locationId = this.route.snapshot.paramMap.get('locationId');
-
-    if(this.locationId) {
-      this.fetchLocation(this.locationId);
-    }
+    this.fetchLocation(this.locationId);
   }
 
   fetchLocation(locationId: string) {
@@ -41,7 +38,6 @@ export class LocationShowComponent implements OnInit {
       .subscribe(
         locationDto => {
           this.locationDto = locationDto;
-          console.log(locationDto);
           this.fetchAreas(locationId);
         }
       )
@@ -53,7 +49,6 @@ export class LocationShowComponent implements OnInit {
       .subscribe(
         areasDto => {
           this.areasDto = areasDto;
-          console.log(areasDto);
         }
       )
   }
