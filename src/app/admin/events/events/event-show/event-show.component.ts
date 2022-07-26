@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {EventDto} from "../../../../core/models/event.model";
 import {EventService} from "../../../../core/services/event.service";
 import {ActivatedRoute} from "@angular/router";
+import {first} from "rxjs";
 
 @Component({
   selector: 'app-event-show',
@@ -20,7 +21,12 @@ export class EventShowComponent implements OnInit {
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('eventId');
 
-    this.eventService.getEventById(this.eventId)
+    this.fetchEvent(this.eventId);
+  }
+
+  fetchEvent(eventId: string) {
+    this.eventService.getEventById(eventId)
+      .pipe(first())
       .subscribe(
         eventDto => {
           this.eventDto = eventDto;
