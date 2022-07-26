@@ -30,30 +30,28 @@ export class AreaShowComponent implements OnInit {
     this.locationId = this.route.snapshot.paramMap.get('locationId');
     this.areaId = this.route.snapshot.paramMap.get('areaId');
 
-    if(this.areaId) {
+    if(this.locationId && this.areaId) {
       this.fetchArea(this.locationId, this.areaId);
     }
   }
 
-  fetchArea(locationId?: string | null, areaId?: string | null) {
+  fetchArea(locationId: string, areaId: string) {
     this.areaService.getAreaById(locationId, areaId)
       .pipe(first())
       .subscribe(
         areaDto => {
           this.areaDto = areaDto;
-          console.log(areaDto);
-          this.fetchSpaces(this.locationId, this.areaId)
+          this.fetchSpaces(locationId, areaId)
         }
       )
   }
 
-  fetchSpaces(locationId?: string | null, areaId?: string | null) {
+  fetchSpaces(locationId: string, areaId: string) {
     this.spaceService.getSpaces(locationId, areaId)
       .pipe(first())
       .subscribe(
         spacesDto => {
           this.spacesDto = spacesDto;
-          console.log(spacesDto);
         }
       )
   }

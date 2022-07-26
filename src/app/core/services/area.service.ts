@@ -29,7 +29,7 @@ export class AreaService {
 //    return this.httpClient.get<LocationDto>(`${this.apiUrl}/${id}`, this.httpOptions);
 //  }
 
-  getAreaById(locationId?: string | null, areaId?: string | null): Observable<AreaDto> {
+  getAreaById(locationId: string, areaId: string): Observable<AreaDto> {
     return this.httpClient.get<AreaDto>(`${this.apiUrl}/${locationId}/areas/${areaId}`, this.httpOptions);
   }
 }
