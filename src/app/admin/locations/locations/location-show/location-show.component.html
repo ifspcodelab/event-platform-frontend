@@ -1,6 +1,19 @@
 <div *ngIf="locationDto!=null">
-  <h1>{{ locationDto.name }} Detalhes</h1>
-  <p>{{ locationDto.address }}</p>
+  <header class="header">
+  <h1 class="header__title">Locais: {{ locationDto.name }} Detalhes</h1>
+  <div class="header__actions">
+    <button mat-button color="primary"> Voltar </button>
+    <button mat-button color="primary"> Editar </button>
+    <button mat-button color="primary"> Excluir </button>
+  </div>
+  </header>
+
+  <mat-list>
+    <mat-list-item>
+      <mat-icon mat-list-icon>pin_drop</mat-icon>
+      <div mat-line><b>Endereço: </b>{{ locationDto.address }}</div>
+    </mat-list-item>
+  </mat-list>
 
   <h2>Áreas</h2>
   <table mat-table [dataSource]="areasDto" class="mat-elevation-z8">
