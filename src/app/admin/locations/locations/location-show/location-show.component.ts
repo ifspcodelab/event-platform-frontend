@@ -38,7 +38,6 @@ export class LocationShowComponent implements OnInit {
       .subscribe(
         locationDto => {
           this.locationDto = locationDto;
-          console.log(locationDto);
           this.fetchAreas(locationId);
         }
       )
@@ -50,13 +49,11 @@ export class LocationShowComponent implements OnInit {
       .subscribe(
         areasDto => {
           this.areasDto = areasDto;
-          console.log(areasDto);
         }
       )
   }
 
   openAreaShow(areaDto: AreaDto) {
-    console.log(areaDto);
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
 
