@@ -1,3 +1,5 @@
+import { SpaceService } from '../../../../core/services/space.service';
+import { SpaceDto } from './../../../../core/models/space.model';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { AreaService } from './../../../../core/services/area.service';
@@ -13,9 +15,13 @@ export class AreaShowComponent implements OnInit {
   locationId?: string | null;
   areaId?: string | null;
   areaDto?: AreaDto | null;
+  spacesDto: SpaceDto[] = [];
+  displayedColumns: string[] = ['name', 'capacity', 'type'];
+
 
   constructor(
     private areaService: AreaService,
+    private spaceService: SpaceService,
     private route: ActivatedRoute
   ) { }
 
@@ -35,8 +41,19 @@ export class AreaShowComponent implements OnInit {
         areaDto => {
           this.areaDto = areaDto;
           console.log(areaDto);
+          this.fetchSpaces(this.locationId, this.areaId)
         }
       )
   }
 
+  fetchSpaces(locationId?: string | null, areaId?: string | null) {
+    this.spaceService.getSpaces(locationId, areaId)
+      .pipe(first())
+      .subscribe(
+        spacesDto => {
+          this.spacesDto = spacesDto;
+          console.log(spacesDto);
+        }
+      )
+  }
 }
