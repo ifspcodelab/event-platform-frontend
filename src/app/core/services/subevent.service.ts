@@ -17,14 +17,14 @@ export class SubeventService {
       'Accept-Language': 'pt-BR'
     })
   };
-s
+
   constructor(private httpClient: HttpClient) { }
 
   getSubevents(eventId: string): Observable<SubeventDto[]> {
     return this.httpClient.get<SubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events`, this.httpOptions);
   }
 
-  getSubeventById(eventId: string, subeventId: string): Observable<EventDto> {
-    return this.httpClient.get<EventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}`, this.httpOptions);
+  getSubeventById(eventId: string, subeventId: string): Observable<SubeventDto> {
+    return this.httpClient.get<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}`, this.httpOptions);
   }
 }
