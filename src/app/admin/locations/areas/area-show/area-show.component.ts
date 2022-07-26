@@ -12,10 +12,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./area-show.component.scss']
 })
 export class AreaShowComponent implements OnInit {
-  locationId?: string | null;
-  areaId?: string | null;
-  areaDto?: AreaDto | null;
-  spacesDto: SpaceDto[] = [];
+  locationId: string;
+  areaId: string;
+  areaDto: AreaDto;
+  spacesDto: SpaceDto[];
   displayedColumns: string[] = ['name', 'capacity', 'type'];
 
 
