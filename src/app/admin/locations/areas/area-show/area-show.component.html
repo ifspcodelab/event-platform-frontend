@@ -1,5 +1,13 @@
 <div *ngIf="areaDto!=null">
-  <h1>{{ areaDto.name }} Detalhes</h1>
+  <header class="header">
+    <h1 class="header__title"> {{ areaDto.name }} Detalhes </h1>
+    <div class="header__actions">
+      <button mat-button color="primary"> Voltar </button>
+      <button mat-button color="primary"> Editar </button>
+      <button mat-button color="primary"> Excluir </button>
+      <button mat-button color="primary"> Novo Espaço </button>
+    </div>
+  </header>
   <p>{{ areaDto.reference }}</p>
 
   <h2>Espaços</h2>
