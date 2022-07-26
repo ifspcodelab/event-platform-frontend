@@ -26,12 +26,12 @@ export class SpaceShowComponent implements OnInit {
     this.areaId = this.route.snapshot.paramMap.get('areaId');
     this.spaceId = this.route.snapshot.paramMap.get('spaceId');
 
-    if (this.spaceId) {
+    if (this.locationId && this.areaId && this.spaceId) {
       this.fetchSpace(this.locationId, this.areaId, this.spaceId);
     }
   }
 
-  fetchSpace(locationId: string | null, areaId: string | null, spaceId: string) {
+  fetchSpace(locationId: string, areaId: string, spaceId: string) {
     this.spaceService.getSpaceById(locationId, areaId, spaceId)
       .pipe(first())
       .subscribe(

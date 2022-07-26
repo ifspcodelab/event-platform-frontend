@@ -19,7 +19,7 @@ export class SpaceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getSpaceById(locationId: string | null, areaId: string | null, spaceId: string): Observable<SpaceDto> {
+  getSpaceById(locationId: string, areaId: string, spaceId: string): Observable<SpaceDto> {
     const url = `${this.apiUrl}/${locationId}/areas/${areaId}/spaces/${spaceId}`;
     return this.httpClient.get<SpaceDto>(url, this.httpOptions);
   }

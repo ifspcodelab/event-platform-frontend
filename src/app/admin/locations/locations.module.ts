@@ -10,7 +10,9 @@ import { LocationFormComponent } from './locations/location-form/location-form.c
 
 import { MatTableModule } from '@angular/material/table';
 import { SpaceShowComponent } from './spaces/space-show/space-show.component';
-import {MatButtonModule} from "@angular/material/button";
+import { MatButtonModule } from "@angular/material/button";
+import { MatListModule } from '@angular/material/list';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import {MatButtonModule} from "@angular/material/button";
     CommonModule,
     LocationsRoutingModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule,
+    MatIconModule
   ]
 })
 export class LocationsModule { }

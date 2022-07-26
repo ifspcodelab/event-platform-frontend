@@ -1,14 +1,39 @@
+<div *ngIf="spaceDto!=null">
+
 <header class="header">
-  <h1 class="header__title">Detalhes de espaço</h1>
+  <h1>Espaço: {{ spaceDto.name }} </h1>
   <div class="header__actions">
-    <button mat-button color="primary">Voltar</button>
+    <button mat-button color="primary" >Voltar</button>
     <button mat-button color="primary">Editar</button>
     <button mat-button color="primary">Excluir</button>
   </div>
 </header>
+<!--  <mat-list>-->
+<!--    <div mat-subheader>Folders</div>-->
+<!--    <mat-list-item *ngFor="let folder of folders">-->
+<!--      <mat-icon mat-list-icon>folder</mat-icon>-->
+<!--      <div mat-line>{{folder.name}}</div>-->
+<!--      <div mat-line> {{folder.updated | date}} </div>-->
+<!--    </mat-list-item>-->
+<!--    <mat-divider></mat-divider>-->
+<!--    <div mat-subheader>Notes</div>-->
+<!--    <mat-list-item *ngFor="let note of notes">-->
+<!--      <mat-icon mat-list-icon>note</mat-icon>-->
+<!--      <div mat-line>{{note.name}}</div>-->
+<!--      <div mat-line> {{note.updated | date}} </div>-->
+<!--    </mat-list-item>-->
+<!--  </mat-list>-->
 
-<div *ngIf="spaceDto!=null">
-  <h1>{{ spaceDto.name }} </h1>
-  <p>{{ spaceDto.capacity}}</p>
-  <p>{{ spaceDto.type}}</p>
+  <mat-list>
+    <mat-list-item>
+      <mat-icon mat-list-icon>event_seat</mat-icon>
+      <div mat-line><b>Capacidade: </b>{{spaceDto.capacity}} lugares</div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon mat-list-icon>meeting_room</mat-icon>
+      <div mat-line><b>Tipo: </b>{{spaceDto.type}}</div>
+    </mat-list-item>
+  </mat-list>
+
 </div>
