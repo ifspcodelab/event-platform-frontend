@@ -12,7 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SpaceShowComponent } from './spaces/space-show/space-show.component';
 import { MatButtonModule } from "@angular/material/button";
 import { MatListModule } from '@angular/material/list';
-import {MatIconModule} from "@angular/material/icon";
+import { MatIconModule } from "@angular/material/icon";
 
 
 @NgModule({

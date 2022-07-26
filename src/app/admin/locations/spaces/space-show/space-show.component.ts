@@ -11,10 +11,10 @@ import {first} from "rxjs";
   styleUrls: ['./space-show.component.scss']
 })
 export class SpaceShowComponent implements OnInit {
-  locationId?: string | null;
-  areaId?: string | null;
-  spaceId?: string | null;
-  spaceDto?: SpaceDto | null;
+  locationId: string;
+  areaId: string;
+  spaceId: string;
+  spaceDto: SpaceDto;
 
   constructor(
     private spaceService: SpaceService,
@@ -26,9 +26,7 @@ export class SpaceShowComponent implements OnInit {
     this.areaId = this.route.snapshot.paramMap.get('areaId');
     this.spaceId = this.route.snapshot.paramMap.get('spaceId');
 
-    if (this.locationId && this.areaId && this.spaceId) {
       this.fetchSpace(this.locationId, this.areaId, this.spaceId);
-    }
   }
 
   fetchSpace(locationId: string, areaId: string, spaceId: string) {
