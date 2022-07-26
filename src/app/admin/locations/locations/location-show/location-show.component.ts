@@ -62,7 +62,8 @@ export class LocationShowComponent implements OnInit {
     return {
       autoFocus: true,
       data: {
-        locationDto: this.locationDto
+        locationDto: this.locationDto//,
+        //areaDto: null
       }
     };
   }
@@ -72,6 +73,7 @@ export class LocationShowComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      this.areasDto = [...this.areasDto, result];
     });
   }
 

@@ -5,12 +5,15 @@
       <button mat-button color="primary"> Voltar </button>
       <button mat-button color="primary"> Editar </button>
       <button mat-button color="primary"> Excluir </button>
-      <button mat-button color="primary"> Novo Espaço </button>
     </div>
   </header>
   <p>{{ areaDto.reference }}</p>
 
-  <h2>Espaços</h2>
+  <div class="table">
+    <h2 class="table__title"> Espaços </h2>
+    <button class="table__actions" mat-button color="primary"> Novo Espaço </button>
+  </div>
+
   <table mat-table [dataSource]="spacesDto" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Nome </th>

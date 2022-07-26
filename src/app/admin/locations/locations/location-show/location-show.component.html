@@ -9,8 +9,11 @@
   </header>
   <p>{{ locationDto.address }}</p>
 
-  <h2>Áreas</h2>
-  <button mat-button color="primary" (click)="openFormAreaDialog()"> Nova Área </button>
+  <div class="table">
+    <h2 class="table__title"> Áreas </h2>
+    <button class="table__actions" mat-button color="primary" (click)="openFormAreaDialog()"> Nova Área </button>
+  </div>
+
   <table mat-table [dataSource]="areasDto" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Nome </th>

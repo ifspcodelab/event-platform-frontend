@@ -39,11 +39,7 @@ export class AreaFormComponent implements OnInit {
     if(this.form) {
       this.areaService.postArea(this.data.locationDto.id, this.form.value)
       .pipe(first())
-      .subscribe(
-        areaDto => {
-        this.dialogRef.close(areaDto);
-      }
-    );
+      .subscribe( areaDto => this.dialogRef.close(areaDto) )
     }
   }
 
