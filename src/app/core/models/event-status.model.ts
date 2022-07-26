@@ -1,5 +1,5 @@
 export enum EventStatusModel {
-  DRAFT = ("DRAFT"),
-  PUBLISHED = ("PUBLISHED"),
-  CANCELED = ("CANCELED")
+  DRAFT = ("Rascunho"),
+  PUBLISHED = ("Público"),
+  CANCELED = ("Cancelado")
 }

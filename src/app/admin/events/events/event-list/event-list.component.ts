@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EventDto} from "../../../../core/models/event.model";
 import {EventService} from "../../../../core/services/event.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-event-list',
@@ -12,7 +13,10 @@ export class EventListComponent implements OnInit {
   displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
   dataSource: EventDto[] = [];
 
-  constructor(private eventService: EventService) { }
+  constructor(
+    private eventService: EventService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
 
@@ -21,6 +25,10 @@ export class EventListComponent implements OnInit {
         this.dataSource = events;
       }
     )
+  }
+
+  openEventShow(eventDto: EventDto) {
+    return this.router.navigate(['admin', 'events', eventDto.id]);
   }
 
 }
