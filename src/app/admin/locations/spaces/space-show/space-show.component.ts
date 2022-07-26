@@ -3,7 +3,7 @@ import {SpaceDto} from "../../../../core/models/space.model";
 import {ActivatedRoute} from "@angular/router";
 import {SpaceService} from "../../../../core/services/space.service";
 import {first} from "rxjs";
-import {AreaDto} from "../../../../core/models/area.model";
+
 
 @Component({
   selector: 'app-space-show',
@@ -14,7 +14,6 @@ export class SpaceShowComponent implements OnInit {
   locationId?: string | null;
   areaId?: string | null;
   spaceId?: string | null;
-  areaDto?: AreaDto | null;
   spaceDto?: SpaceDto | null;
 
   constructor(
