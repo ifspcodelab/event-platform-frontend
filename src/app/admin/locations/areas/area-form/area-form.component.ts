@@ -1,3 +1,4 @@
+import { AreaDto } from './../../../../core/models/area.model';
 import { first } from 'rxjs/operators';
 import { AreaService } from './../../../../core/services/area.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -17,11 +18,11 @@ export class AreaFormComponent implements OnInit {
     private areaService: AreaService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AreaFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { locationDto: LocationDto }
+  @Inject(MAT_DIALOG_DATA) public data: { locationDto: LocationDto,  /*areaDto: AreaDto*/}
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data.locationDto);
+    console.log(this.data.locationDto /* this.data */);
   }
 
   buildForm(): FormGroup {
@@ -39,7 +40,11 @@ export class AreaFormComponent implements OnInit {
     if(this.form) {
       this.areaService.postArea(this.data.locationDto.id, this.form.value)
       .pipe(first())
-      .subscribe( areaDto => this.dialogRef.close(areaDto) )
+      .subscribe( areaDto => {
+        if(areaDto) {
+          this.dialogRef.close(areaDto)
+        }
+      })
     }
   }
 

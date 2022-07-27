@@ -46,11 +46,7 @@ export class LocationShowComponent implements OnInit {
   fetchAreas(locationId: string) {
     this.areaService.getAreas(locationId)
       .pipe(first())
-      .subscribe(
-        areasDto => {
-          this.areasDto = areasDto;
-        }
-      )
+      .subscribe( areasDto => this.areasDto = areasDto )
   }
 
   openAreaShow(areaDto: AreaDto) {
@@ -58,22 +54,22 @@ export class LocationShowComponent implements OnInit {
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
 
-  private getDialogConfig(locationDto?: LocationDto) {
+  private getDialogConfig() {
     return {
       autoFocus: true,
       data: {
-        locationDto: this.locationDto//,
-        //areaDto: null
+        locationId: this.locationId//,
+        //areaDto: this.areaDto
       }
     };
   }
 
   openFormAreaDialog() {
-    const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfig(undefined));
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this.areasDto = [...this.areasDto, result];
+    const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfig());
+    dialogRef.afterClosed().subscribe( areaDto => {
+      if(areaDto) {
+        this.areasDto = [...this.areasDto, areaDto];
+      }
     });
   }
 
