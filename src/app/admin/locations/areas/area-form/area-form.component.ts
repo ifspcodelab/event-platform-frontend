@@ -1,10 +1,13 @@
+import { AppValidators } from 'src/app/core/validators/app-validator';
+import { Violation } from './../../../../core/models/problem-detail';
 import { AreaDto } from './../../../../core/models/area.model';
 import { first } from 'rxjs/operators';
 import { AreaService } from './../../../../core/services/area.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LocationDto } from 'src/app/core/models/location.model';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-area-form',
@@ -13,6 +16,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AreaFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  submitted: boolean = false;
   createMode: boolean;
 
   constructor(
@@ -35,12 +39,19 @@ export class AreaFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: [''],
+      name: ['', [Validators.required, AppValidators.notBlank]],
       reference: ['']
     });
   }
 
   onSubmit() {
+    this.submitted = true;
+    if(this.form.invalid) {
+      return;
+    }
+    if(this.form.value.reference == '') {
+      this.form.value.reference = null
+    }
     if(this.createMode) {
       this.createArea();
     }
@@ -53,11 +64,14 @@ export class AreaFormComponent implements OnInit {
     if(this.form) {
       this.areaService.postArea(this.data.locationId, this.form.value)
       .pipe(first())
-      .subscribe( areaDto => {
-        if(areaDto) {
-          this.dialogRef.close(areaDto)
-        }
-      })
+      .subscribe(
+        areaDto => {
+          if(areaDto) {
+            this.dialogRef.close(areaDto)
+          }
+        },
+        error => this.handleError(error)
+      )
     }
   }
 
@@ -70,4 +84,33 @@ export class AreaFormComponent implements OnInit {
     })
   }
 
+  field(path: string) {
+    return this.form.get(path)!;
+  }
+
+  fieldErrors(path: string) {
+    return this.field(path)?.errors;
+  }
+
+  // containsError(path: string, validationType: string) {
+  //   return this.form.get(path)!.errors[validationType];
+  // }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      console.log(error);
+      if(error.status === 400) {
+        const violations: Violation[] = error.error;
+        violations.forEach(violation => {
+          const formControl = this.form.get(violation.name);
+          if(formControl) {
+            formControl.setErrors({
+              serverError: violation.message
+            });
+            console.log(formControl);
+          }
+        })
+      }
+    }
+  }
 }

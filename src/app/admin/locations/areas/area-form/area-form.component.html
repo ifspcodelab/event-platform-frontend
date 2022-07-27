@@ -1,18 +1,30 @@
-<h2 id="header" mat-dialog-title> Cadastrar Área </h2> <!-- se estiver areaDto é editar, se não, cadastrar -->
+<h2 id="header" mat-dialog-title> Cadastrar Área </h2>
 
 <div mat-dialog-content>
   <form class="app-form" id="area-form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <mat-form-field class="form-field-lg">
-      <mat-label> Nome* </mat-label>
+      <mat-label> Nome </mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
+      <mat-error *ngIf="fieldErrors('name')?.['notblank']">
+        Nome não pode ser vazio
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['required']">
+        Nome é obrigatório
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['servererror'] && submitted">
+        {{ fieldErrors('name')?.['servererror'] }}
+      </mat-error>
     </mat-form-field>
 
-    <br/>
+    <br/><br/>
 
     <mat-form-field class="form-field-lg">
       <mat-label> Referência </mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="reference" name="reference">
+      <mat-error *ngIf="fieldErrors('reference')?.['servererror'] && submitted">
+        {{ fieldErrors('reference')?.['servererror'] }}
+      </mat-error>
     </mat-form-field>
 
   </form>
