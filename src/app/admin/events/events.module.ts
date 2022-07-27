@@ -5,6 +5,7 @@ import { EventsRoutingModule } from './events-routing.module';
 import { EventsComponent } from './events.component';
 import { EventListComponent } from './events/event-list/event-list.component';
 import { EventShowComponent } from './events/event-show/event-show.component';
+import { EventFormComponent } from './events/event-form/event-form.component';
 import { EventStatusPipe } from "../../core/pipes/event-status.pipe";
 import { SubeventShowComponent } from './subevents/subevent-show/subevent-show.component';
 
@@ -13,12 +14,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from "@angular/material/core";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
     EventsComponent,
     EventListComponent,
     EventShowComponent,
+    EventFormComponent,
     EventStatusPipe,
     SubeventShowComponent
   ],
@@ -29,7 +36,12 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class EventsModule { }

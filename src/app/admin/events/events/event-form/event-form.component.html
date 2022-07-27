@@ -1,0 +1,85 @@
+<header class="header">
+  <h1 class="header__title">Novo Evento</h1>
+  <div class="header__actions">
+    <button mat-button color="primary">Cancelar</button>
+    <button type="submit" form="event-form" mat-raised-button color="primary">Salvar</button>
+  </div>
+</header>
+
+<form id="event-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+  <fieldset>
+    <legend>Dados gerais</legend>
+    <mat-form-field class="form-field-lg">
+      <mat-label>Título</mat-label>
+      <input matInput placeholder="" formControlName="title" name="title">
+    </mat-form-field> <br>
+
+    <mat-form-field class="form-field-lg">
+      <mat-label>Slug</mat-label>
+      <input matInput placeholder="" formControlName="slug" name="slug">
+    </mat-form-field> <br>
+
+    <mat-form-field class="form-field-lg">
+      <mat-label>Resumo</mat-label>
+      <textarea matInput placeholder="" formControlName="summary" name="summary"></textarea>
+    </mat-form-field> <br>
+
+    <mat-form-field class="form-field-lg">
+      <mat-label>Apresentação</mat-label>
+      <textarea matInput placeholder="" formControlName="presentation" name="presentation"></textarea>
+    </mat-form-field>
+  </fieldset>
+
+  <fieldset formGroupName="registrationPeriod">
+    <legend>Período de inscrições</legend>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Início</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="startDate" name="start-date">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Fim</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="endDate" name="end-date">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </fieldset>
+
+  <fieldset formGroupName="executionPeriod">
+    <legend>Período de execução</legend>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Início</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="startDate" name="start-date">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Fim</mat-label>
+      <input matInput [matDatepicker]="picker3" formControlName="endDate" name="end-date">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+      <mat-datepicker #picker3></mat-datepicker>
+    </mat-form-field>
+  </fieldset>
+
+  <fieldset>
+    <legend>Capas</legend>
+    <mat-form-field class="form-field-lg">
+      <mat-label>Menor</mat-label>
+      <input matInput placeholder="" formControlName="smallerImage" name="smaller-image">
+    </mat-form-field> <br>
+
+    <mat-form-field class="form-field-lg">
+      <mat-label>Maior</mat-label>
+      <input matInput placeholder="" formControlName="biggerImage" name="bigger-image">
+    </mat-form-field>
+  </fieldset>
+</form>
