@@ -36,7 +36,7 @@ export class LocationListComponent implements OnInit {
     this.router.navigate(['admin', 'locations', locationDto.id]);
   }
 
-  private getDialogConfig(locationDto?: LocationDto) {
+  private getDialogConfig() {
     return {
       autoFocus: true,
       data: {
@@ -46,10 +46,12 @@ export class LocationListComponent implements OnInit {
   }
 
   openFormLocationDialog() {
-    const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfig(undefined));
+    const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfig());
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    dialogRef.afterClosed().subscribe(locationDto => {
+      if (locationDto) {
+        this.dataSource = [...this.dataSource, locationDto];
+      }
     });
   }
 }
