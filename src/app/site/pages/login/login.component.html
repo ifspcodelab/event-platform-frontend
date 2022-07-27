@@ -1,1 +1,12 @@
-<p>login works!</p>
+<h1 class="login-header">Login</h1>
+<form class="login-form" id="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label for="email">e-mail: </label>
+  <input type="email" id="email" name="email" formControlName="email"><br>
+  <br>
+  <label for="password">Senha: </label>
+  <input type="password" id="password" name="password" formControlName="password"><br>
+  <br>
+  <a id="forgot-password-link" href="/esqueci-minha-senha">Esqueci minha senha</a>
+  <br>
+  <input type="submit" value="Entrar">
+</form>
