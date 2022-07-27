@@ -1,9 +1,9 @@
 import { SpaceService } from '../../../../core/services/space.service';
-import { SpaceDto } from './../../../../core/models/space.model';
+import { SpaceDto } from '../../../../core/models/space.model';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AreaService } from '../../../../core/services/area.service';
-import { AreaDto } from './../../../../core/models/area.model';
+import { AreaDto } from '../../../../core/models/area.model';
 import { Component, OnInit } from '@angular/core';
 import {SpacesFormComponent} from "../../spaces/spaces-form/spaces-form.component";
 import {MatDialog} from "@angular/material/dialog";

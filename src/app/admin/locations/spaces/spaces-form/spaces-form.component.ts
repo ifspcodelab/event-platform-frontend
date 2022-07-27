@@ -1,10 +1,10 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {SpaceService} from "../../../../core/services/space.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {first} from "rxjs";
-import {SpaceType} from "../../../../core/models/spaceType.model";
-import {SpaceDto} from "../../../../core/models/space.model";
+import { Component, Inject, OnInit } from '@angular/core';
+import { SpaceService } from "../../../../core/services/space.service";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { first } from "rxjs";
+import { SpaceType } from "../../../../core/models/spaceType.model";
+import { SpaceDto } from "../../../../core/models/space.model";
 
 @Component({
   selector: 'app-spaces-form',
@@ -20,9 +20,8 @@ export class SpacesFormComponent implements OnInit {
   createMode: boolean;
 
   constructor(
-    private fb: FormBuilder,
     private spaceService: SpaceService,
-    private formBUilder: FormBuilder,
+    private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<SpacesFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { locationId: string, areaId: string, spaceDto: SpaceDto }
   ) {
@@ -41,17 +40,21 @@ export class SpacesFormComponent implements OnInit {
   }
 
   buildForm(): FormGroup {
-    return this.formBUilder.group({
+    return this.formBuilder.group({
       name: [''],
       capacity: [''],
       type: ['']
-    })
+    });
   }
 
   onSubmit() {
-  if (this.createMode) {
-    this.createSpace();
-  }
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+    if (this.createMode) {
+      this.createSpace();
+    }
   else {
     this.updateSpace();
   }
