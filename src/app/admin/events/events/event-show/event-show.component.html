@@ -11,6 +11,7 @@
     <div mat-subheader>Dados gerais</div>
     <p><b>Resumo:</b> {{ eventDto.summary }}</p>
     <p><b>Apresentação:</b> {{ eventDto. presentation }}</p>
+    <p><b>Status:</b> {{ eventDto.status | eventStatus }}</p>
 
     <mat-divider></mat-divider>
     <div mat-subheader>Datas importantes</div>
