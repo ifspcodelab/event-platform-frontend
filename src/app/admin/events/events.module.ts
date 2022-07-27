@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 import { EventsRoutingModule } from './events-routing.module';
 import { EventsComponent } from './events.component';
@@ -24,7 +24,6 @@ import { MatCardModule } from '@angular/material/card';
   ],
   imports: [
     CommonModule,
-    DatePipe,
     EventsRoutingModule,
     MatTableModule,
     MatButtonModule,
