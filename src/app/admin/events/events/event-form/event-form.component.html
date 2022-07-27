@@ -9,24 +9,43 @@
 <form id="event-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
   <fieldset>
     <legend>Dados gerais</legend>
+
     <mat-form-field class="form-field-lg">
       <mat-label>Título</mat-label>
       <input matInput placeholder="" formControlName="title" name="title">
+      <mat-error *ngIf="fieldErrors('title')?.['required']">Título é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 3 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 50 caracteres</mat-error>
     </mat-form-field> <br>
 
     <mat-form-field class="form-field-lg">
       <mat-label>Slug</mat-label>
       <input matInput placeholder="" formControlName="slug" name="slug">
+      <mat-error *ngIf="fieldErrors('slug')?.['required']">Slug é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('slug')?.['notblank']">Slug não pode ser vazio</mat-error>
     </mat-form-field> <br>
 
     <mat-form-field class="form-field-lg">
       <mat-label>Resumo</mat-label>
       <textarea matInput placeholder="" formControlName="summary" name="summary"></textarea>
+      <mat-error *ngIf="fieldErrors('summary')?.['required']">Resumo é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('summary')?.['notblank']">Resumo não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('summary')?.['minlength']">Resumo deve ter no mínimo 100 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('summary')?.['maxlength']">Resumo deve ter no máximo 150 caracteres</mat-error>
     </mat-form-field> <br>
 
     <mat-form-field class="form-field-lg">
       <mat-label>Apresentação</mat-label>
       <textarea matInput placeholder="" formControlName="presentation" name="presentation"></textarea>
+      <mat-error *ngIf="fieldErrors('presentation')?.['required']">Apresentação é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('presentation')?.['minlength']">
+        Apresentação deve ter no mínimo 1000 caracteres
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('presentation')?.['maxlength']">
+        Apresentação deve ter no máximo 5000 caracteres
+      </mat-error>
     </mat-form-field>
   </fieldset>
 
@@ -36,17 +55,19 @@
     <mat-form-field class="form-field-sm">
       <mat-label>Início</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="startDate" name="start-date">
-      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="fieldErrors('registrationPeriod.startDate')?.['required']">Início é obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field class="form-field-sm">
       <mat-label>Fim</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="endDate" name="end-date">
-      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
+      <mat-error *ngIf="fieldErrors('registrationPeriod.endDate')?.['required']">Fim é obrigatório</mat-error>
     </mat-form-field>
   </fieldset>
 
@@ -56,17 +77,19 @@
     <mat-form-field class="form-field-sm">
       <mat-label>Início</mat-label>
       <input matInput [matDatepicker]="picker2" formControlName="startDate" name="start-date">
-      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
+      <mat-error *ngIf="fieldErrors('executionPeriod.startDate')?.['required']">Início é obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field class="form-field-sm">
       <mat-label>Fim</mat-label>
       <input matInput [matDatepicker]="picker3" formControlName="endDate" name="end-date">
-      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
       <mat-datepicker #picker3></mat-datepicker>
+      <mat-error *ngIf="fieldErrors('executionPeriod.endDate')?.['required']">Fim é obrigatório</mat-error>
     </mat-form-field>
   </fieldset>
 

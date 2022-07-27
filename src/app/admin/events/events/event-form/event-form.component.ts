@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { EventService } from "../../../../core/services/event.service";
 import { first } from "rxjs";
 import { Router } from "@angular/router";
+import { AppValidators} from "../../../../core/validators/app-validator";
 
 @Component({
   selector: 'app-event-form',
@@ -21,19 +22,50 @@ export class EventFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  field(path: string) {
+    return this.form.get(path)!;
+  }
+
+  fieldErrors(path: string) {
+    return this.field(path)?.errors;
+  }
+
   private buildForm() {
     return this.formBuilder.group({
-      title: [''],
-      slug: [''],
-      summary: [''],
-      presentation: [''],
+      title: ['',
+        [
+          Validators.required,
+          AppValidators.notBlank,
+          Validators.minLength(3),
+          Validators.maxLength(50)
+        ]
+      ],
+      slug: ['',
+        [Validators.required, AppValidators.notBlank]
+      ],
+      summary: ['',
+        [
+          Validators.required,
+          AppValidators.notBlank,
+          Validators.minLength(100),
+          Validators.maxLength(150)
+        ]
+      ],
+      presentation: ['',
+        [
+          Validators.required,
+          AppValidators.notBlank,
+          Validators.minLength(1000),
+          Validators.maxLength(5000)
+        ]
+      ],
       registrationPeriod: this.formBuilder.group({
-        startDate: [''],
-        endDate: ['']
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]]
       }),
       executionPeriod: this.formBuilder.group({
-        startDate: [''],
-        endDate: ['']
+        startDate: ['', [Validators.required]],
+        endDate: ['', [Validators.required]]
       }),
       smallerImage: [''],
       biggerImage: ['']
@@ -41,6 +73,9 @@ export class EventFormComponent implements OnInit {
   }
 
   onSubmit() {
+    if(this.form.invalid) {
+      return;
+    }
     this.createEvent();
   }
 
