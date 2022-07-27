@@ -1,0 +1,34 @@
+<h2 id="header" mat-dialog-title> Cadastrar Espaço </h2>
+
+<div mat-dialog-content>
+  <form class="app-form" id="space-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <mat-form-field class="form-field-lg">
+      <mat-label> Nome </mat-label>
+      <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field class="form-field-lg">
+      <mat-label> Capacidade </mat-label>
+      <input appearance="fill" matInput placeholder="" formControlName="capacity" name="capacity">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field class="form-field-lg">
+      <mat-label> Tipo </mat-label>
+      <mat-select [(ngModel)]="selectedValue" name="spaceType">
+        <mat-option *ngFor="let name of enumKeys" [value]="name"> {{spaceType[name]}}</mat-option>
+      <input appearance="fill" matInput placeholder="" formControlName="type" name="type">
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close> Cancelar </button>
+  <button type="submit" form="space-form" mat-button color="primary"> Submeter </button>
+</div>

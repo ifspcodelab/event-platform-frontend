@@ -3,6 +3,8 @@ import {SpaceDto} from "../../../../core/models/space.model";
 import {ActivatedRoute} from "@angular/router";
 import {SpaceService} from "../../../../core/services/space.service";
 import {first} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {SpacesFormComponent} from "../spaces-form/spaces-form.component";
 
 
 @Component({
@@ -18,7 +20,8 @@ export class SpaceShowComponent implements OnInit {
 
   constructor(
     private spaceService: SpaceService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -37,5 +40,24 @@ export class SpaceShowComponent implements OnInit {
           this.spaceDto = spaceDto;
         }
       )
+  }
+
+  openEditFormDialog() {
+      const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        locationId: this.locationId,
+        areaId: this.areaId,
+        spaceDto: this.spaceDto
+      }
+    };
   }
 }

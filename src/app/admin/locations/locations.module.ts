@@ -14,8 +14,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from "@angular/material/icon";
 import {SpaceTypesPipe} from "../../core/pipes/space-types.pipe";
-
-
+import { SpacesFormComponent } from './spaces/spaces-form/spaces-form.component';
+import {CoreModule} from "../../core/core.module";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -25,15 +26,14 @@ import {SpaceTypesPipe} from "../../core/pipes/space-types.pipe";
     AreaShowComponent,
     LocationFormComponent,
     SpaceShowComponent,
-    SpaceTypesPipe
+    SpaceTypesPipe,
+    SpacesFormComponent
   ],
   imports: [
     CommonModule,
     LocationsRoutingModule,
-    MatTableModule,
-    MatButtonModule,
-    MatListModule,
-    MatIconModule
+    CoreModule,
+    SharedModule
   ]
 })
 export class LocationsModule { }
