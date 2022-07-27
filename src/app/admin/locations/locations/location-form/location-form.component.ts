@@ -12,6 +12,7 @@ import { LocationDto } from 'src/app/core/models/location.model';
 })
 export class LocationFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  createMode: boolean;
 
   constructor(
     private locationService: LocationService,
@@ -21,7 +22,14 @@ export class LocationFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data.locationDto);
+    this.form = this.buildForm();
+    if (this.data.locationDto) {
+      this.createMode = false;
+      this.form.patchValue(this.data.locationDto);
+    } else {
+      this.createMode = true;
+    }
+    console.log(this.data);
   }
 
   buildForm(): FormGroup {
@@ -32,7 +40,11 @@ export class LocationFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.createLocation();
+    if (this.createMode) {
+      this.createLocation();
+    } else {
+      this.updateLocation();
+    }
   }
 
   createLocation() {
@@ -41,6 +53,11 @@ export class LocationFormComponent implements OnInit {
       .pipe(first())
       .subscribe(locationDto => this.dialogRef.close(locationDto));
     }
+  }
+
+  updateLocation() {
+    this.locationService.putLocation(this.data.locationDto.id, this.form.value)
+    .subscribe(locationDto => this.dialogRef.close(locationDto));
   }
 
 }

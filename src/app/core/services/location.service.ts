@@ -31,4 +31,8 @@ export class LocationService {
     return this.httpClient.post<LocationDto>(this.apiUrl, locationCreateDto, this.httpOptions);
   }
 
+  putLocation(locationId: string, locationCreateDto: LocationCreateDto): Observable<LocationDto> {
+    const url = `${this.apiUrl}/${locationId}`;
+    return this.httpClient.put<LocationDto>(url, locationCreateDto, this.httpOptions);
+  }
 }
