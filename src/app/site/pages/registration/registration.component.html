@@ -1,1 +1,33 @@
-<p>registration works!</p>
+<h1 id="header">Cadastro Eventos do IFSP SPO</h1>
+
+<p>Para ter acesso aos eventos e certificado você precisa realizar o cadastro</p>
+<p>Caso já tenha um cadastro realize o <a target="_blank" href="localhost:4200/accounts/login">login</a></p>
+
+
+<form id="registration-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <label for="name">Nome Completo</label><br>
+    <input appearance="fill" matInput placeholder="" formControlName="name" name="name"><br><br>
+    <!-- <p *ngIf="fieldErrors('name')?.['required']">Nome é obrigatório</p> -->
+    <div *ngIf="name.invalid && (name.dirty || name.touched)">
+      <p *ngIf="name.errors?.['required']">Nome é obrigatório</p>
+      <p *ngIf="name.errors?.['minlength']">Nome deve ter no mínimo 5 caracteres</p>
+      <p *ngIf="name.errors?.['maxlength']">Nome deve ter no máximo 256 caracteres</p>
+    </div>
+
+    <label for="email">E-mail</label><br>
+    <input appearance="fill" matInput placeholder="" formControlName="email" name="email"><br><br>
+
+    <label for="cpf">CPF</label><br>
+    <input appearance="fill" matInput placeholder="" formControlName="cpf" name="cpf"><br><br>
+
+    <label for="passord">Senha</label><br>
+    <input type="password" appearance="fill" matInput placeholder="" formControlName="password" name="password"><br><br>
+    <p>Antes de confirmar seu cadastro você deve ler com atenção os <a>Termos de Uso</a></p><br>
+
+    <input type="checkbox" name="agreed" id="agreed" value="true" formControlName="agreed">
+    <span>Li e concordo com os termos de uso e a política de privacidade</span><br><br>
+
+    <button type="submit" form="registration-form">Cadastrar</button>
+
+</form>
