@@ -2,9 +2,18 @@
 <form class="login-form" id="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
   <label for="email">e-mail: </label>
   <input type="email" id="email" name="email" formControlName="email"><br>
+  <div *ngIf="email.invalid && (email.dirty || email.touched)">
+    <p *ngIf="email.errors?.['required']">Campo email é obrigatório</p>
+    <p *ngIf="email.errors?.['email']">Campo email deve ser válido</p>
+  </div>
   <br>
   <label for="password">Senha: </label>
   <input type="password" id="password" name="password" formControlName="password"><br>
+  <div *ngIf="password.invalid && (password.dirty || password.touched)">
+    <p *ngIf="password.errors?.['required']">Campo senha é obrigatório</p>
+    <p *ngIf="password.errors?.['minlength']">Campo senha deve ter no mínimo 8 caracteres</p>
+    <p *ngIf="password.errors?.['maxlength']">Campo senha deve ter no máximo 64 caracteres</p>
+  </div>
   <br>
   <a id="forgot-password-link" href="/esqueci-minha-senha">Esqueci minha senha</a>
   <br>
