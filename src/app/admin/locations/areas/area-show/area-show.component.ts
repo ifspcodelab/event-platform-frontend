@@ -75,7 +75,7 @@ export class AreaShowComponent implements OnInit {
     const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
     dialogRef.afterClosed().subscribe( areaDto => {
       if(areaDto) {
-        this.areasDto = [...this.areasDto, areaDto];
+        this.areaDto = areaDto;
       }
     });
   }
