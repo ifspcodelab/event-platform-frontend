@@ -5,6 +5,8 @@ import { LocationDto } from './../../../../core/models/location.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from "rxjs/operators";
+import { LocationFormComponent } from '../location-form/location-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-location-show',
@@ -16,12 +18,14 @@ export class LocationShowComponent implements OnInit {
   locationDto: LocationDto;
   areasDto: AreaDto[];
   displayedColumns: string[] = ['name', 'reference'];
+  dataSource: LocationDto[] = [];
 
   constructor(
     private locationService: LocationService,
     private areaService: AreaService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -57,4 +61,22 @@ export class LocationShowComponent implements OnInit {
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
 
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        locationDto: this.locationDto
+      }
+    };
+  }
+
+  openFormLocationDialog() {
+    const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfig());
+
+    dialogRef.afterClosed().subscribe(locationDto => {
+      if (locationDto) {
+        this.locationDto = locationDto;
+      }
+    });
+  }
 }
