@@ -16,6 +16,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -26,16 +29,19 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     SubeventShowComponent,
     SubeventsFormComponent,
   ],
-  imports: [
-    CommonModule,
-    EventsRoutingModule,
-    MatTableModule,
-    MatButtonModule,
-    MatListModule,
-    MatIconModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatFormFieldModule
-  ]
+    imports: [
+        CommonModule,
+        EventsRoutingModule,
+        MatTableModule,
+        MatButtonModule,
+        MatListModule,
+        MatIconModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule
+    ]
 })
 export class EventsModule { }

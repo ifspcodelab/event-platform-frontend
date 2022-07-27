@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {SubeventDto} from "../models/subevent.model";
+import {SubeventCreateDto, SubeventDto} from "../models/subevent.model";
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,9 @@ export class SubeventService {
 
   getSubeventById(eventId: string, subeventId: string): Observable<SubeventDto> {
     return this.httpClient.get<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}`, this.httpOptions);
+  }
+
+  postSubevent(eventId: string, subeventCreateDto: SubeventCreateDto): Observable<SubeventDto> {
+    return this.httpClient.post<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events`, subeventCreateDto, this.httpOptions);
   }
 }
