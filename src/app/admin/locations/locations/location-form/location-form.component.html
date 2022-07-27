@@ -12,13 +12,31 @@
     <mat-form-field class="form-field-lg">
       <mat-label> Nome* </mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
+      <mat-error *ngIf="fieldErrors('name')?.['notblank']">
+        Nome não pode ser vazio
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['required']">
+        Nome é obrigatório
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['servererror'] && submitted">
+        {{ fieldErrors('name')?.['servererror'] }}
+      </mat-error>
     </mat-form-field>
 
-    <br/>
+    <br/><br/>
 
     <mat-form-field class="form-field-lg">
       <mat-label> Endereço </mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="address" name="address">
+      <mat-error *ngIf="fieldErrors('address')?.['notblank']">
+        Endereço não pode ser vazio
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('address')?.['required']">
+        Endereço é obrigatório
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('address')?.['servererror'] && submitted">
+        {{ fieldErrors('address')?.['servererror'] }}
+      </mat-error>
     </mat-form-field>
 
   </form>
