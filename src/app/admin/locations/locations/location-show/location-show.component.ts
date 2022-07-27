@@ -16,6 +16,7 @@ import { first } from "rxjs/operators";
 export class LocationShowComponent implements OnInit {
   locationId: string;
   locationDto: LocationDto;
+  areaDto: AreaDto;
   areasDto: AreaDto[];
   displayedColumns: string[] = ['name', 'reference'];
 
@@ -54,18 +55,18 @@ export class LocationShowComponent implements OnInit {
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
 
-  private getDialogConfig() {
+  private getDialogConfigArea() {
     return {
       autoFocus: true,
       data: {
-        locationId: this.locationId//,
-        //areaDto: this.areaDto
+        locationId: this.locationId,
+        areaDto: this.areaDto
       }
     };
   }
 
   openFormAreaDialog() {
-    const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfig());
+    const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
     dialogRef.afterClosed().subscribe( areaDto => {
       if(areaDto) {
         this.areasDto = [...this.areasDto, areaDto];

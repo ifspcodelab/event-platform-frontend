@@ -26,10 +26,6 @@ export class AreaService {
     return this.httpClient.get<AreaDto[]>(url, this.httpOptions);
   }
 
-//  getLocationById(id: string): Observable<LocationDto> {
-//    return this.httpClient.get<LocationDto>(`${this.apiUrl}/${id}`, this.httpOptions);
-//  }
-
   getAreaById(locationId: string, areaId: string): Observable<AreaDto> {
     return this.httpClient.get<AreaDto>(`${this.apiUrl}/${locationId}/areas/${areaId}`, this.httpOptions);
   }
@@ -37,5 +33,10 @@ export class AreaService {
   postArea(locationId: string, areaCreateDto: AreaCreateDto): Observable<AreaDto> {
     const url = `${this.apiUrl}/${locationId}/areas`;
     return this.httpClient.post<AreaDto>(url, areaCreateDto, this.httpOptions);
+  }
+
+  putArea(locationId: string, areaId: string, areaDto: AreaDto): Observable<AreaDto> {
+    const url = `${this.apiUrl}/${locationId}/areas/${areaId}`;
+    return this.httpClient.put<AreaDto>(url, areaDto, this.httpOptions);
   }
 }

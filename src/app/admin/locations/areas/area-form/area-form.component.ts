@@ -13,16 +13,24 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AreaFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  createMode: boolean;
 
   constructor(
     private areaService: AreaService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AreaFormComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: { locationDto: LocationDto,  /*areaDto: AreaDto*/}
+    @Inject(MAT_DIALOG_DATA) public data: { locationId: string,  areaDto: AreaDto}
   ) { }
 
   ngOnInit(): void {
-    console.log(this.data.locationDto /* this.data */);
+    if(this.data.areaDto) {
+      this.createMode = false;
+      this.form.patchValue(this.data.areaDto);
+    }
+    else {
+      this.createMode = true;
+    }
+    console.log(this.data);
   }
 
   buildForm(): FormGroup {
@@ -33,12 +41,17 @@ export class AreaFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.createArea();
+    if(this.createMode) {
+      this.createArea();
+    }
+    else {
+      this.updateArea();
+    }
   }
 
   createArea() {
     if(this.form) {
-      this.areaService.postArea(this.data.locationDto.id, this.form.value)
+      this.areaService.postArea(this.data.locationId, this.form.value)
       .pipe(first())
       .subscribe( areaDto => {
         if(areaDto) {
@@ -46,6 +59,15 @@ export class AreaFormComponent implements OnInit {
         }
       })
     }
+  }
+
+  updateArea() {
+    this.areaService.putArea(this.data.locationId, this.data.areaDto.id, this.form.value)
+    .subscribe( areaDto => {
+      if(areaDto) {
+        this.dialogRef.close(areaDto)
+      }
+    })
   }
 
 }

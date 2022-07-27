@@ -3,7 +3,7 @@
     <h1 class="header__title"> Área: {{ areaDto.name }} </h1>
     <div class="header__actions">
       <button mat-button color="primary"> Voltar </button>
-      <button mat-button color="primary"> Editar </button>
+      <button mat-button color="primary" (click)="openFormAreaDialog()"> Editar </button>
       <button mat-button color="primary"> Excluir </button>
     </div>
   </header>

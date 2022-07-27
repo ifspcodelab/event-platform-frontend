@@ -1,3 +1,5 @@
+import { MatDialog } from '@angular/material/dialog';
+import { AreaFormComponent } from './../area-form/area-form.component';
 import { SpaceService } from '../../../../core/services/space.service';
 import { SpaceDto } from './../../../../core/models/space.model';
 import { first } from 'rxjs/operators';
@@ -15,6 +17,7 @@ export class AreaShowComponent implements OnInit {
   locationId: string;
   areaId: string;
   areaDto: AreaDto;
+  areasDto: AreaDto[];
   spacesDto: SpaceDto[];
   displayedColumns: string[] = ['name', 'capacity', 'type'];
 
@@ -23,7 +26,8 @@ export class AreaShowComponent implements OnInit {
     private areaService: AreaService,
     private spaceService: SpaceService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -55,5 +59,24 @@ export class AreaShowComponent implements OnInit {
 
   openSpaceShow(spaceDto: SpaceDto) {
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId, 'spaces', spaceDto.id]);
+  }
+
+  private getDialogConfigArea() {
+    return {
+      autoFocus: true,
+      data: {
+        locationId: this.locationId,
+        areaDto: this.areaDto
+      }
+    };
+  }
+
+  openFormAreaDialog() {
+    const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
+    dialogRef.afterClosed().subscribe( areaDto => {
+      if(areaDto) {
+        this.areasDto = [...this.areasDto, areaDto];
+      }
+    });
   }
 }
