@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'cadastro', component: RegistrationComponent },
   { path: 'esqueci-minha-senha', component: ForgotPasswordComponent },
-  { path: 'redefinir-minha-senha', component: PasswordResetComponent },
+  { path: 'redefinir-minha-senha/:token', component: PasswordResetComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 

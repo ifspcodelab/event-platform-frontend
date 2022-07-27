@@ -3,14 +3,15 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {ForgotPasswordCreateDto} from "../models/forgot-password-create-dto.model";
 import {PasswordResetDto} from "../models/password-reset-dto";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PasswordResetService {
 
-  private readonly API_FORGOT = "api/v1/accounts/password/forgot";
-  private readonly API_RESET = "api/v1/accounts/password/reset";
+  private readonly API_FORGOT = "http://localhost:8080/api/v1/accounts/password/forgot";
+  private readonly API_RESET = "http://localhost:8080/api/v1/accounts/password/reset";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -21,13 +22,12 @@ export class PasswordResetService {
     })
   };
 
-  sendResetPasswordRequest(record: ForgotPasswordCreateDto) {
-    return this.httpClient.post<ForgotPasswordCreateDto>(this.API_FORGOT, record, this.httpOptions);
+  sendResetPasswordRequest(dto: ForgotPasswordCreateDto) {
+    return this.httpClient.post<ForgotPasswordCreateDto>(this.API_FORGOT, dto, this.httpOptions);
   }
 
-  sendPasswordAndToken(record: PasswordResetDto) {
-    console.log(record);
-    return this.httpClient.post<PasswordResetDto>(this.API_RESET, record, this.httpOptions);
+  sendPasswordAndToken(dto: PasswordResetDto) {
+    return this.httpClient.post<PasswordResetDto>(this.API_RESET, dto, this.httpOptions);
   }
 }
 

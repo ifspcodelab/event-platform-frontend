@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Form, FormBuilder, FormGroup} from "@angular/forms";
-import {PasswordResetService} from "../../../core/services/password-reset.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { PasswordResetService } from "../../../core/services/password-reset.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,11 +9,14 @@ import {PasswordResetService} from "../../../core/services/password-reset.servic
 })
 export class ForgotPasswordComponent implements OnInit {
   form: FormGroup;
+  submitted: boolean = false;
 
-  constructor(private formBuilder: FormBuilder,
-              private service: PasswordResetService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: PasswordResetService
+  ) {
     this.form = this.formBuilder.group({
-      email: [null]
+      email: ["",[Validators.required, Validators.email]]
     });
   }
 
@@ -21,14 +24,21 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.sendResetPasswordRequest(this.form.value).subscribe();
-    this.eraseForm();
-    alert("Um link para recuperação sera enviado no email informado.")
+    this.submitted = true;
+    if(this.form.invalid){
+      return;
+    }
+    this.service.sendResetPasswordRequest(this.form.value).subscribe(()=>{
+
+        this.form.reset();
+        this.submitted = false;
+        alert("Um link para recuperação sera enviado no email informado.")
+      }
+    );
   }
 
-  eraseForm() {
-    this.form = this.formBuilder.group({
-      email: [null]
-    });
+  get email(){
+    return this.form.get('email')!;
   }
+
 }
