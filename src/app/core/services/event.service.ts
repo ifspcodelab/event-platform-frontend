@@ -23,7 +23,7 @@ export class EventService {
     return this.httpClient.get<EventDto[]>(this.apiUrl, this.httpOptions);
   }
 
-  getEventById(eventId: string | null): Observable<EventDto> {
+  getEventById(eventId: string): Observable<EventDto> {
     return this.httpClient.get<EventDto>(`${this.apiUrl}/${eventId}`, this.httpOptions);
   }
 }

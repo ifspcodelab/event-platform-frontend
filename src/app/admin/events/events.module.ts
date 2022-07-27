@@ -12,13 +12,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { SubeventShowComponent } from './subevents/subevent-show/subevent-show.component';
 
 @NgModule({
   declarations: [
     EventsComponent,
     EventListComponent,
     EventShowComponent,
-    EventStatusPipe
+    EventStatusPipe,
+    SubeventShowComponent
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EventsComponent } from './events.component';
-import {EventListComponent} from "./events/event-list/event-list.component";
-import {EventShowComponent} from "./events/event-show/event-show.component";
+import { EventListComponent } from "./events/event-list/event-list.component";
+import { EventShowComponent } from "./events/event-show/event-show.component";
+import { SubeventShowComponent } from "./subevents/subevent-show/subevent-show.component";
 
 const routes: Routes = [
   {
@@ -10,7 +11,8 @@ const routes: Routes = [
     component: EventsComponent,
     children: [
       { path: '', component: EventListComponent },
-      { path: ':eventId', component: EventShowComponent }
+      { path: ':eventId', component: EventShowComponent },
+      { path: ':eventId/sub-events/:subeventId', component: SubeventShowComponent }
     ]
   }
 ];
