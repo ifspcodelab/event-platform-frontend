@@ -39,11 +39,7 @@ export class LocationFormComponent implements OnInit {
     if(this.form) {
       this.locationService.postLocation(this.form.value)
       .pipe(first())
-      .subscribe(
-        locationDto => {
-        this.dialogRef.close(locationDto);
-      }
-    );
+      .subscribe(locationDto => this.dialogRef.close(locationDto));
     }
   }
 
