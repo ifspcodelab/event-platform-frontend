@@ -19,9 +19,8 @@
 
     <mat-form-field class="form-field-lg">
       <mat-label> Tipo </mat-label>
-      <mat-select [(ngModel)]="selectedValue" name="spaceType">
+      <mat-select formControlName="type">
         <mat-option *ngFor="let name of enumKeys" [value]="name"> {{spaceType[name]}}</mat-option>
-      <input appearance="fill" matInput placeholder="" formControlName="type" name="type">
       </mat-select>
     </mat-form-field>
 

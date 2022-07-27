@@ -34,4 +34,9 @@ export class SpaceService {
     return this.httpClient.post<SpaceDto>(url, spaceCreateDto, this.httpOptions);
   }
 
+  putSpace(locationId: string, areaId: string, spaceId: string, spaceDto: SpaceDto): Observable <SpaceDto> {
+    const url = `${this.apiUrl}/${locationId}/areas/${areaId}/spaces/${spaceId}`;
+    return this.httpClient.put<SpaceDto>(url, spaceDto, this.httpOptions);
+  }
+
 }
