@@ -4,6 +4,7 @@ import { EventsComponent } from './events.component';
 import { EventListComponent } from "./events/event-list/event-list.component";
 import { EventShowComponent } from "./events/event-show/event-show.component";
 import { SubeventShowComponent } from "./subevents/subevent-show/subevent-show.component";
+import {SubeventsFormComponent} from "./subevents/subevents-form/subevents-form.component";
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
     children: [
       { path: '', component: EventListComponent },
       { path: ':eventId', component: EventShowComponent },
-      { path: ':eventId/subevents/:subeventId', component: SubeventShowComponent }
+      { path: ':eventId/sub-events/novo', component: SubeventsFormComponent },
+      { path: ':eventId/sub-events/:subeventId', component: SubeventShowComponent }
     ]
   }
 ];
