@@ -1,9 +1,12 @@
+import { AppValidators } from 'src/app/core/validators/app-validator';
+import { Violation } from './../../../../core/models/problem-detail';
 import { first } from 'rxjs/operators';
 import { LocationService } from './../../../../core/services/location.service';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LocationDto } from 'src/app/core/models/location.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-location-form',
@@ -12,6 +15,7 @@ import { LocationDto } from 'src/app/core/models/location.model';
 })
 export class LocationFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  submitted: boolean = false;
   createMode: boolean;
 
   constructor(
@@ -34,12 +38,18 @@ export class LocationFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: [''],
-      address: ['']
+      name: ['', [Validators.required, AppValidators.notBlank]],
+      address: ['', [Validators.required, AppValidators.notBlank]]
     });
   }
 
   onSubmit() {
+    this.submitted = true;
+
+    if(this.form.invalid) {
+      return;
+    }
+
     if (this.createMode) {
       this.createLocation();
     } else {
@@ -51,13 +61,50 @@ export class LocationFormComponent implements OnInit {
     if(this.form) {
       this.locationService.postLocation(this.form.value)
       .pipe(first())
-      .subscribe(locationDto => this.dialogRef.close(locationDto));
+      .subscribe(
+        locationDto => {
+          if(locationDto) {
+          this.dialogRef.close(locationDto)
+        }
+      },
+      error => this.handleError(error)
+      )
     }
   }
 
   updateLocation() {
     this.locationService.putLocation(this.data.locationDto.id, this.form.value)
     .subscribe(locationDto => this.dialogRef.close(locationDto));
+  }
+
+  field(path: string) {
+    return this.form.get(path)!;
+  }
+
+  fieldErrors(path: string) {
+    return this.field(path)?.errors;
+  }
+
+  // containsError(path: string, validationType: string) {
+  //   return this.form.get(path)!.errors[validationType];
+  // }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      console.log(error);
+      if(error.status === 400) {
+        const violations: Violation[] = error.error;
+        violations.forEach(violation => {
+          const formControl = this.form.get(violation.name);
+          if(formControl) {
+            formControl.setErrors({
+              serverError: violation.message
+            });
+            console.log(formControl);
+          }
+        })
+      }
+    }
   }
 
 }
