@@ -9,6 +9,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import {RecaptchaModule} from "ng-recaptcha";
 
 
 
@@ -19,14 +20,15 @@ import { PasswordResetComponent } from './pages/password-reset/password-reset.co
     ForgotPasswordComponent,
     PasswordResetComponent
   ],
-  imports: [
-    CommonModule,
-    MatToolbarModule,
-    FormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        MatToolbarModule,
+        FormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        RecaptchaModule
+    ]
 })
 export class SiteModule { }

@@ -8,37 +8,58 @@ import { PasswordResetService } from "../../../core/services/password-reset.serv
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent implements OnInit {
-  form: FormGroup;
   submitted: boolean = false;
+  isFormValid: boolean = false;
+  form: FormGroup;
+  captcha: string;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private service: PasswordResetService
   ) {
-    this.form = this.formBuilder.group({
-      email: ["",[Validators.required, Validators.email]]
-    });
+    this.form = this.buildForm();
+    this.captcha = '';
   }
 
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  onNext(){
     this.submitted = true;
     if(this.form.invalid){
       return;
     }
-    this.service.sendResetPasswordRequest(this.form.value).subscribe(()=>{
-
-        this.form.reset();
-        this.submitted = false;
-        alert("Um link para recuperação sera enviado no email informado.")
-      }
-    );
+    this.isFormValid = true;
   }
 
-  get email(){
-    return this.form.get('email')!;
+  onSubmit() {
+
+    if (this.captcha !== ''){
+
+      this.service.sendResetPasswordRequest(this.form.value).subscribe(()=>{
+
+          this.form.reset();
+          this.submitted = false;
+          alert("Um link para recuperação sera enviado no email informado.")
+        }
+      );
+    }
+
   }
 
+  buildForm(): FormGroup{
+    return this.fb.group({
+      email: ["",
+        [Validators.required, Validators.email, Validators.maxLength(349)]]
+    });
+  }
+
+  emailErrors() {
+    return this.form.get('email')?.errors;
+  }
+
+  resolved(captchaResponse: string){
+      this.captcha = captchaResponse;
+      console.log('captcha: ' + this.captcha);
+  }
 }

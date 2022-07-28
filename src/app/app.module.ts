@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SiteModule } from './site/site.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
+import {RecaptchaModule} from "ng-recaptcha";
 
 
 
@@ -18,6 +19,7 @@ import { HttpClientModule } from "@angular/common/http";
     AppRoutingModule,
     SiteModule,
     BrowserAnimationsModule,
+    RecaptchaModule,
     HttpClientModule
   ],
   providers: [],
