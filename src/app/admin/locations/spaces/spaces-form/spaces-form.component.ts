@@ -1,10 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { SpaceService } from "../../../../core/services/space.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { first } from "rxjs";
 import { SpaceType } from "../../../../core/models/spaceType.model";
 import { SpaceDto } from "../../../../core/models/space.model";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Violation } from "../../../../core/models/problem-detail";
+import { AppValidators } from "../../../../core/validators/app-validator";
 
 @Component({
   selector: 'app-spaces-form',
@@ -41,9 +44,9 @@ export class SpacesFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: [''],
-      capacity: [''],
-      type: ['']
+      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100), AppValidators.notBlank]],
+      capacity: ['', [Validators.required, Validators.min(2), Validators.max(9999), AppValidators.numeric]],
+      type: ['', [Validators.required, AppValidators.notBlank]]
     });
   }
 
@@ -62,6 +65,24 @@ export class SpacesFormComponent implements OnInit {
 
   field(path: string) {
     return this.form.get(path)!;
+  }
+
+  fieldErrors(path: string) {
+    return this.field(path).errors;
+  }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 400) {
+        const violations: Violation[] = error.error;
+        violations.forEach(violation => {
+          const formControl = this.form.get(violation.name);
+          if(formControl) {
+            formControl.setErrors({ serverError: violation.message });
+          }
+        })
+      }
+    }
   }
 
   createSpace() {
