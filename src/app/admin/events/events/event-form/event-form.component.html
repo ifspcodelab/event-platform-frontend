@@ -1,6 +1,8 @@
 <header class="header">
-  <h1 class="header__title" *ngIf="createMode">Novo Evento</h1>
-  <h1 class="header__title" *ngIf="!createMode">Editar Evento</h1>
+  <div class="header__titlearea">
+    <h1 class="header__title" *ngIf="createMode">Novo Evento</h1>
+    <h1 class="header__title" *ngIf="!createMode">Editar Evento</h1>
+  </div>
   <div class="header__actions">
     <button mat-button color="primary" (click)="getBackUrl()">Cancelar</button>
     <button type="submit" form="event-form" mat-raised-button color="primary">Salvar</button>

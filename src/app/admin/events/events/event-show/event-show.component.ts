@@ -58,6 +58,10 @@ export class EventShowComponent implements OnInit {
     )
   }
 
+  openEventList() {
+    return this.router.navigate(['admin', 'events']);
+  }
+
   openSubeventShow(subeventDto: SubeventDto) {
     return this.router.navigate(['admin', 'events', this.eventDto.id, 'sub-events', subeventDto.id]);
   }
