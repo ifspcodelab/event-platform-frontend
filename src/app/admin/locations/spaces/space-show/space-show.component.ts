@@ -80,8 +80,6 @@ export class SpaceShowComponent implements OnInit {
   }
 
   openDeleteConfirmationDialog() {
-    // verificar se existe alguma área associada - location
-    // verificar se existe algum espaço associado - area
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
     dialogRef.afterClosed().subscribe( result => {
       if (result) {
