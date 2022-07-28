@@ -7,12 +7,17 @@ export class AppValidators {
 
   static optional(params: { minLength: number, maxLength: number }): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value().trim();
-      if(value.length === 0) {
+      const value = control.value.trim();
+
+      if(value === '') {
+        return null;
+      }
+
+      if(value.length < params.minLength || value.length > params.maxLength ) {
         return { 'optional': true };
       }
+
       return null;
     };
   }
-
 }
