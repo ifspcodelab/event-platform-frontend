@@ -3,7 +3,7 @@ import { AreaService } from './../../../../core/services/area.service';
 import { AreaDto } from './../../../../core/models/area.model';
 import { LocationService } from './../../../../core/services/location.service';
 import { LocationDto } from './../../../../core/models/location.model';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from "rxjs/operators";
@@ -11,20 +11,25 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
 
-//const ELEMENT_DATA?: AreaDto[];
+const ELEMENT_DATA: AreaDto[] = [
+  { id:'1', name:'A', reference:'C' },
+  { id:'2', name:'C', reference:'R' },
+  { id:'3', name:'D', reference:'Y' },
+  { id:'4', name:'B', reference:'H' }
+];
 
 @Component({
   selector: 'app-location-show',
   templateUrl: './location-show.component.html',
   styleUrls: ['./location-show.component.scss']
 })
-export class LocationShowComponent implements OnInit {
+export class LocationShowComponent implements OnInit, AfterViewInit {
   locationId: string;
   locationDto: LocationDto;
   areaDto: AreaDto;
-  areasDto: AreaDto[];
+  areasDto: AreaDto[] = [];
   displayedColumns: string[] = ['name', 'reference'];
-  //elementData = new MatTableDataSource(ELEMENT_DATA);
+  dataSource: MatTableDataSource<AreaDto> = new MatTableDataSource(ELEMENT_DATA);
 
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
@@ -54,7 +59,10 @@ export class LocationShowComponent implements OnInit {
   fetchAreas(locationId: string) {
     this.areaService.getAreas(locationId)
       .pipe(first())
-      .subscribe( areasDto => this.areasDto = areasDto )
+      .subscribe(areasDto => {
+        this.areasDto = areasDto;
+        //this.dataSource = new MatTableDataSource(this.areasDto);
+      });
   }
 
   openAreaShow(areaDto: AreaDto) {
@@ -83,16 +91,16 @@ export class LocationShowComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  //ngAfterViewInit() {
-  //  this.elementData.sort = this.sort;
-  //}
-
-  announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
+  ngAfterViewInit() {
+   this.dataSource.sort = this.sort;
   }
+
+  // announceSortChange(sortState: Sort) {
+  //   if (sortState.direction) {
+  //     this._liveAnnouncer.announce(`Ordenação ${sortState.direction}final`);
+  //   } else {
+  //     this._liveAnnouncer.announce('Ordenação removida');
+  //   }
+  // }
 
 }

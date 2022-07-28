@@ -14,7 +14,7 @@
       <h2 class="container__title"> Áreas </h2>
       <button class="container__actions" mat-button color="primary" (click)="openFormAreaDialog()"> Nova Área </button>
     </header>
-    <table class="container__table" mat-table [dataSource]="areasDto" class="mat-elevation-z8">
+    <table class="container__table" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
       <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Nome </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
