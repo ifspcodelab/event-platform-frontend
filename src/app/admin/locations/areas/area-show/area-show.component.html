@@ -1,6 +1,6 @@
 <div *ngIf="areaDto!=null">
   <header class="header">
-    <div class="header__titlearea">
+    <div class="header__titlecomponent">
       <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
         <mat-icon mat-list-icon (click)="openLocationShow()"> arrow_back </mat-icon>
       </button>
@@ -27,7 +27,7 @@
       <h2 class="container__title"> Espaços </h2>
       <button class="container__actions" mat-button color="primary"> Novo Espaço </button>
     </header>
-    <p *ngIf="!spacesDto.length">Nenhum espaço cadastrado</p>
+    <p *ngIf="!spacesDto.length"> Nenhum espaço cadastrado </p>
     <table class="container__table" *ngIf="spacesDto.length" mat-table [dataSource]="spacesDto">
       <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Nome </th>

@@ -1,3 +1,5 @@
+import { NotificationService } from './../../../../core/services/notification.service';
+import { LocationFormComponent } from './../location-form/location-form.component';
 import { AreaFormComponent } from './../../areas/area-form/area-form.component';
 import { AreaService } from './../../../../core/services/area.service';
 import { AreaDto } from './../../../../core/models/area.model';
@@ -25,6 +27,7 @@ export class LocationShowComponent implements OnInit {
     private areaService: AreaService,
     private route: ActivatedRoute,
     private router: Router,
+    private notificationService: NotificationService,
     public dialog: MatDialog
   ) { }
 
@@ -52,6 +55,10 @@ export class LocationShowComponent implements OnInit {
       });
   }
 
+  openLocationList() {
+    this.router.navigate(['admin', 'locations']);
+  }
+
   openAreaShow(areaDto: AreaDto) {
     console.log(areaDto);
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
@@ -67,6 +74,15 @@ export class LocationShowComponent implements OnInit {
     };
   }
 
+  private getDialogConfigLocation() {
+    return {
+      autoFocus: true,
+      data: {
+        locationDto: this.locationDto
+      }
+    };
+  }
+
   openFormAreaDialog() {
     const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
     dialogRef.afterClosed().subscribe( areaDto => {
@@ -76,4 +92,19 @@ export class LocationShowComponent implements OnInit {
     });
   }
 
+  openFormLocationDialog() {
+    const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfigLocation());
+
+    dialogRef.afterClosed().subscribe(locationDto => {
+      if (locationDto) {
+        this.locationDto = locationDto;
+      }
+    });
+  }
+
+  openDeleteConfirmationDialog() {
+    if(this.areasDto.length != 0) {
+      this.notificationService.error('Não é possível deletar um local com área associada');
+    }
+  }
 }
