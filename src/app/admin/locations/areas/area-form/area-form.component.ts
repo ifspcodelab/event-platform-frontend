@@ -40,7 +40,8 @@ export class AreaFormComponent implements OnInit {
   buildForm(): FormGroup {
     return this.formBuilder.group({
       name: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(4), Validators.maxLength(80)]],
-      reference: ['', [Validators.minLength(4), Validators.maxLength(150)]]
+      reference: ['']
+      //reference: ['', [AppValidators.optional({minLength: 4, maxLength: 150})]]
     });
   }
 
@@ -49,8 +50,8 @@ export class AreaFormComponent implements OnInit {
     if(this.form.invalid) {
       return;
     }
-    if(this.form.value.reference == '') {
-      this.form.value.reference = null
+    if(this.form.value.reference.trim() == '') {
+      this.form.value.reference = null;
     }
     if(this.createMode) {
       this.createArea();

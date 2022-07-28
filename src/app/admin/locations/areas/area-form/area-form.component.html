@@ -30,9 +30,9 @@
 
     <mat-form-field class="form-field-lg">
       <mat-label> Referência </mat-label>
-      <mat-error *ngIf="fieldErrors('reference')?.['minlength'] || fieldErrors('reference')?.['maxlength']">
+      <!-- <mat-error *ngIf="fieldErrors('reference')?.['optional']">
         Referência deve ter entre 4 e 150 caracteres
-      </mat-error>
+      </mat-error> -->
       <input appearance="fill" matInput placeholder="" formControlName="reference" name="reference">
       <mat-error *ngIf="fieldErrors('reference')?.['serverError'] && submitted">
         {{ fieldErrors('reference')?.['serverError'] }}
