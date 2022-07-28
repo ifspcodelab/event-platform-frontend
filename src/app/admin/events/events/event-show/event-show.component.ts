@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventDto } from "../../../../core/models/event.model";
 import { EventService } from "../../../../core/services/event.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
 import { SubeventDto } from "../../../../core/models/subevent.model";
 import { SubeventService } from "../../../../core/services/subevent.service";

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {EventCreateDto, EventDto} from "../models/event.model";
+import { environment } from "../../../environments/environment";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { EventCreateDto, EventDto } from "../models/event.model";
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +29,9 @@ export class EventService {
 
   postEvent(eventCreateDto: EventCreateDto): Observable<EventDto> {
     return this.httpClient.post<EventDto>(this.apiUrl, eventCreateDto, this.httpOptions);
+  }
+
+  putEvent(eventId: string, eventCreateDto: EventCreateDto): Observable<EventDto> {
+    return this.httpClient.put<EventDto>(`${this.apiUrl}/${eventId}`, eventCreateDto, this.httpOptions);
   }
 }

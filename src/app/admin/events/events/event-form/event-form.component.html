@@ -17,7 +17,7 @@
       <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 3 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 50 caracteres</mat-error>
-    </mat-form-field> <br>
+    </mat-form-field>
 
     <mat-form-field class="form-field-lg">
       <mat-label>Slug</mat-label>
@@ -33,7 +33,7 @@
       <mat-error *ngIf="fieldErrors('summary')?.['notblank']">Resumo não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['minlength']">Resumo deve ter no mínimo 100 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['maxlength']">Resumo deve ter no máximo 150 caracteres</mat-error>
-    </mat-form-field> <br>
+    </mat-form-field>
 
     <mat-form-field class="form-field-lg">
       <mat-label>Apresentação</mat-label>
@@ -52,7 +52,7 @@
   <fieldset formGroupName="registrationPeriod">
     <legend>Período de inscrições</legend>
 
-    <mat-form-field class="form-field-sm">
+    <mat-form-field class="form-field-lg">
       <mat-label>Início</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="startDate" name="start-date">
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -61,7 +61,7 @@
       <mat-error *ngIf="fieldErrors('registrationPeriod.startDate')?.['required']">Início é obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="form-field-sm">
+    <mat-form-field class="form-field-lg">
       <mat-label>Fim</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="endDate" name="end-date">
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -74,7 +74,7 @@
   <fieldset formGroupName="executionPeriod">
     <legend>Período de execução</legend>
 
-    <mat-form-field class="form-field-sm">
+    <mat-form-field class="form-field-lg">
       <mat-label>Início</mat-label>
       <input matInput [matDatepicker]="picker2" formControlName="startDate" name="start-date">
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -83,7 +83,7 @@
       <mat-error *ngIf="fieldErrors('executionPeriod.startDate')?.['required']">Início é obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="form-field-sm">
+    <mat-form-field class="form-field-lg">
       <mat-label>Fim</mat-label>
       <input matInput [matDatepicker]="picker3" formControlName="endDate" name="end-date">
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -98,7 +98,7 @@
     <mat-form-field class="form-field-lg">
       <mat-label>Menor</mat-label>
       <input matInput placeholder="" formControlName="smallerImage" name="smaller-image">
-    </mat-form-field> <br>
+    </mat-form-field>
 
     <mat-form-field class="form-field-lg">
       <mat-label>Maior</mat-label>

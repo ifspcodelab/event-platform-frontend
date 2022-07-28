@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { EventService } from "../../../../core/services/event.service";
 import { first } from "rxjs";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router} from "@angular/router";
 import { AppValidators} from "../../../../core/validators/app-validator";
+import { EventDto } from "../../../../core/models/event.model";
 
 @Component({
   selector: 'app-event-form',
@@ -12,14 +13,37 @@ import { AppValidators} from "../../../../core/validators/app-validator";
 })
 export class EventFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  createMode: boolean;
+  eventId: string;
+  eventDto: EventDto;
 
   constructor(
     private eventService: EventService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.eventId = this.route.snapshot.paramMap.get('eventId');
+
+    if(this.eventId) {
+      this.createMode = false;
+      this.fetchEvent();
+    } else {
+      this.createMode = true;
+    }
+  }
+
+  fetchEvent() {
+    this.eventService.getEventById(this.eventId)
+      .pipe(first())
+      .subscribe(
+        eventDto => {
+          this.eventDto = eventDto;
+          this.form.patchValue(this.eventDto);
+        }
+      );
   }
 
   field(path: string) {
@@ -76,7 +100,11 @@ export class EventFormComponent implements OnInit {
     if(this.form.invalid) {
       return;
     }
-    this.createEvent();
+    if(this.createMode) {
+      this.createEvent();
+    } else {
+      this.updateEvent();
+    }
   }
 
   createEvent() {
@@ -88,5 +116,16 @@ export class EventFormComponent implements OnInit {
           this.router.navigate(['admin', 'events', eventDto.id]);
         })
     }
+  }
+
+  updateEvent() {
+    this.eventService.putEvent(this.eventId, this.form.value)
+      .pipe(first())
+      .subscribe(eventDto => {
+        if(eventDto) {
+          console.log(eventDto);
+          this.router.navigate(['admin', 'events', eventDto.id]);
+        }
+      })
   }
 }
