@@ -113,6 +113,14 @@ export class EventFormComponent implements OnInit {
     }
   }
 
+  getBackUrl() {
+    if(this.createMode) {
+      this.router.navigate(['admin', 'events']);
+    } else {
+      this.router.navigate(['admin', 'events', this.eventId]);
+    }
+  }
+
   createEvent() {
     if(this.form) {
       this.eventService.postEvent(this.form.value)
