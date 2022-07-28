@@ -1,9 +1,9 @@
-<div *ngIf="createMode==false">
-  <h1 id="header" mat-dialog-title>Editar Local</h1>
+<div *ngIf="createMode">
+  <h1 id="header" mat-dialog-title>Cadastrar Local</h1>
 </div>
 
-<div *ngIf="createMode==true">
-  <h1 id="header" mat-dialog-title>Cadastrar Local</h1>
+<div *ngIf="!createMode">
+  <h1 id="header" mat-dialog-title>Editar Local</h1>
 </div>
 
 <div mat-dialog-content>
