@@ -1,18 +1,26 @@
 <div *ngIf="areaDto!=null">
   <header class="header">
+    <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
+      <mat-icon mat-list-icon> arrow_back </mat-icon>
+    </button>
     <h1 class="header__title"> Área: {{ areaDto.name }} </h1>
     <div class="header__actions">
-      <button mat-button color="primary"> Voltar </button>
       <button mat-button color="primary" (click)="openFormAreaDialog()"> Editar </button>
       <button mat-button color="primary"> Excluir </button>
     </div>
   </header>
+
+  <!-- <hr class="divider-line"> -->
+
   <mat-list>
     <mat-list-item>
       <mat-icon mat-list-icon> where_to_vote </mat-icon> <!--find_replace where_to_vote gps_fixed directions my_location-->
       <div mat-line><b> Referência: </b> {{ areaDto.reference }} </div>
     </mat-list-item>
   </mat-list>
+
+  <mat-divider></mat-divider>
+  <br><br>
 
   <div class="table">
     <h2 class="table__title"> Espaços </h2>
