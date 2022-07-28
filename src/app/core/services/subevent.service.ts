@@ -35,4 +35,8 @@ export class SubeventService {
     return this.httpClient.put<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}`, subeventCreateDto, this.httpOptions);
 
   }
+
+  deleteSubevent(eventId: string, subeventId: string): Observable<unknown> {
+    return this.httpClient.delete<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}`, this.httpOptions);
+  }
 }

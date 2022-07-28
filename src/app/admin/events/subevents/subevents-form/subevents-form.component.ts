@@ -141,8 +141,14 @@ export class SubeventsFormComponent implements OnInit {
         const problem: ProblemDetail = error.error;
         this.notificationService.error(problem.violations[0].message);
       }
+    }
+  }
 
-
+  getBackUrl() {
+    if(this.createMode) {
+      this.router.navigate(['admin', 'events', this.eventId]);
+    } else {
+      this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId]);
     }
   }
 

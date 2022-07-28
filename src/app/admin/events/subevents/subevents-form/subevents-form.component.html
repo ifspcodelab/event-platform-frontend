@@ -1,7 +1,8 @@
 <header class="header">
-  <h1 class="header__title">Novo Subevento</h1>
+  <h1 class="header__title" *ngIf="createMode">Novo Subevento</h1>
+  <h1 class="header__title" *ngIf="!createMode">Editar Subevento</h1>
   <div class="header__actions">
-    <button mat-button color="primary">Cancelar</button>
+    <button mat-button color="primary" (click)="getBackUrl()">Cancelar</button>
     <button mat-button color="primary" type="submit" form="subevent-form">Salvar</button>
   </div>
 </header>
