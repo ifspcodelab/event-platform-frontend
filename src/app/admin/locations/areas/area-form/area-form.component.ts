@@ -23,7 +23,7 @@ export class AreaFormComponent implements OnInit {
     private areaService: AreaService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<AreaFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { locationId: string,  areaDto: AreaDto}
+    @Inject(MAT_DIALOG_DATA) public data: { locationId: string,  areaDto: AreaDto }
   ) { }
 
   ngOnInit(): void {
@@ -39,8 +39,8 @@ export class AreaFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, AppValidators.notBlank]],
-      reference: ['']
+      name: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(4), Validators.maxLength(80)]],
+      reference: ['', [Validators.minLength(4), Validators.maxLength(150)]]
     });
   }
 
@@ -89,7 +89,7 @@ export class AreaFormComponent implements OnInit {
   }
 
   fieldErrors(path: string) {
-    return this.field(path)?.errors;
+    return this.field(path).errors;
   }
 
   // containsError(path: string, validationType: string) {
@@ -98,18 +98,18 @@ export class AreaFormComponent implements OnInit {
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
-      console.log(error);
       if(error.status === 400) {
         const violations: Violation[] = error.error;
         violations.forEach(violation => {
           const formControl = this.form.get(violation.name);
           if(formControl) {
-            formControl.setErrors({
-              serverError: violation.message
-            });
-            console.log(formControl);
+            formControl.setErrors({ serverError: violation.message });
           }
         })
+      }
+      if(error.status === 409) {
+        const nameField = this.field('name');
+        nameField.setErrors({ serverError: `Área já existente com nome ${nameField.value}` })
       }
     }
   }

@@ -7,7 +7,8 @@ import { SiteModule } from './site/site.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
 
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { HttpClientModule } from "@angular/common/http";
     AppRoutingModule,
     SiteModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

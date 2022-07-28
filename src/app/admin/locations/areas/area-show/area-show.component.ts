@@ -1,3 +1,4 @@
+import { NotificationService } from './../../../../core/services/notification.service';
 import { LocationDto } from './../../../../core/models/location.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AreaFormComponent } from './../area-form/area-form.component';
@@ -28,6 +29,7 @@ export class AreaShowComponent implements OnInit {
     private spaceService: SpaceService,
     private route: ActivatedRoute,
     private router: Router,
+    private notificationService: NotificationService,
     public dialog: MatDialog
   ) { }
 
@@ -83,5 +85,11 @@ export class AreaShowComponent implements OnInit {
         this.areaDto = areaDto;
       }
     });
+  }
+
+  openDeleteConfirmationDialog() {
+    if(this.spacesDto.length != 0) {
+      this.notificationService.error('Não é possível deletar uma área com espaço associado');
+    }
   }
 }
