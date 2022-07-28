@@ -11,7 +11,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatTableDataSource } from '@angular/material/table';
 
-const ELEMENT_DATA?: AreaDto[];
+//const ELEMENT_DATA?: AreaDto[];
 
 @Component({
   selector: 'app-location-show',
@@ -24,7 +24,7 @@ export class LocationShowComponent implements OnInit {
   areaDto: AreaDto;
   areasDto: AreaDto[];
   displayedColumns: string[] = ['name', 'reference'];
-  elementData = new MatTableDataSource(ELEMENT_DATA);
+  //elementData = new MatTableDataSource(ELEMENT_DATA);
 
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
@@ -83,9 +83,9 @@ export class LocationShowComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  ngAfterViewInit() {
-    this.elementData.sort = this.sort;
-  }
+  //ngAfterViewInit() {
+  //  this.elementData.sort = this.sort;
+  //}
 
   announceSortChange(sortState: Sort) {
     if (sortState.direction) {
