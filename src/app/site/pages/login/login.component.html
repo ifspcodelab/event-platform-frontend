@@ -14,8 +14,14 @@
     <p *ngIf="password.errors?.['minlength']">Campo senha deve ter no mínimo 8 caracteres</p>
     <p *ngIf="password.errors?.['maxlength']">Campo senha deve ter no máximo 64 caracteres</p>
   </div>
+  <div *ngIf="showAuthenticationError">
+    <p id="error-field">Email ou senha incorretos</p>
+  </div>
   <br>
+<!--  TODO: recaptcha -->
   <a id="forgot-password-link" href="/esqueci-minha-senha">Esqueci minha senha</a>
+  <br>
+  <a id="registration-link" href="/cadastro">Não tem uma conta? Cadastre-se</a>
   <br>
   <input type="submit" value="Entrar">
 </form>

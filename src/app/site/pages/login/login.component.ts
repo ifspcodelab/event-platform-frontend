@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "../../../core/services/authentication.service";
-import {AppValidators} from "../../../core/validators/app-validator";
+import { first } from "rxjs";
+import { LoginDto } from "../../../core/models/login.model";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -10,10 +13,12 @@ import {AppValidators} from "../../../core/validators/app-validator";
 })
 export class LoginComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  showAuthenticationError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -21,9 +26,7 @@ export class LoginComponent implements OnInit {
 
   private buildForm() {
     return this.formBuilder.group({
-      email: ['', [Validators.required, AppValidators.notBlank, Validators.email]],
-      //TODO: verificar "Validators.email" x regex;
-      //TODO: verificar "Validators.required"
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]]
     });
   }
@@ -39,7 +42,25 @@ export class LoginComponent implements OnInit {
     this.login();
   }
 
+  //TODO: jwtService: setar os tokens no localstorage, decodificações, etc
+
   login() {
-    this.authenticationService.postLogin(this.form.value).subscribe();
+    this.authenticationService.postLogin(this.form.value)
+      .pipe(first())
+      .subscribe(
+        {
+          next: (tokensDto: LoginDto) => {
+            console.log(tokensDto);
+            this.router.navigate(['account', 'meus-dados']);
+          },
+          error: error => {
+            if (error instanceof HttpErrorResponse) {
+              if (error.status === 409) {
+                this.showAuthenticationError = true;
+              }
+            }
+          }
+        }
+      );
   }
 }
