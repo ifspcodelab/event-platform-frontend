@@ -3,6 +3,7 @@ import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { SubeventDto } from "../models/subevent.model";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,10 @@ export class SubeventService {
   constructor(private httpClient: HttpClient) { }
 
   getSubevents(eventId: string): Observable<SubeventDto[]> {
-    return this.httpClient.get<SubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events`, this.httpOptions);
+    return this.httpClient.get<SubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events`, this.httpOptions)
+      .pipe(
+        map(results => results.sort((a, b) => a.title.localeCompare(b.title)))
+      );
   }
 
   getSubeventById(eventId: string, subeventId: string): Observable<SubeventDto> {

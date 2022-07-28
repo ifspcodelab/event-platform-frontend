@@ -3,6 +3,7 @@ import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { EventCreateDto, EventDto } from "../models/event.model";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,10 @@ export class EventService {
   constructor(private httpClient: HttpClient) { }
 
   getEvents(): Observable<EventDto[]> {
-    return this.httpClient.get<EventDto[]>(this.apiUrl, this.httpOptions);
+    return this.httpClient.get<EventDto[]>(this.apiUrl, this.httpOptions)
+      .pipe(
+        map(results => results.sort((a, b) => a.title.localeCompare(b.title)))
+      );
   }
 
   getEventById(eventId: string): Observable<EventDto> {
