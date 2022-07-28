@@ -2,6 +2,51 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.mat-list-text {
-  padding: 0 !important;
+.mat-list-text { padding: 0 !important; }
+
+.header {
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.5px solid rgba(0,0,0,.2);
+
+  &__titlespace {
+    display: flex;
+    margin: 0;
+    align-items: center;
+  }
+
+  &__back {
+    margin-right: 5px;
+  }
+
+  &__title {
+    font-size: 1.2rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+.container {
+  margin: 0 16px;
+
+  &__header {
+    display: flex;
+    padding: 5px 0;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__title {
+    margin: 0%;
+  }
+
+  &__table {
+    width: 100%;
+
+    td:hover {
+      cursor: pointer;
+    }
+  }
 }

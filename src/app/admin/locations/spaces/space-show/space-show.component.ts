@@ -47,6 +47,10 @@ export class SpaceShowComponent implements OnInit {
       )
   }
 
+  openAreaShow() {
+    this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId]);
+  }
+
   private getDialogConfig() {
     return {
       autoFocus: true,
