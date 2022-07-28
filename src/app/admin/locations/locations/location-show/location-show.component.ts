@@ -1,3 +1,4 @@
+import { NotificationService } from './../../../../core/services/notification.service';
 import { AreaService } from './../../../../core/services/area.service';
 import { AreaDto } from './../../../../core/models/area.model';
 import { LocationService } from './../../../../core/services/location.service';
@@ -7,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from "rxjs/operators";
 import { LocationFormComponent } from '../location-form/location-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-location-show',
@@ -25,6 +27,7 @@ export class LocationShowComponent implements OnInit {
     private areaService: AreaService,
     private route: ActivatedRoute,
     private router: Router,
+    private notificationService: NotificationService,
     public dialog: MatDialog
   ) { }
 
@@ -82,5 +85,37 @@ export class LocationShowComponent implements OnInit {
         this.locationDto = locationDto;
       }
     });
+  }
+
+  private getConfirmationDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Excluir local",
+        text: `O local ${this.locationDto.name} será excluido de forma definitiva`,
+        cancelText: "Cancelar",
+        okText: "Excluir"
+      }
+    };
+  }
+
+  openDeleteConfirmationDialog() {
+    if(this.areasDto.length != 0) {
+      this.notificationService.error('Não é possível deletar um local com área associada');
+    }
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        this.locationService.deleteLocation(this.locationId)
+          .pipe(first())
+          .subscribe( _ => {
+            this.notificationService.success("Excluído com sucesso");
+            this.router.navigate(['admin', 'locations'])
+          }, error => {
+
+          })
+      }
+    })
   }
 }

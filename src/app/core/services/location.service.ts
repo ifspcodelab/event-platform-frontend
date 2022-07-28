@@ -35,4 +35,9 @@ export class LocationService {
     const url = `${this.apiUrl}/${locationId}`;
     return this.httpClient.put<LocationDto>(url, locationCreateDto, this.httpOptions);
   }
+
+  deleteLocation(locationId: string): Observable<unknown> {
+    const url = `${this.apiUrl}/${locationId}`;
+    return this.httpClient.delete<LocationDto>(url, this.httpOptions);
+  }
 }
