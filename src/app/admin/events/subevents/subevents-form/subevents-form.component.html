@@ -14,7 +14,7 @@
     <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
     <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 3 caracteres</mat-error>
     <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 50 caracteres</mat-error>
-    <mat-error *ngIf="fieldErrors('title')?.['servererror'] && submitted">
+    <mat-error *ngIf="fieldErrors('title')?.['serverError'] && submitted">
       {{ fieldErrors('title')?.['serverError'] }}
     </mat-error>
 
@@ -25,8 +25,8 @@
     <input appearance="fill" matInput placeholder="" formControlName="slug" name="slug">
     <mat-error *ngIf="fieldErrors('slug')?.['required']">Slug é obrigatório</mat-error>
     <mat-error *ngIf="fieldErrors('slug')?.['notblank']">Slug não pode ser vazio</mat-error>
-    <mat-error *ngIf="fieldErrors('slug')?.['servererror'] && submitted">
-      {{ fieldErrors('slug')?.['servererror'] }}
+    <mat-error *ngIf="fieldErrors('slug')?.['serverError'] && submitted">
+      {{ fieldErrors('slug')?.['serverError'] }}
     </mat-error>
   </mat-form-field>
 
@@ -38,8 +38,8 @@
     <mat-error *ngIf="fieldErrors('summary')?.['notblank']">Resumo não pode ser vazio</mat-error>
     <mat-error *ngIf="fieldErrors('summary')?.['minlength']">Resumo deve ter no mínimo 100 caracteres</mat-error>
     <mat-error *ngIf="fieldErrors('summary')?.['maxlength']">Resumo deve ter no máximo 150 caracteres</mat-error>
-    <mat-error *ngIf="fieldErrors('summary')?.['servererror'] && submitted">
-      {{ fieldErrors('summary')?.['servererror'] }}
+    <mat-error *ngIf="fieldErrors('summary')?.['serverError'] && submitted">
+      {{ fieldErrors('summary')?.['serverError'] }}
     </mat-error>
   </mat-form-field>
 
@@ -50,8 +50,8 @@
     <mat-error *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazia</mat-error>
     <mat-error *ngIf="fieldErrors('presentation')?.['minlength']">Apresentação deve ter no mínimo 1000 caracteres</mat-error>
     <mat-error *ngIf="fieldErrors('presentation')?.['maxlength']">Apresentação deve ter no máximo 5000 caracteres</mat-error>
-    <mat-error *ngIf="fieldErrors('presentation')?.['servererror'] && submitted">
-      {{ fieldErrors('presentation')?.['servererror'] }}
+    <mat-error *ngIf="fieldErrors('presentation')?.['serverError'] && submitted">
+      {{ fieldErrors('presentation')?.['serverError'] }}
     </mat-error>
   </mat-form-field>
 
@@ -64,9 +64,6 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="fieldErrors('executionPeriod.startDate')?.['required']">Início é obrigatório</mat-error>
-      <mat-error *ngIf="fieldErrors('executionPeriod')?.['serverError'] && submitted">
-        {{ fieldErrors('executionPeriod')?.['serverError'] }}
-      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="form-field-lg">
@@ -76,9 +73,6 @@
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
       <mat-error *ngIf="fieldErrors('executionPeriod.endDate')?.['required']">Fim é obrigatório</mat-error>
-      <mat-error *ngIf="fieldErrors('executionPeriod.endDate')?.['servererror'] && submitted">
-        {{ fieldErrors('executionPeriod.endDate')?.['serverError'] }}
-      </mat-error>
     </mat-form-field>
   </fieldset>
 
