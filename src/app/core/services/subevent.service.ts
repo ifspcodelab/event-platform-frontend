@@ -30,4 +30,9 @@ export class SubeventService {
   postSubevent(eventId: string, subeventCreateDto: SubeventCreateDto): Observable<SubeventDto> {
     return this.httpClient.post<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events`, subeventCreateDto, this.httpOptions);
   }
+
+  putSubevent(eventId: string, subeventCreateDto: SubeventCreateDto, subeventId: string): Observable<SubeventDto> {
+    return this.httpClient.put<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}`, subeventCreateDto, this.httpOptions);
+
+  }
 }

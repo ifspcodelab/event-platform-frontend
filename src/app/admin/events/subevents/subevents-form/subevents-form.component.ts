@@ -1,3 +1,4 @@
+import { SubeventDto } from './../../../../core/models/subevent.model';
 import { NotificationService } from './../../../../core/services/notification.service';
 import { ProblemDetail } from './../../../../core/models/problem-detail';
 import { AppValidators } from 'src/app/core/validators/app-validator';
@@ -18,6 +19,9 @@ export class SubeventsFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
   eventId: string;
   submitted: boolean = false;
+  subeventDto: SubeventDto;
+  subeventId: string;
+  createMode: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,6 +33,25 @@ export class SubeventsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('eventId');
+    this.subeventId = this.route.snapshot.paramMap.get('subeventId');
+
+    if(this.subeventId) {
+      this.createMode = false;
+      this.fetchSubevent();
+    } else{
+      this.createMode = true;
+    }
+  }
+
+  fetchSubevent() {
+    this.subeventService.getSubeventById(this.eventId, this.subeventId)
+      .pipe(first())
+      .subscribe(
+        subeventDto => {
+          this.subeventDto = subeventDto;
+          this.form.patchValue(subeventDto);
+        }
+      )
   }
 
   buildForm(): FormGroup {
@@ -51,11 +74,32 @@ export class SubeventsFormComponent implements OnInit {
     if(this.form.invalid) {
       return;
     }
-    this.createSubevent();
+
+    if(this.createMode) {
+      this.createSubevent();
+    }
+
+    else {
+      this.updateSubevent();
+    }
   }
 
   createSubevent() {
       this.subeventService.postSubevent(this.eventId, this.form.value)
+        .pipe(first())
+        .subscribe(
+          subeventDto => {
+            if(subeventDto) {
+              this.router.navigate(['admin', 'events', this.eventId, 'sub-events',subeventDto.id]);
+              console.log(subeventDto)
+            }
+          },
+          error => this.handleError(error)
+        );
+  }
+
+  updateSubevent() {
+    this.subeventService.putSubevent(this.eventId, this.form.value, this.subeventId)
         .pipe(first())
         .subscribe(
           subeventDto => {
