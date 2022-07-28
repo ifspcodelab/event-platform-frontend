@@ -57,6 +57,10 @@ export class LocationShowComponent implements OnInit {
       )
   }
 
+  openLocationList() {
+    this.router.navigate(['admin', 'locations']);
+  }
+
   openAreaShow(areaDto: AreaDto) {
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
