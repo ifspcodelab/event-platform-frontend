@@ -3,10 +3,15 @@ import { AreaService } from './../../../../core/services/area.service';
 import { AreaDto } from './../../../../core/models/area.model';
 import { LocationService } from './../../../../core/services/location.service';
 import { LocationDto } from './../../../../core/models/location.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from "rxjs/operators";
+import { MatSort, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatTableDataSource } from '@angular/material/table';
+
+const ELEMENT_DATA?: AreaDto[];
 
 @Component({
   selector: 'app-location-show',
@@ -19,8 +24,10 @@ export class LocationShowComponent implements OnInit {
   areaDto: AreaDto;
   areasDto: AreaDto[];
   displayedColumns: string[] = ['name', 'reference'];
+  elementData = new MatTableDataSource(ELEMENT_DATA);
 
   constructor(
+    private _liveAnnouncer: LiveAnnouncer,
     private locationService: LocationService,
     private areaService: AreaService,
     private route: ActivatedRoute,
@@ -72,6 +79,20 @@ export class LocationShowComponent implements OnInit {
         this.areasDto = [...this.areasDto, areaDto];
       }
     });
+  }
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() {
+    this.elementData.sort = this.sort;
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
 }
