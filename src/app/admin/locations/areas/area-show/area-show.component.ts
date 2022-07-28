@@ -1,3 +1,4 @@
+import { LocationDto } from './../../../../core/models/location.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AreaFormComponent } from './../area-form/area-form.component';
 import { SpaceService } from '../../../../core/services/space.service';
@@ -55,6 +56,10 @@ export class AreaShowComponent implements OnInit {
           this.spacesDto = spacesDto;
         }
       )
+  }
+
+  openLocationShow() {
+    this.router.navigate(['admin', 'locations', this.locationId]);
   }
 
   openSpaceShow(spaceDto: SpaceDto) {

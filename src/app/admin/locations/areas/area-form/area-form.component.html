@@ -1,9 +1,9 @@
-<div *ngIf="createMode==false">
-  <h2 id="header" mat-dialog-title> Editar Área </h2>
+<div *ngIf="createMode">
+  <h2 id="header" mat-dialog-title> Cadastrar Área </h2>
 </div>
 
-<div *ngIf="createMode==true">
-  <h2 id="header" mat-dialog-title> Cadastrar Área </h2>
+<div *ngIf="!createMode">
+  <h2 id="header" mat-dialog-title> Editar Área </h2>
 </div>
 
 <div mat-dialog-content>
