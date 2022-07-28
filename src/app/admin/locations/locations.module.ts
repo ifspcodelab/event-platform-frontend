@@ -8,15 +8,11 @@ import { LocationShowComponent } from './locations/location-show/location-show.c
 import { AreaShowComponent } from './areas/area-show/area-show.component';
 import { LocationFormComponent } from './locations/location-form/location-form.component';
 
-import { MatTableModule } from '@angular/material/table';
 import { SpaceShowComponent } from './spaces/space-show/space-show.component';
-import { MatButtonModule } from "@angular/material/button";
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from "@angular/material/icon";
-import {SpaceTypesPipe} from "../../core/pipes/space-types.pipe";
+import { SpaceTypesPipe } from "../../core/pipes/space-types.pipe";
 import { SpacesFormComponent } from './spaces/spaces-form/spaces-form.component';
-import {CoreModule} from "../../core/core.module";
-import {SharedModule} from "../../shared/shared.module";
+import { CoreModule } from "../../core/core.module";
+import { SharedModule } from "../../shared/shared.module";
 
 @NgModule({
   declarations: [

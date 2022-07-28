@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {FormsModule} from "@angular/forms";
 @NgModule({
   declarations: [],
@@ -22,6 +23,7 @@ import {FormsModule} from "@angular/forms";
     MatListModule,
     MatTableModule,
     MatSelectModule,
+    MatSnackBarModule,
     FormsModule
   ],
   exports: [
@@ -33,6 +35,7 @@ import {FormsModule} from "@angular/forms";
     MatListModule,
     MatTableModule,
     MatSelectModule,
+    MatSnackBarModule,
     FormsModule
   ]
 })

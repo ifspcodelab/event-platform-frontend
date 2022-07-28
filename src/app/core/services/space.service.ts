@@ -39,4 +39,9 @@ export class SpaceService {
     return this.httpClient.put<SpaceDto>(url, spaceDto, this.httpOptions);
   }
 
+  deleteSpace(locationId: string, areaId: string, spaceId: string): Observable<unknown> {
+    const url = `${this.apiUrl}/${locationId}/areas/${areaId}/spaces/${spaceId}`;
+    return this.httpClient.delete<SpaceDto>(url, this.httpOptions);
+  }
+
 }
