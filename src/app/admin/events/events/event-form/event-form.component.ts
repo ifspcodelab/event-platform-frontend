@@ -156,9 +156,7 @@ export class EventFormComponent implements OnInit {
       }
 
       if(error.status === 409) {
-        console.log(error);
         const problem: ProblemDetail = error.error;
-        console.log(problem.violations[0].message);
         this.notificationService.error(problem.violations[0].message);
       }
     }

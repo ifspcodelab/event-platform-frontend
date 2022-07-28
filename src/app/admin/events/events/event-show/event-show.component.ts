@@ -5,6 +5,11 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
 import { SubeventDto } from "../../../../core/models/subevent.model";
 import { SubeventService } from "../../../../core/services/subevent.service";
+import { NotificationService } from "../../../../core/services/notification.service";
+import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ProblemDetail } from "../../../../core/models/problem-detail";
 
 @Component({
   selector: 'app-event-show',
@@ -19,8 +24,10 @@ export class EventShowComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
+    private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
+    public dialog: MatDialog,
     private subeventService: SubeventService
   ) { }
 
@@ -53,6 +60,44 @@ export class EventShowComponent implements OnInit {
 
   openSubeventShow(subeventDto: SubeventDto) {
     return this.router.navigate(['admin', 'events', this.eventDto.id, 'sub-events', subeventDto.id]);
+  }
+
+  private getConfirmationDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Excluir evento",
+        text: `O evento ${this.eventDto.title} será excluido de forma definitiva.`,
+        cancelText: "Cancelar",
+        okText: "Excluir"
+      }
+    };
+  }
+
+  openDeleteConfirmationDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        this.eventService.deleteEvent(this.eventId)
+          .pipe(first())
+          .subscribe( () => {
+            this.notificationService.success("Excluido com sucesso");
+            this.router.navigate(['admin', 'events'])
+          }, error => {
+            this.handleError(error);
+          })
+      }
+    })
+  }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 409) {
+        const problem: ProblemDetail = error.error;
+        console.log(problem);
+        this.notificationService.error(problem.violations[0].message);
+      }
+    }
   }
 
 }

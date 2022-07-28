@@ -34,4 +34,8 @@ export class EventService {
   putEvent(eventId: string, eventCreateDto: EventCreateDto): Observable<EventDto> {
     return this.httpClient.put<EventDto>(`${this.apiUrl}/${eventId}`, eventCreateDto, this.httpOptions);
   }
+
+  deleteEvent(eventId: string): Observable<EventDto> {
+    return this.httpClient.delete<EventDto>(`${this.apiUrl}/${eventId}`, this.httpOptions);
+  }
 }

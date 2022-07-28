@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { CoreModule } from "../../core/core.module";
 // import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 @NgModule({
@@ -42,7 +43,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     ReactiveFormsModule,
     MatFormFieldModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    CoreModule
   ]
 })
 export class EventsModule { }
