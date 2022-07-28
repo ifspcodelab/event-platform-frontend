@@ -7,6 +7,7 @@ import { AreaDto } from '../../../../core/models/area.model';
 import { Component, OnInit } from '@angular/core';
 import {SpacesFormComponent} from "../../spaces/spaces-form/spaces-form.component";
 import {MatDialog} from "@angular/material/dialog";
+import {NotificationService} from "../../../../core/services/notification.service";
 
 @Component({
   selector: 'app-area-show',
@@ -20,10 +21,10 @@ export class AreaShowComponent implements OnInit {
   spacesDto: SpaceDto[];
   displayedColumns: string[] = ['name', 'capacity', 'type'];
 
-
   constructor(
     private areaService: AreaService,
     private spaceService: SpaceService,
+    private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog
@@ -56,11 +57,12 @@ export class AreaShowComponent implements OnInit {
       )
   }
 
-  openSpaceFormDialog() {
+  openAddSpaceFormDialog() {
     const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
     dialogRef.afterClosed().subscribe( spaceDto => {
       if(spaceDto) {
         this.spacesDto = [...this.spacesDto, spaceDto];
+        this.notificationService.success("Cadastrado com sucesso");
       }
     });
   }

@@ -58,11 +58,12 @@ export class SpaceShowComponent implements OnInit {
     };
   }
 
-  openSpaceFormDialog() {
+  openEditSpaceFormDialog() {
     const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
     dialogRef.afterClosed().subscribe( spaceDto => {
       if(spaceDto) {
         this.spaceDto = spaceDto;
+        this.notificationService.success("Editado com sucesso");
       }
     });
   }
