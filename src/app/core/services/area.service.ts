@@ -3,6 +3,7 @@ import { LocationDto } from 'src/app/core/models/location.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { AreaDto } from '../models/area.model';
 
@@ -23,7 +24,10 @@ export class AreaService {
 
   getAreas(locationId: string): Observable<AreaDto[]> {
     const url = `${this.apiUrl}/${locationId}/areas`;
-    return this.httpClient.get<AreaDto[]>(url, this.httpOptions);
+    return this.httpClient.get<AreaDto[]>(url, this.httpOptions)
+      .pipe(
+        map(results => results.sort((a, b) => a.name.localeCompare(b.name)))
+      );
   }
 
   getAreaById(locationId: string, areaId: string): Observable<AreaDto> {
