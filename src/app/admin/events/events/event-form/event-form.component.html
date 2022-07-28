@@ -7,6 +7,16 @@
 </header>
 
 <form id="event-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+
+<!--  <br /><br />-->
+<!--    <input type="file" (change)="onSmallerImageChange($event)" />-->
+<!--  <br /><br />-->
+
+<!--  <mat-form-field appearance="outline">-->
+<!--    <ngx-mat-file-input (change)="onSmallerImageChange($event)">-->
+<!--    </ngx-mat-file-input>-->
+<!--  </mat-form-field>-->
+
   <fieldset>
     <legend>Dados gerais</legend>
 
@@ -17,6 +27,9 @@
       <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 3 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 50 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['serverError'] && submitted">
+        {{ fieldErrors('title')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="form-field-lg">
@@ -24,6 +37,9 @@
       <input matInput placeholder="" formControlName="slug" name="slug">
       <mat-error *ngIf="fieldErrors('slug')?.['required']">Slug é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('slug')?.['notblank']">Slug não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('slug')?.['serverError'] && submitted">
+        {{ fieldErrors('slug')?.['serverError'] }}
+      </mat-error>
     </mat-form-field> <br>
 
     <mat-form-field class="form-field-lg">
@@ -33,6 +49,9 @@
       <mat-error *ngIf="fieldErrors('summary')?.['notblank']">Resumo não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['minlength']">Resumo deve ter no mínimo 100 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['maxlength']">Resumo deve ter no máximo 150 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('summary')?.['serverError'] && submitted">
+        {{ fieldErrors('summary')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="form-field-lg">
@@ -45,6 +64,9 @@
       </mat-error>
       <mat-error *ngIf="fieldErrors('presentation')?.['maxlength']">
         Apresentação deve ter no máximo 5000 caracteres
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('presentation')?.['serverError'] && submitted">
+        {{ fieldErrors('presentation')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
   </fieldset>
@@ -98,11 +120,17 @@
     <mat-form-field class="form-field-lg">
       <mat-label>Menor</mat-label>
       <input matInput placeholder="" formControlName="smallerImage" name="smaller-image">
+      <mat-error *ngIf="fieldErrors('smallerImage')?.['serverError'] && submitted">
+        {{ fieldErrors('smallerImage')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="form-field-lg">
       <mat-label>Maior</mat-label>
       <input matInput placeholder="" formControlName="biggerImage" name="bigger-image">
+      <mat-error *ngIf="fieldErrors('biggerImage')?.['serverError'] && submitted">
+        {{ fieldErrors('biggerImage')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
   </fieldset>
 </form>
