@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
             console.log(this.jwtService.decodeToken(jwtDto.accessToken));
             this.jwtService.storeRefreshToken(jwtDto.refreshToken);
             console.log(this.jwtService.decodeToken(jwtDto.refreshToken));
-            this.router.navigate(['account', 'meus-dados']);
+            // this.router.navigate(['account', 'meus-dados']);
           },
           error: error => {
             if (error instanceof HttpErrorResponse) {
