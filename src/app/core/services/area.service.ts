@@ -43,4 +43,9 @@ export class AreaService {
     const url = `${this.apiUrl}/${locationId}/areas/${areaId}`;
     return this.httpClient.put<AreaDto>(url, areaDto, this.httpOptions);
   }
+
+  deleteArea(locationId: string, areaId: string): Observable<unknown> {
+    const url = `${this.apiUrl}/${locationId}/areas/${areaId}`;
+    return this.httpClient.delete<AreaDto>(url, this.httpOptions);
+  }
 }

@@ -46,7 +46,6 @@ export class LocationListComponent implements OnInit {
 
   openFormLocationDialog() {
     const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfig());
-
     dialogRef.afterClosed().subscribe(locationDto => {
       if (locationDto) {
         this.locationsDto = [...this.locationsDto, locationDto];

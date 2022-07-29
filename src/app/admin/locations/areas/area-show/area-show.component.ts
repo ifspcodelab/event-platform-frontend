@@ -88,22 +88,36 @@ export class AreaShowComponent implements OnInit {
     });
   }
 
+  private getConfirmationDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Excluir área",
+        text: `A área ${this.areaDto.name} será excluida de forma definitiva`,
+        cancelText: "Cancelar",
+        okText: "Excluir"
+      }
+    };
+  }
+
   openDeleteConfirmationDialog() {
     if(this.spacesDto.length != 0) {
       this.notificationService.error('Não é possível deletar uma área com espaço associado');
     }
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
-    dialogRef.afterClosed().subscribe( result => {
-      if (result) {
-        this.areaService.deleteSpace(this.locationId, this.areaId, this.spaceId)
-          .pipe(first())
-          .subscribe( _ => {
-            this.notificationService.success("Excluido com sucesso");
-            this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId])
-          }, error => {
+    else {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
+      dialogRef.afterClosed().subscribe( result => {
+        if (result) {
+          this.areaService.deleteArea(this.locationId, this.areaId)
+            .pipe(first())
+            .subscribe( _ => {
+              this.notificationService.success("Excluido com sucesso");
+              this.router.navigate(['admin', 'locations', this.locationId])
+            }, error => {
 
-          })
-      }
-    })
+            })
+        }
+      })
+    }
   }
 }
