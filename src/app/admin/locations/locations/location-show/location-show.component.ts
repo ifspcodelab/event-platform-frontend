@@ -93,11 +93,12 @@ export class LocationShowComponent implements OnInit {
     };
   }
 
-  openFormAreaDialog() {
+  openAddFormAreaDialog() {
     const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
     dialogRef.afterClosed().subscribe( areaDto => {
       if(areaDto) {
         this.areasDto = [...this.areasDto, areaDto];
+        this.notificationService.success("Cadastrada com sucesso");
         this.dataSource = new MatTableDataSource<AreaDto>(this.areasDto);
       }
     });

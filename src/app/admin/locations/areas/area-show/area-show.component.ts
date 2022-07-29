@@ -79,11 +79,12 @@ export class AreaShowComponent implements OnInit {
     };
   }
 
-  openFormAreaDialog() {
+  openEditFormAreaDialog() {
     const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
     dialogRef.afterClosed().subscribe( areaDto => {
       if(areaDto) {
         this.areaDto = areaDto;
+        this.notificationService.success("Editada com sucesso");
       }
     });
   }
