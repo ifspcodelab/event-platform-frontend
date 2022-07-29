@@ -1,4 +1,3 @@
-import { SpaceShowComponent } from './../spaces/space-show/space-show.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AreaShowComponent } from './areas/area-show/area-show.component';
@@ -16,7 +15,7 @@ const routes: Routes = [
       { path: ':locationId', component: LocationShowComponent },
       // { path: ':locationId/editar', component: LocationFormComponent },
       { path: ':locationId/areas/:areaId', component: AreaShowComponent },
-      { path: ':locationId/areas/:areaId/spaces/:space.id', component: SpaceShowComponent }
+      // { path: ':locationId/areas/:areaId/spaces/:space.id', component: SpaceShowComponent }
     ]
   }
 ];

@@ -1,5 +1,5 @@
+import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ConfirmationDialogComponent } from './../../../../core/components/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 import { NotificationService } from './../../../../core/services/notification.service';
 import { LocationDto } from './../../../../core/models/location.model';
 import { MatDialog } from '@angular/material/dialog';
