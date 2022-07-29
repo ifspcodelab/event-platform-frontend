@@ -16,9 +16,19 @@ export class JwtService {
     localStorage.setItem('refresh_token', refreshToken);
   }
 
-  removeToken(token: string) {
-    localStorage.removeItem(token);
+  removeAccessToken(accessToken: string) {
+    localStorage.removeItem(accessToken);
   }
+
+  removeRefreshToken(refreshToken: string) {
+    localStorage.removeItem(refreshToken);
+  }
+
+  //TODO: [login] enviar o access token em cada requisição (PR próprio)
+
+  //TODO: rotação transparente de tokens
+  //TODO: verificar se a requisição faz parte de uma lista de endpoints abertos ou fechados (URI e método) (angular interceptors)
+  //TODO: Angular Guard (permissões do usuário no front-end)
 
   decodeToken(token: string) {
     return jwtDecode(token)

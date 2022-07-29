@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "../../../core/services/authentication.service";
 import { first } from "rxjs";
-import { LoginDto } from "../../../core/models/login.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
-import {JwtService} from "../../../core/services/jwtservice.service";
-import {JwtTokensDto} from "../../../core/models/jwt-tokens.model";
+import { JwtService } from "../../../core/services/jwtservice.service";
+import { JwtTokensDto } from "../../../core/models/jwt-tokens.model";
 
 @Component({
   selector: 'app-login',
@@ -15,12 +14,11 @@ import {JwtTokensDto} from "../../../core/models/jwt-tokens.model";
 })
 export class LoginComponent implements OnInit {
   form: FormGroup = this.buildForm();
-  showAuthenticationError: boolean = false;
-  authenticationErrorType: string = '';
   mapAuthenticationErrorType = new Map<string, string>([
-    ["unverified_account", "The account for this email is not yet verified"],
-    ["incorrect_credentials", "Incorrect email or password"]
+    ["The account for this email is not yet verified", "Conta ainda não verificada"],
+    ["Incorrect email or password", "Email ou senha incorretos"]
   ]);
+  errorMessage: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,8 +48,6 @@ export class LoginComponent implements OnInit {
     this.login();
   }
 
-  //TODO: jwtService: setar os tokens no localstorage, decodificações, etc
-
   login() {
     this.authenticationService.postLogin(this.form.value)
       .pipe(first())
@@ -67,15 +63,9 @@ export class LoginComponent implements OnInit {
           },
           error: error => {
             if (error instanceof HttpErrorResponse) {
+              this.errorMessage = this.mapAuthenticationErrorType.get(error.error.title)!;
               console.log("an http error has ocurred");
               console.log(error);
-              this.showAuthenticationError = true;
-              if (error.error.title === this.mapAuthenticationErrorType.get('unverified_account')!) {
-                this.authenticationErrorType = this.mapAuthenticationErrorType.get('unverified_account')!;
-              }
-              if (error.error.title === this.mapAuthenticationErrorType.get('incorrect_credentials')!) {
-                this.authenticationErrorType = this.mapAuthenticationErrorType.get('incorrect_credentials')!;
-              }
             }
           }
         }

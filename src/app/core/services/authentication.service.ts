@@ -3,7 +3,7 @@ import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LoginDto } from "../models/login.model";
 import { Observable } from "rxjs";
-import {JwtTokensDto} from "../models/jwt-tokens.model";
+import { JwtTokensDto } from "../models/jwt-tokens.model";
 
 @Injectable({
   providedIn: 'root'
