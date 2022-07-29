@@ -62,6 +62,18 @@ export class EventShowComponent implements OnInit {
     return this.router.navigate(['admin', 'events']);
   }
 
+  publishEvent() {
+    this.eventService.publishEvent(this.eventId)
+      .pipe(first())
+      .subscribe(
+        eventDto => {
+          this.eventDto = eventDto;
+          this.notificationService.success("Publicado com sucesso");
+        }, error => {
+          this.handleError(error);
+        })
+  }
+
   openSubeventShow(subeventDto: SubeventDto) {
     return this.router.navigate(['admin', 'events', this.eventDto.id, 'sub-events', subeventDto.id]);
   }

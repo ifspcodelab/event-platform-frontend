@@ -42,4 +42,8 @@ export class EventService {
   deleteEvent(eventId: string): Observable<unknown> {
     return this.httpClient.delete<EventDto>(`${this.apiUrl}/${eventId}`, this.httpOptions);
   }
+
+  publishEvent(eventId: string): Observable<EventDto> {
+    return this.httpClient.patch<EventDto>(`${this.apiUrl}/${eventId}/publish`, this.httpOptions);
+  }
 }
