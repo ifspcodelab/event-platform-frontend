@@ -1,6 +1,6 @@
 <div *ngIf="locationDto!=null">
   <header class="header">
-    <div class="header__titlearea">
+    <div class="header__titlecomponent">
       <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
         <mat-icon mat-list-icon (click)="openLocationList()"> arrow_back </mat-icon>
       </button>
@@ -19,8 +19,6 @@
     </mat-list-item>
   </mat-list>
 
-  <mat-divider></mat-divider>
-  <br><br>
 
   <article class="container">
     <header class="container__header">
