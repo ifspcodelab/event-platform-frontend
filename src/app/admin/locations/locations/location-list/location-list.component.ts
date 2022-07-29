@@ -4,6 +4,7 @@ import { LocationService } from 'src/app/core/services/location.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LocationFormComponent } from '../location-form/location-form.component';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-location-list',
@@ -18,6 +19,7 @@ export class LocationListComponent implements OnInit {
 
   constructor(
     private locationService: LocationService,
+    private notificationService: NotificationService,
     private router: Router,
     public dialog: MatDialog
   ) { }
@@ -45,12 +47,13 @@ export class LocationListComponent implements OnInit {
     };
   }
 
-  openFormLocationDialog() {
+  openAddLocationFormDialog() {
     const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfig());
 
     dialogRef.afterClosed().subscribe(locationDto => {
       if (locationDto) {
         this.dataSource = [...this.dataSource, locationDto];
+        this.notificationService.success("Cadastrado com sucesso");
       }
     });
   }

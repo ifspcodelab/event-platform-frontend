@@ -77,12 +77,13 @@ export class LocationShowComponent implements OnInit {
     };
   }
 
-  openFormLocationDialog() {
+  openEditLocationFormDialog() {
     const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfig());
 
     dialogRef.afterClosed().subscribe(locationDto => {
       if (locationDto) {
         this.locationDto = locationDto;
+        this.notificationService.success("Editado com sucesso");
       }
     });
   }
