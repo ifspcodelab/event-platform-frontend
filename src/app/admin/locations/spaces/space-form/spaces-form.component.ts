@@ -10,7 +10,7 @@ import {Violation} from "../../../../core/models/problem-detail";
 import {AppValidators} from "../../../../core/validators/app-validator";
 
 @Component({
-  selector: 'app-spaces-form',
+  selector: 'app-space-form',
   templateUrl: './spaces-form.component.html',
   styleUrls: ['./spaces-form.component.scss']
 })

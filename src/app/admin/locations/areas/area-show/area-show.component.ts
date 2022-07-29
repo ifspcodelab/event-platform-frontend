@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AreaService } from '../../../../core/services/area.service';
 import { AreaDto } from '../../../../core/models/area.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SpacesFormComponent } from "../../spaces/spaces-form/spaces-form.component";
+import { SpacesFormComponent } from "../../spaces/space-form/spaces-form.component";
 import { MatDialog } from "@angular/material/dialog";
 import { NotificationService } from "../../../../core/services/notification.service";
 import { MatSort, Sort } from "@angular/material/sort";
@@ -69,8 +69,8 @@ export class AreaShowComponent implements OnInit {
     const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
     dialogRef.afterClosed().subscribe( spaceDto => {
       if(spaceDto) {
-        this.spacesDto = [...this.spacesDto, spaceDto];
         this.notificationService.success("Cadastrado com sucesso");
+        this.spacesDto = [...this.spacesDto, spaceDto];
       }
     });
   }

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { SpaceService } from "../../../../core/services/space.service";
 import { first } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
-import { SpacesFormComponent } from "../spaces-form/spaces-form.component";
+import { SpacesFormComponent } from "../space-form/spaces-form.component";
 import { NotificationService } from "../../../../core/services/notification.service";
 import {
   ConfirmationDialogComponent
