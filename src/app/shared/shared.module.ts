@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
-import { MatListModule } from '@angular/material/list';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [],
@@ -16,22 +18,24 @@ import { MatIconModule } from "@angular/material/icon";
     CommonModule,
     MatButtonModule,
     MatDialogModule,
-    MatFormFieldModule,
     MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
-    MatTableModule,
     MatListModule,
-    MatIconModule
+    MatTableModule,
+    MatSortModule
   ],
   exports: [
     MatButtonModule,
     MatDialogModule,
-    MatFormFieldModule,
     MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
-    MatTableModule,
     MatListModule,
-    MatIconModule
+    MatTableModule,
+    MatSortModule
   ]
 })
 export class SharedModule { }

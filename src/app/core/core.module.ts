@@ -12,13 +12,14 @@ import { MatButtonModule } from "@angular/material/button";
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
+    MatButtonModule,
     MatDialogModule,
-    MatButtonModule
+    ReactiveFormsModule
   ],
   exports: [
-    ReactiveFormsModule,
-    ConfirmationDialogComponent
+    MatButtonModule,
+    MatDialogModule,
+    ReactiveFormsModule
   ]
 })
 export class CoreModule { }

@@ -10,8 +10,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from "@angular/material/dialog";
 
-
-
 @NgModule({
   declarations: [
     AppComponent
