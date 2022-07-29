@@ -53,9 +53,9 @@
       <button class="container__actions" mat-button color="primary">Novo Subevento</button>
     </header>
 
-    <p *ngIf="!dataSource.length">Nenhum subevento cadastrado</p>
+    <p *ngIf="!subeventsDto.length">Nenhum subevento cadastrado</p>
 
-    <table mat-table [dataSource]="dataSource" *ngIf="dataSource.length" class="container__table">
+    <table mat-table [dataSource]="subeventsDto" *ngIf="subeventsDto.length" class="container__table">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> Título </th>
         <td mat-cell *matCellDef="let element"> {{ element.title }} </td>

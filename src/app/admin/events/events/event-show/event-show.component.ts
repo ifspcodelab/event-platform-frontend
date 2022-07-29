@@ -18,22 +18,21 @@ import { ProblemDetail } from "../../../../core/models/problem-detail";
 })
 export class EventShowComponent implements OnInit {
   displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
-  dataSource: SubeventDto[] = [];
+  subeventsDto: SubeventDto[] = [];
   eventDto: EventDto;
   eventId: string;
 
   constructor(
     private eventService: EventService,
+    private subeventService: SubeventService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog,
-    private subeventService: SubeventService
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('eventId');
-
     this.fetchEvent(this.eventId);
   }
 
@@ -45,16 +44,12 @@ export class EventShowComponent implements OnInit {
           this.eventDto = eventDto;
           this.fetchSubevents(this.eventId);
         }
-      )
+      );
   }
 
   fetchSubevents(eventId: string) {
     this.subeventService.getSubevents(eventId)
-      .subscribe(
-      subevents => {
-        this.dataSource = subevents;
-        console.log(subevents);
-      })
+      .subscribe(subevents => this.subeventsDto = subevents);
   }
 
   openEventList() {
@@ -64,40 +59,37 @@ export class EventShowComponent implements OnInit {
   publishEvent() {
     this.eventService.publishEvent(this.eventId)
       .pipe(first())
-      .subscribe(
-        eventDto => {
+      .subscribe({
+        next: eventDto => {
           this.eventDto = eventDto;
-          this.notificationService.success("Publicado com sucesso");
-        }, error => {
-          this.handleError(error);
-        }
-      )
+          this.notificationService.success("Evento publicado com sucesso");
+        },
+        error: error => this.handleError(error)
+      });
   }
 
   unpublishEvent() {
     this.eventService.unpublishEvent(this.eventId)
       .pipe(first())
-      .subscribe(
-        eventDto => {
+      .subscribe({
+        next: eventDto => {
           this.eventDto = eventDto;
-          this.notificationService.success("Despublicado com sucesso");
-        }, error => {
-          this.handleError(error);
-        }
-      )
+          this.notificationService.success("Evento despublicado com sucesso");
+        },
+        error: error => this.handleError(error)
+      });
   }
 
   cancelEvent() {
     this.eventService.cancelEvent(this.eventId)
       .pipe(first())
-      .subscribe(
-        eventDto => {
+      .subscribe({
+        next: eventDto => {
           this.eventDto = eventDto;
-          this.notificationService.success("Cancelado com sucesso");
-        }, error => {
-          this.handleError(error);
-        }
-      )
+          this.notificationService.success("Evento cancelado com sucesso");
+        },
+        error: error => this.handleError(error)
+      });
   }
 
   openSubeventShow(subeventDto: SubeventDto) {
@@ -117,31 +109,31 @@ export class EventShowComponent implements OnInit {
   }
 
   openDeleteConfirmationDialog() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
-    dialogRef.afterClosed().subscribe( result => {
-      if (result) {
-        this.eventService.deleteEvent(this.eventId)
-          .pipe(first())
-          .subscribe(
-            () => {
-              this.notificationService.success("Excluido com sucesso");
-              this.router.navigate(['admin', 'events'])
-            }, error => {
-              this.handleError(error);
-            }
-          )
-      }
-    })
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfig()).afterClosed()
+      .subscribe( result => {
+        if (result) {
+          this.deleteEvent();
+        }
+      });
+  }
+
+  deleteEvent() {
+    this.eventService.deleteEvent(this.eventId)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.notificationService.success("Excluido com sucesso");
+          this.router.navigate(['admin', 'events'])
+        },
+        error: error => this.handleError(error)
+      });
   }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
       if(error.status === 409) {
-        const problem: ProblemDetail = error.error;
-        console.log(problem);
-        this.notificationService.error(problem.violations[0].message);
+        this.notificationService.error(error.error.violations[0].message);
       }
     }
   }
-
 }

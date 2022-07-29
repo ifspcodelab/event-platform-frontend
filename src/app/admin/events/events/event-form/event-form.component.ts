@@ -141,7 +141,7 @@ export class EventFormComponent implements OnInit {
         error: error => this.handleError(error)
       });
   }
-  
+
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
       if(error.status === 400) {
@@ -155,7 +155,19 @@ export class EventFormComponent implements OnInit {
       }
 
       if(error.status === 409) {
-        this.notificationService.error(error.error.violations[0].message);
+        const problem: ProblemDetail = error.error;
+        if(problem.title === "Resource already exists exception") {
+          // Depois será melhorado
+          const violation = problem.violations[0];
+          if(violation.message.includes("title")) {
+            this.form.get("title").setErrors({ serverError: 'Já existe um evento com esse título' });
+          }
+          if(violation.message.includes("slug")) {
+            this.form.get("slug").setErrors({ serverError: 'Já existe um evento com esse slug' });
+          }
+        } else {
+          this.notificationService.error(problem.violations[0].message);
+        }
       }
     }
   }
