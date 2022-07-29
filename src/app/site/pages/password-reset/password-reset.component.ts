@@ -15,15 +15,10 @@ export class PasswordResetComponent implements OnInit {
   submitted: boolean = false;
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private fb: FormBuilder,
               private service: PasswordResetService,
               private route: ActivatedRoute) {
-    this.form = this.formBuilder.group({
-      password: ["", Validators.required],
-      confirmPassword: ["", Validators.required,
-                            Validators.minLength(8),
-                            Validators.maxLength(64),]
-    });
+    this.form = this.buildForm();
   }
 
   ngOnInit(): void {
@@ -48,12 +43,21 @@ export class PasswordResetComponent implements OnInit {
     return this.form.value['password'] === this.form.value['confirmPassword'];
   }
 
-  get password(){
-    return this.form.get('password');
+  field(path: string) {
+    return this.form.get(path)!;
   }
 
-  get confirmPassword(){
-    return this.form.get('confirmPassword')
+  fieldErrors(path: string) {
+    return this.field(path)?.errors;
+  }
+
+
+  buildForm(): FormGroup{
+    return this.form = this.fb.group({
+      password: ["",
+        [Validators.required, Validators.minLength(8), Validators.maxLength(64),]],
+      confirmPassword: [""]
+    });
   }
 }
 

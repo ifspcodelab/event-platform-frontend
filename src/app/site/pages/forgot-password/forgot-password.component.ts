@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PasswordResetService } from "../../../core/services/password-reset.service";
+import {ForgotPasswordCreateDto} from "../../../core/models/forgot-password-create-dto.model";
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,42 +10,49 @@ import { PasswordResetService } from "../../../core/services/password-reset.serv
 })
 export class ForgotPasswordComponent implements OnInit {
   submitted: boolean = false;
-  isFormValid: boolean = false;
+  userCaptcha: string | undefined;
   form: FormGroup;
-  captcha: string;
 
   constructor(
     private fb: FormBuilder,
-    private service: PasswordResetService
+    private service: PasswordResetService,
+    private renderer: Renderer2
   ) {
     this.form = this.buildForm();
-    this.captcha = '';
+    this.userCaptcha = '';
   }
 
   ngOnInit(): void {
-  }
-
-  onNext(){
-    this.submitted = true;
-    if(this.form.invalid){
-      return;
-    }
-    this.isFormValid = true;
+    let script = this.renderer.createElement('script');
+    script.defer = true;
+    script.async = true;
+    script.src="https://www.google.com/recaptcha/api.js";
+    this.renderer.appendChild(document.body, script);
   }
 
   onSubmit() {
-
-    if (this.captcha !== ''){
-
-      this.service.sendResetPasswordRequest(this.form.value).subscribe(()=>{
+    this.submitted = true;
+    if(this.form.invalid || this.userCaptcha == ''){
+      console.log(this.userCaptcha);
+      return;
+    }
+      const forgotPasswordRequest = new ForgotPasswordCreateDto(this.form.value['email'], this.userCaptcha!);
+      this.service.sendResetPasswordRequest(forgotPasswordRequest).subscribe(()=>{
 
           this.form.reset();
           this.submitted = false;
           alert("Um link para recuperação sera enviado no email informado.")
         }
       );
-    }
 
+  }
+
+  emailErrors() {
+    return this.form.get('email')?.errors;
+  }
+
+  resolved(captchaResponse: string): void {
+    this.userCaptcha = captchaResponse;
   }
 
   buildForm(): FormGroup{
@@ -52,14 +60,5 @@ export class ForgotPasswordComponent implements OnInit {
       email: ["",
         [Validators.required, Validators.email, Validators.maxLength(349)]]
     });
-  }
-
-  emailErrors() {
-    return this.form.get('email')?.errors;
-  }
-
-  resolved(captchaResponse: string){
-      this.captcha = captchaResponse;
-      console.log('captcha: ' + this.captcha);
   }
 }

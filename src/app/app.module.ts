@@ -6,9 +6,7 @@ import { AppComponent } from './app.component';
 import { SiteModule } from './site/site.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
-import {RecaptchaModule} from "ng-recaptcha";
-
-
+import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
 
 @NgModule({
   declarations: [
@@ -19,8 +17,9 @@ import {RecaptchaModule} from "ng-recaptcha";
     AppRoutingModule,
     SiteModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     RecaptchaModule,
-    HttpClientModule
+    RecaptchaFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

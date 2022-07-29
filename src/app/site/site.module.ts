@@ -12,7 +12,6 @@ import { PasswordResetComponent } from './pages/password-reset/password-reset.co
 import {RecaptchaModule} from "ng-recaptcha";
 
 
-
 @NgModule({
   declarations: [
     HomeComponent,
@@ -20,15 +19,15 @@ import {RecaptchaModule} from "ng-recaptcha";
     ForgotPasswordComponent,
     PasswordResetComponent
   ],
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        FormsModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        RecaptchaModule
-    ]
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    FormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    RecaptchaModule
+  ]
 })
 export class SiteModule { }
