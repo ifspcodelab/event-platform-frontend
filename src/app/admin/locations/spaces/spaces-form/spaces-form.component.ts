@@ -1,13 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { SpaceService } from "../../../../core/services/space.service";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { first } from "rxjs";
-import { SpaceType } from "../../../../core/models/spaceType.model";
-import { SpaceDto } from "../../../../core/models/space.model";
-import { HttpErrorResponse } from "@angular/common/http";
-import { Violation } from "../../../../core/models/problem-detail";
-import { AppValidators } from "../../../../core/validators/app-validator";
+import {Component, Inject, OnInit} from '@angular/core';
+import {SpaceService} from "../../../../core/services/space.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {first} from "rxjs";
+import {SpaceType} from "../../../../core/models/spaceType.model";
+import {SpaceDto} from "../../../../core/models/space.model";
+import {HttpErrorResponse} from "@angular/common/http";
+import {Violation} from "../../../../core/models/problem-detail";
+import {AppValidators} from "../../../../core/validators/app-validator";
 
 @Component({
   selector: 'app-spaces-form',
@@ -28,18 +28,16 @@ export class SpacesFormComponent implements OnInit {
     private dialogRef: MatDialogRef<SpacesFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { locationId: string, areaId: string, spaceDto: SpaceDto }
   ) {
-    this.enumKeys=Object.keys(this.spaceType);
+    this.enumKeys = Object.keys(this.spaceType);
   }
 
   ngOnInit(): void {
-    if(this.data.spaceDto) {
+    if (this.data.spaceDto) {
       this.createMode = false;
       this.form.patchValue(this.data.spaceDto);
-    }
-    else {
+    } else {
       this.createMode = true;
     }
-    console.log(this.data);
   }
 
   buildForm(): FormGroup {
@@ -57,11 +55,10 @@ export class SpacesFormComponent implements OnInit {
     }
     if (this.createMode) {
       this.createSpace();
+    } else {
+      this.updateSpace();
     }
-  else {
-    this.updateSpace();
   }
-}
 
   field(path: string) {
     return this.form.get(path)!;
@@ -72,13 +69,13 @@ export class SpacesFormComponent implements OnInit {
   }
 
   handleError(error: any) {
-    if(error instanceof HttpErrorResponse) {
-      if(error.status === 400) {
+    if (error instanceof HttpErrorResponse) {
+      if (error.status === 400) {
         const violations: Violation[] = error.error;
         violations.forEach(violation => {
           const formControl = this.form.get(violation.name);
-          if(formControl) {
-            formControl.setErrors({ serverError: violation.message });
+          if (formControl) {
+            formControl.setErrors({serverError: violation.message});
           }
         })
       }
@@ -89,7 +86,14 @@ export class SpacesFormComponent implements OnInit {
     if (this.form) {
       this.spaceService.postSpace(this.data.locationId, this.data.areaId, this.form.value)
         .pipe(first())
-        .subscribe(spaceDto => this.dialogRef.close(spaceDto))
+        .subscribe(
+          spaceDto => {
+            if (spaceDto) {
+              this.dialogRef.close(spaceDto)
+            }
+          },
+          error => this.handleError(error)
+        )
     }
   }
 
@@ -99,6 +103,7 @@ export class SpacesFormComponent implements OnInit {
         if (spaceDto) {
           this.dialogRef.close(spaceDto)
         }
-      })
+      },
+        error => this.handleError(error))
   }
 }
