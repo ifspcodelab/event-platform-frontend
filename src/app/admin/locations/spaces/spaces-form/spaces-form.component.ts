@@ -46,7 +46,7 @@ export class SpacesFormComponent implements OnInit {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100), AppValidators.notBlank]],
       capacity: ['', [Validators.required, Validators.min(2), Validators.max(9999), AppValidators.numeric]],
-      type: ['', [Validators.required, AppValidators.notBlank]]
+      type: ['', [Validators.required]]
     });
   }
 

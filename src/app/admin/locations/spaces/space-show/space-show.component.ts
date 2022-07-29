@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SpaceDto } from "../../../../core/models/space.model";
-import {ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SpaceService } from "../../../../core/services/space.service";
 import { first } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { SpacesFormComponent } from "../spaces-form/spaces-form.component";
-import {NotificationService} from "../../../../core/services/notification.service";
+import { NotificationService } from "../../../../core/services/notification.service";
 import {
   ConfirmationDialogComponent
 } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
