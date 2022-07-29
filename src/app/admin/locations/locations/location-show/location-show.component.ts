@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmationDialogComponent } from './../../../../core/components/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 import { NotificationService } from './../../../../core/services/notification.service';
 import { LocationFormComponent } from './../location-form/location-form.component';
@@ -13,8 +14,6 @@ import { first } from "rxjs/operators";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from "@angular/material/sort";
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-
-
 
 @Component({
   selector: 'app-location-show',
@@ -49,12 +48,11 @@ export class LocationShowComponent implements OnInit {
   fetchLocation(locationId: string) {
     this.locationService.getLocationById(locationId)
       .pipe(first())
-      .subscribe(
-        locationDto => {
+      .subscribe(locationDto => {
           this.locationDto = locationDto;
           this.fetchAreas(locationId);
         }
-      )
+      );
   }
 
   fetchAreas(locationId: string) {
@@ -71,18 +69,18 @@ export class LocationShowComponent implements OnInit {
   }
 
   openAreaShow(areaDto: AreaDto) {
-    console.log(areaDto);
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
 
   openEditLocationFormDialog() {
-    const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfigLocation());
-    dialogRef.afterClosed().subscribe(locationDto => {
-      if (locationDto) {
-        this.locationDto = locationDto;
-        this.notificationService.success("Editado com sucesso");
-      }
-    });
+    this.dialog.open(LocationFormComponent, this.getDialogConfigLocation())
+      .afterClosed()
+      .subscribe(locationDto => {
+        if(locationDto) {
+          this.locationDto = locationDto;
+          this.notificationService.success("Local editado com sucesso");
+        }
+      });
   }
 
   private getConfirmationDialogConfig() {
@@ -116,53 +114,64 @@ export class LocationShowComponent implements OnInit {
     };
   }
 
-  openAddFormAreaDialog() {
-    const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
-    dialogRef.afterClosed().subscribe( areaDto => {
-      if(areaDto) {
-        this.areasDto = [...this.areasDto, areaDto];
-        this.notificationService.success("Cadastrada com sucesso");
-        this.dataSource = new MatTableDataSource<AreaDto>(this.areasDto);
-      }
-    });
+  openAddAreaFormDialog() {
+    this.dialog.open(AreaFormComponent, this.getDialogConfigArea())
+      .afterClosed()
+      .subscribe(areaDto => {
+        if(areaDto) {
+          this.areasDto = [...this.areasDto, areaDto];
+          this.notificationService.success("Área cadastrada com sucesso");
+          this.dataSource = new MatTableDataSource<AreaDto>(this.areasDto);
+        }
+      });
   }
 
   openFormLocationDialog() {
-    const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfigLocation());
-
-    dialogRef.afterClosed().subscribe(locationDto => {
-      if (locationDto) {
-        this.locationDto = locationDto;
-      }
-    });
+    this.dialog.open(LocationFormComponent, this.getDialogConfigLocation())
+      .afterClosed()
+      .subscribe(locationDto => {
+        if(locationDto) {
+          this.locationDto = locationDto;
+        }
+      });
   }
 
   openDeleteConfirmationDialog() {
     if(this.areasDto.length != 0) {
       this.notificationService.error('Não é possível deletar um local com área associada');
+    } else {
+      this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig())
+        .afterClosed()
+        .subscribe(result => this.deleteLocation(result));
     }
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
-    dialogRef.afterClosed().subscribe( result => {
-      if (result) {
-        this.locationService.deleteLocation(this.locationId)
-          .pipe(first())
-          .subscribe( _ => {
-            this.notificationService.success("Excluído com sucesso");
-            this.router.navigate(['admin', 'locations'])
-          }, error => {
+  }
 
-        })
-      }
-    })
+  deleteLocation(result: any) {
+    if(result) {
+      this.locationService.deleteLocation(this.locationId)
+        .pipe(first())
+        .subscribe({
+          next: _ => {
+            this.notificationService.success("Local excluído com sucesso");
+            this.router.navigate(['admin', 'locations'])
+          },
+          error: error => {
+            if(error instanceof HttpErrorResponse) {
+              if(error.status === 409) {
+                this.notificationService.error("Não é possível deletar um local com área associada");
+              }
+            }
+          }
+        });
+    }
   }
 
   announceSortChange(sort: Sort) {
     this.dataSource.sort = this.sort;
-
     if (sort.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sort.direction}ending`);
+      this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
     } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      this._liveAnnouncer.announce('Ordenação removida');
     }
   }
 }

@@ -26,14 +26,11 @@ export class LocationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.locationService.getLocations().subscribe(
-      locations => {
-        this.locationsDto = locations;
-      }
+      locations => this.locationsDto = locations
     )
   }
 
   openLocationShow(locationDto: LocationDto) {
-    console.log(locationDto);
     this.router.navigate(['admin', 'locations', locationDto.id]);
   }
 
@@ -48,12 +45,13 @@ export class LocationListComponent implements OnInit {
 
   openAddLocationFormDialog() {
     const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfig());
-
-    dialogRef.afterClosed().subscribe(locationDto => {
-      if (locationDto) {
-        this.locationsDto = [...this.locationsDto, locationDto];
-        this.notificationService.success("Cadastrado com sucesso");
+    dialogRef.afterClosed().subscribe(
+      locationDto => {
+        if (locationDto) {
+          this.locationsDto = [...this.locationsDto, locationDto];
+          this.notificationService.success("Cadastrado com sucesso");
+        }
       }
-    });
+    );
   }
 }

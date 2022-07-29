@@ -15,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./area-form.component.scss']
 })
 export class AreaFormComponent implements OnInit {
-  form: FormGroup = this.buildForm();
+  form: FormGroup;
   submitted: boolean = false;
   createMode: boolean;
 
@@ -27,6 +27,8 @@ export class AreaFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.form = this.buildForm();
+
     if(this.data.areaDto) {
       this.createMode = false;
       this.form.patchValue(this.data.areaDto);
@@ -34,68 +36,49 @@ export class AreaFormComponent implements OnInit {
     else {
       this.createMode = true;
     }
-    console.log(this.data);
   }
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(4), Validators.maxLength(80)]],
-      // reference: ['']
+      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(80), AppValidators.notBlank]],
       reference: ['', [AppValidators.optional({ minLength: 4, maxLength: 150 })]]
     });
   }
 
   onSubmit() {
     this.submitted = true;
+
     if(this.form.invalid) {
       return;
     }
+
     if(this.form.value.reference.trim() == '') {
       this.form.value.reference = null;
     }
+
     if(this.createMode) {
       this.createArea();
-    }
-    else {
+    } else {
       this.updateArea();
     }
   }
 
   createArea() {
-    if(this.form) {
-      this.areaService.postArea(this.data.locationId, this.form.value)
+    this.areaService.postArea(this.data.locationId, this.form.value)
       .pipe(first())
-      .subscribe(
-        areaDto => {
-          if(areaDto) {
-            this.dialogRef.close(areaDto)
-          }
-        },
-        error => this.handleError(error)
-      )
-    }
+      .subscribe({
+        next: areaDto => this.dialogRef.close(areaDto),
+        error: error => this.handleError(error)
+      });
   }
 
   updateArea() {
     this.areaService.putArea(this.data.locationId, this.data.areaDto.id, this.form.value)
-    .subscribe( areaDto => {
-      if(areaDto) {
-        this.dialogRef.close(areaDto)
-      }
-    })
+      .subscribe({
+        next: areaDto => this.dialogRef.close(areaDto),
+        error: error => this.handleError(error)
+      });
   }
-
-  field(path: string) {
-    return this.form.get(path)!;
-  }
-
-  fieldErrors(path: string) {
-    return this.field(path).errors;
-  }
-
-  // containsError(path: string, validationType: string) {
-  //   return this.form.get(path)!.errors[validationType];
-  // }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
@@ -108,10 +91,19 @@ export class AreaFormComponent implements OnInit {
           }
         })
       }
+
       if(error.status === 409) {
         const nameField = this.field('name');
         nameField.setErrors({ serverError: `Área já existente com nome ${nameField.value}` })
       }
     }
+  }
+
+  field(path: string) {
+    return this.form.get(path)!;
+  }
+
+  fieldErrors(path: string) {
+    return this.field(path).errors;
   }
 }

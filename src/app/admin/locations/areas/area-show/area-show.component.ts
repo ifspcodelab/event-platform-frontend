@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmationDialogComponent } from './../../../../core/components/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 import { NotificationService } from './../../../../core/services/notification.service';
 import { LocationDto } from './../../../../core/models/location.model';
@@ -21,9 +22,8 @@ export class AreaShowComponent implements OnInit {
   areaId: string;
   areaDto: AreaDto;
   areasDto: AreaDto[];
-  spacesDto: SpaceDto[];
+  spacesDto: SpaceDto[] = [];
   displayedColumns: string[] = ['name', 'capacity', 'type'];
-
 
   constructor(
     private areaService: AreaService,
@@ -48,17 +48,13 @@ export class AreaShowComponent implements OnInit {
           this.areaDto = areaDto;
           this.fetchSpaces(locationId, areaId)
         }
-      )
+      );
   }
 
   fetchSpaces(locationId: string, areaId: string) {
     this.spaceService.getSpaces(locationId, areaId)
       .pipe(first())
-      .subscribe(
-        spacesDto => {
-          this.spacesDto = spacesDto;
-        }
-      )
+      .subscribe(spacesDto => this.spacesDto = spacesDto);
   }
 
   openLocationShow() {
@@ -79,14 +75,15 @@ export class AreaShowComponent implements OnInit {
     };
   }
 
-  openEditFormAreaDialog() {
+  openEditAreaFormDialog() {
     const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
-    dialogRef.afterClosed().subscribe( areaDto => {
-      if(areaDto) {
-        this.areaDto = areaDto;
-        this.notificationService.success("Editada com sucesso");
-      }
-    });
+    dialogRef.afterClosed()
+      .subscribe(areaDto => {
+        if(areaDto) {
+          this.areaDto = areaDto;
+          this.notificationService.success("Editada com sucesso");
+        }
+      });
   }
 
   private getConfirmationDialogConfig() {
@@ -104,21 +101,30 @@ export class AreaShowComponent implements OnInit {
   openDeleteConfirmationDialog() {
     if(this.spacesDto.length != 0) {
       this.notificationService.error('Não é possível deletar uma área com espaço associado');
+    } else {
+      this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig())
+        .afterClosed()
+        .subscribe(result => this.deleteArea(result));
     }
-    else {
-      const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
-      dialogRef.afterClosed().subscribe( result => {
-        if (result) {
-          this.areaService.deleteArea(this.locationId, this.areaId)
-            .pipe(first())
-            .subscribe( _ => {
-              this.notificationService.success("Excluido com sucesso");
-              this.router.navigate(['admin', 'locations', this.locationId])
-            }, error => {
+  }
 
-            })
-        }
-      })
+  deleteArea(result: any) {
+    if(result) {
+      this.areaService.deleteArea(this.locationId, this.areaId)
+        .pipe(first())
+        .subscribe({
+          next: _ => {
+            this.notificationService.success("Área excluída com sucesso");
+            this.router.navigate(['admin', 'locations', this.locationId])
+          },
+          error: error => {
+            if(error instanceof HttpErrorResponse) {
+              if(error.status === 409) {
+                this.notificationService.error("Não é possível deletar uma área com espaço associado");
+              }
+            }
+          }
+        });
     }
   }
 }

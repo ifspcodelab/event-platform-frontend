@@ -1,22 +1,22 @@
 <header class="header">
   <div class="header__titlecomponent">
-    <h2 class="header__title"> Locais </h2>
+    <h2 class="header__title">Locais</h2>
   </div>
   <div class="header__actions">
-    <button mat-button color="primary" (click)="openAddLocationFormDialog()"> Novo Local </button>
+    <button mat-button color="primary" (click)="openAddLocationFormDialog()">Novo Local</button>
   </div>
 </header>
 
 <article class="container">
   <table class="container__table" mat-table [dataSource]="locationsDto">
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Nome </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
     <ng-container matColumnDef="address">
-      <th mat-header-cell *matHeaderCellDef> Endereço </th>
-      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+      <th mat-header-cell *matHeaderCellDef>Endereço</th>
+      <td mat-cell *matCellDef="let element">{{ element.address }}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
