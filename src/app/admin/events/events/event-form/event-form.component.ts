@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { EventService } from "../../../../core/services/event.service";
 import { first } from "rxjs";
-import { ActivatedRoute, Router} from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AppValidators} from "../../../../core/validators/app-validator";
 import { EventDto } from "../../../../core/models/event.model";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -15,7 +15,7 @@ import { NotificationService } from "../../../../core/services/notification.serv
   styleUrls: ['./event-form.component.scss']
 })
 export class EventFormComponent implements OnInit {
-  form: FormGroup = this.buildForm();
+  form: FormGroup;
   submitted: boolean = false;
   createMode: boolean;
   eventId: string;
@@ -30,6 +30,7 @@ export class EventFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.form = this.buildForm();
     this.eventId = this.route.snapshot.paramMap.get('eventId');
 
     if(this.eventId) {
@@ -51,14 +52,6 @@ export class EventFormComponent implements OnInit {
       );
   }
 
-  field(path: string) {
-    return this.form.get(path)!;
-  }
-
-  fieldErrors(path: string) {
-    return this.field(path)?.errors;
-  }
-
   private buildForm() {
     return this.formBuilder.group({
       title: ['',
@@ -69,9 +62,7 @@ export class EventFormComponent implements OnInit {
           Validators.maxLength(50)
         ]
       ],
-      slug: ['',
-        [Validators.required, AppValidators.notBlank]
-      ],
+      slug: ['', [Validators.required, AppValidators.notBlank]],
       summary: ['',
         [
           Validators.required,
@@ -98,14 +89,16 @@ export class EventFormComponent implements OnInit {
       }),
       smallerImage: [''],
       biggerImage: ['']
-    })
+    });
   }
 
   onSubmit() {
     this.submitted = true;
+
     if(this.form.invalid) {
       return;
     }
+
     if(this.createMode) {
       this.createEvent();
     } else {
@@ -125,70 +118,53 @@ export class EventFormComponent implements OnInit {
     if(this.form) {
       this.eventService.postEvent(this.form.value)
         .pipe(first())
-        .subscribe(eventDto => {
-          console.log(eventDto);
-          this.notificationService.success("Cadastrado com sucesso");
-          this.router.navigate(['admin', 'events', eventDto.id]);
-        },
-          error => this.handleError(error)
-        );
+        .subscribe({
+          next: eventDto => {
+            this.notificationService.success("Cadastrado com sucesso");
+            this.router.navigate(['admin', 'events', eventDto.id]);
+          },
+          error: error => this.handleError(error)
+        });
     }
   }
 
   updateEvent() {
     this.eventService.putEvent(this.eventId, this.form.value)
       .pipe(first())
-      .subscribe(eventDto => {
-        if(eventDto) {
-          console.log(eventDto);
-          this.notificationService.success("Editado com sucesso");
-          this.router.navigate(['admin', 'events', eventDto.id]);
-        }
-      },
-        error => this.handleError(error)
-      );
+      .subscribe({
+        next: eventDto => {
+          if(eventDto) {
+            this.notificationService.success("Editado com sucesso");
+            this.router.navigate(['admin', 'events', eventDto.id]);
+          }
+        },
+        error: error => this.handleError(error)
+      });
   }
-
+  
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
-      console.log(error);
       if(error.status === 400) {
         const violations: Violation[] = error.error;
         violations.forEach(violation => {
           const formControl = this.form.get(violation.name);
           if(formControl) {
-            formControl.setErrors({
-              serverError: violation.message
-            });
-            console.log(formControl);
+            formControl.setErrors({ serverError: violation.message });
           }
         })
       }
 
       if(error.status === 409) {
-        const problem: ProblemDetail = error.error;
-        this.notificationService.error(problem.violations[0].message);
+        this.notificationService.error(error.error.violations[0].message);
       }
     }
   }
 
-  // base64Output: string;
-  //
-  // onSmallerImageChange(event: any) {
-  //   console.log(event)
-  //   this.convertFile(event.target.files[0])
-  //     .subscribe(base64 => {
-  //       this.base64Output = base64;
-  //       console.log(this.base64Output);
-  //     });
-  // }
-  //
-  // convertFile(file : File) : Observable<string> {
-  //   const result = new ReplaySubject<string>(1);
-  //   const reader = new FileReader();
-  //   reader.readAsBinaryString(file);
-  //   reader.onload = (event) => result.next(btoa(event.target.result.toString()));
-  //   return result;
-  // }
+  field(path: string) {
+    return this.form.get(path)!;
+  }
 
+  fieldErrors(path: string) {
+    return this.field(path)?.errors;
+  }
 }
