@@ -1,13 +1,13 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {SpaceService} from "../../../../core/services/space.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {first} from "rxjs";
-import {SpaceType} from "../../../../core/models/spaceType.model";
-import {SpaceDto} from "../../../../core/models/space.model";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Violation} from "../../../../core/models/problem-detail";
-import {AppValidators} from "../../../../core/validators/app-validator";
+import { Component, Inject, OnInit } from '@angular/core';
+import { SpaceService } from "../../../../core/services/space.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { first } from "rxjs";
+import { SpaceType } from "../../../../core/models/spaceType.model";
+import { SpaceDto } from "../../../../core/models/space.model";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Violation } from "../../../../core/models/problem-detail";
+import { AppValidators } from "../../../../core/validators/app-validator";
 
 @Component({
   selector: 'app-space-form',
@@ -86,14 +86,12 @@ export class SpacesFormComponent implements OnInit {
     if (this.form) {
       this.spaceService.postSpace(this.data.locationId, this.data.areaId, this.form.value)
         .pipe(first())
-        .subscribe(
-          spaceDto => {
+        .subscribe(spaceDto => {
             if (spaceDto) {
               this.dialogRef.close(spaceDto)
             }
           },
-          error => this.handleError(error)
-        )
+          error => this.handleError(error))
     }
   }
 

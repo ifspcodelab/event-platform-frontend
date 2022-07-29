@@ -1,4 +1,4 @@
-import {SpaceType} from "./spaceType.model";
+import { SpaceType } from "./spaceType.model";
 
 export interface SpaceDto {
   id: string;

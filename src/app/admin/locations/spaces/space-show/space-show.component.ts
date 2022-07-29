@@ -6,16 +6,14 @@ import { first } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { SpacesFormComponent } from "../space-form/spaces-form.component";
 import { NotificationService } from "../../../../core/services/notification.service";
-import {
-  ConfirmationDialogComponent
-} from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
-
+import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 
 @Component({
   selector: 'app-space-show',
   templateUrl: './space-show.component.html',
   styleUrls: ['./space-show.component.scss']
 })
+
 export class SpaceShowComponent implements OnInit {
   locationId: string;
   areaId: string;
@@ -94,10 +92,8 @@ export class SpaceShowComponent implements OnInit {
             this.notificationService.success("Excluido com sucesso");
             this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId])
           }, error => {
-
           })
       }
     })
-
   }
 }

@@ -35,7 +35,8 @@ export class AreaShowComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
     private _liveAnnouncer: LiveAnnouncer
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.locationId = this.route.snapshot.paramMap.get('locationId');
@@ -67,10 +68,11 @@ export class AreaShowComponent implements OnInit {
 
   openAddSpaceFormDialog() {
     const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
-    dialogRef.afterClosed().subscribe( spaceDto => {
-      if(spaceDto) {
+    dialogRef.afterClosed().subscribe(spaceDto => {
+      if (spaceDto) {
         this.notificationService.success("Cadastrado com sucesso");
         this.spacesDto = [...this.spacesDto, spaceDto];
+        this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
       }
     });
   }
