@@ -127,6 +127,7 @@ export class EventFormComponent implements OnInit {
         .pipe(first())
         .subscribe(eventDto => {
           console.log(eventDto);
+          this.notificationService.success("Cadastrado com sucesso");
           this.router.navigate(['admin', 'events', eventDto.id]);
         },
           error => this.handleError(error)
@@ -140,6 +141,7 @@ export class EventFormComponent implements OnInit {
       .subscribe(eventDto => {
         if(eventDto) {
           console.log(eventDto);
+          this.notificationService.success("Editado com sucesso");
           this.router.navigate(['admin', 'events', eventDto.id]);
         }
       },
