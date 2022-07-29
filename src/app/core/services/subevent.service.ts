@@ -33,10 +33,13 @@ export class SubeventService {
 
   putSubevent(eventId: string, subeventCreateDto: SubeventCreateDto, subeventId: string): Observable<SubeventDto> {
     return this.httpClient.put<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}`, subeventCreateDto, this.httpOptions);
-
   }
 
   deleteSubevent(eventId: string, subeventId: string): Observable<unknown> {
     return this.httpClient.delete<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}`, this.httpOptions);
+  }
+
+  publishSubevent(eventId: string, subeventId: string): Observable<SubeventDto> {
+    return this.httpClient.patch<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/publish`, this.httpOptions);
   }
 }

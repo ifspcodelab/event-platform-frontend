@@ -49,6 +49,20 @@ export class SubeventShowComponent implements OnInit {
     return this.router.navigate(['admin', 'events', this.eventId]);
   }
 
+  publishSubevent() {
+    this.subeventService.publishSubevent(this.eventId, this.subeventId)
+      .pipe(first())
+      .subscribe(
+        subeventDto => {
+          this.subeventDto = subeventDto
+          this.notificationService.success("Publicado com sucesso");
+        },
+        error =>  {
+          this.handleError(error);
+        }
+      );
+  }
+
   private getConfirmationDialogConfig() {
     return {
       autoFocus: true,
@@ -68,7 +82,7 @@ export class SubeventShowComponent implements OnInit {
         this.subeventService.deleteSubevent(this.eventId, this.subeventId)
           .pipe(first())
           .subscribe( () => {
-            this.notificationService.success("Excluido com sucesso");
+            this.notificationService.success("Excluído com sucesso");
             this.router.navigate(['admin', 'events', this.eventId])
           }, error => {
             this.handleError(error);
