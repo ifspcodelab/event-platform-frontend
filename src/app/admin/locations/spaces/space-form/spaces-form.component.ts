@@ -79,6 +79,10 @@ export class SpacesFormComponent implements OnInit {
           }
         })
       }
+      if(error.status === 409) {
+        const nameField = this.field('name');
+        nameField.setErrors({ serverError: `Área já existente com nome ${nameField.value}` })
+      }
     }
   }
 
