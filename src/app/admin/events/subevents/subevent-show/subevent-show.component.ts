@@ -45,6 +45,10 @@ export class SubeventShowComponent implements OnInit {
       )
   }
 
+  openEventShow() {
+    return this.router.navigate(['admin', 'events', this.eventId]);
+  }
+
   private getConfirmationDialogConfig() {
     return {
       autoFocus: true,
@@ -65,7 +69,7 @@ export class SubeventShowComponent implements OnInit {
           .pipe(first())
           .subscribe( () => {
             this.notificationService.success("Excluido com sucesso");
-            this.router.navigate(['admin', 'events'])
+            this.router.navigate(['admin', 'events', this.eventId])
           }, error => {
             this.handleError(error);
           })

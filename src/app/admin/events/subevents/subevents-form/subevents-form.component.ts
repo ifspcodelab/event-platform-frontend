@@ -90,7 +90,7 @@ export class SubeventsFormComponent implements OnInit {
         .subscribe(
           subeventDto => {
             if(subeventDto) {
-              this.router.navigate(['admin', 'events', this.eventId, 'sub-events',subeventDto.id]);
+              this.router.navigate(['admin', 'events', this.eventId, 'sub-events', subeventDto.id]);
               console.log(subeventDto)
             }
           },
@@ -104,7 +104,7 @@ export class SubeventsFormComponent implements OnInit {
         .subscribe(
           subeventDto => {
             if(subeventDto) {
-              this.router.navigate(['admin', 'events', this.eventId, 'sub-events',subeventDto.id]);
+              this.router.navigate(['admin', 'events', this.eventId, 'sub-events', subeventDto.id]);
               console.log(subeventDto)
             }
           },
