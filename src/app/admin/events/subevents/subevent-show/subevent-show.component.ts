@@ -77,6 +77,20 @@ export class SubeventShowComponent implements OnInit {
       );
   }
 
+  cancelSubevent() {
+    this.subeventService.cancelSubevent(this.eventId, this.subeventId)
+      .pipe(first())
+      .subscribe(
+        subeventDto => {
+          this.subeventDto = subeventDto
+          this.notificationService.success("Cancelado com sucesso");
+        },
+        error =>  {
+          this.handleError(error);
+        }
+      );
+  }
+
   private getConfirmationDialogConfig() {
     return {
       autoFocus: true,

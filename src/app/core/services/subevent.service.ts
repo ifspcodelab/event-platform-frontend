@@ -46,4 +46,8 @@ export class SubeventService {
   unpublishSubevent(eventId: string, subeventId: string): Observable<SubeventDto> {
     return this.httpClient.patch<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/unpublish`, this.httpOptions);
   }
+
+  cancelSubevent(eventId: string, subeventId: string): Observable<SubeventDto> {
+    return this.httpClient.patch<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/cancel`, this.httpOptions);
+  }
 }
