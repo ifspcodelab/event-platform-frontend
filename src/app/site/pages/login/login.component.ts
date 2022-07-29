@@ -14,6 +14,11 @@ import { Router } from "@angular/router";
 export class LoginComponent implements OnInit {
   form: FormGroup = this.buildForm();
   showAuthenticationError: boolean = false;
+  authenticationErrorType: string = '';
+  mapAuthenticationErrorType = new Map<string, string>([
+    ["unverified_account", "The account for this email is not yet verified"],
+    ["incorrect_credentials", "Incorrect email or password"]
+  ]);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -55,8 +60,14 @@ export class LoginComponent implements OnInit {
           },
           error: error => {
             if (error instanceof HttpErrorResponse) {
-              if (error.status === 409) {
-                this.showAuthenticationError = true;
+              console.log("an http error has ocurred");
+              console.log(error);
+              this.showAuthenticationError = true;
+              if (error.error.title === this.mapAuthenticationErrorType.get('unverified_account')!) {
+                this.authenticationErrorType = this.mapAuthenticationErrorType.get('unverified_account')!;
+              }
+              if (error.error.title === this.mapAuthenticationErrorType.get('incorrect_credentials')!) {
+                this.authenticationErrorType = this.mapAuthenticationErrorType.get('incorrect_credentials')!;
               }
             }
           }

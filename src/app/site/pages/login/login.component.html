@@ -15,7 +15,8 @@
     <p *ngIf="password.errors?.['maxlength']">Campo senha deve ter no máximo 64 caracteres</p>
   </div>
   <div *ngIf="showAuthenticationError">
-    <p id="error-field">Email ou senha incorretos</p>
+    <p *ngIf="authenticationErrorType === mapAuthenticationErrorType.get('unverified_account')">Conta ainda não verificada</p>
+    <p *ngIf="authenticationErrorType === mapAuthenticationErrorType.get('incorrect_credentials')">Email ou senha incorretos</p>
   </div>
   <br>
 <!--  TODO: recaptcha -->
