@@ -90,6 +90,7 @@ export class SubeventsFormComponent implements OnInit {
         .subscribe(
           subeventDto => {
             if(subeventDto) {
+              this.notificationService.success('Cadastrado com sucesso');
               this.router.navigate(['admin', 'events', this.eventId, 'sub-events', subeventDto.id]);
               console.log(subeventDto)
             }
@@ -104,8 +105,8 @@ export class SubeventsFormComponent implements OnInit {
         .subscribe(
           subeventDto => {
             if(subeventDto) {
+              this.notificationService.success('Editado com sucesso');
               this.router.navigate(['admin', 'events', this.eventId, 'sub-events', subeventDto.id]);
-              console.log(subeventDto)
             }
           },
           error => this.handleError(error)
