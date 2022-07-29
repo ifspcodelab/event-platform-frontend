@@ -1,9 +1,13 @@
-<article class="container">
-  <header class="container__header">
-    <h2 class="container__title"> Locais </h2>
-    <button class="container__actions" mat-button color="primary" (click)="openAddLocationFormDialog()">Novo Local</button>
-  </header>
+<header class="header">
+  <div class="header__titlecomponent">
+    <h2 class="header__title"> Locais </h2>
+  </div>
+  <div class="header__actions">
+    <button mat-button color="primary" (click)="openAddLocationFormDialog()"> Novo Local </button>
+  </div>
+</header>
 
+<article class="container">
   <table class="container__table" mat-table [dataSource]="locationsDto">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Nome </th>
