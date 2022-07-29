@@ -38,8 +38,8 @@ export class LocationFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, AppValidators.notBlank]],
-      address: ['', [Validators.required, AppValidators.notBlank]]
+      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(150), AppValidators.notBlank]],
+      address: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(300), AppValidators.notBlank]]
     });
   }
 
@@ -82,7 +82,7 @@ export class LocationFormComponent implements OnInit {
   }
 
   fieldErrors(path: string) {
-    return this.field(path)?.errors;
+    return this.field(path).errors;
   }
 
   // containsError(path: string, validationType: string) {
@@ -91,20 +91,20 @@ export class LocationFormComponent implements OnInit {
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
-      console.log(error);
       if(error.status === 400) {
         const violations: Violation[] = error.error;
         violations.forEach(violation => {
           const formControl = this.form.get(violation.name);
           if(formControl) {
-            formControl.setErrors({
-              serverError: violation.message
-            });
-            console.log(formControl);
+            formControl.setErrors({ serverError: violation.message });
           }
         })
       }
+      if(error.status === 409) {
+        const nameField = this.field('name');
+        nameField.setErrors({ serverError: `Local já existente com nome ${nameField.value}` })
+      }
     }
   }
-
 }
+
