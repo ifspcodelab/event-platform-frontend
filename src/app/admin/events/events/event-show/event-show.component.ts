@@ -45,7 +45,7 @@ export class EventShowComponent implements OnInit {
           this.eventDto = eventDto;
           this.fetchSubevents(this.eventId);
         }
-      );
+      )
   }
 
   fetchSubevents(eventId: string) {
@@ -54,8 +54,7 @@ export class EventShowComponent implements OnInit {
       subevents => {
         this.dataSource = subevents;
         console.log(subevents);
-      }
-    )
+      })
   }
 
   openEventList() {
@@ -71,7 +70,8 @@ export class EventShowComponent implements OnInit {
           this.notificationService.success("Publicado com sucesso");
         }, error => {
           this.handleError(error);
-        })
+        }
+      )
   }
 
   unpublishEvent() {
@@ -83,7 +83,21 @@ export class EventShowComponent implements OnInit {
           this.notificationService.success("Despublicado com sucesso");
         }, error => {
           this.handleError(error);
-        })
+        }
+      )
+  }
+
+  cancelEvent() {
+    this.eventService.cancelEvent(this.eventId)
+      .pipe(first())
+      .subscribe(
+        eventDto => {
+          this.eventDto = eventDto;
+          this.notificationService.success("Cancelado com sucesso");
+        }, error => {
+          this.handleError(error);
+        }
+      )
   }
 
   openSubeventShow(subeventDto: SubeventDto) {
@@ -99,7 +113,7 @@ export class EventShowComponent implements OnInit {
         cancelText: "Cancelar",
         okText: "Excluir"
       }
-    };
+    }
   }
 
   openDeleteConfirmationDialog() {
@@ -108,12 +122,14 @@ export class EventShowComponent implements OnInit {
       if (result) {
         this.eventService.deleteEvent(this.eventId)
           .pipe(first())
-          .subscribe( () => {
-            this.notificationService.success("Excluido com sucesso");
-            this.router.navigate(['admin', 'events'])
-          }, error => {
-            this.handleError(error);
-          })
+          .subscribe(
+            () => {
+              this.notificationService.success("Excluido com sucesso");
+              this.router.navigate(['admin', 'events'])
+            }, error => {
+              this.handleError(error);
+            }
+          )
       }
     })
   }

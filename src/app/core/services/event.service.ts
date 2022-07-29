@@ -50,4 +50,8 @@ export class EventService {
   unpublishEvent(eventId: string): Observable<EventDto> {
     return this.httpClient.patch<EventDto>(`${this.apiUrl}/${eventId}/unpublish`, this.httpOptions);
   }
+
+  cancelEvent(eventId: string): Observable<EventDto> {
+    return this.httpClient.patch<EventDto>(`${this.apiUrl}/${eventId}/cancel`, this.httpOptions);
+  }
 }
