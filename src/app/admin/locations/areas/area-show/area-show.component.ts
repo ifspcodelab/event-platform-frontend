@@ -1,3 +1,4 @@
+import { ConfirmationDialogComponent } from './../../../../core/components/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 import { NotificationService } from './../../../../core/services/notification.service';
 import { LocationDto } from './../../../../core/models/location.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -91,5 +92,18 @@ export class AreaShowComponent implements OnInit {
     if(this.spacesDto.length != 0) {
       this.notificationService.error('Não é possível deletar uma área com espaço associado');
     }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        this.areaService.deleteSpace(this.locationId, this.areaId, this.spaceId)
+          .pipe(first())
+          .subscribe( _ => {
+            this.notificationService.success("Excluido com sucesso");
+            this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId])
+          }, error => {
+
+          })
+      }
+    })
   }
 }

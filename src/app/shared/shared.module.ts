@@ -9,6 +9,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [],
@@ -21,7 +23,8 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatInputModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ],
   exports: [
     MatButtonModule,
@@ -31,7 +34,8 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatInputModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    MatSortModule
   ]
 })
 export class SharedModule { }
