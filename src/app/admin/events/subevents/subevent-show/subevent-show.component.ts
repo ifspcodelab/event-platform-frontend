@@ -63,6 +63,20 @@ export class SubeventShowComponent implements OnInit {
       );
   }
 
+  unpublishSubevent() {
+    this.subeventService.unpublishSubevent(this.eventId, this.subeventId)
+      .pipe(first())
+      .subscribe(
+        subeventDto => {
+          this.subeventDto = subeventDto
+          this.notificationService.success("Despublicado com sucesso");
+        },
+        error =>  {
+          this.handleError(error);
+        }
+      );
+  }
+
   private getConfirmationDialogConfig() {
     return {
       autoFocus: true,
