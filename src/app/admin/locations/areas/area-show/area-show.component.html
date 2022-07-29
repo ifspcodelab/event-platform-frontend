@@ -19,15 +19,16 @@
       <h2 class="container__title"> Espaços </h2>
       <button class="container__actions" mat-button color="primary" (click)="openAddSpaceFormDialog()"> Novo Espaço </button>
     </header>
+
     <p *ngIf="!spacesDto.length"> Nenhum espaço cadastrado </p>
-    <table class="container__table" *ngIf="spacesDto.length" mat-table [dataSource]="spacesDto">
+    <table class="container__table" *ngIf="spacesDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Nome </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Nome </th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="capacity">
-        <th mat-header-cell *matHeaderCellDef> Capacidade </th>
+      <ng-container matColumnDef="capacity" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Capacidade </th>
         <td mat-cell *matCellDef="let element"> {{element.capacity}} </td>
       </ng-container>
 

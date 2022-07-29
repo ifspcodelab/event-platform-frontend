@@ -8,6 +8,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from "@angular/material/sort";
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {FormsModule} from "@angular/forms";
@@ -22,6 +23,7 @@ import {FormsModule} from "@angular/forms";
     MatInputModule,
     MatListModule,
     MatTableModule,
+    MatSortModule,
     MatSelectModule,
     MatSnackBarModule,
     FormsModule
@@ -34,6 +36,7 @@ import {FormsModule} from "@angular/forms";
     MatInputModule,
     MatListModule,
     MatTableModule,
+    MatSortModule,
     MatSelectModule,
     MatSnackBarModule,
     FormsModule

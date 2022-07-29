@@ -11,7 +11,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   align-items: center;
   border-bottom: 0.5px solid rgba(0,0,0,.2);
 
-  &__titlespace {
+  &__titlecomponent {
     display: flex;
     margin: 0;
     align-items: center;
@@ -30,6 +30,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .container {
   margin: 0 16px;
+
 
   &__header {
     display: flex;

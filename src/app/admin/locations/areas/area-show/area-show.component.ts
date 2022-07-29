@@ -4,10 +4,13 @@ import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AreaService } from '../../../../core/services/area.service';
 import { AreaDto } from '../../../../core/models/area.model';
-import { Component, OnInit } from '@angular/core';
-import {SpacesFormComponent} from "../../spaces/spaces-form/spaces-form.component";
-import {MatDialog} from "@angular/material/dialog";
-import {NotificationService} from "../../../../core/services/notification.service";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SpacesFormComponent } from "../../spaces/spaces-form/spaces-form.component";
+import { MatDialog } from "@angular/material/dialog";
+import { NotificationService } from "../../../../core/services/notification.service";
+import { MatSort, Sort } from "@angular/material/sort";
+import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { MatTableDataSource } from "@angular/material/table";
 
 @Component({
   selector: 'app-area-show',
@@ -18,8 +21,11 @@ export class AreaShowComponent implements OnInit {
   locationId: string;
   areaId: string;
   areaDto: AreaDto;
-  spacesDto: SpaceDto[];
+  spacesDto: SpaceDto[] = [];
+  dataSource: MatTableDataSource<SpaceDto>;
   displayedColumns: string[] = ['name', 'capacity', 'type'];
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   constructor(
     private areaService: AreaService,
@@ -27,7 +33,8 @@ export class AreaShowComponent implements OnInit {
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +60,7 @@ export class AreaShowComponent implements OnInit {
       .subscribe(
         spacesDto => {
           this.spacesDto = spacesDto;
+          this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
         }
       )
   }
@@ -75,6 +83,16 @@ export class AreaShowComponent implements OnInit {
         areaId: this.areaId
       }
     };
+  }
+
+  announceSortChange(sort: Sort) {
+    this.dataSource.sort = this.sort;
+
+    if (sort.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sort.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
   openSpaceShow(spaceDto: SpaceDto) {
