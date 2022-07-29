@@ -27,4 +27,9 @@ export class LocationService {
     return this.httpClient.get<LocationDto>(`${this.apiUrl}/${id}`, this.httpOptions);
   }
 
+  deleteLocation(locationId: string): Observable<unknown> {
+    const url = `${this.apiUrl}/${locationId}`;
+    return this.httpClient.delete<LocationDto>(url, this.httpOptions);
+  }
+
 }

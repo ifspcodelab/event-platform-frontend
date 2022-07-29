@@ -1,3 +1,4 @@
+import { ConfirmationDialogComponent } from './../../../../core/components/confirmation-dialog/confirmation-dialog/confirmation-dialog.component';
 import { NotificationService } from './../../../../core/services/notification.service';
 import { LocationFormComponent } from './../location-form/location-form.component';
 import { AreaFormComponent } from './../../areas/area-form/area-form.component';
@@ -9,7 +10,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { first } from "rxjs/operators";
-import {MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from "@angular/material/sort";
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 
@@ -74,6 +75,28 @@ export class LocationShowComponent implements OnInit {
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
 
+  openEditLocationFormDialog() {
+    const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfigLocation());
+    dialogRef.afterClosed().subscribe(locationDto => {
+      if (locationDto) {
+        this.locationDto = locationDto;
+        this.notificationService.success("Editado com sucesso");
+      }
+    });
+  }
+
+  private getConfirmationDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Excluir local",
+        text: `O local ${this.locationDto.name} será excluido de forma definitiva`,
+        cancelText: "Cancelar",
+        okText: "Excluir"
+      }
+    };
+  }
+
   private getDialogConfigArea() {
     return {
       autoFocus: true,
@@ -118,6 +141,19 @@ export class LocationShowComponent implements OnInit {
     if(this.areasDto.length != 0) {
       this.notificationService.error('Não é possível deletar um local com área associada');
     }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
+    dialogRef.afterClosed().subscribe( result => {
+      if (result) {
+        this.locationService.deleteLocation(this.locationId)
+          .pipe(first())
+          .subscribe( _ => {
+            this.notificationService.success("Excluído com sucesso");
+            this.router.navigate(['admin', 'locations'])
+          }, error => {
+
+        })
+      }
+    })
   }
 
   announceSortChange(sort: Sort) {
