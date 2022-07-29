@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LocationCreateDto, LocationDto } from '../models/location.model';
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,10 @@ export class LocationService {
   constructor(private httpClient: HttpClient) { }
 
   getLocations(): Observable<LocationDto[]> {
-    return this.httpClient.get<LocationDto[]>(this.apiUrl, this.httpOptions);
+    return this.httpClient.get<LocationDto[]>(this.apiUrl, this.httpOptions)
+    .pipe(
+      map(results => results.sort((a, b) => a.name.localeCompare(b.name)))
+    );
   }
 
   getLocationById(id: string): Observable<LocationDto> {
