@@ -5,6 +5,8 @@ import { first } from "rxjs";
 import { LoginDto } from "../../../core/models/login.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
+import {JwtService} from "../../../core/services/jwtservice.service";
+import {JwtTokensDto} from "../../../core/models/jwt-tokens.model";
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
+    private jwtService: JwtService,
     private router: Router
   ) { }
 
@@ -54,8 +57,12 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         {
-          next: (tokensDto: LoginDto) => {
-            console.log(tokensDto);
+          next: (jwtDto: JwtTokensDto) => {
+            console.log(jwtDto);
+            this.jwtService.storeAccessToken(jwtDto.accessToken);
+            console.log(this.jwtService.decodeToken(jwtDto.accessToken));
+            this.jwtService.storeRefreshToken(jwtDto.refreshToken);
+            console.log(this.jwtService.decodeToken(jwtDto.refreshToken));
             this.router.navigate(['account', 'meus-dados']);
           },
           error: error => {
