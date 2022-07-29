@@ -1,27 +1,21 @@
-<header class="header">
-  <h1 class="header__title"> Locais </h1>
-  <div class="header__actions">
-    <button mat-button color="primary" (click)="openFormLocationDialog()"> Novo Local </button>
-  </div>
-</header>
-
-<mat-divider></mat-divider>
-<br><br>
-
 <article class="container">
-  <p *ngIf="!locationsDto.length"> Nenhuma área cadastrada </p>
-  <table class="container__table" *ngIf="locationsDto.length" mat-table [dataSource]="locationsDto">
+  <header class="container__header">
+    <h2 class="container__title"> Locais </h2>
+    <button class="container__actions" mat-button color="primary" (click)="openAddLocationFormDialog()">Novo Local</button>
+  </header>
+
+  <table class="container__table" mat-table [dataSource]="locationsDto">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Nome </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="reference">
-      <th mat-header-cell *matHeaderCellDef> Referência </th>
-      <td mat-cell *matCellDef="let element"> {{element.reference}} </td>
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Endereço </th>
+      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
     </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openLocationShow(row)"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openLocationShow(row)"></tr>
   </table>
 </article>
