@@ -103,8 +103,7 @@ export class LocationShowComponent implements OnInit {
   openDeleteConfirmationDialog() {
     if(this.areasDto.length != 0) {
       this.notificationService.error('Não é possível deletar um local com área associada');
-    }
-
+    } else {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
     dialogRef.afterClosed().subscribe( result => {
       if (result) {
@@ -119,4 +118,6 @@ export class LocationShowComponent implements OnInit {
       }
     })
   }
+  }
+
 }

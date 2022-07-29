@@ -14,8 +14,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 export class LocationListComponent implements OnInit {
   locationDto: LocationDto;
   displayedColumns: string[] = ['name', 'address'];
-  dataSource: LocationDto[] = [];
-
+  locationsDto: LocationDto[] = [];
 
   constructor(
     private locationService: LocationService,
@@ -25,16 +24,12 @@ export class LocationListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     this.locationService.getLocations().subscribe(
-      locations => {
-        this.dataSource = locations;
-      }
+      locations => this.locationsDto = locations
     )
   }
 
   openLocationShow(locationDto: LocationDto) {
-    console.log(locationDto);
     this.router.navigate(['admin', 'locations', locationDto.id]);
   }
 
@@ -50,11 +45,13 @@ export class LocationListComponent implements OnInit {
   openAddLocationFormDialog() {
     const dialogRef = this.dialog.open(LocationFormComponent, this.getDialogConfig());
 
-    dialogRef.afterClosed().subscribe(locationDto => {
-      if (locationDto) {
-        this.dataSource = [...this.dataSource, locationDto];
-        this.notificationService.success("Cadastrado com sucesso");
+    dialogRef.afterClosed().subscribe(
+      locationDto => {
+        if (locationDto) {
+          this.locationsDto = [...this.locationsDto, locationDto];
+          this.notificationService.success("Cadastrado com sucesso");
+        }
       }
-    });
+    );
   }
 }

@@ -27,13 +27,13 @@ export class LocationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.buildForm();
+
     if (this.data.locationDto) {
       this.createMode = false;
       this.form.patchValue(this.data.locationDto);
     } else {
       this.createMode = true;
     }
-    console.log(this.data);
   }
 
   buildForm(): FormGroup {
@@ -58,36 +58,22 @@ export class LocationFormComponent implements OnInit {
   }
 
   createLocation() {
-    if(this.form) {
-      this.locationService.postLocation(this.form.value)
+    this.locationService.postLocation(this.form.value)
       .pipe(first())
-      .subscribe(
-        locationDto => {
-          if(locationDto) {
-          this.dialogRef.close(locationDto)
-        }
-      },
-      error => this.handleError(error)
-      )
-    }
+      .subscribe({
+        next: locationDto => this.dialogRef.close(locationDto),
+        error: error => this.handleError(error)
+      })
   }
 
   updateLocation() {
     this.locationService.putLocation(this.data.locationDto.id, this.form.value)
-    .subscribe(locationDto => this.dialogRef.close(locationDto));
+      .pipe(first())
+      .subscribe({
+        next: locationDto => this.dialogRef.close(locationDto),
+        error: error => this.handleError(error)
+      })
   }
-
-  field(path: string) {
-    return this.form.get(path)!;
-  }
-
-  fieldErrors(path: string) {
-    return this.field(path).errors;
-  }
-
-  // containsError(path: string, validationType: string) {
-  //   return this.form.get(path)!.errors[validationType];
-  // }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
@@ -105,6 +91,14 @@ export class LocationFormComponent implements OnInit {
         nameField.setErrors({ serverError: `Local já existente com nome ${nameField.value}` })
       }
     }
+  }
+
+  field(path: string) {
+    return this.form.get(path)!;
+  }
+
+  fieldErrors(path: string) {
+    return this.field(path).errors;
   }
 }
 
