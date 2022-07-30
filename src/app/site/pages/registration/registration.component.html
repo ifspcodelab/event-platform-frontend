@@ -6,48 +6,52 @@
 
 <form id="registration-form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-    <label for="name">Nome Completo</label><br>
-    <input appearance="fill" matInput placeholder="" formControlName="name" name="name"><br><br>
-    <div *ngIf="name.invalid && (name.dirty || name.touched)">
-      <p *ngIf="name.errors?.['required']">Nome é obrigatório</p>
-      <p *ngIf="name.errors?.['validname']">Nome deve ser válido</p>
-      <p *ngIf="name.errors?.['minlength']">Nome deve ter no mínimo 5 caracteres</p>
-      <p *ngIf="name.errors?.['maxlength']">Nome deve ter no máximo 256 caracteres</p>
-    </div>
+  <label for="name">Nome Completo</label><br>
+  <input id="name" appearance="fill" placeholder="" formControlName="name" name="name"><br><br>
+  <div *ngIf="name.invalid && (name.dirty || name.touched)">
+    <p *ngIf="name.errors?.['required']">Nome é obrigatório</p>
+    <p *ngIf="name.errors?.['validname']">Nome deve ser válido</p>
+    <p *ngIf="name.errors?.['minlength']">Nome deve ter no mínimo 5 caracteres</p>
+    <p *ngIf="name.errors?.['maxlength']">Nome deve ter no máximo 256 caracteres</p>
+  </div>
 
-    <label for="email">E-mail</label><br>
-    <input appearance="fill" matInput placeholder="" formControlName="email" name="email"><br><br>
-    <div *ngIf="email.invalid && (email.dirty || email.touched)">
-      <p *ngIf="email.errors?.['required']">E-mail é obrigatório</p>
-      <p *ngIf="email.errors?.['email']">E-mail deve ser válido</p>
-      <p *ngIf="email.errors?.['maxlength']">E-mail deve ter no máximo 350 caracteres</p>
-    </div>
+  <label for="email">E-mail</label><br>
+  <input id="email" appearance="fill" placeholder="" formControlName="email" name="email"><br><br>
+  <div *ngIf="email.invalid && (email.dirty || email.touched)">
+    <p *ngIf="email.errors?.['required']">E-mail é obrigatório</p>
+    <p *ngIf="email.errors?.['email']">E-mail deve ser válido</p>
+    <p *ngIf="email.errors?.['maxlength']">E-mail deve ter no máximo 350 caracteres</p>
+  </div>
 
-    <label for="cpf">CPF</label><br>
-    <input appearance="fill" matInput placeholder="" formControlName="cpf" name="cpf"><br><br>
-    <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)">
-      <p *ngIf="cpf.errors?.['required']">CPF é obrigatório</p>
-      <p *ngIf="cpf.errors?.['validcpf']">CPF deve ser válido (11 digitos)</p>
+  <label for="cpf">CPF</label><br>
+  <input id="cpf" appearance="fill" placeholder="" formControlName="cpf" name="cpf"><br><br>
+  <div *ngIf="cpf.invalid && (cpf.dirty || cpf.touched)">
+    <p *ngIf="cpf.errors?.['required']">CPF é obrigatório</p>
+    <p *ngIf="cpf.errors?.['validcpf']">CPF deve ser válido (11 digitos)</p>
 
-    </div>
+  </div>
 
-    <label for="password">Senha</label><br>
-    <input type="password" appearance="fill" matInput placeholder="" formControlName="password" name="password"><br><br>
-    <div *ngIf="password.invalid && (password.dirty || password.touched)">
-      <p *ngIf="password.errors?.['required']">Senha é obrigatória</p>
-      <p *ngIf="password.errors?.['minlength']">Senha deve ter 8 caracteres no mínimo</p>
-      <p *ngIf="password.errors?.['maxlength']">Senha deve ter 64 caracteres no máximo</p>
-      <p *ngIf="password.errors?.['validpassword']">Senha deve ser válida</p>
-    </div>
+  <label for="password">Senha</label><br>
+  <input id="password" type="password" appearance="fill" placeholder="" formControlName="password" name="password"><br><br>
+  <div *ngIf="password.invalid && (password.dirty || password.touched)">
+    <p *ngIf="password.errors?.['required']">Senha é obrigatória</p>
+    <p *ngIf="password.errors?.['minlength']">Senha deve ter 8 caracteres no mínimo</p>
+    <p *ngIf="password.errors?.['maxlength']">Senha deve ter 64 caracteres no máximo</p>
+    <p *ngIf="password.errors?.['validpassword']">Senha deve ser válida</p>
+  </div>
 
-    <p>Antes de confirmar seu cadastro você deve ler com atenção os <a href="https://localhost:4200/termos" target="_blank" >Termos de Uso</a></p><br>
+  <p>Antes de confirmar seu cadastro você deve ler com atenção os <a href="https://localhost:4200/termos" target="_blank" >Termos de Uso</a></p><br>
 
-    <input type="checkbox" name="agreed" id="agreed" value="true" formControlName="agreed">
-    <span>Li e concordo com os termos de uso e a política de privacidade</span><br><br>
-    <div *ngIf="agreed.invalid && (agreed.dirty || agreed.touched)">
-      <p *ngIf="agreed.errors?.['required']">É obrigatório aceitar os termos</p>
-    </div>
+  <input type="checkbox" name="agreed" id="agreed" value="true" formControlName="agreed">
+  <span>Li e concordo com os termos de uso e a política de privacidade</span><br><br>
+  <div *ngIf="agreed.invalid && (agreed.dirty || agreed.touched)">
+    <p *ngIf="agreed.errors?.['required']">É obrigatório aceitar os termos</p>
+  </div>
 
-    <button type="submit" form="registration-form">Cadastrar</button>
+  <br>
+
+  <re-captcha (resolved)="resolved($event)" siteKey="6LfjQjAhAAAAAGDIg5BkJMBccd-APYyY1AXM2eun"></re-captcha><br><br>
+
+  <button type="submit" form="registration-form">Cadastrar</button>
 
 </form>

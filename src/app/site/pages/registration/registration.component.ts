@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RegistrationService } from 'src/app/core/services/registration.service';
 import { first } from 'rxjs';
 import { AppValidators } from 'src/app/core/validators/app-validator';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-registration',
@@ -14,11 +15,17 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private registrationService: RegistrationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private renderer: Renderer2,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
-    console.log(''); // to stop alerting
+    let script = this.renderer.createElement('script');
+    script.defer = true;
+    script.async = true;
+    script.src="https://www.google.com/recaptcha/api.js\n";
+    this.renderer.appendChild(document.body, script);
   }
 
   buildForm(): FormGroup {
@@ -77,6 +84,17 @@ export class RegistrationComponent implements OnInit {
       .subscribe(
         accountDto => console.log(accountDto)
       );
+  }
+
+
+  resolved(token : any) {
+    // send token to backend
+    console.log(token);
+    this.http.post('', {token: token}).subscribe(
+      res => {
+        console.log("success or not ? ", res);
+      }
+    );
   }
 }
 
