@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {SubeventDto} from "../../../../core/models/subevent.model";
-import {SubeventService} from "../../../../core/services/subevent.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {first} from "rxjs";
+import { SubeventDto } from "../../../../core/models/subevent.model";
+import { SubeventService } from "../../../../core/services/subevent.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { first } from "rxjs";
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
@@ -15,7 +15,6 @@ import { ProblemDetail } from 'src/app/core/models/problem-detail';
   styleUrls: ['./subevent-show.component.scss']
 })
 export class SubeventShowComponent implements OnInit {
-
   subeventDto: SubeventDto;
   subeventId: string;
   eventId: string;
@@ -24,25 +23,20 @@ export class SubeventShowComponent implements OnInit {
     private notificationService: NotificationService,
     private subeventService: SubeventService,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
     private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
-
     this.fetchSubevent(this.eventId, this.subeventId);
   }
 
   fetchSubevent(eventId: string, subeventId: string) {
     this.subeventService.getSubeventById(eventId, subeventId)
       .pipe(first())
-      .subscribe(
-        subeventDto => {
-          this.subeventDto = subeventDto;
-        }
-      )
+      .subscribe(subeventDto => this.subeventDto = subeventDto);
   }
 
   openEventShow() {
@@ -52,43 +46,37 @@ export class SubeventShowComponent implements OnInit {
   publishSubevent() {
     this.subeventService.publishSubevent(this.eventId, this.subeventId)
       .pipe(first())
-      .subscribe(
-        subeventDto => {
+      .subscribe({
+        next: subeventDto => {
           this.subeventDto = subeventDto
-          this.notificationService.success("Publicado com sucesso");
+          this.notificationService.success("Subevento publicado com sucesso");
         },
-        error =>  {
-          this.handleError(error);
-        }
-      );
+        error: error => this.handleError(error)
+      });
   }
 
   unpublishSubevent() {
     this.subeventService.unpublishSubevent(this.eventId, this.subeventId)
       .pipe(first())
-      .subscribe(
-        subeventDto => {
+      .subscribe({
+        next: subeventDto => {
           this.subeventDto = subeventDto
-          this.notificationService.success("Despublicado com sucesso");
+          this.notificationService.success("Subevento despublicado com sucesso");
         },
-        error =>  {
-          this.handleError(error);
-        }
-      );
+        error: error => this.handleError(error)
+      });
   }
 
   cancelSubevent() {
     this.subeventService.cancelSubevent(this.eventId, this.subeventId)
       .pipe(first())
-      .subscribe(
-        subeventDto => {
+      .subscribe({
+        next: subeventDto => {
           this.subeventDto = subeventDto
-          this.notificationService.success("Cancelado com sucesso");
+          this.notificationService.success("Subevento cancelado com sucesso");
         },
-        error =>  {
-          this.handleError(error);
-        }
-      );
+        error: error => this.handleError(error)
+      });
   }
 
   private getConfirmationDialogConfig() {
@@ -104,19 +92,24 @@ export class SubeventShowComponent implements OnInit {
   }
 
   openDeleteConfirmationDialog() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
-    dialogRef.afterClosed().subscribe( result => {
-      if (result) {
-        this.subeventService.deleteSubevent(this.eventId, this.subeventId)
-          .pipe(first())
-          .subscribe( () => {
-            this.notificationService.success("Excluído com sucesso");
-            this.router.navigate(['admin', 'events', this.eventId])
-          }, error => {
-            this.handleError(error);
-          })
-      }
-    })
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfig()).afterClosed()
+      .subscribe( result => {
+        if (result) {
+          this.deleteSubevent();
+        }
+      });
+  }
+
+  deleteSubevent() {
+    this.subeventService.deleteSubevent(this.eventId, this.subeventId)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.notificationService.success("Subevento excluído com sucesso");
+          this.router.navigate(['admin', 'events', this.eventId])
+        },
+        error: error => this.handleError(error)
+      });
   }
 
   handleError(error: any) {

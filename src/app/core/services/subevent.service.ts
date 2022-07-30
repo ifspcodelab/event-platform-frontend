@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {SubeventCreateDto, SubeventDto} from "../models/subevent.model";
+import { environment } from "../../../environments/environment";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { SubeventCreateDto, SubeventDto } from "../models/subevent.model";
 
 @Injectable({
   providedIn: 'root'

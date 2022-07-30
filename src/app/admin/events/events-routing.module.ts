@@ -4,7 +4,7 @@ import { EventsComponent } from './events.component';
 import { EventListComponent } from "./events/event-list/event-list.component";
 import { EventShowComponent } from "./events/event-show/event-show.component";
 import { SubeventShowComponent } from "./subevents/subevent-show/subevent-show.component";
-import {SubeventsFormComponent} from "./subevents/subevents-form/subevents-form.component";
+import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-form.component";
 
 const routes: Routes = [
   {
