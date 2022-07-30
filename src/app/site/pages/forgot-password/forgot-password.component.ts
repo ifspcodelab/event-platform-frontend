@@ -10,7 +10,7 @@ import {ForgotPasswordCreateDto} from "../../../core/models/forgot-password-crea
 })
 export class ForgotPasswordComponent implements OnInit {
   submitted: boolean = false;
-  userCaptcha: string | undefined;
+  userRecaptcha: string | undefined;
   form: FormGroup;
 
   constructor(
@@ -19,7 +19,7 @@ export class ForgotPasswordComponent implements OnInit {
     private renderer: Renderer2
   ) {
     this.form = this.buildForm();
-    this.userCaptcha = '';
+    this.userRecaptcha = '';
   }
 
   ngOnInit(): void {
@@ -32,11 +32,10 @@ export class ForgotPasswordComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if(this.form.invalid || this.userCaptcha == ''){
-      console.log(this.userCaptcha);
+    if(this.form.invalid || this.userRecaptcha == ''){
       return;
     }
-      const forgotPasswordRequest = new ForgotPasswordCreateDto(this.form.value['email'], this.userCaptcha!);
+      const forgotPasswordRequest = new ForgotPasswordCreateDto(this.form.value['email'], this.userRecaptcha!);
       this.service.sendResetPasswordRequest(forgotPasswordRequest).subscribe(()=>{
 
           this.form.reset();
@@ -52,7 +51,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resolved(captchaResponse: string): void {
-    this.userCaptcha = captchaResponse;
+    this.userRecaptcha = captchaResponse;
   }
 
   buildForm(): FormGroup{
