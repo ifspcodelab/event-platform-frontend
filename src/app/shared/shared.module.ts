@@ -10,12 +10,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    MatToolbarModule,
     MatButtonModule,
     MatDialogModule,
     MatDividerModule,
@@ -24,9 +27,11 @@ import { MatSortModule } from '@angular/material/sort';
     MatInputModule,
     MatListModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatMenuModule,
   ],
   exports: [
+    MatToolbarModule,
     MatButtonModule,
     MatDialogModule,
     MatDividerModule,
@@ -35,7 +40,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatInputModule,
     MatListModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatMenuModule,
   ]
 })
 export class SharedModule { }
