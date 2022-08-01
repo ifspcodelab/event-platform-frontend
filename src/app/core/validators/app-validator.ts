@@ -19,7 +19,8 @@ export class AppValidators {
   static validCpf(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const digitCount = control.value.replace(/\D/g, '').length;
-      return digitCount !== 11
+      const validChar = /^[\d-.]*$/g.test(control.value)
+      return (digitCount !== 11 || !validChar)
        ? { validcpf: true }
        : null;
     };
