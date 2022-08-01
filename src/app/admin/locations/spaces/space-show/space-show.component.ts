@@ -13,7 +13,6 @@ import { ConfirmationDialogComponent } from "../../../../core/components/confirm
   templateUrl: './space-show.component.html',
   styleUrls: ['./space-show.component.scss']
 })
-
 export class SpaceShowComponent implements OnInit {
   locationId: string;
   areaId: string;
@@ -38,11 +37,7 @@ export class SpaceShowComponent implements OnInit {
   fetchSpace(locationId: string, areaId: string, spaceId: string) {
     this.spaceService.getSpaceById(locationId, areaId, spaceId)
       .pipe(first())
-      .subscribe(
-        spaceDto => {
-          this.spaceDto = spaceDto;
-        }
-      )
+      .subscribe(spaceDto => this.spaceDto = spaceDto);
   }
 
   openAreaShow() {
@@ -61,13 +56,14 @@ export class SpaceShowComponent implements OnInit {
   }
 
   openEditSpaceFormDialog() {
-    const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
-    dialogRef.afterClosed().subscribe( spaceDto => {
-      if(spaceDto) {
-        this.spaceDto = spaceDto;
-        this.notificationService.success("Editado com sucesso");
-      }
-    });
+    this.dialog.open(SpacesFormComponent, this.getDialogConfig())
+    .afterClosed()
+      .subscribe(spaceDto => {
+        if (spaceDto) {
+          this.spaceDto = spaceDto;
+          this.notificationService.success("Espaço editado com sucesso");
+        }
+      });
   }
 
   private getConfirmationDialogConfig() {
@@ -83,17 +79,22 @@ export class SpaceShowComponent implements OnInit {
   }
 
   openDeleteConfirmationDialog() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig());
-    dialogRef.afterClosed().subscribe( result => {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfig())
+    .afterClosed()
+    .subscribe(result => this.deleteSpace(result));
+  }
+
+    deleteSpace(result: any) {
       if (result) {
         this.spaceService.deleteSpace(this.locationId, this.areaId, this.spaceId)
           .pipe(first())
-          .subscribe( _ => {
-            this.notificationService.success("Excluido com sucesso");
-            this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId])
-          }, error => {
-          })
+          .subscribe( {
+            next: _ => {
+              this.notificationService.success("Espaço excluido com sucesso");
+              this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId]);
+            }
+          });
       }
-    })
-  }
+    }
 }
+

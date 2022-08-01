@@ -1,14 +1,12 @@
 <div *ngIf="createMode">
-  <h2 id="header" mat-dialog-title> Cadastrar Espaço </h2>
+  <h2 id="header" mat-dialog-title>Cadastrar Espaço</h2>
 </div>
-
 <div *ngIf="!createMode">
-  <h2 id="header" mat-dialog-title> Editar espaço </h2>
+  <h2 id="header" mat-dialog-title>Editar espaço</h2>
 </div>
 
 <div mat-dialog-content>
   <form class="app-form" id="space-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-
     <mat-form-field class="form-field-lg">
       <mat-label> Nome</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
@@ -24,9 +22,7 @@
         {{ fieldErrors('name')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-
     <br><br>
-
     <mat-form-field class="form-field-lg">
       <mat-label> Capacidade</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="capacity" name="capacity">
@@ -43,9 +39,7 @@
         {{ fieldErrors('capacity')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-
     <br><br>
-
     <mat-form-field class="form-field-lg">
       <mat-label> Tipo</mat-label>
       <mat-select formControlName="type">
@@ -58,11 +52,10 @@
         {{ fieldErrors('type')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-
   </form>
 </div>
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close> Cancelar</button>
-  <button type="submit" form="space-form" mat-button color="primary"> Submeter</button>
+  <button type="submit" form="space-form" mat-button color="primary">Salvar</button>
 </div>

@@ -14,9 +14,8 @@ import { AppValidators } from "../../../../core/validators/app-validator";
   templateUrl: './spaces-form.component.html',
   styleUrls: ['./spaces-form.component.scss']
 })
-
 export class SpacesFormComponent implements OnInit {
-  form: FormGroup = this.buildForm();
+  form: FormGroup;
   spaceType = SpaceType;
   enumKeys: any = [];
   submitted: boolean = false;
@@ -32,6 +31,8 @@ export class SpacesFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.form = this.buildForm();
+
     if (this.data.spaceDto) {
       this.createMode = false;
       this.form.patchValue(this.data.spaceDto);
@@ -50,6 +51,7 @@ export class SpacesFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+
     if (this.form.invalid) {
       return;
     }
@@ -60,12 +62,22 @@ export class SpacesFormComponent implements OnInit {
     }
   }
 
-  field(path: string) {
-    return this.form.get(path)!;
+  createSpace() {
+    this.spaceService.postSpace(this.data.locationId, this.data.areaId, this.form.value)
+      .pipe(first())
+        .subscribe({
+         next: spaceDto => this.dialogRef.close(spaceDto),
+         error: error => this.handleError(error)
+      });
   }
 
-  fieldErrors(path: string) {
-    return this.field(path).errors;
+  updateSpace() {
+    this.spaceService.putSpace(this.data.locationId, this.data.areaId, this.data.spaceDto.id, this.form.value)
+      .pipe(first())
+        .subscribe({
+         next: spaceDto => this.dialogRef.close(spaceDto),
+         error: error => this.handleError(error)
+      });
   }
 
   handleError(error: any) {
@@ -75,37 +87,23 @@ export class SpacesFormComponent implements OnInit {
         violations.forEach(violation => {
           const formControl = this.form.get(violation.name);
           if (formControl) {
-            formControl.setErrors({serverError: violation.message});
+            formControl.setErrors({ serverError: violation.message });
           }
         })
       }
+
       if(error.status === 409) {
         const nameField = this.field('name');
-        nameField.setErrors({ serverError: `Área já existente com nome ${nameField.value}` })
+        nameField.setErrors({ serverError: `Espaço já existente com nome ${nameField.value}` })
       }
     }
   }
 
-  createSpace() {
-    if (this.form) {
-      this.spaceService.postSpace(this.data.locationId, this.data.areaId, this.form.value)
-        .pipe(first())
-        .subscribe(spaceDto => {
-            if (spaceDto) {
-              this.dialogRef.close(spaceDto)
-            }
-          },
-          error => this.handleError(error))
-    }
+  field(path: string) {
+    return this.form.get(path)!;
   }
 
-  updateSpace() {
-    this.spaceService.putSpace(this.data.locationId, this.data.areaId, this.data.spaceDto.id, this.form.value)
-      .subscribe(spaceDto => {
-        if (spaceDto) {
-          this.dialogRef.close(spaceDto)
-        }
-      },
-        error => this.handleError(error))
+  fieldErrors(path: string) {
+    return this.field(path).errors;
   }
 }

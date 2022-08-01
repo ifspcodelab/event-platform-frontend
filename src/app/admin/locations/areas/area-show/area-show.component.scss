@@ -1,35 +1,3 @@
-.header {
-  padding: 10px 16px;
-  display: flex;
-  justify-content: space-between;
-
-  &__title {
-    font-size: 1.2rem;
-    margin: 0;
-    padding: 0;
-  }
-}
-
 .mat-list-item {
   color: rgba(0, 0, 0, 0.8);
-}
-
-.table {
-  padding: 10px 16px;
-  display: flex;
-  justify-content: space-between;
-
-  &__title {
-    font-size: 1.2rem;
-    margin: 0;
-    padding: 0;
-  }
-}
-
-table {
-  width: 100%;
-}
-
-td:hover {
-  cursor: pointer;
 }

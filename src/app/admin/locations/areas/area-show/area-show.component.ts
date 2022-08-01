@@ -47,34 +47,27 @@ export class AreaShowComponent implements OnInit {
   fetchArea(locationId: string, areaId: string) {
     this.areaService.getAreaById(locationId, areaId)
       .pipe(first())
-      .subscribe(
-        areaDto => {
+        .subscribe(
+         areaDto => {
           this.areaDto = areaDto;
           this.fetchSpaces(locationId, areaId)
         }
-      )
+      );
   }
 
   fetchSpaces(locationId: string, areaId: string) {
     this.spaceService.getSpaces(locationId, areaId)
       .pipe(first())
-      .subscribe(
+        .subscribe(
         spacesDto => {
           this.spacesDto = spacesDto;
           this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
         }
-      )
+      );
   }
 
-  openAddSpaceFormDialog() {
-    const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
-    dialogRef.afterClosed().subscribe(spaceDto => {
-      if (spaceDto) {
-        this.notificationService.success("Cadastrado com sucesso");
-        this.spacesDto = [...this.spacesDto, spaceDto];
-        this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
-      }
-    });
+  openSpaceShow(spaceDto: SpaceDto) {
+    this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId, 'spaces', spaceDto.id]);
   }
 
   private getDialogConfig() {
@@ -87,17 +80,24 @@ export class AreaShowComponent implements OnInit {
     };
   }
 
+  openAddSpaceFormDialog() {
+    const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
+    dialogRef.afterClosed().subscribe(spaceDto => {
+      if (spaceDto) {
+        this.notificationService.success("Espaço cadastrado com sucesso");
+        this.spacesDto = [...this.spacesDto, spaceDto];
+        this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
+      }
+    });
+  }
+
   announceSortChange(sort: Sort) {
     this.dataSource.sort = this.sort;
 
     if (sort.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sort.direction}ending`);
+      this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
     } else {
-      this._liveAnnouncer.announce('Sorting cleared');
+      this._liveAnnouncer.announce('Ordenação removida');
     }
-  }
-
-  openSpaceShow(spaceDto: SpaceDto) {
-    this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId, 'spaces', spaceDto.id]);
   }
 }

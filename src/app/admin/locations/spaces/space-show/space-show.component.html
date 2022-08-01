@@ -2,9 +2,9 @@
   <header class="header">
     <div class="header__titlecomponent">
       <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
-        <mat-icon mat-list-icon (click)="openAreaShow()"> arrow_back</mat-icon>
+        <mat-icon mat-list-icon (click)="openAreaShow()">arrow_back</mat-icon>
       </button>
-      <h1 class="header__title"> Espaço: {{ spaceDto.name }} </h1>
+      <h1 class="header__title">Espaço: {{ spaceDto.name }}</h1>
     </div>
     <div class="header__actions">
       <button mat-button color="primary" (click)="openEditSpaceFormDialog()">Editar</button>
@@ -15,13 +15,11 @@
   <mat-list>
     <mat-list-item>
       <mat-icon mat-list-icon>event_seat</mat-icon>
-      <div mat-line><b>Capacidade: </b>{{spaceDto.capacity}} lugares</div>
+      <div mat-line><b>Capacidade: </b>{{ spaceDto.capacity }} lugares</div>
     </mat-list-item>
-
     <mat-list-item>
       <mat-icon mat-list-icon>meeting_room</mat-icon>
-      <div mat-line><b>Tipo: </b>{{spaceDto.type | spaceTypes}}</div>
+      <div mat-line><b>Tipo: </b>{{ spaceDto.type | spaceTypes }}</div>
     </mat-list-item>
   </mat-list>
-
 </div>
