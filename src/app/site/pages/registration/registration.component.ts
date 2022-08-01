@@ -52,26 +52,6 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  get name() {
-    return this.form.get('name')!;
-  }
-
-  get email() {
-    return this.form.get('email')!;
-  }
-
-  get cpf() {
-    return this.form.get('cpf')!;
-  }
-
-  get password() {
-    return this.form.get('password')!;
-  }
-
-  get agreed() {
-    return this.form.get('agreed')!;
-  }
-
   field(path: string) {
     return this.form.get(path)!;
   }
