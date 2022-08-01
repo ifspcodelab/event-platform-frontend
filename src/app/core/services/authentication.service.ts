@@ -24,4 +24,9 @@ export class AuthenticationService {
     const url = `${this.apiUrl}/login`;
     return this.httpClient.post<JwtTokensDto>(url, loginDto, this.httpOptions);
   }
+
+  deleteLogout() {
+    const url = `${this.apiUrl}/logout`;
+    return this.httpClient.delete(url, this.httpOptions);
+  }
 }
