@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PasswordResetService} from "../../../core/services/password-reset.service";
 import {PasswordResetDto} from "../../../core/models/password-reset-dto";
 import {ActivatedRoute} from "@angular/router";
+import {AppValidators} from "../../../core/validators/app-validators";
 
 @Component({
   selector: 'app-password-reset',
@@ -12,8 +13,8 @@ import {ActivatedRoute} from "@angular/router";
 export class PasswordResetComponent implements OnInit {
   submitted: boolean = false;
   userRecaptcha: string | undefined;
-  form: FormGroup;
   token: string | null | undefined;
+  form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +28,7 @@ export class PasswordResetComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = this.route.snapshot.paramMap.get('token');
+
     let script = this.renderer.createElement('script');
     script.defer = true;
     script.async = true;
@@ -62,8 +64,9 @@ export class PasswordResetComponent implements OnInit {
   buildForm(): FormGroup{
     return this.form = this.fb.group({
       password: ["",
-        [Validators.required, Validators.minLength(8), Validators.maxLength(64),]],
-      confirmPassword: [""]
+        [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]],
+      confirmPassword: ["",
+        [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]]
     });
   }
 
