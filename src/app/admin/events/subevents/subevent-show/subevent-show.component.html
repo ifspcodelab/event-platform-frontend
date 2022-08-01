@@ -1,0 +1,33 @@
+<div *ngIf="subeventDto">
+  <header class="header">
+    <h1 class="header__title">Subevento {{ subeventDto.title }}</h1>
+    <div class="header__actions">
+      <button mat-button color="primary">Editar</button>
+      <button mat-button color="primary">Excluir</button>
+    </div>
+  </header>
+
+  <mat-list>
+    <div mat-subheader>Dados gerais</div>
+    <p><b>Resumo:</b> {{ subeventDto.summary }}</p>
+    <p><b>Apresentação:</b> {{ subeventDto.presentation }}</p>
+
+    <mat-divider></mat-divider>
+    <div mat-subheader>Datas importantes</div>
+    <mat-list-item>
+      <mat-icon mat-list-icon>date_range</mat-icon>
+      <div mat-line><b>Início:</b> {{ subeventDto.executionPeriod.startDate }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>date_range</mat-icon>
+      <div mat-line><b>Fim:</b> {{ subeventDto.executionPeriod.endDate }}</div>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+    <div mat-subheader>Capas</div>
+    <p><b>Menor:</b></p>
+    <div><img mat-card-image src="{{ subeventDto.smallerImage }}" width="300px"></div>
+    <p><b>Maior:</b>
+    </p><div><img mat-card-image src="{{ subeventDto.biggerImage }}" width="300px"></div>
+  </mat-list>
+</div>
