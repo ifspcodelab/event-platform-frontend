@@ -5,48 +5,30 @@ import { EventsRoutingModule } from './events-routing.module';
 import { EventsComponent } from './events.component';
 import { EventListComponent } from './events/event-list/event-list.component';
 import { EventShowComponent } from './events/event-show/event-show.component';
+import { EventFormComponent } from './events/event-form/event-form.component';
 import { EventStatusPipe } from "../../core/pipes/event-status.pipe";
 import { SubeventShowComponent } from './subevents/subevent-show/subevent-show.component';
-import { SubeventsFormComponent } from './subevents/subevents-form/subevents-form.component';
-import { CoreModule } from 'src/app/core/core.module';
-
-import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatNativeDateModule, MAT_DATE_LOCALE } from "@angular/material/core";
-import { MatInputModule } from "@angular/material/input";
+import { CoreModule } from "../../core/core.module";
+import { SharedModule } from "../../shared/shared.module";
+import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 @NgModule({
   declarations: [
     EventsComponent,
     EventListComponent,
     EventShowComponent,
+    EventFormComponent,
     EventStatusPipe,
-    SubeventShowComponent,
-    SubeventsFormComponent,
+    SubeventShowComponent
   ],
   imports: [
-      CommonModule,
-      EventsRoutingModule,
-      MatTableModule,
-      MatButtonModule,
-      MatListModule,
-      MatIconModule,
-      MatCardModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatDatepickerModule,
-      MatNativeDateModule,
-      CoreModule
+    CommonModule,
+    EventsRoutingModule,
+    CoreModule,
+    SharedModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
- ],
+  ],
 })
 export class EventsModule { }
