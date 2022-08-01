@@ -16,6 +16,14 @@ export class JwtService {
     localStorage.setItem('refresh_token', refreshToken);
   }
 
+  getAccessToken() {
+    return localStorage.getItem('access_token');
+  }
+
+  getRefreshToken() {
+    return localStorage.getItem('refresh_token');
+  }
+
   removeAccessToken(accessToken: string) {
     localStorage.removeItem(accessToken);
   }
