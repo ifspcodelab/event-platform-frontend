@@ -1,10 +1,9 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
-
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -12,14 +11,15 @@ import { MatButtonModule } from "@angular/material/button";
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatButtonModule,
-    MatDialogModule,
-    ReactiveFormsModule
+    MatDialogModule
   ],
   exports: [
-    MatButtonModule,
-    MatDialogModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    ConfirmationDialogComponent
   ]
 })
 export class CoreModule { }

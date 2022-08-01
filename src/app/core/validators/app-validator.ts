@@ -5,6 +5,11 @@ export class AppValidators {
     return (control.value || '').trim().length === 0 ? { 'notblank': true } : null;
   }
 
+  static numeric(control: AbstractControl): ValidationErrors | null {
+    const pattern = /^\d+$/;
+    return pattern.test(control.value) ? null : { 'numeric': true };
+  }
+
   static optional(params: { minLength: number, maxLength: number }): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const value = control.value.trim();

@@ -1,16 +1,21 @@
-import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
-import { HttpErrorResponse } from '@angular/common/http';
-import { NotificationService } from './../../../../core/services/notification.service';
-import { LocationDto } from './../../../../core/models/location.model';
-import { MatDialog } from '@angular/material/dialog';
-import { AreaFormComponent } from './../area-form/area-form.component';
 import { SpaceService } from '../../../../core/services/space.service';
-import { SpaceDto } from './../../../../core/models/space.model';
+import { SpaceDto } from '../../../../core/models/space.model';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AreaService } from './../../../../core/services/area.service';
-import { AreaDto } from './../../../../core/models/area.model';
-import { Component, OnInit } from '@angular/core';
+import { AreaService } from '../../../../core/services/area.service';
+import { AreaDto } from '../../../../core/models/area.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SpaceFormComponent } from "../../spaces/space-form/space-form.component";
+import { MatDialog } from "@angular/material/dialog";
+import { NotificationService } from "../../../../core/services/notification.service";
+import { MatSort, Sort } from "@angular/material/sort";
+import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { MatTableDataSource } from "@angular/material/table";
+import {AreaFormComponent} from "../area-form/area-form.component";
+import {
+  ConfirmationDialogComponent
+} from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-area-show',
@@ -21,18 +26,22 @@ export class AreaShowComponent implements OnInit {
   locationId: string;
   areaId: string;
   areaDto: AreaDto;
-  areasDto: AreaDto[];
   spacesDto: SpaceDto[] = [];
+  dataSource: MatTableDataSource<SpaceDto>;
   displayedColumns: string[] = ['name', 'capacity', 'type'];
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   constructor(
     private areaService: AreaService,
     private spaceService: SpaceService,
+    private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
-    private notificationService: NotificationService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer
+  ) {
+  }
 
   ngOnInit(): void {
     this.locationId = this.route.snapshot.paramMap.get('locationId');
@@ -44,17 +53,20 @@ export class AreaShowComponent implements OnInit {
     this.areaService.getAreaById(locationId, areaId)
       .pipe(first())
       .subscribe(
-        areaDto => {
-          this.areaDto = areaDto;
-          this.fetchSpaces(locationId, areaId)
-        }
-      );
+       areaDto => {
+        this.areaDto = areaDto;
+        this.fetchSpaces(locationId, areaId)
+      });
   }
 
   fetchSpaces(locationId: string, areaId: string) {
     this.spaceService.getSpaces(locationId, areaId)
       .pipe(first())
-      .subscribe(spacesDto => this.spacesDto = spacesDto);
+      .subscribe(
+      spacesDto => {
+        this.spacesDto = spacesDto;
+        this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
+      });
   }
 
   openLocationShow() {
@@ -125,6 +137,37 @@ export class AreaShowComponent implements OnInit {
             }
           }
         });
+    }
+  }
+
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        locationId: this.locationId,
+        areaId: this.areaId
+      }
+    };
+  }
+
+  openAddSpaceFormDialog() {
+    this.dialog.open(SpaceFormComponent, this.getDialogConfig()).afterClosed()
+      .subscribe(spaceDto => {
+        if (spaceDto) {
+          this.notificationService.success("Espaço cadastrado com sucesso");
+          this.spacesDto = [...this.spacesDto, spaceDto];
+          this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
+        }
+      });
+  }
+
+  announceSortChange(sort: Sort) {
+    this.dataSource.sort = this.sort;
+
+    if (sort.direction) {
+      this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
+    } else {
+      this._liveAnnouncer.announce('Ordenação removida');
     }
   }
 }

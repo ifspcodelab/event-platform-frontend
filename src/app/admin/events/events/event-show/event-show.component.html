@@ -1,0 +1,83 @@
+<div *ngIf="eventDto">
+  <header class="header">
+    <div class="header__titlecomponent">
+      <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
+        <mat-icon mat-list-icon (click)="openEventList()">arrow_back</mat-icon>
+      </button>
+      <h1 class="header__title">Evento {{ eventDto.title }}</h1>
+    </div>
+    <div class="header__actions">
+      <button mat-button color="primary" (click)="publishEvent()">Publicar</button>
+      <button mat-button color="primary" (click)="unpublishEvent()">Despublicar</button>
+      <button mat-button color="primary" (click)="cancelEvent()">Cancelar</button>
+      <button mat-button color="primary" routerLink="edit">Editar</button>
+      <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+    </div>
+  </header>
+
+  <mat-list>
+    <p><b>Resumo:</b> {{ eventDto.summary }}</p>
+    <p><b>Apresentação:</b> {{ eventDto. presentation }}</p>
+    <p><b>Status:</b> {{ eventDto.status | eventStatus }}</p>
+
+    <mat-divider></mat-divider>
+    <div mat-subheader>Datas importantes</div>
+    <mat-list-item>
+      <mat-icon mat-list-icon>date_range</mat-icon>
+      <div mat-line><b>Início das incrições:</b> {{ eventDto.registrationPeriod.startDate | date:'dd/MM/yyyy' }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>date_range</mat-icon>
+      <div mat-line><b>Fim das incrições:</b> {{ eventDto.registrationPeriod.endDate | date:'dd/MM/yyyy' }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>date_range</mat-icon>
+      <div mat-line><b>Início:</b> {{ eventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>date_range</mat-icon>
+      <div mat-line><b>Fim:</b> {{ eventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</div>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+    <div mat-subheader>Capas</div>
+    <p><b>Menor:</b></p>
+    <div><img mat-card-image src="{{ eventDto.smallerImage }}" width="300px"></div>
+    <p><b>Maior:</b>
+    </p><div><img mat-card-image src="{{ eventDto.biggerImage }}" width="300px"></div>
+  </mat-list>
+
+  <article class="container">
+    <header class="header">
+      <h1 class="header__title">Eventos</h1>
+      <button class="container__actions" mat-button color="primary" routerLink="sub-events/new">Novo Subevento</button>
+    </header>
+
+    <p *ngIf="!subeventsDto.length">Nenhum subevento cadastrado</p>
+
+    <table mat-table [dataSource]="subeventsDto" *ngIf="subeventsDto.length" class="container__table">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Título </th>
+        <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{ element.status | eventStatus }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="startDate">
+        <th mat-header-cell *matHeaderCellDef> Data de Início </th>
+        <td mat-cell *matCellDef="let element"> {{ element.executionPeriod.startDate | date:'dd/MM/yyyy' }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="endDate">
+        <th mat-header-cell *matHeaderCellDef> Data de Fim </th>
+        <td mat-cell *matCellDef="let element"> {{ element.executionPeriod.endDate | date:'dd/MM/yyyy' }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSubeventShow(row)"></tr>
+    </table>
+  </article>
+</div>

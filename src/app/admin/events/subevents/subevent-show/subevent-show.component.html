@@ -1,0 +1,43 @@
+<div *ngIf="subeventDto">
+  <header class="header">
+    <div class="header__titlearea">
+      <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
+        <mat-icon mat-list-icon (click)="openEventShow()">arrow_back</mat-icon>
+      </button>
+      <h1 class="header__title">Subevento {{ subeventDto.title }}</h1>
+    </div>
+
+    <div class="header__actions">
+      <button mat-button color="primary" (click)="publishSubevent()">Publicar</button>
+      <button mat-button color="primary" (click)="unpublishSubevent()">Despublicar</button>
+      <button mat-button color="primary" (click)="cancelSubevent()">Cancelar</button>
+      <button mat-button color="primary" routerLink="edit">Editar</button>
+      <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+    </div>
+  </header>
+
+  <mat-list>
+    <div mat-subheader>Dados gerais</div>
+    <p><b>Resumo:</b> {{ subeventDto.summary }}</p>
+    <p><b>Apresentação:</b> {{ subeventDto. presentation }}</p>
+    <p><b>Status:</b>  {{ subeventDto.status | eventStatus }}</p>
+
+    <mat-divider></mat-divider>
+    <div mat-subheader>Datas importantes</div>
+    <mat-list-item>
+      <mat-icon mat-list-icon>date_range</mat-icon>
+      <div mat-line><b>Início:</b> {{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</div>
+    </mat-list-item>
+    <mat-list-item>
+      <mat-icon mat-list-icon>date_range</mat-icon>
+      <div mat-line><b>Fim:</b> {{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</div>
+    </mat-list-item>
+
+    <mat-divider></mat-divider>
+    <div mat-subheader>Capas</div>
+    <p><b>Menor:</b></p>
+    <div><img mat-card-image src="{{ subeventDto.smallerImage }}" width="300px"></div>
+    <p><b>Maior:</b>
+    </p><div><img mat-card-image src="{{ subeventDto.biggerImage }}" width="300px"></div>
+  </mat-list>
+</div>

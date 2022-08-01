@@ -7,7 +7,7 @@
 
 <div mat-dialog-content>
   <form class="app-form" id="area-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field class="form-field-lg">
+    <mat-form-field>
       <mat-label>Nome</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
       <mat-error *ngIf="fieldErrors('name')?.['notblank']">
@@ -24,7 +24,7 @@
       </mat-error>
     </mat-form-field>
     <br><br>
-    <mat-form-field class="form-field-lg">
+    <mat-form-field>
       <mat-label>Referência</mat-label>
       <mat-error *ngIf="fieldErrors('reference')?.['optional']">
         Referência deve ter entre 4 e 150 caracteres
