@@ -57,16 +57,16 @@ export class SubeventsFormComponent implements OnInit {
 
   private buildForm(): FormGroup {
     return this.formBuilder.group({
-      title: ['', 
+      title: ['',
         [
-          Validators.required, 
-          AppValidators.notBlank, 
-          Validators.minLength(3), 
+          Validators.required,
+          AppValidators.notBlank,
+          Validators.minLength(3),
           Validators.maxLength(50)
         ]
       ],
       slug: ['', [Validators.required, AppValidators.notBlank]],
-      summary: ['', 
+      summary: ['',
         [
           Validators.required,
           AppValidators.notBlank,
@@ -74,7 +74,7 @@ export class SubeventsFormComponent implements OnInit {
           Validators.maxLength(150)
         ]
       ],
-      presentation: ['', 
+      presentation: ['',
         [
           Validators.required,
           AppValidators.notBlank,
