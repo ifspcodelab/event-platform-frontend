@@ -1,9 +1,9 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from 'src/app/core/services/registration.service';
 import { first } from 'rxjs';
 import { AppValidators } from 'src/app/core/validators/app-validator';
-import { HttpClient } from "@angular/common/http";
+import { AccountCreateDto } from "../../../core/models/account.model";
 
 @Component({
   selector: 'app-registration',
@@ -12,19 +12,19 @@ import { HttpClient } from "@angular/common/http";
 })
 export class RegistrationComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  userReCaptcha: string | undefined = '';
 
   constructor(
     private registrationService: RegistrationService,
     private formBuilder: FormBuilder,
-    private renderer: Renderer2,
-    private http: HttpClient
+    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
     let script = this.renderer.createElement('script');
     script.defer = true;
     script.async = true;
-    script.src="https://www.google.com/recaptcha/api.js\n";
+    script.src = "https://www.google.com/recaptcha/api.js\n";
     this.renderer.appendChild(document.body, script);
   }
 
@@ -52,15 +52,25 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  get name() { return this.form.get('name')!; }
+  get name() {
+    return this.form.get('name')!;
+  }
 
-  get email() { return this.form.get('email')!; }
+  get email() {
+    return this.form.get('email')!;
+  }
 
-  get cpf() { return this.form.get('cpf')!; }
+  get cpf() {
+    return this.form.get('cpf')!;
+  }
 
-  get password() { return this.form.get('password')!; }
+  get password() {
+    return this.form.get('password')!;
+  }
 
-  get agreed() { return this.form.get('agreed')!; }
+  get agreed() {
+    return this.form.get('agreed')!;
+  }
 
   field(path: string) {
     return this.form.get(path)!;
@@ -70,31 +80,34 @@ export class RegistrationComponent implements OnInit {
     return this.field(path)?.errors;
   }
 
-  onSubmit() {
-    if(this.form.invalid) {
+  onSubmit(): void {
+    if (this.form.invalid || this.userReCaptcha == '') {
       return;
     }
     this.createAccount();
-    console.log(this.form);
   }
 
-  createAccount() {
-    this.registrationService.postAccount(this.form.value)
+  createAccount(): void {
+    const accountCreateDto =
+      new AccountCreateDto(
+        this.form.value['name'],
+        this.form.value['email'],
+        this.form.value['cpf'],
+        this.form.value['password'],
+        this.form.value['agreed'],
+        this.userReCaptcha
+      )
+    this.registrationService.postAccount(accountCreateDto)
       .pipe(first())
-      .subscribe(
-        accountDto => console.log(accountDto)
+      .subscribe(() => {
+          this.form.reset();
+          alert("Seu cadastro foi realizado com sucesso.");
+        }
       );
   }
 
-
-  resolved(token : any) {
-    // send token to backend
-    console.log(token);
-    this.http.post('', {token: token}).subscribe(
-      res => {
-        console.log("success or not ? ", res);
-      }
-    );
+  resolved(captchaResponse: string): void {
+    this.userReCaptcha = captchaResponse;
   }
 }
 

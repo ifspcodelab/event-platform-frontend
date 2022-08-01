@@ -2,8 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AccountCreateDto } from '../models/account-create-dto';
-import { AccountDto } from '../models/account-dto.model';
+import { AccountCreateDto, AccountDto } from "../models/account.model";
 
 @Injectable({
   providedIn: 'root'
