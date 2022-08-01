@@ -2,10 +2,7 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-.mat-list-text {
-  padding: 0 !important;
-}
+.mat-list-text { padding: 0 !important; }
 
 .header {
   padding: 10px 16px;
@@ -14,14 +11,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   align-items: center;
   border-bottom: 0.5px solid rgba(0,0,0,.2);
 
-  &__titlearea {
+  &__titlecomponent {
     display: flex;
     margin: 0;
     align-items: center;
   }
 
   &__back {
-    margin-right: 16px !important;
+    margin-right: 5px;
   }
 
   &__title {
@@ -32,7 +29,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .container {
-  margin: 0 16px;
+  margin: 30px 16px;
 
   &__header {
     display: flex;
@@ -52,6 +49,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       cursor: pointer;
     }
   }
+}
+
+.mat-list-text {
+  padding: 0 !important;
 }
 
 .mat-subheader {
@@ -156,4 +157,3 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     padding: 0;
   }
 }
-

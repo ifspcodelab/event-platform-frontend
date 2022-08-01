@@ -1,1 +1,49 @@
-<p>area-show works!</p>
+<div *ngIf="areaDto!=null">
+  <header class="header">
+    <div class="header__titlecomponent">
+      <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
+        <mat-icon mat-list-icon (click)="openLocationShow()">arrow_back</mat-icon>
+      </button>
+      <h1 class="header__title">Área: {{ areaDto.name }}</h1>
+    </div>
+    <div class="header__actions">
+      <button mat-button color="primary" (click)="openEditAreaFormDialog()">Editar</button>
+      <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+    </div>
+  </header>
+
+  <mat-list>
+    <mat-list-item>
+      <mat-icon mat-list-icon> where_to_vote </mat-icon>
+      <div mat-line><b>Referência: </b> {{ areaDto.reference }} </div>
+    </mat-list-item>
+  </mat-list>
+
+  <article class="container">
+    <header class="container__header">
+      <h2 class="container__title">Espaços</h2>
+      <button class="container__actions" mat-button color="primary" (click)="openAddSpaceFormDialog()">Novo Espaço</button>
+    </header>
+
+    <p *ngIf="!spacesDto.length">Nenhum espaço cadastrado</p>
+    <table class="container__table" *ngIf="spacesDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="">Nome</th>
+        <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="capacity" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="">Capacidade</th>
+        <td mat-cell *matCellDef="let element"> {{ element.capacity }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Tipo</th>
+        <td mat-cell *matCellDef="let element"> {{ element.type | spaceTypes }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSpaceShow(row)"></tr>
+    </table>
+  </article>
+</div>

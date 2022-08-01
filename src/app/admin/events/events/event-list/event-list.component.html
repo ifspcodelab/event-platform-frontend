@@ -1,9 +1,13 @@
-<article class="container">
-  <header class="header">
-      <h1 class="header__title">Eventos</h1>
-      <button class="container__actions" mat-button color="primary" routerLink="/admin/events/new">Novo Evento</button>
-  </header>
+<header class="header">
+  <div class="header__titlecomponent">
+    <h1 class="header__title">Eventos</h1>
+  </div>
+  <div class="header__actions">
+    <button class="container__actions" mat-button color="primary" routerLink="/admin/events/new">Novo Evento</button>
+  </div>
+</header>
 
+ <article class="container">
   <p *ngIf="!eventsDto.length">Nenhum evento cadastrado</p>
 
   <table mat-table [dataSource]="eventsDto" class="container__table" *ngIf="eventsDto.length">
