@@ -11,6 +11,7 @@ import { SubeventShowComponent } from './subevents/subevent-show/subevent-show.c
 import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
+import {SubeventsFormComponent} from "./subevents/subevents-form/subevents-form.component";
 
 @NgModule({
   declarations: [
@@ -18,14 +19,15 @@ import { MAT_DATE_LOCALE } from "@angular/material/core";
     EventListComponent,
     EventShowComponent,
     EventFormComponent,
+    SubeventShowComponent,
+    SubeventsFormComponent,
     EventStatusPipe,
-    SubeventShowComponent
   ],
   imports: [
     CommonModule,
     EventsRoutingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
