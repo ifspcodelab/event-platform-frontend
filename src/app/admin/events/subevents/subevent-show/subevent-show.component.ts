@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProblemDetail } from 'src/app/core/models/problem-detail';
+import {CancelDialogComponent} from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 
 @Component({
   selector: 'app-subevent-show',
@@ -18,6 +19,7 @@ export class SubeventShowComponent implements OnInit {
   subeventDto: SubeventDto;
   subeventId: string;
   eventId: string;
+  cancelMessage: string;
 
   constructor(
     private notificationService: NotificationService,
@@ -65,6 +67,21 @@ export class SubeventShowComponent implements OnInit {
         },
         error: error => this.handleError(error)
       });
+  }
+
+  openCancelDialog() {
+    const dialogRef = this.dialog.open(CancelDialogComponent, {
+      width: '400px',
+      data: {name: "Subevento", cancelMessage: this.cancelMessage, cancelText: "Fechar", okText: "Cancelar"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.cancelMessage = result;
+        this.cancelSubevent();
+        console.log(result);
+      }
+    });
   }
 
   cancelSubevent() {

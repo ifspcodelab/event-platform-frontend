@@ -3,7 +3,7 @@
   <h2>Motivo do cancelamento</h2>
   <p>Esse texto será enviado ao e-mail dos participantes.</p>
   <form [formGroup]="form" id="cancel-form">
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="full-width">
       <textarea matInput formControlName="cancelMessage" placeholder="Mensagem" [(ngModel)]="data.cancelMessage"></textarea>
       <mat-error *ngIf="fieldErrors('cancelMessage')?.['required']">
         Mensagem de cancelamento é obrigatório
