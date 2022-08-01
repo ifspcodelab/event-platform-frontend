@@ -12,6 +12,8 @@ import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-form.component";
+import { ActivityShowComponent } from './activities/activity-show/activity-show.component';
+import { SessionShowComponent } from './sessions/session-show/session-show.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-for
     SubeventShowComponent,
     SubeventsFormComponent,
     EventStatusPipe,
+    ActivityShowComponent,
+    SessionShowComponent,
   ],
   imports: [
     CommonModule,

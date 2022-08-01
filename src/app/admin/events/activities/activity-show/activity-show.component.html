@@ -1,0 +1,62 @@
+<div *ngIf="activityDto">
+  <header class="header">
+    <div class="header__titlecomponent">
+      <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
+        <mat-icon mat-list-icon (click)="openEventList()">arrow_back</mat-icon>
+      </button>
+      <h1 class="header__title">Atividade: {{ activityDto.title }}</h1>
+    </div>
+    <div class="header__actions" *ngIf="showActions()">
+      <button *ngIf="showPublishButton()" mat-button color="primary" (click)="publishActivity()">Publicar</button>
+      <button *ngIf="showUnpublishedButton()" mat-button color="primary" (click)="unpublishActivity()">Despublicar</button>
+      <button mat-button color="primary" (click)="cancelActivity()">Cancelar</button>
+      <button mat-button color="primary" routerLink="edit">Editar</button>
+      <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+    </div>
+    <div class="header__actions" *ngIf="!showActions()">
+      <p>Atividade Cancelada</p>
+    </div>
+  </header>
+
+  <mat-list>
+    <mat-list-item>
+      <p><b>Titulo:</b> {{ activityDto.title }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <p><b>Slug:</b> {{ activityDto.slug }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <p><b>Descrição:</b> {{ activityDto.description }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <p><b>Status:</b> {{ activityDto.status | eventStatus }}</p>
+    </mat-list-item>
+
+  </mat-list>
+
+  <article class="container">
+    <header class="header">
+      <h1 class="header__title">Sessões</h1>
+      <button class="container__actions" mat-button color="primary" routerLink="sub-events/new">Nova Sessão</button>
+    </header>
+
+    <p *ngIf="!sessionsDto.length">Nenhum subevento cadastrado</p>
+
+    <table mat-table [dataSource]="sessionsDto" *ngIf="sessionsDto.length" class="container__table">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Vagas</th>
+        <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSessionShow(row)"></tr>
+    </table>
+
+  </article>
+</div>
