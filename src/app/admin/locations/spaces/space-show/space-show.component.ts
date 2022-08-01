@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { SpaceService } from "../../../../core/services/space.service";
 import { first } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
-import { SpacesFormComponent } from "../space-form/spaces-form.component";
+import { SpaceFormComponent } from "../space-form/space-form.component";
 import { NotificationService } from "../../../../core/services/notification.service";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 
@@ -56,7 +56,7 @@ export class SpaceShowComponent implements OnInit {
   }
 
   openEditSpaceFormDialog() {
-    this.dialog.open(SpacesFormComponent, this.getDialogConfig())
+    this.dialog.open(SpaceFormComponent, this.getDialogConfig())
     .afterClosed()
       .subscribe(spaceDto => {
         if (spaceDto) {
@@ -84,17 +84,17 @@ export class SpaceShowComponent implements OnInit {
     .subscribe(result => this.deleteSpace(result));
   }
 
-    deleteSpace(result: any) {
-      if (result) {
-        this.spaceService.deleteSpace(this.locationId, this.areaId, this.spaceId)
-          .pipe(first())
-          .subscribe( {
-            next: _ => {
-              this.notificationService.success("Espaço excluido com sucesso");
-              this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId]);
-            }
-          });
-      }
+  deleteSpace(result: any) {
+    if (result) {
+      this.spaceService.deleteSpace(this.locationId, this.areaId, this.spaceId)
+        .pipe(first())
+        .subscribe( {
+          next: _ => {
+            this.notificationService.success("Espaço excluido com sucesso");
+            this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId]);
+          }
+        });
     }
+  }
 }
 

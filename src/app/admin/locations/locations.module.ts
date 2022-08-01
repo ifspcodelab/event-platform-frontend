@@ -10,7 +10,7 @@ import { LocationFormComponent } from './locations/location-form/location-form.c
 
 import { SpaceShowComponent } from './spaces/space-show/space-show.component';
 import { SpaceTypesPipe } from "../../core/pipes/space-types.pipe";
-import { SpacesFormComponent } from './spaces/space-form/spaces-form.component';
+import { SpaceFormComponent } from './spaces/space-form/space-form.component';
 import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
 
@@ -23,7 +23,7 @@ import { SharedModule } from "../../shared/shared.module";
     LocationFormComponent,
     SpaceShowComponent,
     SpaceTypesPipe,
-    SpacesFormComponent
+    SpaceFormComponent
   ],
   imports: [
     CommonModule,

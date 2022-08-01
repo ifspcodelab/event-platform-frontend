@@ -11,10 +11,10 @@ import { AppValidators } from "../../../../core/validators/app-validator";
 
 @Component({
   selector: 'app-space-form',
-  templateUrl: './spaces-form.component.html',
-  styleUrls: ['./spaces-form.component.scss']
+  templateUrl: './space-form.component.html',
+  styleUrls: ['./space-form.component.scss']
 })
-export class SpacesFormComponent implements OnInit {
+export class SpaceFormComponent implements OnInit {
   form: FormGroup;
   spaceType = SpaceType;
   enumKeys: any = [];
@@ -24,7 +24,7 @@ export class SpacesFormComponent implements OnInit {
   constructor(
     private spaceService: SpaceService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<SpacesFormComponent>,
+    private dialogRef: MatDialogRef<SpaceFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { locationId: string, areaId: string, spaceDto: SpaceDto }
   ) {
     this.enumKeys = Object.keys(this.spaceType);

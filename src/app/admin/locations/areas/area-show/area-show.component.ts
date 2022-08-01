@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AreaService } from '../../../../core/services/area.service';
 import { AreaDto } from '../../../../core/models/area.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SpacesFormComponent } from "../../spaces/space-form/spaces-form.component";
+import { SpaceFormComponent } from "../../spaces/space-form/space-form.component";
 import { MatDialog } from "@angular/material/dialog";
 import { NotificationService } from "../../../../core/services/notification.service";
 import { MatSort, Sort } from "@angular/material/sort";
@@ -47,23 +47,21 @@ export class AreaShowComponent implements OnInit {
   fetchArea(locationId: string, areaId: string) {
     this.areaService.getAreaById(locationId, areaId)
       .pipe(first())
-        .subscribe(
-         areaDto => {
-          this.areaDto = areaDto;
-          this.fetchSpaces(locationId, areaId)
-        }
-      );
+      .subscribe(
+       areaDto => {
+        this.areaDto = areaDto;
+        this.fetchSpaces(locationId, areaId)
+      });
   }
 
   fetchSpaces(locationId: string, areaId: string) {
     this.spaceService.getSpaces(locationId, areaId)
       .pipe(first())
-        .subscribe(
-        spacesDto => {
-          this.spacesDto = spacesDto;
-          this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
-        }
-      );
+      .subscribe(
+      spacesDto => {
+        this.spacesDto = spacesDto;
+        this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
+      });
   }
 
   openSpaceShow(spaceDto: SpaceDto) {
@@ -81,14 +79,14 @@ export class AreaShowComponent implements OnInit {
   }
 
   openAddSpaceFormDialog() {
-    const dialogRef = this.dialog.open(SpacesFormComponent, this.getDialogConfig());
-    dialogRef.afterClosed().subscribe(spaceDto => {
-      if (spaceDto) {
-        this.notificationService.success("Espaço cadastrado com sucesso");
-        this.spacesDto = [...this.spacesDto, spaceDto];
-        this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
-      }
-    });
+    this.dialog.open(SpaceFormComponent, this.getDialogConfig()).afterClosed()
+      .subscribe(spaceDto => {
+        if (spaceDto) {
+          this.notificationService.success("Espaço cadastrado com sucesso");
+          this.spacesDto = [...this.spacesDto, spaceDto];
+          this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
+        }
+      });
   }
 
   announceSortChange(sort: Sort) {

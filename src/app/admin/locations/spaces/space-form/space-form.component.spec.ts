@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpacesFormComponent } from './spaces-form.component';
+import { SpaceFormComponent } from './space-form.component';
 
 describe('SpacesFormComponent', () => {
-  let component: SpacesFormComponent;
-  let fixture: ComponentFixture<SpacesFormComponent>;
+  let component: SpaceFormComponent;
+  let fixture: ComponentFixture<SpaceFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SpacesFormComponent ]
+      declarations: [ SpaceFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SpacesFormComponent);
+    fixture = TestBed.createComponent(SpaceFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
