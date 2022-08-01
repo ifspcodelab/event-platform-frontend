@@ -9,7 +9,7 @@ import { NotificationService } from "../../../../core/services/notification.serv
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { HttpErrorResponse } from "@angular/common/http";
-import { ProblemDetail } from "../../../../core/models/problem-detail";
+import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 
 @Component({
   selector: 'app-event-show',
@@ -21,6 +21,7 @@ export class EventShowComponent implements OnInit {
   subeventsDto: SubeventDto[] = [];
   eventDto: EventDto;
   eventId: string;
+  cancelMessage: string;
 
   constructor(
     private eventService: EventService,
@@ -78,6 +79,21 @@ export class EventShowComponent implements OnInit {
         },
         error: error => this.handleError(error)
       });
+  }
+
+  openCancelDialog() {
+    const dialogRef = this.dialog.open(CancelDialogComponent, {
+      width: '400px',
+      data: {name: "Evento", cancelMessage: this.cancelMessage, cancelText: "Fechar", okText: "Cancelar"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.cancelMessage = result;
+        this.cancelEvent();
+        console.log(result);
+      }
+    });
   }
 
   cancelEvent() {
