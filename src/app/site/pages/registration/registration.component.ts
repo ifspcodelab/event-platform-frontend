@@ -42,7 +42,8 @@ export class RegistrationComponent implements OnInit {
       email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
       cpf: ['', [Validators.required, AppValidators.validCpf()]],
       password: ['',
-        [Validators.required,
+        [
+          Validators.required,
           Validators.minLength(8),
           Validators.maxLength(64),
           AppValidators.validPassword()
@@ -80,7 +81,6 @@ export class RegistrationComponent implements OnInit {
     this.registrationService.postAccount(accountCreateDto)
       .pipe(first())
       .subscribe(() => {
-          this.form.reset();
           alert("Seu cadastro foi realizado com sucesso.");
         }
       );
