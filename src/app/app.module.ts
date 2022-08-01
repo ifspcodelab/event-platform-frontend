@@ -7,6 +7,8 @@ import { SiteModule } from './site/site.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
 import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
     HttpClientModule,
     RecaptchaModule,
     RecaptchaFormsModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

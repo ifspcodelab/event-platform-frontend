@@ -40,7 +40,7 @@ export class ForgotPasswordComponent implements OnInit {
 
           this.form.reset();
           this.submitted = false;
-          alert("Um link para recuperação sera enviado no email informado.")
+          alert("Um link para recuperação sera enviado no email informado. Por favor confira sua caixa de entrada")
         }
       );
 
