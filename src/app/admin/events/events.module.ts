@@ -10,6 +10,7 @@ import { EventStatusPipe } from "../../core/pipes/event-status.pipe";
 import { SubeventShowComponent } from './subevents/subevent-show/subevent-show.component';
 import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
+import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,9 @@ import { SharedModule } from "../../shared/shared.module";
     EventsRoutingModule,
     CoreModule,
     SharedModule
-  ]
+  ],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+  ],
 })
 export class EventsModule { }
