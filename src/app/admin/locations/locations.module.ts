@@ -5,9 +5,9 @@ import { LocationsRoutingModule } from './locations-routing.module';
 import { LocationsComponent } from './locations.component';
 import { LocationListComponent } from './locations/location-list/location-list.component';
 import { LocationShowComponent } from './locations/location-show/location-show.component';
-import { AreaShowComponent } from './areas/area-show/area-show.component';
 import { LocationFormComponent } from './locations/location-form/location-form.component';
-
+import { AreaShowComponent } from './areas/area-show/area-show.component';
+import { AreaFormComponent } from './areas/area-form/area-form.component';
 import { SpaceShowComponent } from './spaces/space-show/space-show.component';
 import { SpaceTypesPipe } from "../../core/pipes/space-types.pipe";
 import { SpaceFormComponent } from './spaces/space-form/space-form.component';
@@ -19,11 +19,12 @@ import { SharedModule } from "../../shared/shared.module";
     LocationsComponent,
     LocationListComponent,
     LocationShowComponent,
-    AreaShowComponent,
     LocationFormComponent,
+    AreaShowComponent,
+    AreaFormComponent,
     SpaceShowComponent,
-    SpaceTypesPipe,
-    SpaceFormComponent
+    SpaceFormComponent,
+    SpaceTypesPipe
   ],
   imports: [
     CommonModule,

@@ -11,7 +11,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from "@angular/material/sort";
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from "@angular/forms";
+import { MatDividerModule } from "@angular/material/divider";
+
+
 @NgModule({
   declarations: [],
   imports: [
@@ -26,7 +29,8 @@ import {FormsModule} from "@angular/forms";
     MatSortModule,
     MatSelectModule,
     MatSnackBarModule,
-    FormsModule
+    MatDividerModule,
+    FormsModule,
   ],
   exports: [
     MatButtonModule,
@@ -39,7 +43,8 @@ import {FormsModule} from "@angular/forms";
     MatSortModule,
     MatSelectModule,
     MatSnackBarModule,
-    FormsModule
+    MatDividerModule,
+    FormsModule,
   ]
 })
 export class SharedModule { }

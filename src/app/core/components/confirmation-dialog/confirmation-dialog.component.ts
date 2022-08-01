@@ -15,3 +15,4 @@ export class ConfirmationDialogComponent implements OnInit {
 
   }
 }
+

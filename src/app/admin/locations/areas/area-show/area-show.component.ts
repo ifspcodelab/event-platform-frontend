@@ -11,6 +11,11 @@ import { NotificationService } from "../../../../core/services/notification.serv
 import { MatSort, Sort } from "@angular/material/sort";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { MatTableDataSource } from "@angular/material/table";
+import {AreaFormComponent} from "../area-form/area-form.component";
+import {
+  ConfirmationDialogComponent
+} from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-area-show',
@@ -64,8 +69,75 @@ export class AreaShowComponent implements OnInit {
       });
   }
 
+  openLocationShow() {
+    this.router.navigate(['admin', 'locations', this.locationId]);
+  }
+
   openSpaceShow(spaceDto: SpaceDto) {
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId, 'spaces', spaceDto.id]);
+  }
+
+  private getDialogConfigArea() {
+    return {
+      autoFocus: true,
+      data: {
+        locationId: this.locationId,
+        areaDto: this.areaDto
+      }
+    };
+  }
+
+  openEditAreaFormDialog() {
+    const dialogRef = this.dialog.open(AreaFormComponent, this.getDialogConfigArea());
+    dialogRef.afterClosed()
+      .subscribe(areaDto => {
+        if(areaDto) {
+          this.areaDto = areaDto;
+          this.notificationService.success("Editada com sucesso");
+        }
+      });
+  }
+
+  private getConfirmationDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Excluir área",
+        text: `A área ${this.areaDto.name} será excluida de forma definitiva`,
+        cancelText: "Cancelar",
+        okText: "Excluir"
+      }
+    };
+  }
+
+  openDeleteConfirmationDialog() {
+    if(this.spacesDto.length != 0) {
+      this.notificationService.error('Não é possível deletar uma área com espaço associado');
+    } else {
+      this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig())
+        .afterClosed()
+        .subscribe(result => this.deleteArea(result));
+    }
+  }
+
+  deleteArea(result: any) {
+    if(result) {
+      this.areaService.deleteArea(this.locationId, this.areaId)
+        .pipe(first())
+        .subscribe({
+          next: _ => {
+            this.notificationService.success("Área excluída com sucesso");
+            this.router.navigate(['admin', 'locations', this.locationId])
+          },
+          error: error => {
+            if(error instanceof HttpErrorResponse) {
+              if(error.status === 409) {
+                this.notificationService.error("Não é possível deletar uma área com espaço associado");
+              }
+            }
+          }
+        });
+    }
   }
 
   private getDialogConfig() {
