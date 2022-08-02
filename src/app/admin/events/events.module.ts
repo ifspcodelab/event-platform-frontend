@@ -14,6 +14,7 @@ import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-form.component";
 import { ActivityShowComponent } from './activities/activity-show/activity-show.component';
 import { SessionShowComponent } from './sessions/session-show/session-show.component';
+import { SessionFormComponent } from './sessions/session-form/session-form.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +24,10 @@ import { SessionShowComponent } from './sessions/session-show/session-show.compo
     EventFormComponent,
     SubeventShowComponent,
     SubeventsFormComponent,
-    EventStatusPipe,
     ActivityShowComponent,
     SessionShowComponent,
+    SessionFormComponent,
+    EventStatusPipe,
   ],
   imports: [
     CommonModule,

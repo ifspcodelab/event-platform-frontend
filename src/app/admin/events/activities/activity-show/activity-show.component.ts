@@ -18,7 +18,7 @@ export class ActivityShowComponent implements OnInit {
     title: "Novidades Java 17",
     slug: "novidades-java-17",
     description: "Saiu recentemente a nova versão LTS (Long Term Support) do Java. Essas versões são as mais importantes no calendário de lançamentos, uma vez que possuem oito anos de suporte.",
-    status: EventStatusModel.CANCELED,
+    status: EventStatusModel.DRAFT,
   }
   sessionsDto: any[] = [
     {
@@ -26,7 +26,6 @@ export class ActivityShowComponent implements OnInit {
       seats: "30",
     }
   ];
-
 
   constructor(
     private router: Router,
@@ -38,8 +37,8 @@ export class ActivityShowComponent implements OnInit {
     this.subEventId = this.route.snapshot.paramMap.get('subeventId');
   }
 
-  openEventList() {
-
+  openEventShow() {
+    return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 2 } });
   }
 
   publishActivity() {

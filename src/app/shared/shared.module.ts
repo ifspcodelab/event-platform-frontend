@@ -16,6 +16,8 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatCardModule } from "@angular/material/card";
+import { MatTabsModule } from "@angular/material/tabs";
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { MatMenuModule } from "@angular/material/menu";
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCardModule,
+    MatTabsModule,
   ],
   exports: [
     MatToolbarModule,
@@ -54,6 +58,8 @@ import { MatMenuModule } from "@angular/material/menu";
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCardModule,
+    MatTabsModule,
   ]
 })
 export class SharedModule { }

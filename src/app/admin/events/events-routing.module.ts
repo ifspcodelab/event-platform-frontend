@@ -8,6 +8,7 @@ import { SubeventShowComponent } from "./subevents/subevent-show/subevent-show.c
 import { EventShowComponent } from "./events/event-show/event-show.component";
 import { ActivityShowComponent } from "./activities/activity-show/activity-show.component";
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
+import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 
 const routes: Routes = [
   {
@@ -19,11 +20,14 @@ const routes: Routes = [
       { path: ':eventId', component: EventShowComponent },
       { path: ':eventId/edit', component: EventFormComponent },
       { path: ':eventId/activities/:activityId', component: ActivityShowComponent },
+      { path: ':eventId/activities/:activityId/sessions/new', component: SessionFormComponent },
       { path: ':eventId/activities/:activityId/sessions/:sessionId', component: SessionShowComponent },
+      { path: ':eventId/activities/:activityId/sessions/:sessionId/edit', component: SessionFormComponent },
       { path: ':eventId/sub-events/new', component: SubeventsFormComponent },
       { path: ':eventId/sub-events/:subeventId', component: SubeventShowComponent },
       { path: ':eventId/sub-events/:subeventId/edit', component: SubeventsFormComponent },
       { path: ':eventId/sub-events/:subeventId/activities/:activityId', component: ActivityShowComponent },
+      { path: ':eventId/sub-events/:subeventId/activities/:activityId/sessions/new', component: SessionFormComponent },
       { path: ':eventId/sub-events/:subeventId/activities/:activityId/sessions/:sessionId', component: SessionShowComponent },
     ]
   }

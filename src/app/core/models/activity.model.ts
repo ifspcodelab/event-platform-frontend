@@ -8,12 +8,16 @@ export interface ActivityDto{
   title: string;
   slug: string;
   description: string;
+  online?: boolean;
+  registrationRequired?: boolean;
   status: EventStatusModel;
 }
 
 export interface SessionDto{
   id: string;
+  title: string;
   seats: number;
+  schedulesSession: SessionScheduleDto[];
 }
 
 

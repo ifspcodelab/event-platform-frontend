@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProblemDetail } from 'src/app/core/models/problem-detail';
+import { ActivityDto } from "../../../../core/models/activity.model";
+import { ActivityService } from "../../../../core/services/activity.service";
 
 @Component({
   selector: 'app-subevent-show',
@@ -19,9 +21,15 @@ export class SubeventShowComponent implements OnInit {
   subeventId: string;
   eventId: string;
 
+  activitiesDto: ActivityDto[] = [];
+  activitiesDisplayedColumns: string[] = ['title', 'online', 'registrationRequired', 'status'];
+
+  tabSelectedIndex: number = 0;
+
   constructor(
     private notificationService: NotificationService,
     private subeventService: SubeventService,
+    private activityService: ActivityService,
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog
@@ -36,11 +44,30 @@ export class SubeventShowComponent implements OnInit {
   fetchSubevent(eventId: string, subeventId: string) {
     this.subeventService.getSubeventById(eventId, subeventId)
       .pipe(first())
-      .subscribe(subeventDto => this.subeventDto = subeventDto);
+      .subscribe(subeventDto => {
+        this.subeventDto = subeventDto
+        this.fetchActivities(this.eventId);
+      });
+  }
+
+  fetchActivities(eventId: string) {
+    this.activityService.getActivities(eventId)
+      .subscribe(activities => {
+        this.activitiesDto = activities
+        this.setTabSelectedIndex();
+      });
+  }
+
+  setTabSelectedIndex() {
+    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
   }
 
   openEventShow() {
     return this.router.navigate(['admin', 'events', this.eventId]);
+  }
+
+  openActivityShow(activityDto: ActivityDto) {
+    return this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', activityDto.id]);
   }
 
   publishSubevent() {

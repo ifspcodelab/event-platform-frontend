@@ -17,7 +17,9 @@ export class SessionShowComponent implements OnInit {
   subEventId: string = null;
   sessionDto: SessionDto = {
     id: "d7b09a41-6b9e-40e1-8c19-fd655a0ce8c5",
-    seats: 30
+    title: "",
+    seats: 30,
+    schedulesSession: []
   };
 
   sessionSchedulesDto: SessionScheduleDto[] = [

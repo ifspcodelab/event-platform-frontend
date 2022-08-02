@@ -29,7 +29,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .container {
-  margin: 30px 16px;
+  margin: 20px 16px;
 
   &__header {
     display: flex;
@@ -64,13 +64,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   fieldset {
     border: none;
-    margin-bottom: 20px;
-    padding: 0;
+    margin: 20px 0;
+    padding: 0 20px;
 
     legend {
       text-transform: uppercase;
       font-size: 12px;
-      padding: 0 16px;
+      padding: 0px;
       color: #aaa;
     }
   }
@@ -88,7 +88,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       display: block;
     }
   }
-  .form-field-sm, .form-field-md, .form-field-lg, .form-field-xl, .form-field-xxl {
+  .form-field-xs, .form-field-sm, .form-field-md, .form-field-lg, .form-field-xl, .form-field-xxl {
     width: 100%;
   }
 }
@@ -96,6 +96,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @media only screen and (min-width: 800px) {
   .app-form{
     padding: 20px;
+
+    .form-field-xs {
+      width: calc(20% - 20px);
+    }
 
     .form-field-sm {
       width: calc(30% - 20px);
@@ -117,6 +121,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   .app-form{
     padding: 20px;
 
+    .form-field-xs {
+      width: calc(15% - 20px);
+    }
+
     .form-field-sm {
       width: calc(25% - 20px);
     }
@@ -133,6 +141,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @media only screen and (min-width: 1440px) {
   .app-form{
+
+    .form-field-xs {
+      width: calc(15% - 20px);
+    }
+
     .form-field-sm {
       width: calc(20% - 20px);
     }
