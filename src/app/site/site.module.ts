@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
 import { SharedModule } from "../shared/shared.module";
 import { IConfig, NgxMaskModule } from "ngx-mask";
+import { LoginComponent } from "./pages/login/login.component";
+import { TermsComponent } from './pages/terms/terms.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -15,6 +17,8 @@ const maskConfig: Partial<IConfig> = {
   declarations: [
     HomeComponent,
     RegistrationComponent,
+    LoginComponent,
+    TermsComponent,
   ],
   imports: [
     CommonModule,

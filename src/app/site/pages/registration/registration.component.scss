@@ -25,7 +25,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   text-align: center;
-  min-height: 100vh;
+  margin-top: 50px;
   min-width: 100vw;
   padding: 20px;
 }
@@ -37,6 +37,14 @@ a:hover {
   font-size: 2rem;
 }
 
+.loginPage:hover {
+  cursor: pointer;
+}
+
+.terms:hover {
+  cursor: pointer;
+}
+
 .registration-fields {
   align-items: center;
   display: flex;
@@ -46,6 +54,10 @@ a:hover {
 
 mat-card-content {
   margin: 0;
+}
+
+.checkbox-container {
+  margin-bottom: 10px;
 }
 
 .checkbox-container mat-checkbox {

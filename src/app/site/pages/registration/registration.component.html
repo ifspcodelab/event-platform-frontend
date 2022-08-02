@@ -7,7 +7,7 @@
 
       <mat-card-content>
         <p>Para ter acesso aos eventos e certificado você precisa realizar o cadastro</p>
-        <p>Caso já tenha um cadastro realize o <b><a href="localhost:4200/accounts/login" target="_blank">login</a></b></p>
+        <p>Caso já tenha um cadastro realize o <b class="loginPage" (click)="loginPage()">login</b></p>
 
           <div class="registration-fields">
             <mat-form-field appearance="outline" class="full-width">
@@ -81,8 +81,7 @@
             </mat-form-field>
           </div>
 
-            <p>Antes de confirmar seu cadastro você deve ler com atenção os <b><a href="https://localhost:4200/termos"
-                                                                               target="_blank">Termos de Uso</a></b></p>
+            <p>Antes de confirmar seu cadastro você deve ler com atenção os <b class="terms" (click)="termsPage()">Termos de uso</b></p>
 
           <div class="checkbox-container">
             <mat-checkbox name="agreed" id="agreed" value="true" formControlName="agreed"></mat-checkbox>
@@ -93,10 +92,10 @@
               É obrigatório aceitar os termos
             </mat-error>
           </div>
-
-          <re-captcha (resolved)="resolved($event)" siteKey="6LfjQjAhAAAAAGDIg5BkJMBccd-APYyY1AXM2eun"></re-captcha>
-
         </mat-card-content>
+
+        <re-captcha (resolved)="resolved($event)" siteKey="6LfjQjAhAAAAAGDIg5BkJMBccd-APYyY1AXM2eun"></re-captcha>
+
         <mat-card-actions>
           <button mat-raised-button form="registration-form" color="primary">Cadastrar</button>
         </mat-card-actions>

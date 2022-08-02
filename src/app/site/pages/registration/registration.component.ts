@@ -4,6 +4,7 @@ import { RegistrationService } from 'src/app/core/services/registration.service'
 import { first } from 'rxjs';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { AccountCreateDto } from "../../../core/models/account.model";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -19,6 +20,7 @@ export class RegistrationComponent implements OnInit {
     private registrationService: RegistrationService,
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -86,6 +88,14 @@ export class RegistrationComponent implements OnInit {
 
   resolved(captchaResponse: string): void {
     this.userReCaptcha = captchaResponse;
+  }
+
+  loginPage(): void {
+    this.router.navigate(['login']);
+  }
+
+  termsPage(): void {
+    this.router.navigate(['termos']);
   }
 
 
