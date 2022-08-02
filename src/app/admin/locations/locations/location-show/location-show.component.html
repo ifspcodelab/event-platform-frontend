@@ -19,11 +19,12 @@
     </mat-list-item>
   </mat-list>
 
+  <header class="header">
+    <h2 class="header__title">Áreas</h2>
+    <button mat-button color="primary" (click)="openAddAreaFormDialog()">Nova Área</button>
+  </header>
+
   <article class="container">
-    <header class="container__header">
-      <h2 class="container__title">Áreas</h2>
-      <button class="container__actions" mat-button color="primary" (click)="openAddAreaFormDialog()">Nova Área</button>
-    </header>
     <p *ngIf="!areasDto.length">Nenhuma área cadastrada</p>
     <table class="container__table" *ngIf="areasDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
       <ng-container matColumnDef="name">
@@ -37,7 +38,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openAreaShow(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openAreaShow(row)" class="container__line"></tr>
     </table>
   </article>
 </div>

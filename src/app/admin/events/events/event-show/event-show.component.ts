@@ -56,6 +56,10 @@ export class EventShowComponent implements OnInit {
     return this.router.navigate(['admin', 'events']);
   }
 
+  openEventForm() {
+    return this.router.navigate(['admin', 'events', this.eventId, 'edit']);
+  }
+
   publishEvent() {
     this.eventService.publishEvent(this.eventId)
       .pipe(first())
