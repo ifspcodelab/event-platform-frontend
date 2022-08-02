@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SubeventDto } from "../../../../core/models/subevent.model";
+import { CancellationMessageCreateDto, SubeventDto } from "../../../../core/models/subevent.model";
 import { SubeventService } from "../../../../core/services/subevent.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProblemDetail } from 'src/app/core/models/problem-detail';
-import {CancelDialogComponent} from "../../../../core/components/cancel-dialog/cancel-dialog.component";
+import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 
 @Component({
   selector: 'app-subevent-show',
@@ -19,7 +19,7 @@ export class SubeventShowComponent implements OnInit {
   subeventDto: SubeventDto;
   subeventId: string;
   eventId: string;
-  cancelMessage: string;
+  cancellationMessageCreateDto: CancellationMessageCreateDto;
 
   constructor(
     private notificationService: NotificationService,
@@ -72,20 +72,19 @@ export class SubeventShowComponent implements OnInit {
   openCancelDialog() {
     const dialogRef = this.dialog.open(CancelDialogComponent, {
       width: '400px',
-      data: {name: "Subevento", cancelMessage: this.cancelMessage, cancelText: "Fechar", okText: "Cancelar"},
+      data: {name: "Subevento", cancelMessage: this.cancellationMessageCreateDto, cancelText: "Fechar", okText: "Cancelar"},
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
-        this.cancelMessage = result;
+        this.cancellationMessageCreateDto = result;
         this.cancelSubevent();
-        console.log(result);
       }
     });
   }
 
   cancelSubevent() {
-    this.subeventService.cancelSubevent(this.eventId, this.subeventId)
+    this.subeventService.cancelSubevent(this.eventId, this.subeventId, this.cancellationMessageCreateDto)
       .pipe(first())
       .subscribe({
         next: subeventDto => {
