@@ -13,6 +13,7 @@ import { SharedModule } from "../../shared/shared.module";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-form.component";
 
+
 @NgModule({
   declarations: [
     EventsComponent,
@@ -27,7 +28,7 @@ import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-for
     CommonModule,
     EventsRoutingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
