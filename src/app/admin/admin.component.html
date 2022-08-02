@@ -1,4 +1,26 @@
-<mat-toolbar color="primary">
-  <span>Plataforma de Eventos</span>
+<mat-toolbar color="primary" class="app-toolbar">
+  <a class="app-toolbar__title" routerLink="/admin">Plataforma de Eventos</a>
+  <nav class="app-toolbar__nav">
+    <button class="app-toolbar__link" mat-button color="accent" routerLink="/admin/events" routerLinkActive="app-toolbar__link--active">
+      <mat-icon class="app-toolbar__icon">event</mat-icon>
+      Eventos
+    </button>
+    <button class="app-toolbar__link" mat-button color="accent" routerLink="/admin/locations" routerLinkActive="app-toolbar__link--active">
+      <mat-icon class="app-toolbar__icon">location_on</mat-icon>
+      Locais
+    </button>
+    <button class="app-toolbar__link" mat-button color="accent" routerLink="/admin/users" routerLinkActive="app-toolbar__link--active">
+      <mat-icon class="app-toolbar__icon">supervised_user_circle</mat-icon>
+      Usuários
+    </button>
+    <button color="accent" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Admin menu">
+      <mat-icon class="app-toolbar__icon">account_circle</mat-icon>
+      <mat-icon class="app-toolbar__icon__dropdown">arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/admin/my-account">Meus Dados</button>
+      <button mat-menu-item routerLink="/admin/logout">Sair</button>
+    </mat-menu>
+  </nav>
 </mat-toolbar>
 <router-outlet></router-outlet>

@@ -7,7 +7,7 @@
 
 <div mat-dialog-content>
   <form class="app-form" id="space-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field class="form-field-lg">
+    <mat-form-field>
       <mat-label>Nome</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
       <mat-error *ngIf="fieldErrors('name')?.['notblank']">
@@ -24,7 +24,7 @@
       </mat-error>
     </mat-form-field>
     <br><br>
-    <mat-form-field class="form-field-lg">
+    <mat-form-field>
       <mat-label>Capacidade</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="capacity" name="capacity">
       <mat-error *ngIf="fieldErrors('capacity')?.['required']">
@@ -41,7 +41,7 @@
       </mat-error>
     </mat-form-field>
     <br><br>
-    <mat-form-field class="form-field-lg">
+    <mat-form-field>
       <mat-label>Tipo</mat-label>
       <mat-select formControlName="type">
         <mat-option *ngFor="let name of enumKeys" [value]="name">{{ spaceType[name] }}</mat-option>

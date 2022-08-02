@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
-
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -13,7 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    MatToolbarModule
+    SharedModule
   ]
 })
 export class AdminModule { }

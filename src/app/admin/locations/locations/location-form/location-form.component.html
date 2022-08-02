@@ -8,8 +8,8 @@
 
 <div mat-dialog-content>
   <form class="app-form" id="location-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field class="form-field-lg">
-      <mat-label>Nome*</mat-label>
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
       <mat-error *ngIf="fieldErrors('name')?.['notblank']">
         Nome não pode ser vazio
@@ -25,7 +25,7 @@
       </mat-error>
     </mat-form-field>
     <br/><br/>
-    <mat-form-field class="form-field-lg">
+    <mat-form-field>
       <mat-label>Endereço</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="address" name="address">
       <mat-error *ngIf="fieldErrors('address')?.['notblank']">
