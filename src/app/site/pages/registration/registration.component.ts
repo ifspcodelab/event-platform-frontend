@@ -13,11 +13,12 @@ import { AccountCreateDto } from "../../../core/models/account.model";
 export class RegistrationComponent implements OnInit {
   form: FormGroup = this.buildForm();
   userReCaptcha: string | undefined = '';
+  hide: boolean = true;
 
   constructor(
     private registrationService: RegistrationService,
     private formBuilder: FormBuilder,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) { }
 
   ngOnInit(): void {
@@ -80,15 +81,14 @@ export class RegistrationComponent implements OnInit {
       )
     this.registrationService.postAccount(accountCreateDto)
       .pipe(first())
-      .subscribe(() => {
-          alert("Seu cadastro foi realizado com sucesso.");
-        }
-      );
+      .subscribe( () => { alert("Seu cadastro foi realizado com sucesso"); });
   }
 
   resolved(captchaResponse: string): void {
     this.userReCaptcha = captchaResponse;
   }
+
+
 }
 
 

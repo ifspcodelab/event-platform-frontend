@@ -3,20 +3,26 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RecaptchaModule, RecaptchaFormsModule } from "ng-recaptcha";
+import { RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
+import { SharedModule } from "../shared/shared.module";
+import { IConfig, NgxMaskModule } from "ngx-mask";
 
-
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
     HomeComponent,
-    RegistrationComponent
+    RegistrationComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    SharedModule,
+    NgxMaskModule.forRoot(),
   ]
 })
 export class SiteModule { }
