@@ -18,7 +18,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 
   &__back {
-    margin-right: 5px;
+    margin-right: 16px !important;
   }
 
   &__title {
@@ -28,18 +28,43 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
+.modal {
+  padding: 0px 10px 20px 10px;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 0 !important;
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__buttons {
+    padding: 0 !important;
+    justify-content: right !important;
+  }
+
+  mat-form-field {
+    margin-right: 20px;
+    margin-top: 20px;
+
+    // Display only single validation error at a time
+    mat-error {
+      display: none;
+    }
+
+    mat-error:first-child {
+      display: block;
+    }
+  }
+}
+
 .container {
   margin: 30px 16px;
 
-  &__header {
-    display: flex;
-    padding: 5px 0;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__title {
-    margin: 0%;
+  &__line:hover {
+    background-color: rgba(0,0,0,0.1);
   }
 
   &__table {
@@ -144,16 +169,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .form-field-xl {
       width: calc(60% - 20px);
     }
-  }
-}
-
-.dialog-center {
-  mat-dialog-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .mat-dialog-content {
-    padding: 0;
   }
 }

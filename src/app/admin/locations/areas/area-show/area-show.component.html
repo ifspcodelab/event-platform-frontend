@@ -6,7 +6,7 @@
       </button>
       <h1 class="header__title">Área: {{ areaDto.name }}</h1>
     </div>
-    <div class="header__actions">
+    <div>
       <button mat-button color="primary" (click)="openEditAreaFormDialog()">Editar</button>
       <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
     </div>
@@ -19,12 +19,13 @@
     </mat-list-item>
   </mat-list>
 
-  <article class="container">
-    <header class="container__header">
-      <h2 class="container__title">Espaços</h2>
-      <button class="container__actions" mat-button color="primary" (click)="openAddSpaceFormDialog()">Novo Espaço</button>
-    </header>
 
+  <header class="header">
+    <h2 class="header__title">Espaços</h2>
+    <button mat-button color="primary" (click)="openAddSpaceFormDialog()">Novo Espaço</button>
+  </header>
+
+  <article class="container">
     <p *ngIf="!spacesDto.length">Nenhum espaço cadastrado</p>
     <table class="container__table" *ngIf="spacesDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
       <ng-container matColumnDef="name">
@@ -43,7 +44,7 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSpaceShow(row)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSpaceShow(row)" class="container__line"></tr>
     </table>
   </article>
 </div>

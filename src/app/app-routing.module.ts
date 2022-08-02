@@ -5,7 +5,7 @@ import { RegistrationComponent } from './site/pages/registration/registration.co
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'cadastro', component: RegistrationComponent },
+  { path: 'registration', component: RegistrationComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
