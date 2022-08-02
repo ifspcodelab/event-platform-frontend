@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AccountComponent } from './pages/account/account.component';
 import {SharedModule} from "../shared/shared.module";
 import {RouterModule} from "@angular/router";
+import {RecaptchaModule} from "ng-recaptcha";
 
 
 
@@ -17,11 +18,12 @@ import {RouterModule} from "@angular/router";
     LoginComponent,
     AccountComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    SharedModule,
-    RouterModule
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        SharedModule,
+        RouterModule,
+        RecaptchaModule
+    ]
 })
 export class SiteModule { }

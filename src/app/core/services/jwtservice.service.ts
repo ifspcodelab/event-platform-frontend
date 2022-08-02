@@ -40,9 +40,6 @@ export class JwtService {
     localStorage.removeItem('refresh_token');
   }
 
-  //TODO: verificar se a requisição faz parte de uma lista de endpoints abertos ou fechados (URI e método) (angular interceptors)
-  //TODO: Angular Guard (permissões do usuário no front-end)
-
   decodeAccessToken(accessToken: string) {
     return jwtDecode(accessToken)
   }

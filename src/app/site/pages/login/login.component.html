@@ -18,7 +18,9 @@
     <p>{{ errorMessage }}</p>
   </div>
   <br>
-<!-- TODO: recaptcha -->
+  <div class="re-captcha">
+    <re-captcha (resolved)="resolved($event)" siteKey="6LdirjAhAAAAANJcalTKs4KNA7c5YlP6dOby7x__"></re-captcha>
+  </div>
   <a id="forgot-password-link" href="/esqueci-minha-senha">Esqueci minha senha</a>
   <br>
   <a id="registration-link" href="/cadastro">Não tem uma conta? Cadastre-se</a>

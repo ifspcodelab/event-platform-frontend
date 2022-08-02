@@ -48,6 +48,10 @@ export class LoginComponent implements OnInit {
     this.login();
   }
 
+  resolved($event: string) {
+
+  }
+
   login() {
     this.authenticationService.postLogin(this.form.value)
       .pipe(first())
