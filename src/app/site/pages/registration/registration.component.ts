@@ -83,7 +83,12 @@ export class RegistrationComponent implements OnInit {
       )
     this.registrationService.postAccount(accountCreateDto)
       .pipe(first())
-      .subscribe( () => { alert("Seu cadastro foi realizado com sucesso"); });
+      .subscribe( {
+        next: () => {
+        alert("Seu cadastro foi realizado com sucesso");
+        this.router.navigate(['login']);
+        }
+      });
   }
 
   resolved(captchaResponse: string): void {
@@ -97,8 +102,6 @@ export class RegistrationComponent implements OnInit {
   termsPage(): void {
     this.router.navigate(['termos']);
   }
-
-
 }
 
 
