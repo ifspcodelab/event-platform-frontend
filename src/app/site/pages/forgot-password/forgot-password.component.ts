@@ -1,7 +1,8 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import {Component, Input, OnInit, Renderer2} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PasswordResetService } from "../../../core/services/password-reset.service";
 import {ForgotPasswordCreateDto} from "../../../core/models/forgot-password-create-dto.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,7 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private service: PasswordResetService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {
     this.form = this.buildForm();
     this.userRecaptcha = '';

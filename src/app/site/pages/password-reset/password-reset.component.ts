@@ -1,9 +1,10 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, Renderer2} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {PasswordResetService} from "../../../core/services/password-reset.service";
 import {PasswordResetDto} from "../../../core/models/password-reset-dto";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AppValidators} from "../../../core/validators/app-validators";
+
 
 @Component({
   selector: 'app-password-reset',
@@ -20,7 +21,8 @@ export class PasswordResetComponent implements OnInit {
     private fb: FormBuilder,
     private service: PasswordResetService,
     private route: ActivatedRoute,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router,
   ) {
     this.form = this.buildForm();
     this.userRecaptcha = '';
@@ -39,13 +41,17 @@ export class PasswordResetComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if(this.form.invalid || !this.matches() || this.userRecaptcha == ''){
-           return;
-       }
-      const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
-      this.service.sendPasswordAndToken(passwordResetDto).subscribe(()=>{
+      return;
+    }
+    const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
+    this.service.sendPasswordAndToken(passwordResetDto).subscribe(()=>{
         this.form.reset();
         this.submitted = false;
-        alert("Sua senha foi alterada.")
+      },
+      () => {
+        alert("Requisição inválida");
+        this.form.reset();
+        this.submitted = false;
       });
   }
 
