@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "../../../core/services/authentication.service";
 import { first } from "rxjs";
@@ -6,6 +6,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { JwtService } from "../../../core/services/jwtservice.service";
 import { JwtTokensDto } from "../../../core/models/jwt-tokens.model";
+import {LoginCreateDto} from "../../../core/models/login.model";
 
 @Component({
   selector: 'app-login',
@@ -19,15 +20,22 @@ export class LoginComponent implements OnInit {
     ["Incorrect email or password", "Email ou senha incorretos"]
   ]);
   errorMessage: string | null = null;
+  userRecaptcha: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private jwtService: JwtService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
+    let script = this.renderer.createElement('script');
+    script.defer = true;
+    script.async = true;
+    script.src="https://www.google.com/recaptcha/api.js";
+    this.renderer.appendChild(document.body, script);
   }
 
   private buildForm() {
@@ -41,19 +49,26 @@ export class LoginComponent implements OnInit {
   get password() { return this.form.get('password')!; }
 
   onSubmit() {
-    if(this.form.invalid) {
+    if(this.form.invalid || this.userRecaptcha == '') {
       return;
     }
+
+    const loginCreateDto = new LoginCreateDto(
+      this.form.value['email'],
+      this.form.value['password'],
+      this.userRecaptcha
+    )
+
     console.log("form has been submitted");
-    this.login();
+    this.login(loginCreateDto);
   }
 
-  resolved($event: string) {
-
+  resolved(captchaResponse: string) {
+    this.userRecaptcha = captchaResponse;
   }
 
-  login() {
-    this.authenticationService.postLogin(this.form.value)
+  login(loginCreateDto: LoginCreateDto) {
+    this.authenticationService.postLogin(loginCreateDto)
       .pipe(first())
       .subscribe(
         {

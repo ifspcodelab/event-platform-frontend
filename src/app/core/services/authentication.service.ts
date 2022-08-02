@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { LoginDto } from "../models/login.model";
+import {LoginCreateDto} from "../models/login.model";
 import { Observable } from "rxjs";
 import { JwtTokensDto } from "../models/jwt-tokens.model";
 import { RefreshTokenRotateDto } from "../models/refresh-token.model";
@@ -21,9 +21,9 @@ export class AuthenticationService {
 
   constructor(private httpClient: HttpClient) { }
 
-  postLogin(loginDto: LoginDto): Observable<JwtTokensDto> {
+  postLogin(loginCreateDto: LoginCreateDto): Observable<JwtTokensDto> {
     const url = `${this.apiUrl}/login`;
-    return this.httpClient.post<JwtTokensDto>(url, loginDto, this.httpOptions);
+    return this.httpClient.post<JwtTokensDto>(url, loginCreateDto, this.httpOptions);
   }
 
   deleteLogout() {
