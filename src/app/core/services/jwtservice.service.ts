@@ -86,4 +86,20 @@ export class JwtService {
         }
       );
   }
+
+  getAccessTokenRoles() {
+    const accessTokenData = this.decodeAccessToken(this.getAccessToken()!) as AccessTokenData;
+
+    return accessTokenData.role;
+  }
+
+  isAuthenticated() {
+    const accessToken = this.getAccessToken();
+
+    if (accessToken !== null) {
+      return !this.isAccessTokenExpired(accessToken)
+    } else {
+      return false;
+    }
+  }
 }
