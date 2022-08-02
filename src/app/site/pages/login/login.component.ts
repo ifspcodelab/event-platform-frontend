@@ -54,11 +54,9 @@ export class LoginComponent implements OnInit {
       .subscribe(
         {
           next: (jwtDto: JwtTokensDto) => {
-            console.log(jwtDto);
             this.jwtService.storeAccessToken(jwtDto.accessToken);
-            console.log(this.jwtService.decodeToken(jwtDto.accessToken));
             this.jwtService.storeRefreshToken(jwtDto.refreshToken);
-            console.log(this.jwtService.decodeToken(jwtDto.refreshToken));
+
             this.router.navigate(['account', 'meus-dados']);
           },
           error: error => {
