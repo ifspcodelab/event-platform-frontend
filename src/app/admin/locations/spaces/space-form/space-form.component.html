@@ -1,13 +1,13 @@
 <div *ngIf="createMode">
-  <h2 id="header" mat-dialog-title>Cadastrar Espaço</h2>
+  <h2 class="modal__title" mat-dialog-title>Cadastrar Espaço</h2>
 </div>
 <div *ngIf="!createMode">
-  <h2 id="header" mat-dialog-title>Editar espaço</h2>
+  <h2 class="modal__title" mat-dialog-title>Editar espaço</h2>
 </div>
 
 <div mat-dialog-content>
-  <form class="app-form" id="space-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field class="form-field-lg">
+  <form class="modal" id="space-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="modal__input">
       <mat-label>Nome</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
       <mat-error *ngIf="fieldErrors('name')?.['notblank']">
@@ -23,8 +23,8 @@
         {{ fieldErrors('name')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-    <br><br>
-    <mat-form-field class="form-field-lg">
+    <br>
+    <mat-form-field class="modal__input">
       <mat-label>Capacidade</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="capacity" name="capacity">
       <mat-error *ngIf="fieldErrors('capacity')?.['required']">
@@ -40,8 +40,8 @@
         {{ fieldErrors('capacity')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-    <br><br>
-    <mat-form-field class="form-field-lg">
+    <br>
+    <mat-form-field class="modal__input">
       <mat-label>Tipo</mat-label>
       <mat-select formControlName="type">
         <mat-option *ngFor="let name of enumKeys" [value]="name">{{ spaceType[name] }}</mat-option>
@@ -56,7 +56,7 @@
   </form>
 </div>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions class="modal__buttons">
   <button mat-button mat-dialog-close>Cancelar</button>
   <button type="submit" form="space-form" mat-button color="primary">Salvar</button>
 </div>

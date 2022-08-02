@@ -6,11 +6,14 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
 import { CancelDialogComponent } from './components/cancel-dialog/cancel-dialog.component';
 import { MatInputModule } from "@angular/material/input";
+import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   declarations: [
     ConfirmationDialogComponent,
-    CancelDialogComponent
+    CancelDialogComponent,
+    AdminHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -18,13 +21,15 @@ import { MatInputModule } from "@angular/material/input";
     ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
   ],
   exports: [
     FormsModule,
     ReactiveFormsModule,
     ConfirmationDialogComponent,
-    CancelDialogComponent
+    CancelDialogComponent,
+    AdminHeaderComponent,
   ]
 })
 export class CoreModule { }
