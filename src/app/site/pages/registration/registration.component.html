@@ -11,8 +11,8 @@
 
           <div class="registration-fields">
             <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Nome</mat-label>
-              <input matInput placeholder="Nome completo" formControlName="name" name="name">
+            <mat-label>Nome Completo</mat-label>
+              <input matInput formControlName="name" name="name">
               <div *ngIf="field('name').invalid && (field('name').dirty || field('name').touched)">
                 <mat-error class="error-message" *ngIf="fieldErrors('name')?.['required']">
                   Nome é obrigatório
@@ -31,7 +31,7 @@
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>E-mail</mat-label>
-              <input matInput placeholder="" formControlName="email" name="email">
+              <input matInput formControlName="email" name="email">
               <div *ngIf="field('email').invalid && (field('email').dirty || field('email').touched)">
                 <mat-error *ngIf="fieldErrors('email')?.['required']">
                   E-mail é obrigatório
@@ -47,13 +47,13 @@
 
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>CPF</mat-label>
-              <input mask="000.000.000-00" matInput formControlName="cpf" name="cpf">
-              <div mat-dialog-content *ngIf="field('cpf').invalid && (field('cpf').dirty || field('cpf').touched)">
+              <input placeholder="123.456.789-01" mask="000.000.000-00" matInput formControlName="cpf" name="cpf">
+              <div *ngIf="field('cpf').invalid && (field('cpf').dirty || field('cpf').touched)">
                 <mat-error *ngIf="fieldErrors('cpf')?.['required']">
                   CPF é obrigatório
                 </mat-error>
                 <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">
-                  CPF deve ser válido (11 digitos)
+                  CPF deve ser válido
                 </mat-error>
               </div>
             </mat-form-field>
