@@ -4,14 +4,14 @@
   <p>Esse texto será enviado ao e-mail dos participantes.</p>
   <form [formGroup]="form" (ngSubmit)="onSubmit()" id="cancel-form">
     <mat-form-field class="full-width">
-      <textarea matInput formControlName="cancelMessage" placeholder="Mensagem"></textarea>
-      <mat-error *ngIf="fieldErrors('cancelMessage')?.['required']">
+      <textarea matInput formControlName="reason" placeholder="Mensagem"></textarea>
+      <mat-error *ngIf="fieldErrors('reason')?.['required']">
         Mensagem de cancelamento é obrigatório
       </mat-error>
-      <mat-error *ngIf="fieldErrors('cancelMessage')?.['notblank']">
+      <mat-error *ngIf="fieldErrors('reason')?.['notblank']">
         Mensagem de cancelamento não pode ser vazio
       </mat-error>
-      <mat-error *ngIf="fieldErrors('cancelMessage')?.['minlength']">
+      <mat-error *ngIf="fieldErrors('reason')?.['minlength']">
         Mensagem de cancelamento deve ter no mínimo 5 caracteres
       </mat-error>
     </mat-form-field>

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AppValidators } from "../../validators/app-validator";
+import {CancellationMessageCreateDto} from "../../models/event.model";
 
 @Component({
   selector: 'app-cancel-dialog',
@@ -14,7 +15,12 @@ export class CancelDialogComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<CancelDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { name: string, cancelMessage: string, cancelText: string, okText: string }
+    @Inject(MAT_DIALOG_DATA) public data: {
+      name: string,
+      cancellationMessageCreateDto: CancellationMessageCreateDto,
+      cancelText: string,
+      okText: string
+    }
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +29,7 @@ export class CancelDialogComponent implements OnInit {
 
   private buildForm() {
     return this.formBuilder.group({
-      cancelMessage: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(5)]]
+      reason: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(5)]]
     });
   }
 
@@ -39,6 +45,6 @@ export class CancelDialogComponent implements OnInit {
     if(this.form.invalid) {
       return;
     }
-    this.dialogRef.close(this.form.get('cancelMessage').value);
+    this.dialogRef.close(this.form.value);
   }
 }
