@@ -5,13 +5,14 @@ import { RegistrationComponent } from './site/pages/registration/registration.co
 import { LoginComponent } from "./site/pages/login/login.component";
 import {AccountComponent} from "./site/pages/account/account.component";
 import {AuthGuard} from "./core/security/auth.guard";
+import {AdminGuard} from "./core/security/admin.guard";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'cadastro', component: RegistrationComponent },
   { path: 'login', component: LoginComponent },
   { path: 'account/meus-dados', component: AccountComponent, canActivate: [AuthGuard] },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, AdminGuard] },
 ];
 
 @NgModule({

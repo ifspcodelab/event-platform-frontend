@@ -8,12 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./core/security/auth.interceptor";
 import {AuthGuard} from "./core/security/auth.guard";
+import { AccountRolePipe } from './core/pipes/account-role.pipe';
+import {AdminGuard} from "./core/security/admin.guard";
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AccountRolePipe
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import {AuthGuard} from "./core/security/auth.guard";
       useClass: AuthInterceptor,
       multi: true
     },
-    [AuthGuard]
+    [AuthGuard],
+    [AdminGuard]
   ],
   bootstrap: [AppComponent]
 })
