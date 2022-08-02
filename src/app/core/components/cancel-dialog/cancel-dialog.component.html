@@ -2,9 +2,9 @@
 <div mat-dialog-content>
   <h2>Motivo do cancelamento</h2>
   <p>Esse texto será enviado ao e-mail dos participantes.</p>
-  <form [formGroup]="form" id="cancel-form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" id="cancel-form">
     <mat-form-field class="full-width">
-      <textarea matInput formControlName="cancelMessage" placeholder="Mensagem" [(ngModel)]="data.cancelMessage"></textarea>
+      <textarea matInput formControlName="cancelMessage" placeholder="Mensagem"></textarea>
       <mat-error *ngIf="fieldErrors('cancelMessage')?.['required']">
         Mensagem de cancelamento é obrigatório
       </mat-error>
@@ -19,7 +19,7 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>{{ data.cancelText }}</button>
-  <button mat-button type="submit" form="cancel-form" color="warn" [mat-dialog-close]="data.cancelMessage" [disabled]="formIsValid()">
+  <button mat-button type="submit" form="cancel-form" color="warn">
     {{ data.okText }}
   </button>
 </div>

@@ -90,8 +90,8 @@ export class EventShowComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         this.cancelMessage = result;
+        console.log(this.cancelMessage);
         this.cancelEvent();
-        console.log(result);
       }
     });
   }
