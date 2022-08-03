@@ -11,6 +11,7 @@ export interface SubeventDto {
   smallerImage: string;
   biggerImage: string;
   status: EventStatusModel;
+  cancellationMessage: string;
 }
 
 export class SubeventCreateDto {
@@ -39,5 +40,13 @@ export class SubeventCreateDto {
     this.smallerImage = smallerImage;
     this.biggerImage = biggerImage;
     this.status = EventStatusModel.DRAFT;
+  }
+}
+
+export class CancellationMessageCreateDto {
+  reason: string;
+
+  constructor(reason: string) {
+    this.reason = reason;
   }
 }

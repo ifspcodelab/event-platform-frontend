@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { EventCreateDto, EventDto } from "../models/event.model";
+import {CancellationMessageCreateDto, EventCreateDto, EventDto} from "../models/event.model";
 import { map } from "rxjs/operators";
 
 @Injectable({
@@ -51,7 +51,7 @@ export class EventService {
     return this.httpClient.patch<EventDto>(`${this.apiUrl}/${eventId}/unpublish`, this.httpOptions);
   }
 
-  cancelEvent(eventId: string): Observable<EventDto> {
-    return this.httpClient.patch<EventDto>(`${this.apiUrl}/${eventId}/cancel`, this.httpOptions);
+  cancelEvent(eventId: string, cancellationMessageCreateDto: CancellationMessageCreateDto): Observable<EventDto> {
+    return this.httpClient.patch<EventDto>(`${this.apiUrl}/${eventId}/cancel`, cancellationMessageCreateDto, this.httpOptions);
   }
 }

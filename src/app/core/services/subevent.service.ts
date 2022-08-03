@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { SubeventCreateDto, SubeventDto } from "../models/subevent.model";
+import {CancellationMessageCreateDto, SubeventCreateDto, SubeventDto} from "../models/subevent.model";
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +47,7 @@ export class SubeventService {
     return this.httpClient.patch<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/unpublish`, this.httpOptions);
   }
 
-  cancelSubevent(eventId: string, subeventId: string): Observable<SubeventDto> {
-    return this.httpClient.patch<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/cancel`, this.httpOptions);
+  cancelSubevent(eventId: string, subeventId: string, cancellationMessageCreateDto: CancellationMessageCreateDto): Observable<SubeventDto> {
+    return this.httpClient.patch<SubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/cancel`, cancellationMessageCreateDto, this.httpOptions);
   }
 }

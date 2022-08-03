@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EventDto } from "../../../../core/models/event.model";
+import { CancellationMessageCreateDto, EventDto } from "../../../../core/models/event.model";
 import { EventService } from "../../../../core/services/event.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
@@ -9,7 +9,7 @@ import { NotificationService } from "../../../../core/services/notification.serv
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { HttpErrorResponse } from "@angular/common/http";
-import { ProblemDetail } from "../../../../core/models/problem-detail";
+import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 
 @Component({
   selector: 'app-event-show',
@@ -21,6 +21,7 @@ export class EventShowComponent implements OnInit {
   subeventsDto: SubeventDto[] = [];
   eventDto: EventDto;
   eventId: string;
+  cancellationMessageCreateDto: CancellationMessageCreateDto;
 
   constructor(
     private eventService: EventService,
@@ -84,8 +85,22 @@ export class EventShowComponent implements OnInit {
       });
   }
 
+  openCancelDialog() {
+    const dialogRef = this.dialog.open(CancelDialogComponent, {
+      width: '400px',
+      data: {name: "Evento", cancelMessage: this.cancellationMessageCreateDto, cancelText: "Fechar", okText: "Cancelar"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.cancellationMessageCreateDto = result;
+        this.cancelEvent();
+      }
+    });
+  }
+
   cancelEvent() {
-    this.eventService.cancelEvent(this.eventId)
+    this.eventService.cancelEvent(this.eventId, this.cancellationMessageCreateDto)
       .pipe(first())
       .subscribe({
         next: eventDto => {

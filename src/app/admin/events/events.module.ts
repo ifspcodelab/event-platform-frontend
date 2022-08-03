@@ -8,11 +8,10 @@ import { EventShowComponent } from './events/event-show/event-show.component';
 import { EventFormComponent } from './events/event-form/event-form.component';
 import { EventStatusPipe } from "../../core/pipes/event-status.pipe";
 import { SubeventShowComponent } from './subevents/subevent-show/subevent-show.component';
+import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-form.component";
 import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
-import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-form.component";
-
 
 @NgModule({
   declarations: [

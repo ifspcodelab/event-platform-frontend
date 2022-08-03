@@ -11,6 +11,7 @@
     <p><b>Resumo:</b> {{ eventDto.summary }}</p>
     <p><b>Apresentação:</b> {{ eventDto. presentation }}</p>
     <p><b>Status:</b> {{ eventDto.status | eventStatus }}</p>
+    <p *ngIf="eventDto.cancellationMessage"><b>Mensagem de cancelamento:</b> {{ eventDto.cancellationMessage }}</p>
 
     <mat-divider></mat-divider>
     <div mat-subheader>Datas importantes</div>
