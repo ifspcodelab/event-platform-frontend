@@ -9,13 +9,23 @@ a:hover {
 }
 
 .container-registration {
-  max-width: 480px;
+  max-width: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   margin: auto;
   padding: 20px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.first-paragraph,
+.login {
+  font-size: 12px;
+  margin: 0;
 }
 
 .header-registration {
@@ -25,11 +35,11 @@ a:hover {
   font-size: 2rem;
 }
 
-.loginPage:hover {
-  cursor: pointer;
+.login {
+  margin-bottom: 20px;
 }
 
-.terms:hover {
+.loginPage:hover {
   cursor: pointer;
 }
 
@@ -37,32 +47,37 @@ mat-card-content {
   margin: 0;
 }
 
-.registration-fields {
-  align-items: center;
+mat-form-field {
+  margin-bottom: 10px;
+}
+
+.visibility {
+  scale: 1.5;
+}
+
+.terms {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.terms:hover {
+  cursor: pointer;
+}
+
+.checkbox-container {
+  text-align: left;
   display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
+  flex-direction: row;
+  vertical-align: center;
 }
 
-mat-form-field:not(:first-child) {
-  margin-top: -45px;
+.checkbox-container mat-checkbox {
+  margin-right: 8px;
+  padding-bottom: 5px;
 }
 
-.tooltip-container {
-  position: relative !important;
-  right: 210px !important;
-  top: -25px;
-  scale: 0.33;
-}
-
-.tooltip {
-  aspect-ratio: 1;
-  scale: 0.7;
-  margin: 0;
-}
-
-.tooltip mat-icon {
-  scale: 2.5;
+.checkbox-container span {
+  padding-top: 1px;
 }
 
 re-captcha {
@@ -74,29 +89,8 @@ re-captcha {
   flex-direction: column;
 }
 
-.checkbox-container mat-checkbox {
-  margin-right: 10px;
-}
-
 mat-card-actions button {
-  width: 125px;
-  aspect-ratio: 3;
+  width: 100%;
   margin: 15px 0;
+  color: #FFF;
 }
-
-.visibility {
-  scale: 1.5;
-}
-
-@media(max-width: 520px){
-  .tooltip-container {
-    right: 170px !important;
-  }
-}
-
-@media (max-width: 360px) {
-  .tooltip-container {
-    right: 140px !important;
-  }
-}
-
