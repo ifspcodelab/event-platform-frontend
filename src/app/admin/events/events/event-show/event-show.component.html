@@ -20,29 +20,21 @@
     <mat-tab label="Dados Principais">
       <br>
       <mat-list>
+        <p><b>Título:</b> {{ eventDto.title }}</p>
         <p><b>Resumo:</b> {{ eventDto.summary }}</p>
-        <p><b>Apresentação:</b> {{ eventDto. presentation }}</p>
+        <p><b>Apresentação:</b> <br> {{ eventDto. presentation }}</p>
         <p><b>Status:</b> {{ eventDto.status | eventStatus }}</p>
 
         <mat-divider></mat-divider>
         <div mat-subheader>Datas importantes</div>
-        <mat-list-item>
-          <mat-icon mat-list-icon>date_range</mat-icon>
-          <div mat-line><b>Início das incrições:</b> {{ eventDto.registrationPeriod.startDate | date:'dd/MM/yyyy' }}</div>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>date_range</mat-icon>
-          <div mat-line><b>Fim das incrições:</b> {{ eventDto.registrationPeriod.endDate | date:'dd/MM/yyyy' }}</div>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>date_range</mat-icon>
-          <div mat-line><b>Início:</b> {{ eventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</div>
-        </mat-list-item>
-        <mat-list-item>
-          <mat-icon mat-list-icon>date_range</mat-icon>
-          <div mat-line><b>Fim:</b> {{ eventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</div>
-        </mat-list-item>
-
+        <p>
+          <b>Início das incrições:</b> {{ eventDto.registrationPeriod.startDate | date:'dd/MM/yyyy' }} -
+          <b>Fim das incrições:</b> {{ eventDto.registrationPeriod.endDate | date:'dd/MM/yyyy' }}
+        </p>
+        <p>
+          <b>Início:</b> {{ eventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }} -
+          <b>Fim:</b> {{ eventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}
+        </p>
         <mat-divider></mat-divider>
         <div mat-subheader>Capas</div>
         <p><b>Menor:</b></p>

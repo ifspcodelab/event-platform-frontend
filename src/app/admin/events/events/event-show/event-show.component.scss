@@ -1,9 +1,17 @@
 p {
-  font-size: 16px;
+  font-size: 0.9rem;
   color: rgba(0, 0, 0, 0.8);
   padding: 0 16px;
   text-align: justify;
-  line-height: 2em;
+  line-height: 1.5rem;
+}
+
+p b {
+  font-weight: 500;
+}
+
+mat-line {
+  font-size: 20px;
 }
 
 img {
