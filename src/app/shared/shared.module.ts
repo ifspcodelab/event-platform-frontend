@@ -18,7 +18,6 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatCardModule } from "@angular/material/card";
-import { MatTooltipModule } from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -61,7 +60,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatNativeDateModule,
     MatCheckboxModule,
     MatCardModule,
-    MatTooltipModule,
   ]
 })
 export class SharedModule { }
