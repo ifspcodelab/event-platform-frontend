@@ -9,7 +9,8 @@ export class AppValidators {
 
   static validName(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const valid = /^[a-zA-ZáàâãéèêíóôõúçñÁÀÂÃÉÈÍÓÔÕÚÇ'\-`\s]*$/g.test(control.value);
+      const valid = /^[a-zA-ZáàâãéèêíóôõúçñÁÀÂÃÉÈÍÓÔÕÚÇ'\-`\s]+ [a-zA-ZáàâãéèêíóôõúçñÁÀÂÃÉÈÍÓÔÕÚÇ'\-`\s]+$/g.test(control.value);
+      console.log(valid);
       return !valid
         ? { validname: true }
         : null;
