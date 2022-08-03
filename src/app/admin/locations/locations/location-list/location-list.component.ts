@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocationDto } from 'src/app/core/models/location.model';
 import { LocationService } from 'src/app/core/services/location.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LocationFormComponent } from '../location-form/location-form.component';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { MatTableDataSource } from "@angular/material/table";
+import { MatSort, Sort } from "@angular/material/sort";
+import { LiveAnnouncer } from "@angular/cdk/a11y";
 
 @Component({
   selector: 'app-location-list',
@@ -15,17 +18,24 @@ export class LocationListComponent implements OnInit {
   locationDto: LocationDto;
   displayedColumns: string[] = ['name', 'address'];
   locationsDto: LocationDto[] = [];
+  dataSource: MatTableDataSource<LocationDto>;
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   constructor(
     private locationService: LocationService,
     private notificationService: NotificationService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit(): void {
     this.locationService.getLocations().subscribe(
-      locations => this.locationsDto = locations
+      locations => {
+        this.locationsDto = locations
+        this.dataSource = new MatTableDataSource<LocationDto>(this.locationsDto)
+      }
     )
   }
 
@@ -52,5 +62,15 @@ export class LocationListComponent implements OnInit {
         }
       }
     );
+  }
+
+  announceSortChange(sort: Sort) {
+    this.dataSource.sort = this.sort;
+
+    if (sort.direction) {
+      this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
+    } else {
+      this._liveAnnouncer.announce('Ordenação removida');
+    }
   }
 }
