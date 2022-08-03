@@ -1,0 +1,17 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #808080;
+
+  &__title {
+    margin: 0;
+    color: #ffffff;
+  }
+
+  &__link {
+    color: #ffffff;
+    margin-right: 5px;
+  }
+}
