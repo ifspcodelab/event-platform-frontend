@@ -9,89 +9,113 @@
         <p>Para ter acesso aos eventos e certificado você precisa realizar o cadastro</p>
         <p>Caso já tenha um cadastro realize o <b class="loginPage" (click)="loginPage()">login</b></p>
 
-          <div class="registration-fields">
-            <mat-form-field appearance="outline" class="full-width">
+        <div class="registration-fields">
+          <div class="tooltip-container">
+            <button class="tooltip" matTooltipPosition="right" color="accent" mat-raised-button matTooltip="O nome será usado para emitir o certificado" aria-label="Button that displays something">
+              <mat-icon color="primary">priority_high</mat-icon>
+            </button>
+          </div>
+
+          <mat-form-field appearance="outline" class="full-width">
             <mat-label>Nome Completo</mat-label>
-              <input matInput formControlName="name" name="name">
-              <div *ngIf="field('name').invalid && (field('name').dirty || field('name').touched)">
-                <mat-error class="error-message" *ngIf="fieldErrors('name')?.['required']">
-                  Nome é obrigatório
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('name')?.['validname']">
-                  Nome deve ser válido
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('name')?.['minlength']">
-                  Nome deve ter no mínimo 5 caracteres
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('name')?.['maxlength']">
-                  Nome deve ter no máximo 256 caracteres
-                </mat-error>
-              </div>
-            </mat-form-field>
+            <input matInput formControlName="name" name="name">
+            <div *ngIf="field('name').invalid && (field('name').dirty || field('name').touched)">
+              <mat-error class="error-message" *ngIf="fieldErrors('name')?.['required']">
+                Nome é obrigatório
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('name')?.['validname']">
+                Nome deve ser válido
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('name')?.['minlength']">
+                Nome deve ter no mínimo 5 caracteres
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('name')?.['maxlength']">
+                Nome deve ter no máximo 256 caracteres
+              </mat-error>
+            </div>
+          </mat-form-field>
 
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>E-mail</mat-label>
-              <input matInput formControlName="email" name="email">
-              <div *ngIf="field('email').invalid && (field('email').dirty || field('email').touched)">
-                <mat-error *ngIf="fieldErrors('email')?.['required']">
-                  E-mail é obrigatório
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('email')?.['email']">
-                  E-mail deve ser válido
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('email')?.['maxlength']">
-                  E-mail deve ter no máximo 350 caracteres
-                </mat-error>
-              </div>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>CPF</mat-label>
-              <input placeholder="123.456.789-01" mask="000.000.000-00" matInput formControlName="cpf" name="cpf">
-              <div *ngIf="field('cpf').invalid && (field('cpf').dirty || field('cpf').touched)">
-                <mat-error *ngIf="fieldErrors('cpf')?.['required']">
-                  CPF é obrigatório
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">
-                  CPF deve ser válido
-                </mat-error>
-              </div>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Senha</mat-label>
-              <input matInput placeholder="" [type]="hide ? 'password' : 'text'" formControlName="password" name="password">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon color="primary">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-              </button>
-              <div *ngIf="field('password').invalid && (field('password').dirty || field('password').touched)">
-                <mat-error *ngIf="fieldErrors('password')?.['required']">
-                  Senha é obrigatória
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('password')?.['minlength']">
-                  Senha deve ter 8 caracteres no mínimo
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('password')?.['maxlength']">
-                  Senha deve ter 64 caracteres no máximo
-                </mat-error>
-                <mat-error *ngIf="fieldErrors('password')?.['validpassword']">
-                  Senha deve ser válida
-                </mat-error>
-              </div>
-            </mat-form-field>
+          <div class="tooltip-container">
+            <button class="tooltip" matTooltipPosition="right" color="accent" mat-raised-button matTooltip="O email será usado para identificação, comunicação e confirmação de cadastro" aria-label="Button that displays something">
+              <mat-icon color="primary">priority_high</mat-icon>
+            </button>
           </div>
 
-            <p>Antes de confirmar seu cadastro você deve ler com atenção os <b class="terms" (click)="termsPage()">Termos de uso</b></p>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="email" name="email">
+            <div *ngIf="field('email').invalid && (field('email').dirty || field('email').touched)">
+              <mat-error *ngIf="fieldErrors('email')?.['required']">
+                E-mail é obrigatório
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('email')?.['email']">
+                E-mail deve ser válido
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('email')?.['maxlength']">
+                E-mail deve ter no máximo 350 caracteres
+              </mat-error>
+            </div>
+          </mat-form-field>
 
-          <div class="checkbox-container">
-            <mat-checkbox name="agreed" id="agreed" value="true" formControlName="agreed"></mat-checkbox>
-            <span>Li e concordo com os termos de uso e a política de privacidade</span>
+          <div class="tooltip-container">
+            <button class="tooltip" matTooltipPosition="right" color="accent" mat-raised-button matTooltip="O cpf será usado para identificação" aria-label="Button that displays something">
+              <mat-icon color="primary">priority_high</mat-icon>
+            </button>
           </div>
-          <div *ngIf="field('agreed').invalid && (field('agreed').dirty || field('agreed').touched)">
-            <mat-error *ngIf="fieldErrors('agreed')?.['required']">
-              É obrigatório aceitar os termos
-            </mat-error>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>CPF</mat-label>
+            <input placeholder="123.456.789-01" mask="000.000.000-00" matInput formControlName="cpf" name="cpf">
+            <div *ngIf="field('cpf').invalid && (field('cpf').dirty || field('cpf').touched)">
+              <mat-error *ngIf="fieldErrors('cpf')?.['required']">
+                CPF é obrigatório
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">
+                CPF deve ser válido
+              </mat-error>
+            </div>
+          </mat-form-field>
+
+          <div class="tooltip-container">
+            <button class="tooltip" matTooltipPosition="right" color="accent" mat-raised-button matTooltip="A senha deve ter uma letra minúscula, uma maiúscula, um caractere especial e entre 8 e 64 caracteres" aria-label="Button that displays something">
+              <mat-icon color="primary">priority_high</mat-icon>
+            </button>
           </div>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password">
+            <button class="visibility" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon color="primary">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </button>
+            <div *ngIf="field('password').invalid && (field('password').dirty || field('password').touched)">
+              <mat-error *ngIf="fieldErrors('password')?.['required']">
+                Senha é obrigatória
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('password')?.['minlength']">
+                Senha deve ter 8 caracteres no mínimo
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('password')?.['maxlength']">
+                Senha deve ter 64 caracteres no máximo
+              </mat-error>
+              <mat-error *ngIf="fieldErrors('password')?.['validpassword']">
+                Senha deve ser válida
+              </mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+
+          <p>Antes de confirmar seu cadastro você deve ler com atenção os <b class="terms" (click)="termsPage()">Termos de uso</b></p>
+
+        <div class="checkbox-container">
+          <mat-checkbox name="agreed" id="agreed" value="true" formControlName="agreed"></mat-checkbox>
+          <span>Li e concordo com os termos de uso e a política de privacidade</span>
+        </div>
+        <div *ngIf="field('agreed').invalid && (field('agreed').dirty || field('agreed').touched)">
+          <mat-error *ngIf="fieldErrors('agreed')?.['required']">
+            É obrigatório aceitar os termos
+          </mat-error>
+        </div>
         </mat-card-content>
 
         <re-captcha (resolved)="resolved($event)" siteKey="6LfjQjAhAAAAAGDIg5BkJMBccd-APYyY1AXM2eun"></re-captcha>

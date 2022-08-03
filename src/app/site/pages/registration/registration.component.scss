@@ -33,6 +33,10 @@ a:hover {
   cursor: pointer;
 }
 
+mat-card-content {
+  margin: 0;
+}
+
 .registration-fields {
   align-items: center;
   display: flex;
@@ -40,8 +44,25 @@ a:hover {
   margin-bottom: 15px;
 }
 
-mat-card-content {
+mat-form-field:not(:first-child) {
+  margin-top: -45px;
+}
+
+.tooltip-container {
+  position: relative !important;
+  right: 210px !important;
+  top: -25px;
+  scale: 0.33;
+}
+
+.tooltip {
+  aspect-ratio: 1;
+  scale: 0.7;
   margin: 0;
+}
+
+.tooltip mat-icon {
+  scale: 2.5;
 }
 
 re-captcha {
@@ -62,3 +83,20 @@ mat-card-actions button {
   aspect-ratio: 3;
   margin: 15px 0;
 }
+
+.visibility {
+  scale: 1.5;
+}
+
+@media(max-width: 520px){
+  .tooltip-container {
+    right: 170px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .tooltip-container {
+    right: 140px !important;
+  }
+}
+
