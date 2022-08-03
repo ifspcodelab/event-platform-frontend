@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort, Sort } from "@angular/material/sort";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-event-list',
@@ -21,14 +22,17 @@ export class EventListComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private router: Router,
+    private loaderService: LoaderService,
     private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.eventService.getEvents()
       .subscribe(events => {
         this.eventsDto = events
         this.dataSource = new MatTableDataSource<EventDto>(this.eventsDto);
+        this.loaderService.hide();
       });
   }
 

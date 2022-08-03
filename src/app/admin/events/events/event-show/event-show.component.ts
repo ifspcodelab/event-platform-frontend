@@ -13,6 +13,7 @@ import { CancelDialogComponent } from "../../../../core/components/cancel-dialog
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-event-show',
@@ -37,10 +38,12 @@ export class EventShowComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
+    private loaderService: LoaderService,
     private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.fetchEvent(this.eventId);
   }
@@ -61,6 +64,7 @@ export class EventShowComponent implements OnInit {
       .subscribe(subevents => {
         this.subeventsDto = subevents
         this.dataSource = new MatTableDataSource<SubeventDto>(this.subeventsDto);
+        this.loaderService.hide();
         this.setTabSelectedIndex();
       });
   }

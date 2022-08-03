@@ -4,6 +4,7 @@ import { MatSort, Sort } from "@angular/material/sort";
 import { SpeakerDto } from "../../../core/models/speaker.model";
 import { SpeakerService } from "../../../core/services/speaker.service";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { LoaderService } from "../../loader.service";
 
 @Component({
   selector: 'app-speaker-list',
@@ -19,10 +20,12 @@ export class SpeakerListComponent implements OnInit {
 
   constructor(
     private speakerService: SpeakerService,
+    private loaderService: LoaderService,
     private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show();
     this.fetchSpeakers();
   }
 
@@ -32,6 +35,7 @@ export class SpeakerListComponent implements OnInit {
         pageDto => {
           this.speakersDto = pageDto.content;
           this.dataSource = new MatTableDataSource<SpeakerDto>(this.speakersDto);
+          this.loaderService.hide();
         }
     )
   }

@@ -9,6 +9,7 @@ import { ConfirmationDialogComponent } from 'src/app/core/components/confirmatio
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProblemDetail } from 'src/app/core/models/problem-detail';
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-subevent-show',
@@ -27,10 +28,12 @@ export class SubeventShowComponent implements OnInit {
     private subeventService: SubeventService,
     private route: ActivatedRoute,
     private router: Router,
+    private loaderService: LoaderService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
     this.fetchSubevent(this.eventId, this.subeventId);
@@ -41,6 +44,7 @@ export class SubeventShowComponent implements OnInit {
       .pipe(first())
       .subscribe(subeventDto => {
         this.subeventDto = subeventDto
+        this.loaderService.hide();
         this.setTabSelectedIndex();
       });
   }
@@ -52,7 +56,6 @@ export class SubeventShowComponent implements OnInit {
   setTabSelectedIndex() {
     this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
   }
-
 
   publishSubevent() {
     this.subeventService.publishSubevent(this.eventId, this.subeventId)

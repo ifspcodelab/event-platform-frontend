@@ -1,4 +1,4 @@
-<div *ngIf="areaDto!=null">
+<div *ngIf="areaDto">
   <app-admin-header title="Área: {{ areaDto.name }}" (backLink)="openLocationShow()">
     <button mat-button color="primary" (click)="openEditAreaFormDialog()">Editar</button>
     <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>

@@ -2,8 +2,8 @@
   <button mat-button color="primary">Novo Ministrante</button>
 </app-admin-header>
 
-<article class="container">
-  <table class="container__table" *ngIf="speakersDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+<article class="container" *ngIf="speakersDto.length" >
+  <table class="container__table" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por nome">Nome</th>
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>
