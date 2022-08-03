@@ -7,6 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { SpaceFormComponent } from "../space-form/space-form.component";
 import { NotificationService } from "../../../../core/services/notification.service";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-space-show',
@@ -24,10 +25,12 @@ export class SpaceShowComponent implements OnInit {
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.locationId = this.route.snapshot.paramMap.get('locationId');
     this.areaId = this.route.snapshot.paramMap.get('areaId');
     this.spaceId = this.route.snapshot.paramMap.get('spaceId');
@@ -37,7 +40,10 @@ export class SpaceShowComponent implements OnInit {
   fetchSpace(locationId: string, areaId: string, spaceId: string) {
     this.spaceService.getSpaceById(locationId, areaId, spaceId)
       .pipe(first())
-      .subscribe(spaceDto => this.spaceDto = spaceDto);
+      .subscribe(spaceDto => {
+        this.spaceDto = spaceDto
+        this.loaderService.hide();
+      });
   }
 
   openAreaShow() {

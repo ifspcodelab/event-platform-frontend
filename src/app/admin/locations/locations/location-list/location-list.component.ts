@@ -8,6 +8,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort, Sort } from "@angular/material/sort";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-location-list',
@@ -27,14 +28,17 @@ export class LocationListComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     public dialog: MatDialog,
+    private loaderService: LoaderService,
     private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.locationService.getLocations().subscribe(
       locations => {
         this.locationsDto = locations
         this.dataSource = new MatTableDataSource<LocationDto>(this.locationsDto)
+        this.loaderService.hide();
       }
     )
   }
