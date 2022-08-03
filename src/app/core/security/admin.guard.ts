@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
-import {Observable} from 'rxjs';
+import {delay, Observable} from 'rxjs';
 import {JwtService} from "../services/jwtservice.service";
 import {AccountRole} from "../models/account-role.model";
 
