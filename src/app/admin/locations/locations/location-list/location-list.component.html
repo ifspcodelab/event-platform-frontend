@@ -1,11 +1,6 @@
-<header class="header">
-  <div class="header__titlecomponent">
-    <h2 class="header__title">Locais</h2>
-  </div>
-  <div>
-    <button mat-button color="primary" (click)="openAddLocationFormDialog()">Novo Local</button>
-  </div>
-</header>
+<app-admin-header title="Locais">
+  <button mat-button color="primary" (click)="openAddLocationFormDialog()">Novo Local</button>
+</app-admin-header>
 
 <article class="container">
     <table class="container__table" mat-table [dataSource]="locationsDto">

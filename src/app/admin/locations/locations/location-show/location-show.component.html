@@ -1,16 +1,8 @@
 <div *ngIf="locationDto!=null">
-  <header class="header">
-    <div class="header__titlecomponent">
-      <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
-        <mat-icon mat-list-icon (click)="openLocationList()">arrow_back</mat-icon>
-      </button>
-      <h1 class="header__title">Local: {{ locationDto.name }}</h1>
-    </div>
-    <div class="header__actions">
-      <button mat-button color="primary" (click)="openEditLocationFormDialog()">Editar</button>
-      <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
-    </div>
-  </header>
+  <app-admin-header title="Local: {{ locationDto.name }}" (backLink)="openLocationList()">
+    <button mat-button color="primary" (click)="openEditLocationFormDialog()">Editar</button>
+    <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+  </app-admin-header>
 
   <mat-list>
     <mat-list-item>
