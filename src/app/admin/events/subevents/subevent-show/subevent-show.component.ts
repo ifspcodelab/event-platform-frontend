@@ -20,6 +20,7 @@ export class SubeventShowComponent implements OnInit {
   subeventId: string;
   eventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
+  tabSelectedIndex: number = 0;
 
   constructor(
     private notificationService: NotificationService,
@@ -38,12 +39,20 @@ export class SubeventShowComponent implements OnInit {
   fetchSubevent(eventId: string, subeventId: string) {
     this.subeventService.getSubeventById(eventId, subeventId)
       .pipe(first())
-      .subscribe(subeventDto => this.subeventDto = subeventDto);
+      .subscribe(subeventDto => {
+        this.subeventDto = subeventDto
+        this.setTabSelectedIndex();
+      });
   }
 
   openEventShow() {
-    return this.router.navigate(['admin', 'events', this.eventId]);
+    return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 1 }});
   }
+
+  setTabSelectedIndex() {
+    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
+  }
+
 
   publishSubevent() {
     this.subeventService.publishSubevent(this.eventId, this.subeventId)

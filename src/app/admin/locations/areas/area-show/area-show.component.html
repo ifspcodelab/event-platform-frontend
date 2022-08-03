@@ -4,20 +4,16 @@
     <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
   </app-admin-header>
 
-  <mat-list>
-    <mat-list-item>
-      <mat-icon mat-list-icon> where_to_vote </mat-icon>
-      <div mat-line><b>Referência: </b> {{ areaDto.reference }} </div>
-    </mat-list-item>
-  </mat-list>
-
-
-  <header class="header">
-    <h2 class="header__title">Espaços</h2>
-    <button mat-button color="primary" (click)="openAddSpaceFormDialog()">Novo Espaço</button>
-  </header>
+  <article class="container">
+    <p class="container__item"><b>Nome:</b> {{ areaDto.name }}</p>
+    <p class="container__item"><b>Referência:</b> {{ areaDto.reference }}</p>
+  </article>
 
   <article class="container">
+    <header class="container__header">
+      <h2 class="container__header__title">Espaços</h2>
+      <button mat-button color="primary" (click)="openAddSpaceFormDialog()">Novo Espaço</button>
+    </header>
     <p *ngIf="!spacesDto.length">Nenhum espaço cadastrado</p>
     <table class="container__table" *ngIf="spacesDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
       <ng-container matColumnDef="name">

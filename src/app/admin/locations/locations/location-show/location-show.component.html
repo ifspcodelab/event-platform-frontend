@@ -4,19 +4,18 @@
     <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
   </app-admin-header>
 
-  <mat-list>
-    <mat-list-item>
-      <mat-icon mat-list-icon>pin_drop</mat-icon>
-      <div mat-line><b>Endereço: </b>{{ locationDto.address }}</div>
-    </mat-list-item>
-  </mat-list>
+  <article class="container">
+    <p class="container__item"><b>Nome</b> {{ locationDto.name }}</p>
+    <p class="container__item"><b>Endereço:</b> {{ locationDto.address }}</p>
+  </article>
 
-  <header class="header">
-    <h2 class="header__title">Áreas</h2>
-    <button mat-button color="primary" (click)="openAddAreaFormDialog()">Nova Área</button>
-  </header>
 
   <article class="container">
+    <header class="container__header">
+      <h2 class="container__header__title">Áreas</h2>
+      <button mat-button color="primary" (click)="openAddAreaFormDialog()">Nova Área</button>
+    </header>
+
     <p *ngIf="!areasDto.length">Nenhuma área cadastrada</p>
     <table class="container__table" *ngIf="areasDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
       <ng-container matColumnDef="name">

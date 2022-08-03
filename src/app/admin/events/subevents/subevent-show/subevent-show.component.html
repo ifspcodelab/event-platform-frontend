@@ -7,29 +7,23 @@
     <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
   </app-admin-header>
 
-  <mat-list>
-    <div mat-subheader>Dados gerais</div>
-    <p><b>Resumo:</b> {{ subeventDto.summary }}</p>
-    <p><b>Apresentação:</b> {{ subeventDto. presentation }}</p>
-    <p><b>Status:</b>  {{ subeventDto.status | eventStatus }}</p>
-    <p *ngIf="subeventDto.cancellationMessage"><b>Mensagem de cancelamento:</b> {{ subeventDto.cancellationMessage }}</p>
+  <mat-tab-group mat-align-tabs="left" animationDuration="0ms" [selectedIndex]="tabSelectedIndex">
 
-    <mat-divider></mat-divider>
-    <div mat-subheader>Datas importantes</div>
-    <mat-list-item>
-      <mat-icon mat-list-icon>date_range</mat-icon>
-      <div mat-line><b>Início:</b> {{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</div>
-    </mat-list-item>
-    <mat-list-item>
-      <mat-icon mat-list-icon>date_range</mat-icon>
-      <div mat-line><b>Fim:</b> {{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</div>
-    </mat-list-item>
-
-    <mat-divider></mat-divider>
-    <div mat-subheader>Capas</div>
-    <p><b>Menor:</b></p>
-    <div><img mat-card-image src="{{ subeventDto.smallerImage }}" width="300px"></div>
-    <p><b>Maior:</b>
-    </p><div><img mat-card-image src="{{ subeventDto.biggerImage }}" width="300px"></div>
-  </mat-list>
+    <mat-tab label="Dados Principais">
+      <article class="container">
+        <p class="container__item"><b>Resumo:</b> {{ subeventDto.summary }}</p>
+        <p class="container__item"><b>Apresentação:</b> {{ subeventDto.presentation }}</p>
+        <p class="container__item"><b>Status:</b> {{ subeventDto.status | eventStatus }}</p>
+        <p *ngIf="subeventDto.cancellationMessage"><b>Mensagem de cancelamento:</b> {{ subeventDto.cancellationMessage }}</p>
+        <h3>Datas</h3>
+        <p class="container__item"><b>Início:</b> {{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Fim:</b> {{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
+        <h3>Imagens</h3>
+        <p><b>Menor</b></p>
+        <img mat-card-image src="{{ subeventDto.smallerImage }}" width="300px">
+        <p><b>Maior</b></p>
+        <img mat-card-image src="{{ subeventDto.biggerImage }}" width="300px">
+      </article>
+    </mat-tab>
+  </mat-tab-group>
 </div>
