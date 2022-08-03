@@ -22,6 +22,7 @@ export class EventShowComponent implements OnInit {
   eventDto: EventDto;
   eventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
+  tabSelectedIndex: number = 0;
 
   constructor(
     private eventService: EventService,
@@ -50,7 +51,10 @@ export class EventShowComponent implements OnInit {
 
   fetchSubevents(eventId: string) {
     this.subeventService.getSubevents(eventId)
-      .subscribe(subevents => this.subeventsDto = subevents);
+      .subscribe(subevents => {
+        this.subeventsDto = subevents
+        this.setTabSelectedIndex();
+      });
   }
 
   openEventList() {
@@ -59,6 +63,10 @@ export class EventShowComponent implements OnInit {
 
   openEventForm() {
     return this.router.navigate(['admin', 'events', this.eventId, 'edit']);
+  }
+
+  setTabSelectedIndex() {
+    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
   }
 
   publishEvent() {
