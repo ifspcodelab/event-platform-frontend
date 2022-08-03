@@ -5,13 +5,10 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
 import { SharedModule } from "../shared/shared.module";
-import { IConfig, NgxMaskModule } from "ngx-mask";
+import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "./pages/login/login.component";
 import { TermsComponent } from './pages/terms/terms.component';
-
-const maskConfig: Partial<IConfig> = {
-  validation: false,
-};
+import { AccountPageHeaderComponent } from './components/account-page-header/account-page-header.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +16,7 @@ const maskConfig: Partial<IConfig> = {
     RegistrationComponent,
     LoginComponent,
     TermsComponent,
+    AccountPageHeaderComponent,
   ],
   imports: [
     CommonModule,
