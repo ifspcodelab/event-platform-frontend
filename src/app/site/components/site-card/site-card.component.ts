@@ -16,6 +16,8 @@ export class SiteCardComponent implements OnInit {
   endDate: string = "";
   @Input()
   summary: string = "";
+  @Input()
+  url: string = "";
 
   constructor() { }
 

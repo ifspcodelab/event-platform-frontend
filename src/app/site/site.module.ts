@@ -6,6 +6,8 @@ import { SiteHeaderComponent } from './components/site-header/site-header.compon
 import { SharedModule } from "../shared/shared.module";
 import { SiteFooterComponent } from './components/site-footer/site-footer.component';
 import { SiteCardComponent } from './components/site-card/site-card.component';
+import { EventsModule } from "../admin/events/events.module";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -18,10 +20,13 @@ import { SiteCardComponent } from './components/site-card/site-card.component';
   exports: [
     SiteHeaderComponent,
     SiteFooterComponent,
+    SiteCardComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
+    EventsModule,
+    RouterModule,
   ]
 })
 export class SiteModule { }

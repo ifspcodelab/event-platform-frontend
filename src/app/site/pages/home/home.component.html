@@ -15,6 +15,7 @@
       [startDate]="eventRegistrationDto.executionPeriod.startDate"
       [endDate]="eventRegistrationDto.executionPeriod.endDate"
       [summary]="eventRegistrationDto.summary"
+      [url]="'/events/'+ eventRegistrationDto.slug"
     ></app-site-card>
   </section>
 
@@ -27,6 +28,7 @@
       [startDate]="eventExecutionDto.executionPeriod.startDate"
       [endDate]="eventExecutionDto.executionPeriod.endDate"
       [summary]="eventExecutionDto.summary"
+      [url]="'/events/'+ eventExecutionDto.slug"
     ></app-site-card>
   </section>
 
@@ -39,6 +41,7 @@
       [startDate]="eventFinishDto.executionPeriod.startDate"
       [endDate]="eventFinishDto.executionPeriod.endDate"
       [summary]="eventFinishDto.summary"
+      [url]="'/events/'+ eventFinishDto.slug"
     ></app-site-card>
   </section>
 </main>
