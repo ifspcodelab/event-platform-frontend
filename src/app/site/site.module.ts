@@ -8,6 +8,7 @@ import { AccountComponent } from './pages/account/account.component';
 import {SharedModule} from "../shared/shared.module";
 import {RouterModule} from "@angular/router";
 import {RecaptchaModule} from "ng-recaptcha";
+import {AccountPageComponent} from "./components/account-page/account-page.component";
 
 
 
@@ -16,7 +17,8 @@ import {RecaptchaModule} from "ng-recaptcha";
     HomeComponent,
     RegistrationComponent,
     LoginComponent,
-    AccountComponent
+    AccountComponent,
+    AccountPageComponent
   ],
     imports: [
         CommonModule,

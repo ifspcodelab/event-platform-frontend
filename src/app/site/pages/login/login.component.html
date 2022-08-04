@@ -1,29 +1,43 @@
-<h1 class="login-header">Login</h1>
-<form class="login-form" id="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <label for="email">e-mail: </label>
-  <input type="email" id="email" name="email" formControlName="email"><br>
-  <div *ngIf="email.invalid && (email.dirty || email.touched)">
-    <p *ngIf="email.errors?.['required']">Campo email é obrigatório</p>
-    <p *ngIf="email.errors?.['email']">Campo email deve ser válido</p>
-  </div>
-  <br>
-  <label for="password">Senha: </label>
-  <input type="password" id="password" name="password" formControlName="password"><br>
-  <div *ngIf="password.invalid && (password.dirty || password.touched)">
-    <p *ngIf="password.errors?.['required']">Campo senha é obrigatório</p>
-    <p *ngIf="password.errors?.['minlength']">Campo senha deve ter no mínimo 8 caracteres</p>
-    <p *ngIf="password.errors?.['maxlength']">Campo senha deve ter no máximo 64 caracteres</p>
-  </div>
-  <div *ngIf="errorMessage">
-    <p>{{ errorMessage }}</p>
-  </div>
-  <br>
-  <div class="re-captcha">
+<app-account-page
+  title="Login"
+  description="Realize o login para ter acesso a seus eventos e inscrições."
+>
+  <form class="login-form" id="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>email</mat-label>
+      <input matInput formControlName="email" name="email">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)">
+        <mat-error class="error-message" *ngIf="email.errors?.['required']">
+          Campo email é obrigatório
+        </mat-error>
+        <mat-error *ngIf="email.errors?.['email']">
+          Campo email deve ser válido
+        </mat-error>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Senha</mat-label>
+      <input matInput formControlName="password" name="password" type="password">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)">
+        <mat-error *ngIf="password.errors?.['required']">
+          Campo senha é obrigatório
+        </mat-error>
+        <mat-error *ngIf="password.errors?.['minlength']">
+          Campo senha deve ter no mínimo 8 caracteres
+        </mat-error>
+        <mat-error *ngIf="password.errors?.['maxlength']">
+          Campo senha deve ter no máximo 64 caracteres
+        </mat-error>
+      </div>
+    </mat-form-field>
+
     <re-captcha (resolved)="resolved($event)" siteKey="6LdirjAhAAAAANJcalTKs4KNA7c5YlP6dOby7x__"></re-captcha>
-  </div>
-  <a id="forgot-password-link" href="/esqueci-minha-senha">Esqueci minha senha</a>
-  <br>
-  <a id="registration-link" href="/cadastro">Não tem uma conta? Cadastre-se</a>
-  <br>
-  <input type="submit" value="Entrar">
-</form>
+
+    <div class="container">
+      <a id="forgot-password-link" href="/esqueci-minha-senha">Esqueci minha senha</a>
+      <a id="registration-link" href="/cadastro">Não tem uma conta? Cadastre-se</a>
+      <input class="button" type="submit" value="Entrar">
+    </div>
+  </form>
+</app-account-page>
