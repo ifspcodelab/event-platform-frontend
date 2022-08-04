@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Renderer2} from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PasswordResetService } from "../../../core/services/password-reset.service";
 import {ForgotPasswordCreateDto} from "../../../core/models/forgot-password-create-dto.model";
@@ -18,6 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private service: PasswordResetService,
     private renderer: Renderer2,
+    private router: Router,
   ) {
     this.form = this.buildForm();
     this.userRecaptcha = '';
@@ -42,6 +43,7 @@ export class ForgotPasswordComponent implements OnInit {
           this.form.reset();
           this.submitted = false;
           alert("Um link para recuperação sera enviado no email informado. Por favor confira sua caixa de entrada")
+          this.router.navigateByUrl("/redefinir-minha-senha/755350f2-d928-409c-bcdc-24e3e4e7b804");
         }
       );
 

@@ -45,6 +45,8 @@ export class PasswordResetComponent implements OnInit {
     }
     const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
     this.service.sendPasswordAndToken(passwordResetDto).subscribe(()=>{
+      alert("Sua senha foi alterada com sucesso");
+        this.router.navigateByUrl("/esqueci-minha-senha");
         this.form.reset();
         this.submitted = false;
       },
