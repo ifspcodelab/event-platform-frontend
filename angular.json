@@ -97,12 +97,16 @@
               "src/assets"
             ],
             "styles": [
-              "./src/scss/app-theme.scss"
+              "./src/scss/app-theme.scss",
+              "src/styles.scss"
             ],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

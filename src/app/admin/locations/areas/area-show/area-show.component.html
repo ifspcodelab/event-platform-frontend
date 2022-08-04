@@ -1,1 +1,38 @@
-<p>area-show works!</p>
+<div *ngIf="areaDto">
+  <app-admin-header title="Área: {{ areaDto.name }}" (backLink)="openLocationShow()">
+    <button mat-button color="primary" (click)="openEditAreaFormDialog()">Editar</button>
+    <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+  </app-admin-header>
+
+  <article class="container">
+    <p class="container__item"><b>Nome:</b> {{ areaDto.name }}</p>
+    <p class="container__item"><b>Referência:</b> {{ areaDto.reference }}</p>
+  </article>
+
+  <article class="container">
+    <header class="container__header">
+      <h2 class="container__header__title">Espaços</h2>
+      <button mat-button color="primary" (click)="openAddSpaceFormDialog()">Novo Espaço</button>
+    </header>
+    <p *ngIf="!spacesDto.length">Nenhum espaço cadastrado</p>
+    <table class="container__table" *ngIf="spacesDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por nome">Nome</th>
+        <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="capacity" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por capacidade">Capacidade</th>
+        <td mat-cell *matCellDef="let element"> {{ element.capacity }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por tipo">Tipo</th>
+        <td mat-cell *matCellDef="let element"> {{ element.type | spaceTypes }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSpaceShow(row)" class="container__line"></tr>
+    </table>
+  </article>
+</div>

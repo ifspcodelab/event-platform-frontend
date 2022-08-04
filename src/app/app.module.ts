@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { SiteModule } from './site/site.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
-import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from "@angular/material/dialog";
 
@@ -20,8 +19,6 @@ import { MatDialogModule } from "@angular/material/dialog";
     SiteModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
     MatSnackBarModule,
     MatDialogModule
   ],

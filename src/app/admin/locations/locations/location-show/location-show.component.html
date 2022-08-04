@@ -1,1 +1,35 @@
-<p>location-show works!</p>
+<div *ngIf="locationDto!=null">
+  <app-admin-header title="Local: {{ locationDto.name }}" (backLink)="openLocationList()">
+    <button mat-button color="primary" (click)="openEditLocationFormDialog()">Editar</button>
+    <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+  </app-admin-header>
+
+  <article class="container">
+    <p class="container__item"><b>Nome</b> {{ locationDto.name }}</p>
+    <p class="container__item"><b>Endereço:</b> {{ locationDto.address }}</p>
+  </article>
+
+
+  <article class="container">
+    <header class="container__header">
+      <h2 class="container__header__title">Áreas</h2>
+      <button mat-button color="primary" (click)="openAddAreaFormDialog()">Nova Área</button>
+    </header>
+
+    <p *ngIf="!areasDto.length">Nenhuma área cadastrada</p>
+    <table class="container__table" *ngIf="areasDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por nome">Nome</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="reference">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por referência">Referência</th>
+        <td mat-cell *matCellDef="let element">{{ element.reference }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openAreaShow(row)" class="container__line"></tr>
+    </table>
+  </article>
+</div>

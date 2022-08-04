@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Cancelar {{ data.name }}</h1>
+<div mat-dialog-content>
+  <h2>Motivo do cancelamento</h2>
+  <p>Esse texto será enviado ao e-mail dos participantes.</p>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" id="cancel-form">
+    <mat-form-field class="full-width">
+      <textarea matInput formControlName="reason" placeholder="Mensagem"></textarea>
+      <mat-error *ngIf="fieldErrors('reason')?.['required']">
+        Mensagem de cancelamento é obrigatório
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('reason')?.['notblank']">
+        Mensagem de cancelamento não pode ser vazio
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('reason')?.['minlength']">
+        Mensagem de cancelamento deve ter no mínimo 5 caracteres
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>{{ data.cancelText }}</button>
+  <button mat-button type="submit" form="cancel-form" color="warn">
+    {{ data.okText }}
+  </button>
+</div>

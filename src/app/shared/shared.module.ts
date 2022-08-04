@@ -16,6 +16,9 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 
 @NgModule({
@@ -37,6 +40,9 @@ import { MatMenuModule } from "@angular/material/menu";
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule,
+    MatProgressBarModule,
+    MatCheckboxModule,
   ],
   exports: [
     MatToolbarModule,
@@ -54,6 +60,9 @@ import { MatMenuModule } from "@angular/material/menu";
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTabsModule,
+    MatProgressBarModule,
+    MatCheckboxModule,
   ]
 })
 export class SharedModule { }
