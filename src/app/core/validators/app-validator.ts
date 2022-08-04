@@ -40,7 +40,16 @@ export class AppValidators {
       const digitCount = control.value.replace(/\D/g, '').length;
       const validChar = /^[\d-.]*$/g.test(control.value)
       return (digitCount !== 11 || !validChar)
-        ? { validcpf: true }
+       ? { validcpf: true }
+       : null;
+    };
+  }
+
+  static validPassword(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valid = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,64}$/g.test(control.value);
+      return !valid
+        ? { validpassword: true }
         : null;
     };
   }
