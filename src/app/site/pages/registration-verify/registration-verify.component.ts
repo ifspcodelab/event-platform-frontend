@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
 import { RegistrationService } from "../../../core/services/registration.service";
 import { first } from "rxjs";
+import { NotificationService } from "../../../core/services/notification.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ProblemDetail } from "../../../core/models/problem-detail";
 
 @Component({
   selector: 'app-registration-verify',
@@ -15,6 +18,7 @@ export class RegistrationVerifyComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private registrationService: RegistrationService,
+    private notificationService: NotificationService,
     ) { }
 
   ngOnInit(): void {
@@ -27,9 +31,27 @@ export class RegistrationVerifyComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          alert("Conta verificada com sucesso!");
+          this.notificationService.success("Conta verificada com sucesso!");
           this.router.navigate(['login']);
-        }
+        },
+        error: error => this.handleError(error)
       })
   }
+
+  handleError(error: any): void {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 409) {
+        const problem: ProblemDetail = error.error;
+        if(problem.title === "NONEXISTENT_TOKEN") {
+          this.notificationService.error("Token de verificação inexistente");
+        }
+
+        if(problem.title === "VERIFICATION_TOKEN_EXPIRED") {
+          this.notificationService.error("Token de verificação expirado");
+        }
+      }
+    }
+  }
+
+
 }
