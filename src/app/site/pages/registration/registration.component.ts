@@ -85,7 +85,7 @@ export class RegistrationComponent implements OnInit {
       .pipe(first())
       .subscribe( {
         next: () => {
-        alert("Seu cadastro foi realizado com sucesso");
+        alert("Por favor, acesse o e-mail cadastrado para confirmar o cadastro");
         this.router.navigate(['login']);
         }
       });
