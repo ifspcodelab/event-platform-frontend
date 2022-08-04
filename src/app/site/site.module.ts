@@ -8,6 +8,7 @@ import { SharedModule } from "../shared/shared.module";
 import { IConfig, NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "./pages/login/login.component";
 import { TermsComponent } from './pages/terms/terms.component';
+import { RegistrationVerifyComponent } from "./pages/registration-verify/registration-verify.component";
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -19,6 +20,7 @@ const maskConfig: Partial<IConfig> = {
     RegistrationComponent,
     LoginComponent,
     TermsComponent,
+    RegistrationVerifyComponent,
   ],
   imports: [
     CommonModule,
