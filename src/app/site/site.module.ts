@@ -13,7 +13,10 @@ import { SiteCardComponent } from './components/site-card/site-card.component';
     RegistrationComponent,
     SiteHeaderComponent,
     SiteFooterComponent,
-    SiteCardComponent
+    SiteCardComponent,
+  ],
+  exports: [
+    SiteHeaderComponent,
   ],
   imports: [
     CommonModule,
