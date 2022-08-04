@@ -8,54 +8,38 @@
 <main class="home-page-container">
   <section class="homepage-container__section">
     <h2>Inscrições abertas</h2>
-
-    <div class="home-page-container__card">
-      <img src="https://www.revistabula.com/wp/wp-content/uploads/2014/12/FELIZ1-610x350.png">
-
-      <div class="home-page-container__content">
-        <h3>SEDCITEC 2022</h3>
-        <p>19/09/2022 à 23/09/2022</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet lectus id mauris commodo mattis. Integer viverra ultricies molestie. Vivamus eleifend massa sit amet tellus tristique, vitae blandit dui auctor.</p>
-      </div>
-    </div>
-
-    <div class="home-page-container__card">
-      <img src="https://www.revistabula.com/wp/wp-content/uploads/2014/12/FELIZ1-610x350.png">
-
-      <div class="home-page-container__content">
-        <h3>Ciclos de palestras da Biologia 2022</h3>
-        <p>19/09/2022 à 23/09/2022</p>
-        <p>O Ciclos de palestras da Biologia 20222 promovida por ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet lectus id mauris commodo mattis.</p>
-      </div>
-    </div>
+    <app-site-card
+      *ngFor="let eventRegistrationDto of eventsRegistrationDto"
+      [image]="eventRegistrationDto.smallerImage"
+      [title]="eventRegistrationDto.title"
+      [startDate]="eventRegistrationDto.executionPeriod.startDate"
+      [endDate]="eventRegistrationDto.executionPeriod.endDate"
+      [summary]="eventRegistrationDto.summary"
+    ></app-site-card>
   </section>
 
   <section class="home-page-container__section">
     <h2>Em andamento</h2>
-
-    <div class="home-page-container__card">
-      <img src="https://www.revistabula.com/wp/wp-content/uploads/2014/12/FELIZ1-610x350.png">
-
-      <div class="home-page-container__content">
-        <h3>Ciclos de palestras da Biologia 2022</h3>
-        <p>19/09/2022 à 23/09/2022</p>
-        <p>O Ciclos de palestras da Biologia 20222 promovida por ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet lectus id mauris commodo mattis.</p>
-      </div>
-    </div>
+    <app-site-card
+      *ngFor="let eventExecutionDto of eventsExecutionDto"
+      [image]="eventExecutionDto.smallerImage"
+      [title]="eventExecutionDto.title"
+      [startDate]="eventExecutionDto.executionPeriod.startDate"
+      [endDate]="eventExecutionDto.executionPeriod.endDate"
+      [summary]="eventExecutionDto.summary"
+    ></app-site-card>
   </section>
 
   <section class="home-page-container__section">
     <h2>Finalizados</h2>
-
-    <div class="home-page-container__card">
-      <img src="https://www.revistabula.com/wp/wp-content/uploads/2014/12/FELIZ1-610x350.png">
-
-      <div class="home-page-container__content">
-        <h3>Ciclos de palestras da Biologia 2022</h3>
-        <p>19/09/2022 à 23/09/2022</p>
-        <p>O Ciclos de palestras da Biologia 20222 promovida por ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet lectus id mauris commodo mattis.</p>
-      </div>
-    </div>
+    <app-site-card
+      *ngFor="let eventFinishDto of eventsFinishDto"
+      [image]="eventFinishDto.smallerImage"
+      [title]="eventFinishDto.title"
+      [startDate]="eventFinishDto.executionPeriod.startDate"
+      [endDate]="eventFinishDto.executionPeriod.endDate"
+      [summary]="eventFinishDto.summary"
+    ></app-site-card>
   </section>
 </main>
 

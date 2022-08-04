@@ -5,13 +5,15 @@ import { RegistrationComponent } from './pages/registration/registration.compone
 import { SiteHeaderComponent } from './components/site-header/site-header.component';
 import { SharedModule } from "../shared/shared.module";
 import { SiteFooterComponent } from './components/site-footer/site-footer.component';
+import { SiteCardComponent } from './components/site-card/site-card.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     RegistrationComponent,
     SiteHeaderComponent,
-    SiteFooterComponent
+    SiteFooterComponent,
+    SiteCardComponent
   ],
   imports: [
     CommonModule,
