@@ -17,6 +17,7 @@ import { SiteCardComponent } from './components/site-card/site-card.component';
   ],
   exports: [
     SiteHeaderComponent,
+    SiteFooterComponent,
   ],
   imports: [
     CommonModule,
