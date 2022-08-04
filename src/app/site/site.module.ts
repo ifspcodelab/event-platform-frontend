@@ -9,7 +9,6 @@ import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "./pages/login/login.component";
 import { TermsComponent } from './pages/terms/terms.component';
 import { AccountPageHeaderComponent } from './components/account-page-header/account-page-header.component';
-import { AccountPageFormInputComponent } from './components/account-page-form-input/account-page-form-input.component';
 import { AccountPageComponent } from './components/account-page/account-page.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { AccountPageComponent } from './components/account-page/account-page.com
     LoginComponent,
     TermsComponent,
     AccountPageHeaderComponent,
-    AccountPageFormInputComponent,
     AccountPageComponent,
   ],
   imports: [
