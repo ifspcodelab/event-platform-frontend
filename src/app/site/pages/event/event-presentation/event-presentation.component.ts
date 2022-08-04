@@ -31,8 +31,8 @@ export class EventPresentationComponent implements OnInit {
     this.eventService.getEventsBySlug(this.eventSlug)
       .pipe(first())
       .subscribe(
-        eventDto => {
-          this.eventDto = eventDto.at(0);
+        eventsDto => {
+          this.eventDto = eventsDto[0];
         }
       );
   }
