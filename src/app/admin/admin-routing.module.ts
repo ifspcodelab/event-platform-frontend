@@ -7,9 +7,11 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      { path: 'locations', loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule) }
+      { path: 'locations', loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule) },
+      { path: 'events', loadChildren: () => import('./events/events.module').then(m => m.EventsModule) },
+      { path: 'speakers', loadChildren: () => import('./speakers/speakers.module').then(m => m.SpeakersModule) }
     ]
-  }
+  },
 ];
 
 @NgModule({

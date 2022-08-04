@@ -4,42 +4,43 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-list-text { padding: 0 !important; }
 
-.header {
-  padding: 10px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 0.5px solid rgba(0,0,0,.2);
-
-  &__titlecomponent {
-    display: flex;
-    margin: 0;
-    align-items: center;
-  }
-
-  &__back {
-    margin-right: 5px;
-  }
+.modal {
+  padding: 0px 10px 20px 10px;
 
   &__title {
-    font-size: 1.2rem !important;
-    margin: 0 !important;
+    text-align: center;
+    margin-bottom: 0 !important;
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  &__buttons {
     padding: 0 !important;
+    justify-content: right !important;
+  }
+
+  mat-form-field {
+    margin-right: 20px;
+    margin-top: 20px;
+
+    // Display only single validation error at a time
+    mat-error {
+      display: none;
+    }
+
+    mat-error:first-child {
+      display: block;
+    }
   }
 }
 
 .container {
-  margin: 30px 16px;
+  margin: 20px;
 
-  &__header {
-    display: flex;
-    padding: 5px 0;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__title {
-    margin: 0%;
+  &__line:hover {
+    background-color: rgba(0,0,0,0.1);
   }
 
   &__table {
@@ -47,6 +48,35 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     td:hover {
       cursor: pointer;
+    }
+  }
+
+  &__item {
+    padding: 0;
+
+    b {
+      font-weight: 500;
+    }
+  }
+
+  h3 {
+    font-size: 0.8rem;
+    color: #999999;
+    text-transform: uppercase;
+  }
+
+  &__header {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 0.5px solid rgba(0,0,0,.2);
+
+    &__title {
+      font-size: 1.1rem !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      font-weight: 400 !important;
     }
   }
 }
@@ -64,13 +94,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   fieldset {
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 0;
+    padding-left: 6px;
 
     legend {
       text-transform: uppercase;
       font-size: 12px;
-      padding: 0 16px;
+      padding: 0px;
+      margin: 0 0 0 -6px;
       color: #aaa;
     }
   }
@@ -144,16 +176,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .form-field-xl {
       width: calc(60% - 20px);
     }
-  }
-}
-
-.dialog-center {
-  mat-dialog-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .mat-dialog-content {
-    padding: 0;
   }
 }
