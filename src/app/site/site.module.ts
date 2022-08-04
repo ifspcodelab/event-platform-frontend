@@ -8,6 +8,7 @@ import { SharedModule } from "../shared/shared.module";
 import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "./pages/login/login.component";
 import { TermsComponent } from './pages/terms/terms.component';
+import { RegistrationVerifyComponent } from "./pages/registration-verify/registration-verify.component";
 import { AccountPageComponent } from './components/account-page/account-page.component';
 
 @NgModule({
@@ -16,6 +17,7 @@ import { AccountPageComponent } from './components/account-page/account-page.com
     RegistrationComponent,
     LoginComponent,
     TermsComponent,
+    RegistrationVerifyComponent,
     AccountPageComponent,
   ],
   imports: [

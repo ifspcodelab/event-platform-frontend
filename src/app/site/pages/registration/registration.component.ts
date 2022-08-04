@@ -5,6 +5,9 @@ import { first } from 'rxjs';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { AccountCreateDto } from "../../../core/models/account.model";
 import { Router } from "@angular/router";
+import { NotificationService } from "../../../core/services/notification.service";
+import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'app-registration',
@@ -21,6 +24,7 @@ export class RegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
     private router: Router,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -83,17 +87,50 @@ export class RegistrationComponent implements OnInit {
       )
     this.registrationService.postAccount(accountCreateDto)
       .pipe(first())
-      .subscribe( {
+      .subscribe({
         next: () => {
-        alert("Seu cadastro foi realizado com sucesso");
-        this.router.navigate(['login']);
+          this.notificationService.success("Por favor, acesse o e-mail cadastrado para confirmar o cadastro");
+          this.router.navigate(['login']);
+        },
+        error: error => this.handleError(error)
+      })
+  }
+
+  handleError(error: any): void {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 400) {
+        const violations: Violation[] = error.error;
+        violations.forEach(violation => {
+          const formControl = this.form.get(violation.name);
+          if(formControl) {
+            formControl.setErrors({ serverError: violation.message });
+          }
+        })
+      }
+
+      if(error.status === 409) {
+        const problem: ProblemDetail = error.error;
+        if(problem.title === "Resource already exists exception") {
+          // Depois será melhorado
+          if(problem.violations.length > 0) {
+            const violation = problem.violations[0];
+            if(violation.message.includes("E-mail")) {
+              this.notificationService.error('Já existe uma conta com esse e-mail');
+            }
+            if(violation.message.includes("Cpf")) {
+              this.notificationService.error('Já existe uma conta com esse CPF');
+            }
+          }
         }
-      });
+        if(problem.title === "Invalid recaptcha") {
+          this.notificationService.error("Recaptcha inválido, por favor atualize a página");
+        }
+      }
+    }
   }
 
   resolved(captchaResponse: string): void {
     this.userReCaptcha = captchaResponse;
   }
 }
-
 
