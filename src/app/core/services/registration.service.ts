@@ -27,4 +27,6 @@ export class RegistrationService {
     const url = `${this.apiUrl}/verification/${token}`;
     return this.httpClient.patch<AccountDto>(url, null, this.httpOptions);
   }
+
+  
 }
