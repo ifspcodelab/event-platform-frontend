@@ -12,8 +12,8 @@
       *ngFor="let eventRegistrationDto of eventsRegistrationDto"
       [image]="eventRegistrationDto.smallerImage"
       [title]="eventRegistrationDto.title"
-      [startDate]="eventRegistrationDto.executionPeriod.startDate"
-      [endDate]="eventRegistrationDto.executionPeriod.endDate"
+      [startDate]="eventRegistrationDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="eventRegistrationDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
       [summary]="eventRegistrationDto.summary"
       [url]="'/events/'+ eventRegistrationDto.slug"
     ></app-site-card>
@@ -25,8 +25,8 @@
       *ngFor="let eventExecutionDto of eventsExecutionDto"
       [image]="eventExecutionDto.smallerImage"
       [title]="eventExecutionDto.title"
-      [startDate]="eventExecutionDto.executionPeriod.startDate"
-      [endDate]="eventExecutionDto.executionPeriod.endDate"
+      [startDate]="eventExecutionDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="eventExecutionDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
       [summary]="eventExecutionDto.summary"
       [url]="'/events/'+ eventExecutionDto.slug"
     ></app-site-card>
@@ -38,8 +38,8 @@
       *ngFor="let eventFinishDto of eventsFinishDto"
       [image]="eventFinishDto.smallerImage"
       [title]="eventFinishDto.title"
-      [startDate]="eventFinishDto.executionPeriod.startDate"
-      [endDate]="eventFinishDto.executionPeriod.endDate"
+      [startDate]="eventFinishDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="eventFinishDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
       [summary]="eventFinishDto.summary"
       [url]="'/events/'+ eventFinishDto.slug"
     ></app-site-card>

@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {EventDto} from "../../../../core/models/event.model";
+import {first} from "rxjs";
+import {SubeventService} from "../../../../core/services/subevent.service";
+import {EventService} from "../../../../core/services/event.service";
 
 @Component({
   selector: 'app-event-presentation',
@@ -6,12 +11,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event-presentation.component.scss']
 })
 export class EventPresentationComponent implements OnInit {
+  eventSlug: string;
+  eventDto: EventDto;
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private eventService: EventService
+  ) { }
 
   ngOnInit(): void {
-    // document.getElementById("text")
-    //   .innerHTML = "<p>Tudo</p> <p>Bem</p>";
+    this.eventSlug = this.route.snapshot.paramMap.get('eventSlug');
+    this.fetchEvent();
+
+    document.getElementById("text")
+      .innerHTML = this.eventDto.presentation;
+  }
+
+  fetchEvent() {
+    this.eventService.getEventsBySlug(this.eventSlug)
+      .pipe(first())
+      .subscribe(
+        eventDto => {
+          this.eventDto = eventDto.at(0);
+        }
+      );
   }
 
 }
