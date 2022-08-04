@@ -26,7 +26,7 @@ export class AuthenticationService {
     return this.httpClient.post<JwtTokensDto>(url, loginCreateDto, this.httpOptions);
   }
 
-  deleteLogout() {
+  deleteLogout(): Observable<unknown> {
     const url = `${this.apiUrl}/logout`;
     return this.httpClient.delete(url, this.httpOptions);
   }

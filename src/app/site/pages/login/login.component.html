@@ -6,20 +6,20 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>email</mat-label>
       <input matInput formControlName="email" name="email">
-      <div *ngIf="email.invalid && (email.dirty || email.touched)">
+      <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
         <mat-error class="error-message" *ngIf="email.errors?.['required']">
           Campo email é obrigatório
         </mat-error>
         <mat-error *ngIf="email.errors?.['email']">
           Campo email deve ser válido
         </mat-error>
-      </div>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Senha</mat-label>
       <input matInput formControlName="password" name="password" type="password">
-      <div *ngIf="password.invalid && (password.dirty || password.touched)">
+      <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
         <mat-error *ngIf="password.errors?.['required']">
           Campo senha é obrigatório
         </mat-error>
@@ -29,7 +29,7 @@
         <mat-error *ngIf="password.errors?.['maxlength']">
           Campo senha deve ter no máximo 64 caracteres
         </mat-error>
-      </div>
+      </mat-error>
     </mat-form-field>
 
     <re-captcha (resolved)="resolved($event)" siteKey="6LdirjAhAAAAANJcalTKs4KNA7c5YlP6dOby7x__"></re-captcha>
