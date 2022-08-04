@@ -5,6 +5,7 @@ import { SpeakerDto } from "../../../core/models/speaker.model";
 import { SpeakerService } from "../../../core/services/speaker.service";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { LoaderService } from "../../loader.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-speaker-list',
@@ -21,6 +22,7 @@ export class SpeakerListComponent implements OnInit {
   constructor(
     private speakerService: SpeakerService,
     private loaderService: LoaderService,
+    private router: Router,
     private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
@@ -51,6 +53,6 @@ export class SpeakerListComponent implements OnInit {
   }
 
   openSpeakerShow(speakerDto: SpeakerDto) {
-    console.log(speakerDto);
+    return this.router.navigate(['admin', 'speakers', speakerDto.id])
   }
 }

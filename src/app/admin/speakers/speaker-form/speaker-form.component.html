@@ -21,7 +21,7 @@
 
     <mat-form-field class="form-field-sm">
       <mat-label>CPF</mat-label>
-      <input matInput placeholder="" formControlName="cpf" name="cpf">
+      <input matInput mask="000.000.000-00" formControlName="cpf" name="cpf">
       <mat-hint>Será utilizado no certificado do ministrante</mat-hint>
       <mat-error *ngIf="fieldErrors('cpf')?.['required']">Email é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">CPF deve conter um CPF válido</mat-error>
@@ -64,8 +64,9 @@
     <legend>Currículo</legend>
     <mat-form-field class="form-field-md">
       <mat-label>Mini-curriculo</mat-label>
-      <textarea matInput formControlName="curriculum" rows="5" name="curriculum"></textarea>
-      <mat-hint>Deve ter no mínimo 150 e no máximo 300 caracteres</mat-hint>
+      <textarea placeholder="Deve ter no mínimo 150 e no máximo 300 caracteres"
+                matInput formControlName="curriculum" rows="5" name="curriculum">
+      </textarea>
       <mat-error *ngIf="fieldErrors('curriculum')?.['required']">Mini-curriculo é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('curriculum')?.['minlength']">Mini-curriculo deve ter no mínimo 150 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('curriculum')?.['maxlength']">Mini-curriculo deve ter no máximo 300 caracteres</mat-error>
@@ -93,8 +94,4 @@
       </mat-error>
     </mat-form-field>
   </fieldset>
-
-  <input type="hidden" formControlName="accountId" name="accountId">
-
-
 </form>

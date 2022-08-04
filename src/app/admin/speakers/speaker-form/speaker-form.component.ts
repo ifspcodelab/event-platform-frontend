@@ -61,7 +61,6 @@ export class SpeakerFormComponent implements OnInit {
       curriculum: ['', [Validators.required, Validators.minLength(150), Validators.maxLength(300), AppValidators.notBlank]],
       lattes: ['', []],
       linkedin: ['', []],
-      accountId: ['', []],
     });
   }
 
