@@ -1,0 +1,28 @@
+header {
+  text-align: center;
+  padding: 20px 5px 0 5px;
+
+  @media screen and (min-width: 481px) {
+    h1 {
+      font-weight: bold;
+    }
+  }
+
+  @media screen and (max-width: 480px){
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media screen and (min-width: 641px) {
+    margin-bottom: 20px;
+  }
+}
+
+main {
+  max-width: 400px;
+  text-align: center;
+  margin: auto;
+  padding: 0 5px;
+}
+

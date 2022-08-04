@@ -1,54 +1,9 @@
-a,
-a:hover {
-  text-decoration: none;
-  color: unset;
-}
-
 .full-width {
   width: 100%;
 }
 
-.container-registration {
-  max-width: 400px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: auto;
-  padding: 20px;
-}
-
-.header-registration {
-  text-align: center;
-  all: unset;
-  padding: 15px;
-  font-size: 2rem;
-}
-
-.title {
-  font-weight: bold;
-}
-
-.first-paragraph,
-.login {
-  font-size: 12px;
-  margin: 0;
-}
-
-.login {
-  margin-bottom: 20px;
-}
-
-.loginPage:hover {
-  cursor: pointer;
-}
-
-mat-card-content {
-  margin: 0;
-}
-
 mat-form-field {
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .visibility {
@@ -58,10 +13,6 @@ mat-form-field {
 .terms {
   margin-top: 20px;
   text-align: left;
-}
-
-.terms:hover {
-  cursor: pointer;
 }
 
 .checkbox-container {
@@ -81,16 +32,14 @@ mat-form-field {
 }
 
 re-captcha {
-  margin-top: 20px;
-  display: flex;
   align-items: center;
-  text-align: center;
-  align-content: center;
+  display: flex;
   flex-direction: column;
+  margin-top: 20px;
+  scale: 0.9;
 }
 
-mat-card-actions button {
-  width: 100%;
+.register {
   margin: 15px 0;
   color: #FFF;
 }

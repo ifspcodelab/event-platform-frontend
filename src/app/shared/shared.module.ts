@@ -17,7 +17,6 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatCardModule } from "@angular/material/card";
 
 
 @NgModule({
@@ -40,7 +39,6 @@ import { MatCardModule } from "@angular/material/card";
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatCardModule,
   ],
   exports: [
     MatToolbarModule,
@@ -59,7 +57,6 @@ import { MatCardModule } from "@angular/material/card";
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatCardModule,
   ]
 })
 export class SharedModule { }
