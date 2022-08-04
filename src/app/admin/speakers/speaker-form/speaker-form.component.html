@@ -1,0 +1,100 @@
+<app-admin-header [title]="createMode ? 'Novo Ministrante' : 'Editar Ministrante'" (backLink)="getBackUrl()">
+  <button type="submit" form="event-form" mat-raised-button color="primary">Salvar</button>
+</app-admin-header>
+
+<form id="event-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+
+  <fieldset>
+    <legend>Dados gerais</legend>
+    <mat-form-field class="form-field-md">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" name="name">
+      <mat-error *ngIf="fieldErrors('name')?.['required']">Nome é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['minlength']">Nome deve ter no mínimo 5 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['maxlength']">Nome deve ter no máximo 256 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['notblank']">Nome não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['validname']">Nome deve deve conter um nome válido</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['serverError'] && submitted">
+        {{ fieldErrors('name')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>CPF</mat-label>
+      <input matInput placeholder="" formControlName="cpf" name="cpf">
+      <mat-hint>Será utilizado no certificado do ministrante</mat-hint>
+      <mat-error *ngIf="fieldErrors('cpf')?.['required']">Email é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">CPF deve conter um CPF válido</mat-error>
+      <mat-error *ngIf="fieldErrors('cpf')?.['serverError'] && submitted">
+        {{ fieldErrors('cpf')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+  </fieldset>
+
+  <fieldset>
+    <legend>Contato</legend>
+    <mat-form-field class="form-field-md">
+      <mat-label>E-mail</mat-label>
+      <input matInput placeholder="" formControlName="email" name="email">
+      <mat-hint>Informação privada. Caso a organização do evento precise entrar em contato.</mat-hint>
+      <mat-error *ngIf="fieldErrors('email')?.['required']">E-mail é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('email')?.['email']">E-mail deve conter um e-mail válido</mat-error>
+      <mat-error *ngIf="fieldErrors('email')?.['maxlength']">E-mail deve ter no máximo 350 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('email')?.['serverError'] && submitted">
+        {{ fieldErrors('email')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Telefone</mat-label>
+      <mat-hint>Informação privada. Caso a organização do evento precise entrar em contato.</mat-hint>
+      <input matInput placeholder="" formControlName="phoneNumber" name="phoneNumber">
+      <mat-error *ngIf="fieldErrors('phoneNumber')?.['required']">Telefone é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('phoneNumber')?.['minlength']">Telefone deve ter no mínimo 8 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('phoneNumber')?.['maxlength']">Telefone deve ter no máximo 15 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('phoneNumber')?.['notblank']">Telefone não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('phoneNumber')?.['serverError'] && submitted">
+        {{ fieldErrors('phoneNumber')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+  </fieldset>
+
+  <fieldset>
+    <legend>Currículo</legend>
+    <mat-form-field class="form-field-md">
+      <mat-label>Mini-curriculo</mat-label>
+      <textarea matInput formControlName="curriculum" rows="5" name="curriculum"></textarea>
+      <mat-hint>Deve ter no mínimo 150 e no máximo 300 caracteres</mat-hint>
+      <mat-error *ngIf="fieldErrors('curriculum')?.['required']">Mini-curriculo é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('curriculum')?.['minlength']">Mini-curriculo deve ter no mínimo 150 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('curriculum')?.['maxlength']">Mini-curriculo deve ter no máximo 300 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('curriculum')?.['notblank']">Mini-curriculo não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('curriculum')?.['serverError'] && submitted">
+        {{ fieldErrors('curriculum')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="form-field-md">
+      <mat-label>Lattes</mat-label>
+      <input matInput placeholder="" formControlName="lattes" name="lattes">
+      <mat-hint>URL do curriculo lattes do ministrante</mat-hint>
+      <mat-error *ngIf="fieldErrors('lattes')?.['serverError'] && submitted">
+        {{ fieldErrors('lattes')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="form-field-md">
+      <mat-label>Linkedin</mat-label>
+      <input matInput placeholder="" formControlName="linkedin" name="linkedin">
+      <mat-hint>URL do Linkedin do ministrante</mat-hint>
+      <mat-error *ngIf="fieldErrors('linkedin')?.['serverError'] && submitted">
+        {{ fieldErrors('linkedin')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+  </fieldset>
+
+  <input type="hidden" formControlName="accountId" name="accountId">
+
+
+</form>

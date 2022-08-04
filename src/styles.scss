@@ -94,13 +94,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   fieldset {
     border: none;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     padding: 0;
+    padding-left: 6px;
 
     legend {
       text-transform: uppercase;
       font-size: 12px;
-      padding: 0 16px;
+      padding: 0px;
+      margin: 0 0 0 -6px;
       color: #aaa;
     }
   }

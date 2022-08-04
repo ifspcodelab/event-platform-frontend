@@ -20,7 +20,7 @@ export class SpeakerCreateDto {
   lattes: string;
   linkedin: string;
   phoneNumber: string;
-  accountId: string;
+  accountId?: string;
 
   constructor(
     name: string,
@@ -30,7 +30,7 @@ export class SpeakerCreateDto {
     lattes: string,
     linkedin: string,
     phoneNumber: string,
-    accountId: string
+    accountId?: string
   ) {
     this.name = name;
     this.email = email;
