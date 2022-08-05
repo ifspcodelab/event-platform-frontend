@@ -1,3 +1,4 @@
+import { OrganizerTypePipe } from './../../core/pipes/organizer-type.pipe';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -19,9 +20,10 @@ import { MAT_DATE_LOCALE } from "@angular/material/core";
     EventListComponent,
     EventShowComponent,
     EventFormComponent,
+    EventStatusPipe,
     SubeventShowComponent,
     SubeventsFormComponent,
-    EventStatusPipe,
+    OrganizerTypePipe,
   ],
   imports: [
     CommonModule,
