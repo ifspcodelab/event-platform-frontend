@@ -1,6 +1,9 @@
-<header class="event-page-header">
-  <img src="{{ image }}">
 
+
+
+<header class="event-page-header" [ngStyle]="{'background-image': 'url(' + image + ')'}">
+
+  <div class="header-background"></div>
   <div class="header-content">
     <div class="header-content__event">
       <h2 class="header-content__title">{{ title }}</h2>
