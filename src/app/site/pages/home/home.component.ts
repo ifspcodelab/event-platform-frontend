@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { EventService } from "../../../core/services/event.service";
-import { EventDto } from "../../../core/models/event.model";
+import {Component, OnInit} from '@angular/core';
+import {EventService} from "../../../core/services/event.service";
+import {EventDto} from "../../../core/models/event.model";
+import {EventStatusModel} from "../../../core/models/event-status.model";
 
 @Component({
   selector: 'app-home',
@@ -11,36 +12,56 @@ export class HomeComponent implements OnInit {
   eventsRegistrationDto: EventDto[];
   eventsExecutionDto: EventDto[];
   eventsFinishDto: EventDto[];
+  eventsDtoPublished: EventDto[];
 
   constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
     this.eventService.getEvents()
       .subscribe(events => {
-        this.getEventsWithRegistrationPeriodStarted(events);
-        this.getEventsWithExecutionPeriodStarted(events);
-        this.getEventsWithExecutionPeriodFinished(events);
+        this.getEventsPublished(events);
       });
   }
 
-  getEventsWithRegistrationPeriodStarted(events: EventDto[]) {
-    this.eventsRegistrationDto = events
+  getEventsPublished(events: EventDto[]) {
+    this.eventsDtoPublished = events
+      .filter(e => e.status.toString() === "PUBLISHED");
+    this.getEventsWithRegistrationPeriodStarted();
+    this.getEventsWithExecutionPeriodStarted();
+    this.getEventsWithExecutionPeriodFinished();
+  }
+
+  getEventsWithRegistrationPeriodStarted() {
+    this.eventsRegistrationDto = this.eventsDtoPublished
       .filter(
-        e => (new Date(e.registrationPeriod.startDate) <= new Date(Date.now())) &&
-          (new Date(e.executionPeriod.endDate) >= new Date(Date.now()))
+        e => (this.formatDate(e.registrationPeriod.startDate) <= this.getCurrentDate()) &&
+          (this.formatDate(e.executionPeriod.endDate) >= this.getCurrentDate())
       );
   }
 
-  getEventsWithExecutionPeriodStarted(events: EventDto[]) {
-    this.eventsExecutionDto = events
+  getEventsWithExecutionPeriodStarted() {
+    this.eventsExecutionDto = this.eventsDtoPublished
       .filter(
-        e => (new Date(e.executionPeriod.startDate) <= new Date(Date.now())) &&
-          (new Date(e.executionPeriod.endDate) >= new Date(Date.now()))
+        e => (this.formatDate(e.executionPeriod.startDate) <= this.getCurrentDate()) &&
+          (this.formatDate(e.executionPeriod.endDate) >= this.getCurrentDate())
       );
   }
 
-  getEventsWithExecutionPeriodFinished(events: EventDto[]) {
-    this.eventsFinishDto = events
-      .filter(e => new Date(e.executionPeriod.endDate) < new Date(Date.now()))
+  getEventsWithExecutionPeriodFinished() {
+    console.log(this.eventsDtoPublished);
+    this.eventsFinishDto = this.eventsDtoPublished
+      .filter(e => this.formatDate(e.executionPeriod.endDate) < this.getCurrentDate());
   }
+
+  formatDate(date: string): Date {
+    const datetest = date.replace('-','/').replace('-', '/');
+
+    return new Date(datetest);
+  }
+
+  getCurrentDate() : Date {
+    let date = new Date(Date.now())
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
+  }
+
 }
