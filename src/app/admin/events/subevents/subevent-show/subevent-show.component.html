@@ -11,18 +11,27 @@
 
     <mat-tab label="Dados Principais">
       <article class="container">
-        <p class="container__item"><b>Resumo:</b> {{ subeventDto.summary }}</p>
-        <p class="container__item"><b>Apresentação:</b> {{ subeventDto.presentation }}</p>
-        <p class="container__item"><b>Status:</b> {{ subeventDto.status | eventStatus }}</p>
-        <p *ngIf="subeventDto.cancellationMessage"><b>Mensagem de cancelamento:</b> {{ subeventDto.cancellationMessage }}</p>
+        <p class="container__item"><b>Resumo:</b>{{ subeventDto.summary }}</p>
+        <p class="container__item"><b>Apresentação:</b>{{ subeventDto.presentation }}</p>
+        <p class="container__item"><b>Status:</b>{{ subeventDto.status | eventStatus }}</p>
+        <p *ngIf="subeventDto.cancellationMessage"><b>Mensagem de cancelamento:</b>{{ subeventDto.cancellationMessage }}</p>
         <h3>Datas</h3>
-        <p class="container__item"><b>Início:</b> {{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</p>
-        <p class="container__item"><b>Fim:</b> {{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Início:</b>{{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Fim:</b>{{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
         <h3>Imagens</h3>
         <p><b>Menor</b></p>
         <img mat-card-image src="{{ subeventDto.smallerImage }}" width="300px">
         <p><b>Maior</b></p>
         <img mat-card-image src="{{ subeventDto.biggerImage }}" width="300px">
+      </article>
+    </mat-tab>
+
+    <mat-tab label="Organização">
+      <article class="container">
+        <header class="container__header">
+          <h2 class="container__header__title">Organização</h2>
+          <button mat-button color="primary">Novo Organizador</button>
+        </header>
       </article>
     </mat-tab>
   </mat-tab-group>

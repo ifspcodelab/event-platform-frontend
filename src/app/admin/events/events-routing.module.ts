@@ -15,6 +15,7 @@ const routes: Routes = [
       { path: '', component: EventListComponent },
       { path: 'new', component: EventFormComponent },
       { path: ':eventId', component: EventShowComponent },
+      { path: ':eventId/organizers', component: EventShowComponent },
       { path: ':eventId/edit', component: EventFormComponent },
       { path: ':eventId/sub-events/new', component: SubeventsFormComponent },
       { path: ':eventId/sub-events/:subeventId', component: SubeventShowComponent },
