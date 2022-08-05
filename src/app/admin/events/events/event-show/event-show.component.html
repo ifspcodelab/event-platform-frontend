@@ -37,7 +37,7 @@
 
         <p *ngIf="!subeventsDto.length">Nenhum subevento cadastrado</p>
 
-        <table class="container__table *ngIf="subeventsDto.length mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+        <table class="container__table" *ngIf="subeventsDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
           <ng-container matColumnDef="title">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por título">Título</th>
             <td mat-cell *matCellDef="let element">{{ element.title }}</td>
@@ -71,6 +71,30 @@
           <button mat-button color="primary">Novo Organizador</button>
         </header>
       </article>
+
+      <p *ngIf="!organizersDto.length">Nenhum organizador encontrado</p>
+
+      <table class="container__table *ngIf="organizersDto.length mat-table [dataSource]="organizersDto">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nome</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>E-mail</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Papel</th>
+          <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Ação</th>
+          <td mat-cell *matCellDef="let element">{{ element.action }}</td>
+        </ng-container>
+      </table>
     </mat-tab>
   </mat-tab-group>
 </div>

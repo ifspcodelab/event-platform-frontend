@@ -1,3 +1,5 @@
+import { OrganizerService } from './../../../../core/services/organizer.service';
+import { OrganizerDto } from './../../../../core/models/organizer.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CancellationMessageCreateDto, EventDto } from "../../../../core/models/event.model";
 import { EventService } from "../../../../core/services/event.service";
@@ -23,6 +25,8 @@ import { LoaderService } from "../../../loader.service";
 export class EventShowComponent implements OnInit {
   displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
   subeventsDto: SubeventDto[] = [];
+  displayedColumnsOrganizer: string[] = ['name', 'email', 'type', 'action'];
+  organizersDto: OrganizerDto[] = [];
   eventDto: EventDto;
   eventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
@@ -34,6 +38,7 @@ export class EventShowComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private subeventService: SubeventService,
+    private organizerService: OrganizerService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
@@ -46,6 +51,7 @@ export class EventShowComponent implements OnInit {
     this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.fetchEvent(this.eventId);
+    this.fetchOrganizers(this.eventId);
   }
 
   fetchEvent(eventId: string) {
@@ -62,11 +68,20 @@ export class EventShowComponent implements OnInit {
   fetchSubevents(eventId: string) {
     this.subeventService.getSubevents(eventId)
       .subscribe(subevents => {
-        this.subeventsDto = subevents
+        this.subeventsDto = subevents;
         this.dataSource = new MatTableDataSource<SubeventDto>(this.subeventsDto);
         this.loaderService.hide();
         this.setTabSelectedIndex();
       });
+  }
+
+  fetchOrganizers(eventId: string) {
+    this.organizerService.getOrganizers(eventId)
+        .pipe(first())
+        .subscribe(organizersDto => {
+          this.organizersDto = organizersDto;
+          console.log(organizersDto)
+        })
   }
 
   openEventList() {
