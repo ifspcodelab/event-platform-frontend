@@ -1,44 +1,28 @@
+<app-event-header
+  [title]="eventDto.title"
+  [image]="eventDto.biggerImage"
+  [startDate]="eventDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+  [endDate]="eventDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+>
+  <button mat-button routerLink="/events/{{ eventDto.slug }}">Apresentação</button>
+  <button mat-button routerLink="subevents">Subeventos</button>
+  <button mat-button>Programação</button>
+  <button mat-button>Organização</button>
+</app-event-header>
+
 <main>
   <h1>Subeventos</h1>
-  <p>Eventos programados para a SEDCITEC 2022</p>
-
-  <!--    *ngFor="let eventRegistrationDto of eventsRegistrationDto"-->
+  <p>Eventos programados para a {{ eventDto.title }}</p>
 
   <section>
     <app-site-card
-      [image]="'https://bestofweb.com.br/wp-content/uploads/2018/05/catioro.jpg'"
-      [title]="'Semana da Matemática'"
-      [startDate]="'19/09/2022'"
-      [endDate]="'23/09/2022'"
-      [summary]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pharetra augue at ullamcorper semper. Fusce nibh augue, porta at magna nec, condimentum aliquam ex. Vestibulum.'"
-      [url]="'/events/eventDto.slug/subevent/subevent.slug'"
-    ></app-site-card>
-
-    <app-site-card
-      [image]="'https://bestofweb.com.br/wp-content/uploads/2018/05/catioro.jpg'"
-      [title]="'Semana da Matemática'"
-      [startDate]="'19/09/2022'"
-      [endDate]="'23/09/2022'"
-      [summary]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pharetra augue at ullamcorper semper. Fusce nibh augue, porta at magna nec, condimentum aliquam ex. Vestibulum.'"
-      [url]="'/events/eventDto.slug/subevent/subevent.slug'"
-    ></app-site-card>
-
-    <app-site-card
-      [image]="'https://bestofweb.com.br/wp-content/uploads/2018/05/catioro.jpg'"
-      [title]="'Semana da Matemática'"
-      [startDate]="'19/09/2022'"
-      [endDate]="'23/09/2022'"
-      [summary]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pharetra augue at ullamcorper semper. Fusce nibh augue, porta at magna nec, condimentum aliquam ex. Vestibulum.'"
-      [url]="'/events/eventDto.slug/subevent/subevent.slug'"
-    ></app-site-card>
-
-    <app-site-card
-      [image]="'https://bestofweb.com.br/wp-content/uploads/2018/05/catioro.jpg'"
-      [title]="'Semana da Matemática'"
-      [startDate]="'19/09/2022'"
-      [endDate]="'23/09/2022'"
-      [summary]="'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pharetra augue at ullamcorper semper. Fusce nibh augue, porta at magna nec, condimentum aliquam ex. Vestibulum.'"
-      [url]="'/events/eventDto.slug/subevent/subevent.slug'"
+      *ngFor="let subeventDto of subeventsDto"
+      [image]="subeventDto.smallerImage"
+      [title]="subeventDto.title"
+      [startDate]="subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+      [summary]="subeventDto.summary"
+      [url]="'/events/'+ eventDto.slug + '/subevents/'+ subeventDto.slug"
     ></app-site-card>
   </section>
 </main>

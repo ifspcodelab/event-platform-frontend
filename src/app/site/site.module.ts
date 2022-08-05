@@ -8,6 +8,7 @@ import { SiteFooterComponent } from './components/site-footer/site-footer.compon
 import { SiteCardComponent } from './components/site-card/site-card.component';
 import { EventsModule } from "../admin/events/events.module";
 import { RouterModule } from "@angular/router";
+import { EventHeaderComponent } from './components/event-header/event-header.component';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,14 @@ import { RouterModule } from "@angular/router";
     SiteHeaderComponent,
     SiteFooterComponent,
     SiteCardComponent,
+    EventHeaderComponent,
   ],
-  exports: [
-    SiteHeaderComponent,
-    SiteFooterComponent,
-    SiteCardComponent,
-  ],
+    exports: [
+        SiteHeaderComponent,
+        SiteFooterComponent,
+        SiteCardComponent,
+        EventHeaderComponent,
+    ],
   imports: [
     CommonModule,
     SharedModule,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import { EventDto } from "../../../../core/models/event.model";
 import { first } from "rxjs";
@@ -9,13 +9,16 @@ import { EventService } from "../../../../core/services/event.service";
   templateUrl: './event-presentation.component.html',
   styleUrls: ['./event-presentation.component.scss']
 })
+@Injectable({
+  providedIn: "root"
+})
 export class EventPresentationComponent implements OnInit {
   eventSlug: string;
   eventDto: EventDto;
 
   constructor(
     private route: ActivatedRoute,
-    private eventService: EventService
+    private eventService: EventService,
   ) { }
 
   ngOnInit(): void {
@@ -34,5 +37,4 @@ export class EventPresentationComponent implements OnInit {
         }
       );
   }
-
 }
