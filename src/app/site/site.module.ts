@@ -16,6 +16,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastrModule } from "ngx-toastr";
 
 
 
@@ -43,6 +45,12 @@ import { PasswordResetComponent } from './pages/password-reset/password-reset.co
     RecaptchaModule,
     SharedModule,
     NgxMaskModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 12000,
+      positionClass: 'toast-bottom-left',
+      countDuplicates: true,
+    }),
   ]
 })
 export class SiteModule { }

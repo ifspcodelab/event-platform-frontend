@@ -4,6 +4,9 @@ import {PasswordResetService} from "../../../core/services/password-reset.servic
 import {PasswordResetDto} from "../../../core/models/password-reset-dto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppValidators} from "../../../core/validators/app-validators";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ProblemDetail, Violation} from "../../../core/models/problem-detail";
+import {ToastService} from "../../../core/services/toast.service";
 
 
 @Component({
@@ -23,6 +26,7 @@ export class PasswordResetComponent implements OnInit {
     private route: ActivatedRoute,
     private renderer: Renderer2,
     private router: Router,
+    private toaster: ToastService,
   ) {
     this.form = this.buildForm();
     this.userRecaptcha = '';
@@ -43,18 +47,31 @@ export class PasswordResetComponent implements OnInit {
     if(this.form.invalid || !this.matches() || this.userRecaptcha == ''){
       return;
     }
-    const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
+    //const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
+    const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, "uHUAHUH");
     this.service.sendPasswordAndToken(passwordResetDto).subscribe(()=>{
-      alert("Sua senha foi alterada com sucesso");
+        alert("Sua senha foi alterada com sucesso");
         this.router.navigateByUrl("/esqueci-minha-senha");
         this.form.reset();
         this.submitted = false;
       },
-      () => {
-        alert("Requisição inválida");
+      error => {
+        this.handleError(error);
         this.form.reset();
         this.submitted = false;
       });
+  }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      const problem: ProblemDetail = error.error;
+      if (problem.title == "Token not valid"){
+        this.toaster.error("Algo de errado com a requisição", "Utilize apenas o link válido");
+      }
+      if (problem.title == "Invalid recaptcha"){
+        this.toaster.error("Algo de errado com o recapctha", "Tente novamente");
+      }
+    }
   }
 
   matches(){
@@ -72,9 +89,16 @@ export class PasswordResetComponent implements OnInit {
   buildForm(): FormGroup{
     return this.form = this.fb.group({
       password: ["",
-        [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]],
+        [ Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(64),
+          AppValidators.validPassword()]],
+
       confirmPassword: ["",
-        [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]]
+        [ Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(64),
+          AppValidators.validPassword()]]
     });
   }
 

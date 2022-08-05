@@ -98,7 +98,8 @@
             ],
             "styles": [
               "./src/scss/app-theme.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/ngx-toastr/toastr.css",
             ],
             "scripts": []
           }
