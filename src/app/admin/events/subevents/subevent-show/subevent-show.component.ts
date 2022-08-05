@@ -10,6 +10,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ProblemDetail } from 'src/app/core/models/problem-detail';
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 import { LoaderService } from "../../../loader.service";
+import { OrganizerSubeventDto } from 'src/app/core/models/organizer-subevent.model';
+import { OrganizerSubeventService } from 'src/app/core/services/organizer-subevent.service';
 
 @Component({
   selector: 'app-subevent-show',
@@ -17,6 +19,8 @@ import { LoaderService } from "../../../loader.service";
   styleUrls: ['./subevent-show.component.scss']
 })
 export class SubeventShowComponent implements OnInit {
+  displayedColumnsOrganizerSubevent: string[] = ['name', 'email', 'type', 'action'];
+  organizersSubeventDto: OrganizerSubeventDto[] = [];
   subeventDto: SubeventDto;
   subeventId: string;
   eventId: string;
@@ -26,6 +30,7 @@ export class SubeventShowComponent implements OnInit {
   constructor(
     private notificationService: NotificationService,
     private subeventService: SubeventService,
+    private organizerSubeventService: OrganizerSubeventService,
     private route: ActivatedRoute,
     private router: Router,
     private loaderService: LoaderService,
@@ -37,6 +42,7 @@ export class SubeventShowComponent implements OnInit {
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
     this.fetchSubevent(this.eventId, this.subeventId);
+    this.fetchOrganizersSubevent(this.eventId, this.subeventId);
   }
 
   fetchSubevent(eventId: string, subeventId: string) {
@@ -47,6 +53,15 @@ export class SubeventShowComponent implements OnInit {
         this.loaderService.hide();
         this.setTabSelectedIndex();
       });
+  }
+
+  fetchOrganizersSubevent(eventId: string, subeventId: string) {
+    this.organizerSubeventService.getOrganizersSubevent(eventId, subeventId)
+        .pipe(first())
+        .subscribe(organizersSubeventDto => {
+          this.organizersSubeventDto = organizersSubeventDto;
+          console.log(organizersSubeventDto)
+        })
   }
 
   openEventShow() {
