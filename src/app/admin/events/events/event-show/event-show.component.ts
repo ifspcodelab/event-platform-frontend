@@ -32,6 +32,7 @@ export class EventShowComponent implements OnInit {
   cancellationMessageCreateDto: CancellationMessageCreateDto;
   tabSelectedIndex: number = 0;
   dataSource: MatTableDataSource<SubeventDto>;
+  dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
   @ViewChild(MatSort)
   sort: MatSort;
 
@@ -80,6 +81,7 @@ export class EventShowComponent implements OnInit {
         .pipe(first())
         .subscribe(organizersDto => {
           this.organizersDto = organizersDto;
+          this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           console.log(organizersDto)
         })
   }
