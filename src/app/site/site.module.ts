@@ -2,16 +2,47 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
+import { SharedModule } from "../shared/shared.module";
+import { NgxMaskModule } from "ngx-mask";
+import { LoginComponent } from "./pages/login/login.component";
+import { TermsComponent } from './pages/terms/terms.component';
+import { RegistrationVerifyComponent } from "./pages/registration-verify/registration-verify.component";
+import { AccountPageComponent } from './components/account-page/account-page.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ForgotPasswordComponent,
+    PasswordResetComponent,
+    RegistrationComponent,
+    LoginComponent,
+    TermsComponent,
+    RegistrationVerifyComponent,
+    AccountPageComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatToolbarModule,
+    FormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    RecaptchaFormsModule,
+    RecaptchaModule,
+    SharedModule,
+    NgxMaskModule.forRoot(),
   ]
 })
 export class SiteModule { }

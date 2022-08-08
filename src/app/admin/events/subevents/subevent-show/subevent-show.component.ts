@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SubeventDto } from "../../../../core/models/subevent.model";
+import { CancellationMessageCreateDto, SubeventDto } from "../../../../core/models/subevent.model";
 import { SubeventService } from "../../../../core/services/subevent.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
@@ -10,6 +10,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ProblemDetail } from 'src/app/core/models/problem-detail';
 import { ActivityDto } from "../../../../core/models/activity.model";
 import { ActivityService } from "../../../../core/services/activity.service";
+import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-subevent-show',
@@ -20,6 +22,7 @@ export class SubeventShowComponent implements OnInit {
   subeventDto: SubeventDto;
   subeventId: string;
   eventId: string;
+  cancellationMessageCreateDto: CancellationMessageCreateDto;
 
   activitiesDto: ActivityDto[] = [];
   activitiesDisplayedColumns: string[] = ['title', 'online', 'registrationRequired', 'status'];
@@ -32,10 +35,12 @@ export class SubeventShowComponent implements OnInit {
     private activityService: ActivityService,
     private route: ActivatedRoute,
     private router: Router,
+    private loaderService: LoaderService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
     this.fetchSubevent(this.eventId, this.subeventId);
@@ -54,6 +59,7 @@ export class SubeventShowComponent implements OnInit {
     this.activityService.getActivities(eventId)
       .subscribe(activities => {
         this.activitiesDto = activities
+        this.loaderService.hide();
         this.setTabSelectedIndex();
       });
   }
@@ -63,7 +69,7 @@ export class SubeventShowComponent implements OnInit {
   }
 
   openEventShow() {
-    return this.router.navigate(['admin', 'events', this.eventId]);
+    return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 1 }});
   }
 
   openActivityShow(activityDto: ActivityDto) {
@@ -94,8 +100,22 @@ export class SubeventShowComponent implements OnInit {
       });
   }
 
+  openCancelDialog() {
+    const dialogRef = this.dialog.open(CancelDialogComponent, {
+      width: '400px',
+      data: {name: "Subevento", cancelMessage: this.cancellationMessageCreateDto, cancelText: "Fechar", okText: "Cancelar"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.cancellationMessageCreateDto = result;
+        this.cancelSubevent();
+      }
+    });
+  }
+
   cancelSubevent() {
-    this.subeventService.cancelSubevent(this.eventId, this.subeventId)
+    this.subeventService.cancelSubevent(this.eventId, this.subeventId, this.cancellationMessageCreateDto)
       .pipe(first())
       .subscribe({
         next: subeventDto => {

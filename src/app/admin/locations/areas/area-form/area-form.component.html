@@ -1,13 +1,13 @@
 <div *ngIf="createMode">
-  <h2 id="header" mat-dialog-title>Cadastrar Área</h2>
+  <h2 class="modal__title" mat-dialog-title>Cadastrar Área</h2>
 </div>
 <div *ngIf="!createMode">
-  <h2 id="header" mat-dialog-title>Editar Área</h2>
+  <h2 class="modal__title" mat-dialog-title>Editar Área</h2>
 </div>
 
 <div mat-dialog-content>
-  <form class="app-form" id="area-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field>
+  <form class="modal" id="area-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="modal__input">
       <mat-label>Nome</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
       <mat-error *ngIf="fieldErrors('name')?.['notblank']">
@@ -23,8 +23,8 @@
         {{ fieldErrors('name')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-    <br><br>
-    <mat-form-field>
+    <br>
+    <mat-form-field class="modal__input">
       <mat-label>Referência</mat-label>
       <mat-error *ngIf="fieldErrors('reference')?.['optional']">
         Referência deve ter entre 4 e 150 caracteres
@@ -37,7 +37,7 @@
   </form>
 </div>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions class="modal__buttons">
   <button mat-button mat-dialog-close>Cancelar</button>
   <button type="submit" form="area-form" mat-button color="primary">Salvar</button>
 </div>

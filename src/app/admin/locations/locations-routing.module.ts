@@ -13,9 +13,9 @@ const routes: Routes = [
     component: LocationsComponent,
     children: [
       { path: '', component: LocationListComponent },
-      { path: 'novo', component: LocationFormComponent },
+      { path: 'new', component: LocationFormComponent },
       { path: ':locationId', component: LocationShowComponent },
-      { path: ':locationId/editar', component: LocationFormComponent },
+      { path: ':locationId/edit', component: LocationFormComponent },
       { path: ':locationId/areas/:areaId', component: AreaShowComponent },
       { path: ':locationId/areas/:areaId/spaces/:spaceId', component: SpaceShowComponent},
     ]

@@ -14,6 +14,7 @@ import { first } from "rxjs/operators";
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from "@angular/material/sort";
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-location-show',
@@ -37,10 +38,12 @@ export class LocationShowComponent implements OnInit {
     private router: Router,
     private notificationService: NotificationService,
     public dialog: MatDialog,
+    private loaderService: LoaderService,
     private _liveAnnouncer: LiveAnnouncer
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.locationId = this.route.snapshot.paramMap.get('locationId');
     this.fetchLocation(this.locationId);
   }
@@ -61,6 +64,7 @@ export class LocationShowComponent implements OnInit {
       .subscribe(areasDto => {
         this.areasDto = areasDto;
         this.dataSource = new MatTableDataSource<AreaDto>(this.areasDto)
+        this.loaderService.hide();
       });
   }
 

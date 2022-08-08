@@ -6,7 +6,7 @@
   height: auto;
   padding: 20px;
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 700px) {
     flex-direction: row;
     justify-content: space-between;
     height: 64px;
@@ -16,6 +16,11 @@
   &__title {
     text-decoration: none;
     color: #ffffff;
+    margin-bottom: 10px;
+
+    @media screen and (min-width: 700px) {
+      margin-bottom: 0;
+    }
   }
 
   &__nav {
@@ -26,7 +31,7 @@
     gap: 3px;
     width: 100%;
 
-    @media screen and (min-width: 500px) {
+    @media screen and (min-width: 700px) {
       flex-direction: row;
       width: auto;
     }
@@ -46,7 +51,7 @@
       background-color: #329847;
     }
 
-    @media screen and (min-width: 500px) {
+    @media screen and (min-width: 700px) {
       width: auto;
     }
   }
@@ -59,6 +64,8 @@
   &__icon__dropdown {
     margin-left: -6px;
   }
+}
 
-
+mat-progress-bar {
+  margin-top: -4px;
 }

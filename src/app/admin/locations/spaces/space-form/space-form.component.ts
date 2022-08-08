@@ -43,7 +43,7 @@ export class SpaceFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(100), AppValidators.notBlank]],
+      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100), AppValidators.notBlank]],
       capacity: ['', [Validators.required, Validators.min(2), Validators.max(9999), AppValidators.numeric]],
       type: ['', [Validators.required]]
     });

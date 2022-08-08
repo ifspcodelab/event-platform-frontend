@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { EventDto } from "../../../../core/models/event.model";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CancellationMessageCreateDto, EventDto } from "../../../../core/models/event.model";
 import { EventService } from "../../../../core/services/event.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
@@ -11,6 +11,11 @@ import { MatDialog } from "@angular/material/dialog";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ActivityService } from "../../../../core/services/activity.service";
 import { ActivityDto } from "../../../../core/models/activity.model";
+import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
+import { MatSort, Sort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-event-show',
@@ -20,14 +25,15 @@ import { ActivityDto } from "../../../../core/models/activity.model";
 export class EventShowComponent implements OnInit {
   displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
   subeventsDto: SubeventDto[] = [];
-
   activitiesDto: ActivityDto[] = [];
   activitiesDisplayedColumns: string[] = ['title', 'online', 'registrationRequired', 'status'];
-
-  tabSelectedIndex: number = 2;
-
   eventDto: EventDto;
   eventId: string;
+  cancellationMessageCreateDto: CancellationMessageCreateDto;
+  tabSelectedIndex: number = 0;
+  dataSource: MatTableDataSource<SubeventDto>;
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   constructor(
     private eventService: EventService,
@@ -36,10 +42,13 @@ export class EventShowComponent implements OnInit {
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loaderService: LoaderService,
+    private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.fetchEvent(this.eventId);
   }
@@ -51,20 +60,24 @@ export class EventShowComponent implements OnInit {
         eventDto => {
           this.eventDto = eventDto;
           this.fetchSubevents(this.eventId);
-          this.fetchActivities(this.eventId);
         }
       );
   }
 
   fetchSubevents(eventId: string) {
     this.subeventService.getSubevents(eventId)
-      .subscribe(subevents => this.subeventsDto = subevents);
+      .subscribe(subevents => {
+        this.subeventsDto = subevents
+        this.dataSource = new MatTableDataSource<SubeventDto>(this.subeventsDto);
+        this.fetchActivities(this.eventId);
+      });
   }
 
   fetchActivities(eventId: string) {
     this.activityService.getActivities(eventId)
       .subscribe(activities => {
         this.activitiesDto = activities
+        this.loaderService.hide();
         this.setTabSelectedIndex();
       });
   }
@@ -105,8 +118,22 @@ export class EventShowComponent implements OnInit {
       });
   }
 
+  openCancelDialog() {
+    const dialogRef = this.dialog.open(CancelDialogComponent, {
+      width: '400px',
+      data: {name: "Evento", cancelMessage: this.cancellationMessageCreateDto, cancelText: "Fechar", okText: "Cancelar"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.cancellationMessageCreateDto = result;
+        this.cancelEvent();
+      }
+    });
+  }
+
   cancelEvent() {
-    this.eventService.cancelEvent(this.eventId)
+    this.eventService.cancelEvent(this.eventId, this.cancellationMessageCreateDto)
       .pipe(first())
       .subscribe({
         next: eventDto => {
@@ -159,6 +186,16 @@ export class EventShowComponent implements OnInit {
       if(error.status === 409) {
         this.notificationService.error(error.error.violations[0].message);
       }
+    }
+  }
+
+  announceSortChange(sort: Sort) {
+    this.dataSource.sort = this.sort;
+
+    if (sort.direction) {
+      this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
+    } else {
+      this._liveAnnouncer.announce('Ordenação removida');
     }
   }
 }

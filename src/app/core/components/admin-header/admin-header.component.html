@@ -1,0 +1,11 @@
+<header class="header">
+  <div class="header__titlecomponent">
+    <button *ngIf="backLink.observers.length" class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
+      <mat-icon mat-list-icon (click)="chamarBackLink()">arrow_back</mat-icon>
+    </button>
+    <h1 class="header__title">{{ title }}</h1>
+  </div>
+  <div>
+    <ng-content></ng-content>
+  </div>
+</header>
