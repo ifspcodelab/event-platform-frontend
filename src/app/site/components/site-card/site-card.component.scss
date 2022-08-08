@@ -3,6 +3,16 @@
   margin-bottom: 25px;
   cursor: pointer;
 
+  @media screen and (max-width: 500px){
+    img {
+      display: none;
+    }
+
+    &__content {
+      margin-left: 0 !important;
+    }
+  }
+
   img {
     max-width: 250px;
     max-height: 130px;

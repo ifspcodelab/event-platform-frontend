@@ -1,5 +1,4 @@
 .site-header {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,8 +6,14 @@
   background-color: rgb(197, 197, 197);
 
   @media screen and (max-width: 370px) {
+    padding-right: 8px;
     &__link {
-      padding: 0 10px;
+      font-size: 13px;
+      padding: 0 8px;
+    }
+
+    &__title {
+      font-size: 13px;
     }
   }
 
