@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { JwtService } from "../../../core/services/jwtservice.service";
 import { JwtTokensDto } from "../../../core/models/jwt-tokens.model";
 import {LoginCreateDto} from "../../../core/models/login.model";
+import {AccountRole} from "../../../core/models/account-role.model";
 
 @Component({
   selector: 'app-login',
@@ -76,7 +77,13 @@ export class LoginComponent implements OnInit {
             this.jwtService.storeAccessToken(jwtDto.accessToken);
             this.jwtService.storeRefreshToken(jwtDto.refreshToken);
 
-            this.router.navigate(['account', 'meus-dados']);
+            const accountRoles = this.jwtService.getAccessTokenRoles();
+
+            if (accountRoles.includes(AccountRole.ADMIN)) {
+              this.router.navigate(['admin']);
+            } else {
+              this.router.navigate(['account', 'meus-dados']);
+            }
           },
           error: error => {
             if (error instanceof HttpErrorResponse) {

@@ -21,7 +21,6 @@ export class AuthInterceptor implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (req.headers.has(this.interceptorSkipHeader)) {
-      console.log("interceptor skip header")
       const headers = req.headers.delete(this.interceptorSkipHeader);
       return next.handle(req.clone({ headers }))
     }
@@ -30,7 +29,7 @@ export class AuthInterceptor implements HttpInterceptor{
     const refreshToken: string = this.jwtService.getRefreshToken()!;
 
     if (accessToken !== null && refreshToken !== null) {
-      const authRequest = req.clone(this.addAccessTokenHeader(req, accessToken));
+      const authRequest = req.clone(this.addAuthorizationHeader(req, accessToken));
 
       return next.handle(authRequest).pipe(
         catchError((error: HttpErrorResponse) => {
@@ -63,7 +62,7 @@ export class AuthInterceptor implements HttpInterceptor{
           this.jwtService.removeRefreshToken();
           this.jwtService.storeRefreshToken(jwtDto.refreshToken);
 
-          const refreshedRequest = req.clone(this.addAccessTokenHeader(req, jwtDto.accessToken));
+          const refreshedRequest = req.clone(this.addAuthorizationHeader(req, jwtDto.accessToken));
           return next.handle(refreshedRequest);
         }
       ),
@@ -78,7 +77,7 @@ export class AuthInterceptor implements HttpInterceptor{
     )
   }
 
-  private addAccessTokenHeader(req: HttpRequest<any>, accessToken: string) {
+  private addAuthorizationHeader(req: HttpRequest<any>, accessToken: string) {
     return req.clone({
       headers: req.headers.set('Authorization', `Bearer ${accessToken}`)
     })
