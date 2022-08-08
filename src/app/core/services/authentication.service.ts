@@ -24,10 +24,7 @@ export class AuthenticationService {
 
   postLogin(loginCreateDto: LoginCreateDto): Observable<JwtTokensDto> {
     const url = `${this.apiUrl}/login`;
-    this.httpOptions.headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Accept-Language', 'pt-BR')
-      .set(this.interceptorSkipHeader, '');
+    this.httpOptions.headers = this.httpOptions.headers.set(this.interceptorSkipHeader, '');
 
     return this.httpClient.post<JwtTokensDto>(url, loginCreateDto, this.httpOptions);
   }
@@ -39,10 +36,7 @@ export class AuthenticationService {
 
   postRefreshTokenRotation(refreshTokenDto: RefreshTokenRotateDto): Observable<JwtTokensDto> {
     const url = `${this.apiUrl}/refresh-token-rotation`;
-    this.httpOptions.headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Accept-Language', 'pt-BR')
-      .set(this.interceptorSkipHeader, '');
+    this.httpOptions.headers = this.httpOptions.headers.set(this.interceptorSkipHeader, '');
 
     return this.httpClient.post<JwtTokensDto>(url, refreshTokenDto, this.httpOptions);
   }
