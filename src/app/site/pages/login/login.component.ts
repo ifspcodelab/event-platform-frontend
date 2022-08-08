@@ -17,7 +17,7 @@ import { AccountRole } from "../../../core/models/account-role.model";
 export class LoginComponent implements OnInit {
   form: FormGroup = this.buildForm();
   mapAuthenticationErrorType = new Map<string, string>([
-    ["The account for this email is not yet verified", "Conta ainda não verificada"],
+    ["The account for this email is not yet verified", "Conta ainda não verificada, verifique seu email para ativar a sua conta"],
     ["Incorrect email or password", "Email ou senha incorretos"],
     ["Invalid recaptcha", "Recaptcha inválido ou expirado, atualize a página"]
   ]);
