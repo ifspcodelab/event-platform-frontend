@@ -27,15 +27,17 @@ export class EventShowComponent implements OnInit {
   subeventsDto: SubeventDto[] = [];
   eventDto: EventDto;
   eventId: string;
+  dataSource: MatTableDataSource<SubeventDto>;
+  @ViewChild(MatSort)
+  sort: MatSort;
+  cancellationMessageCreateDto: CancellationMessageCreateDto;
+  tabSelectedIndex: number = 0;
   displayedColumnsOrganizer: string[] = ['name', 'email', 'type', 'action'];
   organizersDto: OrganizerDto[] = [];
   organizerDto: OrganizerDto;
   organizerId: string;
-  cancellationMessageCreateDto: CancellationMessageCreateDto;
-  tabSelectedIndex: number = 0;
-  dataSource: MatTableDataSource<SubeventDto>;
+  dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
   @ViewChild(MatSort)
-  sort: MatSort;
   sortOrganizer: MatSort;
 
   constructor(
@@ -84,6 +86,8 @@ export class EventShowComponent implements OnInit {
         .pipe(first())
         .subscribe(organizersDto => {
           this.organizersDto = organizersDto;
+          this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
+          this.loaderService.hide();
           console.log(organizersDto)
         })
   }
@@ -164,7 +168,7 @@ export class EventShowComponent implements OnInit {
 
   openDeleteConfirmationDialogEvent() {
     this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigEvent()).afterClosed()
-      .subscribe( result => {
+      .subscribe(result => {
         if (result) {
           this.deleteEvent();
         }
@@ -224,11 +228,21 @@ export class EventShowComponent implements OnInit {
     }
   }
 
-  announceSortChange(sort: Sort) {
+  announceSortChangeEvent(sort: Sort) {
     this.dataSource.sort = this.sort;
 
     if (sort.direction) {
       this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
+    } else {
+      this._liveAnnouncer.announce('Ordenação removida');
+    }
+  }
+
+  announceSortChangeOrganizer(sortOrganizer: Sort) {
+    this.dataSourceOrganizer.sort = this.sortOrganizer;
+
+    if (sortOrganizer.direction) {
+      this._liveAnnouncer.announce(`Ordenado ${sortOrganizer.direction}final`);
     } else {
       this._liveAnnouncer.announce('Ordenação removida');
     }
