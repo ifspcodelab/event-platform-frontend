@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
-import {JwtService} from "../services/jwtservice.service";
-import {catchError, Observable, switchMap, throwError} from "rxjs";
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication.service";
-import {RefreshTokenRotateDto} from "../models/refresh-token.model";
-import {JwtTokensDto} from "../models/jwt-tokens.model";
+import { Injectable } from "@angular/core";
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { JwtService } from "../services/jwtservice.service";
+import { catchError, Observable, switchMap, throwError } from "rxjs";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../services/authentication.service";
+import { RefreshTokenRotateDto } from "../models/refresh-token.model";
+import { JwtTokensDto } from "../models/jwt-tokens.model";
 
 
 @Injectable()

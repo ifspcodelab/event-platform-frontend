@@ -1,4 +1,4 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "../../../core/services/authentication.service";
 import { first } from "rxjs";
@@ -6,8 +6,8 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { JwtService } from "../../../core/services/jwtservice.service";
 import { JwtTokensDto } from "../../../core/models/jwt-tokens.model";
-import {LoginCreateDto} from "../../../core/models/login.model";
-import {AccountRole} from "../../../core/models/account-role.model";
+import { LoginCreateDto } from "../../../core/models/login.model";
+import { AccountRole } from "../../../core/models/account-role.model";
 
 @Component({
   selector: 'app-login',

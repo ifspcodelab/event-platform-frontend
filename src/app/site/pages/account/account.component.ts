@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from "../../../core/services/authentication.service";
-import {first} from "rxjs";
-import {JwtService} from "../../../core/services/jwtservice.service";
-import {Router} from "@angular/router";
+import { AuthenticationService } from "../../../core/services/authentication.service";
+import { first } from "rxjs";
+import { JwtService } from "../../../core/services/jwtservice.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-account',

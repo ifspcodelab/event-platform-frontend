@@ -2,19 +2,13 @@ import { Injectable } from '@angular/core';
 import jwtDecode from "jwt-decode";
 import { AccessTokenData } from "../models/access-token-data.model";
 import { RefreshTokenData } from "../models/refresh-token-data.model";
-import { AuthenticationService } from "./authentication.service";
-import { RefreshTokenRotateDto } from "../models/refresh-token.model";
-import { JwtTokensDto } from "../models/jwt-tokens.model";
-import { first } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class JwtService {
 
-  constructor(
-    private authenticationService: AuthenticationService
-  ) { }
+  constructor(  ) { }
 
   storeAccessToken(accessToken: string) {
     localStorage.setItem('access_token', accessToken);
@@ -64,24 +58,6 @@ export class JwtService {
     const tokenExpiryDate: number = refreshTokenData.exp
 
     return tokenExpiryDate > now;
-  }
-
-  rotateJwtToken() {
-    const refreshToken = new RefreshTokenRotateDto(this.getRefreshToken()!);
-
-    this.authenticationService.postRefreshTokenRotation(refreshToken)
-      .pipe(first())
-      .subscribe(
-        (jwtDto: JwtTokensDto) => {
-          this.removeAccessToken();
-
-          this.storeAccessToken(jwtDto.accessToken);
-
-          this.removeRefreshToken();
-
-          this.storeRefreshToken(jwtDto.refreshToken);
-        }
-      );
   }
 
   getAccessTokenRoles() {
