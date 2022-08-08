@@ -29,11 +29,20 @@ export class AuthInterceptor implements HttpInterceptor{
     const refreshToken: string = this.jwtService.getRefreshToken()!;
 
     if (accessToken !== null && refreshToken !== null) {
+      const isValid = this.jwtService.isRefreshTokenValid(refreshToken);
+
+      if (!isValid) {
+        this.jwtService.removeAccessToken();
+        this.jwtService.removeRefreshToken();
+
+        this.router.navigate(['login']);
+        return throwError(() => 'Refresh Token expired');
+      }
+
       const authRequest = req.clone(this.addAuthorizationHeader(req, accessToken));
 
       return next.handle(authRequest).pipe(
         catchError((error: HttpErrorResponse) => {
-          const isValid = this.jwtService.isRefreshTokenValid(refreshToken);
 
           if (error.status == 401 && isValid) {
             return this.handleUnauthorizedError(req, next, error);
