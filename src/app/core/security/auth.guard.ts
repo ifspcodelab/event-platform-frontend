@@ -20,6 +20,9 @@ export class AuthGuard implements CanActivate {
     if (this.jwtService.isAuthenticated()) {
       return true;
     } else {
+      this.jwtService.removeAccessToken();
+      this.jwtService.removeRefreshToken();
+
       this.router.navigate(['login']);
 
       return false;

@@ -67,10 +67,10 @@ export class JwtService {
   }
 
   isAuthenticated() {
-    const accessToken = this.getAccessToken();
+    const refreshToken = this.getRefreshToken();
 
-    if (accessToken !== null) {
-      return !this.isAccessTokenExpired(accessToken)
+    if (refreshToken !== null) {
+      return this.isRefreshTokenValid(refreshToken);
     } else {
       return false;
     }
