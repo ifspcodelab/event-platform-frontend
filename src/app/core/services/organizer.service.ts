@@ -22,4 +22,8 @@ export class OrganizerService {
   getOrganizers(eventId: string): Observable<OrganizerDto[]> {
     return this.httpClient.get<OrganizerDto[]>(`${this.apiUrl}/${eventId}/organizers`, this.httpOptions);
   }
+
+  deleteOrganizer(eventId: string, organizerId: string): Observable<unknown> {
+    return this.httpClient.delete<OrganizerDto>(`${this.apiUrl}/${eventId}/organizers/${organizerId}`, this.httpOptions);
+  }
 }

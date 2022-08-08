@@ -25,16 +25,18 @@ import { LoaderService } from "../../../loader.service";
 export class EventShowComponent implements OnInit {
   displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
   subeventsDto: SubeventDto[] = [];
-  displayedColumnsOrganizer: string[] = ['name', 'email', 'type', 'action'];
-  organizersDto: OrganizerDto[] = [];
   eventDto: EventDto;
   eventId: string;
+  displayedColumnsOrganizer: string[] = ['name', 'email', 'type', 'action'];
+  organizersDto: OrganizerDto[] = [];
+  organizerDto: OrganizerDto;
+  organizerId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
   tabSelectedIndex: number = 0;
   dataSource: MatTableDataSource<SubeventDto>;
-  dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
   @ViewChild(MatSort)
   sort: MatSort;
+  sortOrganizer: MatSort;
 
   constructor(
     private eventService: EventService,
@@ -51,6 +53,7 @@ export class EventShowComponent implements OnInit {
   ngOnInit(): void {
     this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
+    this.organizerId = this.route.snapshot.paramMap.get('organizerId');
     this.fetchEvent(this.eventId);
     this.fetchOrganizers(this.eventId);
   }
@@ -81,7 +84,6 @@ export class EventShowComponent implements OnInit {
         .pipe(first())
         .subscribe(organizersDto => {
           this.organizersDto = organizersDto;
-          this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           console.log(organizersDto)
         })
   }
@@ -148,7 +150,7 @@ export class EventShowComponent implements OnInit {
     return this.router.navigate(['admin', 'events', this.eventDto.id, 'sub-events', subeventDto.id]);
   }
 
-  private getConfirmationDialogConfig() {
+  private getConfirmationDialogConfigEvent() {
     return {
       autoFocus: true,
       data: {
@@ -160,8 +162,8 @@ export class EventShowComponent implements OnInit {
     }
   }
 
-  openDeleteConfirmationDialog() {
-    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfig()).afterClosed()
+  openDeleteConfirmationDialogEvent() {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigEvent()).afterClosed()
       .subscribe( result => {
         if (result) {
           this.deleteEvent();
@@ -180,6 +182,39 @@ export class EventShowComponent implements OnInit {
         error: error => this.handleError(error)
       });
   }
+
+  // private getConfirmationDialogConfigOrganizer() {
+  //   return {
+  //     autoFocus: true,
+  //     data: {
+  //       name: "Remover organizador",
+  //       text: `O organizador ${this.organizerDto.account.name} será excluido de forma definitiva.`,
+  //       cancelText: "Cancelar",
+  //       okText: "Remover"
+  //     }
+  //   }
+  // }
+
+  // openDeleteConfirmationDialogOrganizer() {
+  //   this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizer()).afterClosed()
+  //     .subscribe( result => {
+  //       if (result) {
+  //         this.deleteOrganizer();
+  //       }
+  //     });
+  // }
+
+  // deleteOrganizer() {
+  //   this.organizerService.deleteOrganizer(this.eventId, this.organizerId)
+  //   .pipe(first())
+  //     .subscribe({
+  //       next: () => {
+  //         this.notificationService.success("Excluido com sucesso");
+  //         this.router.navigate(['admin', 'events', this.eventId, 'organizers'])
+  //       },
+  //       error: error => this.handleError(error)
+  //     });
+  // }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
