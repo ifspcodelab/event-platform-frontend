@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
   form: FormGroup = this.buildForm();
   mapAuthenticationErrorType = new Map<string, string>([
     ["The account for this email is not yet verified", "Conta ainda não verificada"],
-    ["Incorrect email or password", "Email ou senha incorretos"]
+    ["Incorrect email or password", "Email ou senha incorretos"],
+    ["Invalid recaptcha", "Recaptcha inválido ou expirado, atualize a página"]
   ]);
   errorMessage: string | null = null;
   userRecaptcha: string = '';

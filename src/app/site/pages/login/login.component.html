@@ -33,6 +33,8 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
+
       <re-captcha (resolved)="resolved($event)" siteKey="6LdirjAhAAAAANJcalTKs4KNA7c5YlP6dOby7x__"></re-captcha>
 
       <div class="container">
