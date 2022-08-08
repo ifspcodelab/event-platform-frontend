@@ -12,6 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from "@angular/material/card";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatTableModule,
     MatSortModule,
     MatMenuModule,
+    MatCardModule,
   ],
   exports: [
     MatToolbarModule,
@@ -42,6 +44,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatTableModule,
     MatSortModule,
     MatMenuModule,
+    MatCardModule,
   ]
 })
 export class SharedModule { }

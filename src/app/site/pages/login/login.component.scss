@@ -6,17 +6,6 @@ mat-form-field {
   padding: 5px 0 5px 0;
 }
 
-::ng-deep {
-  .mat-form-field-appearance-outline .mat-form-field-outline {
-    color: rgb(75, 92, 107);
-  }
-  mat-form-field {
-    .mat-hint, input, ::placeholder, .mat-form-field-label {
-      color: rgb(75, 92, 107);
-    }
-  }
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -34,9 +23,7 @@ re-captcha {
 
 .button {
   margin: 15px 0;
-  background-color: rgb(70, 160, 79);
   color: white;
   border: none;
-  padding: 10px;
   width: 90%;
 }

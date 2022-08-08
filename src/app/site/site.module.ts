@@ -20,12 +20,12 @@ import {AccountPageComponent} from "./components/account-page/account-page.compo
     AccountComponent,
     AccountPageComponent
   ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        SharedModule,
-        RouterModule,
-        RecaptchaModule
-    ]
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    SharedModule,
+    RouterModule,
+    RecaptchaModule
+  ]
 })
 export class SiteModule { }
