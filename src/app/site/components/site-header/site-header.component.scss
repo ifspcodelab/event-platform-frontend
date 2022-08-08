@@ -1,9 +1,16 @@
 .site-header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   background-color: rgb(197, 197, 197);
+
+  @media screen and (max-width: 370px) {
+    &__link {
+      padding: 0 10px;
+    }
+  }
 
   &__title {
     margin: 0;

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {EventDto} from "../../../../core/models/event.model";
-import {SubeventDto} from "../../../../core/models/subevent.model";
-import {ActivatedRoute} from "@angular/router";
-import {EventService} from "../../../../core/services/event.service";
-import {SubeventService} from "../../../../core/services/subevent.service";
-import {EventPresentationComponent} from "../event-presentation/event-presentation.component";
-import {first} from "rxjs";
+import { EventDto } from "../../../../core/models/event.model";
+import { SubeventDto } from "../../../../core/models/subevent.model";
+import { ActivatedRoute } from "@angular/router";
+import { EventService } from "../../../../core/services/event.service";
+import { SubeventService } from "../../../../core/services/subevent.service";
+import { first } from "rxjs";
 
 @Component({
   selector: 'app-event-subevents',

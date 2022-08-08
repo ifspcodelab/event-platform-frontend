@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EventService} from "../../../core/services/event.service";
 import {EventDto} from "../../../core/models/event.model";
-import {EventStatusModel} from "../../../core/models/event-status.model";
 
 @Component({
   selector: 'app-home',
@@ -48,7 +47,6 @@ export class HomeComponent implements OnInit {
   }
 
   getEventsWithExecutionPeriodFinished() {
-    console.log(this.eventsDtoPublished);
     this.eventsFinishDto = this.eventsDtoPublished
       .filter(e => this.formatDate(e.executionPeriod.endDate) < this.getCurrentDate());
   }
