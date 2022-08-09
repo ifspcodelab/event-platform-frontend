@@ -4,6 +4,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ActivityDto, SessionDto } from "../../../../core/models/activity.model";
 import { ActivityService } from "../../../../core/services/activity.service";
 import { first } from "rxjs";
+import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { NotificationService } from "../../../../core/services/notification.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'app-activity-show',
@@ -22,7 +26,9 @@ export class ActivityShowComponent implements OnInit {
   constructor(
     private activityService: ActivityService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -81,8 +87,62 @@ export class ActivityShowComponent implements OnInit {
 
   }
 
-  openDeleteConfirmationDialog() {
+  private getConfirmationDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Excluir atividade",
+        text: `A atividade ${this.activityDto.title} será excluida de forma definitiva.`,
+        cancelText: "Cancelar",
+        okText: "Excluir"
+      }
+    }
+  }
 
+  openDeleteConfirmationDialog() {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfig()).afterClosed()
+      .subscribe( result => {
+        if (result) {
+          if(this.eventMode) {
+            this.deleteEventActivity();
+          } else {
+            this.deleteSubEventActivity();
+          }
+        }
+      });
+  }
+
+  deleteEventActivity() {
+    this.activityService.deleteEventActivity(this.eventId, this.activityId)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.notificationService.success("Atividade excluida com sucesso");
+          this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 2 } })
+        },
+        error: error => this.handleError(error)
+      });
+  }
+
+  deleteSubEventActivity() {
+    this.activityService.deleteSubEventActivity(this.eventId, this.subeventId, this.activityId)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.notificationService.success("Atividade excluida com sucesso");
+          this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId], { queryParams: { tab: 2 } })
+        },
+        error: error => this.handleError(error)
+      });
+  }
+
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 409) {
+        this.notificationService.error(error.error.violations[0].message);
+      }
+    }
   }
 
   openSessionShow(row: any) {
