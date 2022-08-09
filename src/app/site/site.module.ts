@@ -16,6 +16,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { MyDataComponent } from './pages/my-data/my-data.component';
 
 
 
@@ -30,6 +31,7 @@ import { PasswordResetComponent } from './pages/password-reset/password-reset.co
     TermsComponent,
     RegistrationVerifyComponent,
     AccountPageComponent,
+    MyDataComponent,
   ],
   imports: [
     CommonModule,
