@@ -1,1 +1,24 @@
-<p>my-data works!</p>
+<app-account-page
+  title="Meus dados">
+
+
+  <table>
+    <tr>
+      <td>Nome</td>
+      <td>{{currentUser.name}}</td>
+    </tr>
+    <tr>
+      <td>E-mail</td>
+      <td>{{currentUser.email}}</td>
+    </tr>
+    <tr>
+      <td>CPF</td>
+      <td>{{currentUser.cpf}}</td>
+    </tr>
+  </table>
+
+  <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
+
+
+
+</app-account-page>

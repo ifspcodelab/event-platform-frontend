@@ -17,6 +17,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 import { MyDataComponent } from './pages/my-data/my-data.component';
+import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component';
 
 
 
@@ -32,6 +33,7 @@ import { MyDataComponent } from './pages/my-data/my-data.component';
     RegistrationVerifyComponent,
     AccountPageComponent,
     MyDataComponent,
+    MyDataEditComponent,
   ],
   imports: [
     CommonModule,

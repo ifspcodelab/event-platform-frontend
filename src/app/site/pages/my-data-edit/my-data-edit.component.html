@@ -1,0 +1,62 @@
+<!--<app-account-page-->
+<!--  title="Meus Dados">-->
+
+<!--  <form id="registration-form" [formGroup]="form" (ngSubmit)="onSubmit()">-->
+<!--    <mat-form-field appearance="outline" class="full-width">-->
+<!--      <mat-label>Nome Completo</mat-label>-->
+<!--      <input matInput formControlName="name" name="name">-->
+<!--      <mat-error *ngIf="field('name').invalid && (field('name').dirty || field('name').touched)">-->
+<!--        <mat-error class="error-message" *ngIf="fieldErrors('name')?.['required']">-->
+<!--          Nome é obrigatório-->
+<!--        </mat-error>-->
+<!--        <mat-error *ngIf="fieldErrors('name')?.['validname']">-->
+<!--          Nome deve ser válido-->
+<!--        </mat-error>-->
+<!--        <mat-error *ngIf="fieldErrors('name')?.['minlength']">-->
+<!--          Nome deve ter no mínimo 5 caracteres-->
+<!--        </mat-error>-->
+<!--        <mat-error *ngIf="fieldErrors('name')?.['maxlength']">-->
+<!--          Nome deve ter no máximo 256 caracteres-->
+<!--        </mat-error>-->
+<!--      </mat-error>-->
+<!--      <mat-hint align="start">O nome será usado para emitir o certificado</mat-hint>-->
+<!--    </mat-form-field>-->
+
+<!--    <mat-form-field appearance="outline" class="full-width">-->
+<!--      <mat-label>E-mail</mat-label>-->
+<!--      <input matInput formControlName="email" name="email">-->
+<!--      <mat-error *ngIf="field('email').invalid && (field('email').dirty || field('email').touched)">-->
+<!--        <mat-error *ngIf="fieldErrors('email')?.['required']">-->
+<!--          E-mail é obrigatório-->
+<!--        </mat-error>-->
+<!--        <mat-error *ngIf="fieldErrors('email')?.['email']">-->
+<!--          E-mail deve ser válido-->
+<!--        </mat-error>-->
+<!--        <mat-error *ngIf="fieldErrors('email')?.['maxlength']">-->
+<!--          E-mail deve ter no máximo 350 caracteres-->
+<!--        </mat-error>-->
+<!--      </mat-error>-->
+<!--      <mat-hint align="start">O email será usado para identificação, comunicação e confirmação de cadastro</mat-hint>-->
+<!--    </mat-form-field>-->
+
+<!--    <mat-form-field appearance="outline" class="full-width">-->
+<!--      <mat-label>CPF</mat-label>-->
+<!--      <input placeholder="123.456.789-01" mask="000.000.000-00" matInput formControlName="cpf" name="cpf">-->
+<!--      <mat-error *ngIf="field('cpf').invalid && (field('cpf').dirty || field('cpf').touched)">-->
+<!--        <mat-error *ngIf="fieldErrors('cpf')?.['required']">-->
+<!--          CPF é obrigatório-->
+<!--        </mat-error>-->
+<!--        <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">-->
+<!--          CPF deve ser válido-->
+<!--        </mat-error>-->
+<!--      </mat-error>-->
+<!--      <mat-hint align="start">O cpf será usado para identificação e para emitir o certificado</mat-hint>-->
+<!--    </mat-form-field>-->
+
+
+
+<!--    <re-captcha (resolved)="resolved($event)" siteKey="6LfjQjAhAAAAAGDIg5BkJMBccd-APYyY1AXM2eun"></re-captcha>-->
+
+<!--    <button class="register full-width" mat-raised-button form="registration-form" color="primary">Editar</button>-->
+<!--  </form>-->
+<!--</app-account-page>-->
