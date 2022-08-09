@@ -9,11 +9,12 @@
 
   <article class="container">
     <p class="container__item"><b>Tipo:</b> {{ activityDto.type | activityTypes }}</p>
+    <p class="container__item"><b>Modalidade:</b> {{ activityDto.modality | activityModalities }}</p>
     <p class="container__item"><b>Titulo:</b> {{ activityDto.title }}</p>
     <p class="container__item"><b>Slug:</b> {{ activityDto.slug }}</p>
     <p class="container__item"><b>Descrição:</b> {{ activityDto.description }}</p>
-    <p class="container__item"><b>Online:</b> {{ activityDto.online }}</p>
-    <p class="container__item"><b>Requer inscrição:</b> {{ activityDto.needRegistration }}</p>
+    <p class="container__item"><b>Duração:</b> {{ activityDto.duration }} minutos</p>
+    <p class="container__item"><b>Requer inscrição:</b> {{ activityDto.needRegistration ? 'Sim' : 'Não' }}</p>
     <p class="container__item"><b>Status:</b> {{ activityDto.status | eventStatus }}</p>
   </article>
 

@@ -10,6 +10,7 @@ import { ActivityType } from "../../../../core/models/activity-type.model";
 import { first } from "rxjs";
 import { ProblemDetail, Violation } from "../../../../core/models/problem-detail";
 import { HttpErrorResponse } from "@angular/common/http";
+import { ActivityModality } from "../../../../core/models/activity-modality.model";
 
 @Component({
   selector: 'app-activity-form',
@@ -24,7 +25,9 @@ export class ActivityFormComponent implements OnInit {
   activityId: string;
   activityDto: ActivityDto;
   activityType = ActivityType;
+  activityModality = ActivityModality;
   enumKeys: any = [];
+  enumKeysModality: any = [];
   eventId: string;
   eventDto: string;
   subeventId: string;
@@ -39,6 +42,7 @@ export class ActivityFormComponent implements OnInit {
     private notificationService: NotificationService
   ) {
     this.enumKeys = Object.keys(this.activityType);
+    this.enumKeysModality = Object.keys(this.activityModality);
   }
 
   ngOnInit(): void {
@@ -91,7 +95,8 @@ export class ActivityFormComponent implements OnInit {
       slug: ['', [Validators.required, AppValidators.notBlank]],
       description: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(500)]],
       type: ['', [Validators.required]],
-      online: [false, [Validators.required]],
+      modality: ['', [Validators.required]],
+      duration: [10, [Validators.required, Validators.min(10)]],
       needRegistration: [true, [Validators.required]],
     });
   }

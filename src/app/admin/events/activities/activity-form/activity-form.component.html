@@ -19,7 +19,21 @@
         {{ fieldErrors('type')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Modalidade</mat-label>
+      <mat-select formControlName="modality">
+        <mat-option *ngFor="let name of enumKeysModality" [value]="name">{{ activityModality[name] }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="fieldErrors('modality')?.['required']">
+        Modalidade é obrigatória
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('modality')?.['serverError'] && submitted">
+        {{ fieldErrors('modality')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
     <br>
+
     <mat-form-field class="form-field-sm">
       <mat-label>Título</mat-label>
       <input matInput placeholder="" formControlName="title" name="title">
@@ -53,13 +67,19 @@
         {{ fieldErrors('description')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
+    <br>
+    <mat-form-field class="form-field-xs">
+      <mat-label>Duração em minutos</mat-label>
+      <input matInput placeholder="" formControlName="duration" name="duration" type="number">
+      <mat-error *ngIf="fieldErrors('duration')?.['duration']">Duração é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('duration')?.['min']">Duração deve ter no mínimo 10 minutos</mat-error>
+      <mat-error *ngIf="fieldErrors('duration')?.['serverError'] && submitted">
+        {{ fieldErrors('duration')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
     <br><br>
     <div class="form-field-lg">
       <mat-slide-toggle color="primary" formControlName="needRegistration">Requer inscrição</mat-slide-toggle>
-    </div>
-    <br>
-    <div class="form-field-lg">
-      <mat-slide-toggle color="primary" formControlName="online">Online</mat-slide-toggle>
     </div>
   </fieldset>
 </form>

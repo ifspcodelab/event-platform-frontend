@@ -5,14 +5,16 @@ import { LocationDto } from "./location.model";
 import { ActivityType } from "./activity-type.model";
 import { EventDto } from "./event.model";
 import { SubeventDto } from "./subevent.model";
+import { ActivityModality } from "./activity-modality.model";
 
 export interface ActivityCreateDto{
   title: string;
   slug: string;
   description: string;
   type: ActivityType;
-  online: boolean;
-  registrationRequired: boolean;
+  modality: ActivityModality;
+  needRegistration: boolean;
+  duration: number;
   status: EventStatusModel;
 }
 
@@ -23,8 +25,9 @@ export interface ActivityDto{
   slug: string;
   description: string;
   type: ActivityType;
-  online?: boolean;
+  modality: ActivityModality;
   needRegistration?: boolean;
+  duration: number;
   status: EventStatusModel;
   cancellationMessage?: string;
   event?: EventDto;
