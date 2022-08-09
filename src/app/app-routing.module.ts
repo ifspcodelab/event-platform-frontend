@@ -7,6 +7,7 @@ import { PasswordResetComponent } from "./site/pages/password-reset/password-res
 import { LoginComponent } from "./site/pages/login/login.component";
 import { TermsComponent } from "./site/pages/terms/terms.component";
 import { RegistrationVerifyComponent } from "./site/pages/registration-verify/registration-verify.component";
+import { MyDataComponent } from "./site/pages/my-data/my-data.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'cadastro/verificacao/:token', component: RegistrationVerifyComponent },
   { path: 'login', component: LoginComponent },
   { path: 'termos', component: TermsComponent },
+  { path: 'meus-dados', component: MyDataComponent},
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
