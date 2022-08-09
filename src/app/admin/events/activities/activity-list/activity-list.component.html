@@ -4,7 +4,7 @@
     <button mat-button color="primary" routerLink="activities/new">Nova Atividade</button>
   </header>
 
-  <p *ngIf="!activitiesDto.length">Nenhum atividade cadastrado</p>
+  <p *ngIf="!activitiesDto.length">Nenhuma atividade cadastrada</p>
 
   <table class="container__table" *ngIf="activitiesDto.length" mat-table [dataSource]="dataSource"
          matSort (matSortChange)="announceSortChange($event)">

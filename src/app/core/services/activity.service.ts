@@ -4,7 +4,7 @@ import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ActivityCreateDto, ActivityDto, SessionScheduleDto } from "../models/activity.model";
 import { EventStatusModel } from "../models/event-status.model";
-import { EventCreateDto, EventDto } from "../models/event.model";
+import { CancellationMessageCreateDto, EventCreateDto, EventDto } from "../models/event.model";
 
 @Injectable({
   providedIn: 'root'
@@ -70,4 +70,36 @@ export class ActivityService {
     const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}`;
     return this.httpClient.delete<unknown>(url, this.httpOptions);
   }
+
+  publishEventActivity(eventId: string, activityId: String): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/publish`;
+    return this.httpClient.patch<ActivityDto>(url, this.httpOptions);
+  }
+
+  publishSubEventActivity(eventId: string, subeventId: String, activityId: String): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}/publish`;
+    return this.httpClient.patch<ActivityDto>(url, this.httpOptions);
+  }
+
+  unpublishEventActivity(eventId: string, activityId: String): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/unpublish`;
+    return this.httpClient.patch<ActivityDto>(url, this.httpOptions);
+  }
+
+  unpublishSubEventActivity(eventId: string, subeventId: String, activityId: String): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}/unpublish`;
+    return this.httpClient.patch<ActivityDto>(url, this.httpOptions);
+  }
+
+  cancelEventActivity(eventId: string, activityId: String, cancellationMessageCreateDto: CancellationMessageCreateDto): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/cancel`;
+    return this.httpClient.patch<ActivityDto>(url, cancellationMessageCreateDto, this.httpOptions);
+  }
+
+  cancelSubEventActivity(eventId: string, subeventId: String, activityId: String, cancellationMessageCreateDto: CancellationMessageCreateDto): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}/cancel`;
+    return this.httpClient.patch<ActivityDto>(url, cancellationMessageCreateDto, this.httpOptions);
+  }
+
+
 }

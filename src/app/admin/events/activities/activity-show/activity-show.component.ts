@@ -76,15 +76,47 @@ export class ActivityShowComponent implements OnInit {
   }
 
   publishActivity() {
+    return this.eventMode ? this.publishEventActivity() : this.publishSubEventActivity();
+  }
 
+  publishEventActivity() {
+    this.activityService.publishEventActivity(this.eventId, this.activityId)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.notificationService.success("Atividade publicada com sucesso")
+          this.activityDto = activityDto;
+        },
+        error: error => this.handleError(error)
+      });
+  }
+
+  publishSubEventActivity() {
+    this.activityService.publishSubEventActivity(this.eventId, this.subeventId, this.activityId)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.notificationService.success("Atividade publicada com sucesso")
+          this.activityDto = activityDto;
+        },
+        error: error => this.handleError(error)
+      });
   }
 
   unpublishActivity() {
+    if(this.eventMode) {
 
+    } else {
+
+    }
   }
 
   cancelActivity() {
+    if(this.eventMode) {
 
+    } else {
+
+    }
   }
 
   private getConfirmationDialogConfig() {
@@ -156,17 +188,4 @@ export class ActivityShowComponent implements OnInit {
       ['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', this.activityDto.id, 'sessions', row.id]
     );
   }
-
-  showActions() {
-    return this.activityDto.status !== EventStatusModel.CANCELED;
-  }
-
-  showPublishButton() {
-    return this.activityDto.status == EventStatusModel.DRAFT;
-  }
-
-  showUnpublishedButton() {
-    return this.activityDto.status == EventStatusModel.PUBLISHED;
-  }
-
 }
