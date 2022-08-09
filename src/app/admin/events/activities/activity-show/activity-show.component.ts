@@ -104,11 +104,31 @@ export class ActivityShowComponent implements OnInit {
   }
 
   unpublishActivity() {
-    if(this.eventMode) {
+    return this.eventMode ? this.unpublishEventActivity() : this.unpublishSubEventActivity();
+  }
 
-    } else {
+  unpublishEventActivity() {
+    this.activityService.unpublishEventActivity(this.eventId, this.activityId)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.notificationService.success("Atividade despublicada com sucesso")
+          this.activityDto = activityDto;
+        },
+        error: error => this.handleError(error)
+      });
+  }
 
-    }
+  unpublishSubEventActivity() {
+    this.activityService.unpublishSubEventActivity(this.eventId, this.subeventId, this.activityId)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.notificationService.success("Atividade despublicada com sucesso")
+          this.activityDto = activityDto;
+        },
+        error: error => this.handleError(error)
+      });
   }
 
   cancelActivity() {
