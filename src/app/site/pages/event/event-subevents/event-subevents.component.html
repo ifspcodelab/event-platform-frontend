@@ -6,7 +6,7 @@
   [endDate]="eventDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
 >
   <button mat-button routerLink="/events/{{ eventDto.slug }}">Apresentação</button>
-  <button mat-button routerLink="/events/{{ eventDto.slug }}/subevents">Subeventos</button>
+  <button mat-button>Subeventos</button>
   <button mat-button>Programação</button>
   <button mat-button>Organização</button>
 </app-event-header>
