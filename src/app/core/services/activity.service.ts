@@ -1,55 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from "rxjs";
-import { EventDto } from "../models/event.model";
+import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ActivityDto, SessionScheduleDto } from "../models/activity.model";
+import { ActivityCreateDto, ActivityDto, SessionScheduleDto } from "../models/activity.model";
 import { EventStatusModel } from "../models/event-status.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ActivityService {
-  apiUrl = `${environment.apiUrl}/locations`;
-  activities: ActivityDto[] = [
-    {
-      id: "68971c9d-17d5-4e48-a597-0e99d42c8327",
-      title: "Novidades do Java 17",
-      slug: "novidades-do-java-17",
-      description: "",
-      online: false,
-      registrationRequired: true,
-      status: EventStatusModel.PUBLISHED
-    },
-    {
-      id: "68971c9d-17d5-4e48-a597-0e99d42c8327",
-      title: "Novidades do Java 17",
-      slug: "novidades-do-java-17",
-      description: "",
-      online: false,
-      registrationRequired: true,
-      status: EventStatusModel.PUBLISHED
-    },
-    {
-      id: "68971c9d-17d5-4e48-a597-0e99d42c8327",
-      title: "Novidades do Java 17",
-      slug: "novidades-do-java-17",
-      description: "",
-      online: false,
-      registrationRequired: true,
-      status: EventStatusModel.PUBLISHED
-    },
-    {
-      id: "68971c9d-17d5-4e48-a597-0e99d42c8327",
-      title: "Novidades do Java 17",
-      slug: "novidades-do-java-17",
-      description: "",
-      online: true,
-      registrationRequired: true,
-      status: EventStatusModel.PUBLISHED
-    },
-
-  ]
+  apiUrl = environment.apiUrl;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -60,8 +20,34 @@ export class ActivityService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getActivities(eventId: string): Observable<ActivityDto[]> {
-    return of(this.activities);
+  getEventActivities(eventId: string): Observable<ActivityDto[]> {
+    const url = `${this.apiUrl}/events/${eventId}/activities`;
+    return this.httpClient.get<ActivityDto[]>(url, this.httpOptions);
+  }
+
+  getSubEventActivities(eventId: string, subeventId: string): Observable<ActivityDto[]> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities`;
+    return this.httpClient.get<ActivityDto[]>(url, this.httpOptions);
+  }
+
+  getEventActivity(eventId: string, activityId: string): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}`;
+    return this.httpClient.get<ActivityDto>(url, this.httpOptions);
+  }
+
+  getSubEventActivity(eventId: string, subeventId:string, activityId: string): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}`;
+    return this.httpClient.get<ActivityDto>(url, this.httpOptions);
+  }
+
+  postEventActivity(eventId:string, activityCreateDto: ActivityCreateDto): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities`;
+    return this.httpClient.post<ActivityDto>(url, activityCreateDto, this.httpOptions);
+  }
+
+  postSubEventActivity(eventId:string, subeventId:string, activityCreateDto: ActivityCreateDto): Observable<ActivityDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities`;
+    return this.httpClient.post<ActivityDto>(url, activityCreateDto, this.httpOptions);
   }
 
 }

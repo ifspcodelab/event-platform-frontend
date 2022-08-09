@@ -2,15 +2,33 @@ import { EventStatusModel } from "./event-status.model";
 import { SpaceDto } from "./space.model";
 import { AreaDto } from "./area.model";
 import { LocationDto } from "./location.model";
+import { ActivityType } from "./activity-type.model";
+import { EventDto } from "./event.model";
+import { SubeventDto } from "./subevent.model";
+
+export interface ActivityCreateDto{
+  title: string;
+  slug: string;
+  description: string;
+  activityType: ActivityType;
+  online: boolean;
+  registrationRequired: boolean;
+  status: EventStatusModel;
+}
+
 
 export interface ActivityDto{
   id: string;
   title: string;
   slug: string;
   description: string;
+  type: ActivityType;
   online?: boolean;
-  registrationRequired?: boolean;
+  needRegistration?: boolean;
   status: EventStatusModel;
+  cancellationMessage?: string;
+  event?: EventDto;
+  subevent?: SubeventDto;
 }
 
 export interface SessionDto{

@@ -74,7 +74,7 @@ export class EventShowComponent implements OnInit {
   }
 
   fetchActivities(eventId: string) {
-    this.activityService.getActivities(eventId)
+    this.activityService.getEventActivities(eventId)
       .subscribe(activities => {
         this.activitiesDto = activities
         this.loaderService.hide();

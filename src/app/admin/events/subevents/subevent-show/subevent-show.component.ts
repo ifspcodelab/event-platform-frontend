@@ -51,12 +51,12 @@ export class SubeventShowComponent implements OnInit {
       .pipe(first())
       .subscribe(subeventDto => {
         this.subeventDto = subeventDto
-        this.fetchActivities(this.eventId);
+        this.fetchActivities();
       });
   }
 
-  fetchActivities(eventId: string) {
-    this.activityService.getActivities(eventId)
+  fetchActivities() {
+    this.activityService.getSubEventActivities(this.eventId, this.subeventId)
       .subscribe(activities => {
         this.activitiesDto = activities
         this.loaderService.hide();

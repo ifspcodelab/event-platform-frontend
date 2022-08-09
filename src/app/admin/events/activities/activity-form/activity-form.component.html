@@ -1,0 +1,67 @@
+<app-admin-header [title]="createMode ? 'Nova Atividade' : 'Editar Atividade'" (backLink)="getBackUrl()">
+  <button type="submit" form="activity-form" mat-raised-button color="primary">Salvar</button>
+</app-admin-header>
+
+<form id="activity-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+
+  <fieldset>
+    <legend>Dados gerais</legend>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Tipo da Atividade</mat-label>
+      <mat-select formControlName="activityType">
+        <mat-option *ngFor="let name of enumKeys" [value]="name">{{ activityType[name] }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="fieldErrors('activityType')?.['required']">
+        Tipo é obrigatório
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('activityType')?.['serverError'] && submitted">
+        {{ fieldErrors('activityType')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field class="form-field-sm">
+      <mat-label>Título</mat-label>
+      <input matInput placeholder="" formControlName="title" name="title">
+      <mat-error *ngIf="fieldErrors('title')?.['required']">Título é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 6 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 100 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['serverError'] && submitted">
+        {{ fieldErrors('title')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Slug</mat-label>
+      <input matInput placeholder="" formControlName="slug" name="slug">
+      <mat-error *ngIf="fieldErrors('slug')?.['required']">Slug é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('slug')?.['notblank']">Slug não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('slug')?.['serverError'] && submitted">
+        {{ fieldErrors('slug')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field> <br>
+
+    <mat-form-field class="form-field-lg">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput placeholder="" formControlName="description" name="description" rows="5"></textarea>
+      <mat-error *ngIf="fieldErrors('description')?.['required']">Descrição é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('description')?.['notblank']">Descrição não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('description')?.['minlength']">Descrição deve ter no mínimo 100 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('description')?.['maxlength']">Descrição deve ter no máximo 500 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('description')?.['serverError'] && submitted">
+        {{ fieldErrors('description')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+    <br><br>
+    <div class="form-field-lg">
+      <mat-slide-toggle color="primary" formControlName="needRegistration">Requer inscrição</mat-slide-toggle>
+    </div>
+    <br>
+    <div class="form-field-lg">
+      <mat-slide-toggle color="primary" formControlName="online">Online</mat-slide-toggle>
+    </div>
+  </fieldset>
+</form>
+
+

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivityDto } from "../../../../core/models/activity.model";
 import { EventStatusModel } from "../../../../core/models/event-status.model";
 import { ActivatedRoute, Router } from "@angular/router";
+import { ActivityDto, SessionDto } from "../../../../core/models/activity.model";
+import { ActivityService } from "../../../../core/services/activity.service";
+import { first } from "rxjs";
 
 @Component({
   selector: 'app-activity-show',
@@ -10,35 +12,61 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class ActivityShowComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title'];
+  eventMode: boolean = true;
+  activityId: string;
+  activityDto: ActivityDto;
   eventId: string = null;
-  subEventId: string = null;
-
-  activityDto: ActivityDto = {
-    id: "e93bee36-e1cb-4ce7-8ab6-64039a183875",
-    title: "Novidades Java 17",
-    slug: "novidades-java-17",
-    description: "Saiu recentemente a nova versão LTS (Long Term Support) do Java. Essas versões são as mais importantes no calendário de lançamentos, uma vez que possuem oito anos de suporte.",
-    status: EventStatusModel.DRAFT,
-  }
-  sessionsDto: any[] = [
-    {
-      id: "ccee36f9-027f-48ba-917d-22893c00cdad",
-      seats: "30",
-    }
-  ];
+  subeventId: string = null;
+  sessionsDto: SessionDto[] = [];
 
   constructor(
+    private activityService: ActivityService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.eventId = this.route.snapshot.paramMap.get('eventId');
-    this.subEventId = this.route.snapshot.paramMap.get('subeventId');
+    this.subeventId = this.route.snapshot.paramMap.get('subeventId');
+    this.activityId = this.route.snapshot.paramMap.get('activityId');
+
+    if(this.subeventId) {
+      this.eventMode = false;
+      this.fetchSubEventActivity();
+    } else {
+      this.fetchEventActivity();
+    }
+
+
   }
 
-  openEventShow() {
-    return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 2 } });
+  fetchEventActivity() {
+    this.activityService.getEventActivity(this.eventId, this.activityId)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.activityDto = activityDto;
+        }
+      })
+  }
+
+  fetchSubEventActivity() {
+    this.activityService.getSubEventActivity(this.eventId, this.subeventId, this.activityId)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.activityDto = activityDto;
+        }
+      })
+  }
+
+  backLink() {
+    if(this.eventMode) {
+      return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 2 } });
+    } else {
+      return this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId], { queryParams: { tab: 2 } });
+    }
+
   }
 
   publishActivity() {
@@ -58,15 +86,14 @@ export class ActivityShowComponent implements OnInit {
   }
 
   openSessionShow(row: any) {
-    console.log(this.subEventId)
-    if (this.subEventId) {
+    console.log(this.subeventId)
+    if (this.eventMode) {
       return this.router.navigate(
-        ['admin', 'events', this.eventId, 'sub-events', this.subEventId, 'activities', this.activityDto.id, 'sessions', row.id]
+        ['admin', 'events',  this.eventId, 'activities', this.activityDto.id, 'sessions', row.id]
       );
     }
-
     return this.router.navigate(
-      ['admin', 'events',  this.eventId, 'activities', this.activityDto.id, 'sessions', row.id]
+      ['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', this.activityDto.id, 'sessions', row.id]
     );
   }
 

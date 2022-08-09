@@ -15,6 +15,7 @@ import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-for
 import { ActivityShowComponent } from "./activities/activity-show/activity-show.component";
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
+import { ActivityFormComponent } from './activities/activity-form/activity-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SessionFormComponent } from "./sessions/session-form/session-form.compo
     SubeventShowComponent,
     SubeventsFormComponent,
     ActivityShowComponent,
+    ActivityFormComponent,
     SessionShowComponent,
     SessionFormComponent,
     EventStatusPipe,
