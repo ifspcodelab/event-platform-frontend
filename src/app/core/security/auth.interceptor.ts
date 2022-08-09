@@ -39,7 +39,7 @@ export class AuthInterceptor implements HttpInterceptor{
         return throwError(() => 'Refresh Token expired');
       }
 
-      const authRequest = req.clone(this.addAuthorizationHeader(req, accessToken));
+      const authRequest = req.clone(AuthInterceptor.addAuthorizationHeader(req, accessToken));
 
       return next.handle(authRequest).pipe(
         catchError((error: HttpErrorResponse) => {
@@ -71,11 +71,11 @@ export class AuthInterceptor implements HttpInterceptor{
           this.jwtService.removeRefreshToken();
           this.jwtService.storeRefreshToken(jwtDto.refreshToken);
 
-          const refreshedRequest = req.clone(this.addAuthorizationHeader(req, jwtDto.accessToken));
+          const refreshedRequest = req.clone(AuthInterceptor.addAuthorizationHeader(req, jwtDto.accessToken));
           return next.handle(refreshedRequest);
         }
       ),
-      catchError((error) => {
+      catchError(() => {
         this.jwtService.removeAccessToken();
         this.jwtService.removeRefreshToken();
 
@@ -86,7 +86,7 @@ export class AuthInterceptor implements HttpInterceptor{
     )
   }
 
-  private addAuthorizationHeader(req: HttpRequest<any>, accessToken: string) {
+  private static addAuthorizationHeader(req: HttpRequest<any>, accessToken: string) {
     return req.clone({
       headers: req.headers.set('Authorization', `Bearer ${accessToken}`)
     })
