@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SpeakersComponent } from "../speakers/speakers.component";
-import { SpeakerListComponent } from "../speakers/speaker-list/speaker-list.component";
-import { SpeakerFormComponent } from "../speakers/speaker-form/speaker-form.component";
-import { SpeakerShowComponent } from "../speakers/speaker-show/speaker-show.component";
-import { UsersComponent } from "./users.component";
+import { UserListComponent } from "./user-list/user-list.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: UsersComponent,
+    component: SpeakersComponent,
+    children: [
+      { path: '', component: UserListComponent },
+    ]
   }
 ];
 
