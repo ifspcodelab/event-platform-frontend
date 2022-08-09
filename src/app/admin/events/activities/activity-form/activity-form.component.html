@@ -9,14 +9,14 @@
 
     <mat-form-field class="form-field-sm">
       <mat-label>Tipo da Atividade</mat-label>
-      <mat-select formControlName="activityType">
+      <mat-select formControlName="type">
         <mat-option *ngFor="let name of enumKeys" [value]="name">{{ activityType[name] }}</mat-option>
       </mat-select>
-      <mat-error *ngIf="fieldErrors('activityType')?.['required']">
+      <mat-error *ngIf="fieldErrors('type')?.['required']">
         Tipo é obrigatório
       </mat-error>
-      <mat-error *ngIf="fieldErrors('activityType')?.['serverError'] && submitted">
-        {{ fieldErrors('activityType')?.['serverError'] }}
+      <mat-error *ngIf="fieldErrors('type')?.['serverError'] && submitted">
+        {{ fieldErrors('type')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
     <br>

@@ -3,7 +3,6 @@ import { ActivityDto } from "../../../../core/models/activity.model";
 import { ActivityService } from "../../../../core/services/activity.service";
 import { Router } from "@angular/router";
 import { MatTableDataSource } from "@angular/material/table";
-import { EventDto } from "../../../../core/models/event.model";
 import { MatSort, Sort } from "@angular/material/sort";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
 

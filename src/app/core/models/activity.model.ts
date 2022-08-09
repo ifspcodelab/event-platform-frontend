@@ -10,7 +10,7 @@ export interface ActivityCreateDto{
   title: string;
   slug: string;
   description: string;
-  activityType: ActivityType;
+  type: ActivityType;
   online: boolean;
   registrationRequired: boolean;
   status: EventStatusModel;

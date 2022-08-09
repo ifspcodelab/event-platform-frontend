@@ -43,6 +43,7 @@ export class ActivityFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.buildForm();
+
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
     this.activityId = this.route.snapshot.paramMap.get('activityId');
@@ -53,20 +54,35 @@ export class ActivityFormComponent implements OnInit {
 
     if(this.activityId) {
       this.createMode = false;
-      this.fetchActivity();
+
+      if(this.eventMode) {
+        this.fetchEventActivity()
+      } else {
+        this.fetchSubEventActivity()
+      }
     }
   }
 
-  fetchEvent() {
-
+  fetchEventActivity() {
+    this.activityService.getEventActivity(this.eventId, this.activityId)
+      .pipe(first())
+      .subscribe(
+        activityDto => {
+          this.activityDto = activityDto;
+          this.form.patchValue(this.activityDto);
+        }
+      )
   }
 
-  fetchSubEvent() {
-
-  }
-
-  fetchActivity() {
-
+  fetchSubEventActivity() {
+    this.activityService.getSubEventActivity(this.eventId, this.subeventId, this.activityId)
+      .pipe(first())
+      .subscribe(
+        activityDto => {
+          this.activityDto = activityDto;
+          this.form.patchValue(this.activityDto);
+        }
+      )
   }
 
   private buildForm() {
@@ -74,7 +90,7 @@ export class ActivityFormComponent implements OnInit {
       title: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(5), Validators.maxLength(100)]],
       slug: ['', [Validators.required, AppValidators.notBlank]],
       description: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(500)]],
-      activityType: ['', [Validators.required]],
+      type: ['', [Validators.required]],
       online: [false, [Validators.required]],
       needRegistration: [true, [Validators.required]],
     });
@@ -93,8 +109,6 @@ export class ActivityFormComponent implements OnInit {
       this.updateActivity();
     }
   }
-
-
 
   getBackUrl() {
     if(this.createMode) {
@@ -153,11 +167,27 @@ export class ActivityFormComponent implements OnInit {
   }
 
   private updateEventActivity() {
-
+    this.activityService.putEventActivity(this.eventId, this.activityId, this.form.value)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.notificationService.success('Atividade atualizada com sucesso');
+          this.router.navigate(['admin', 'events', this.eventId, 'activities', activityDto.id]);
+        },
+        error: error => this.handleError(error)
+      })
   }
 
   private updateSubEventActivity() {
-
+    this.activityService.putSubEventActivity(this.eventId, this.subeventId, this.activityId, this.form.value)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.notificationService.success('Atividade atualizada com sucesso');
+          this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', activityDto.id]);
+        },
+        error: error => this.handleError(error)
+      })
   }
 
   handleError(error: any) {
@@ -188,8 +218,6 @@ export class ActivityFormComponent implements OnInit {
       }
     }
   }
-
-
 
   field(path: string) {
     return this.form.get(path)!;
