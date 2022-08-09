@@ -1,16 +1,17 @@
 <app-event-header
+  *ngIf="eventDto"
   [title]="eventDto.title"
   [image]="eventDto.biggerImage"
   [startDate]="eventDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
   [endDate]="eventDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
 >
   <button mat-button routerLink="/events/{{ eventDto.slug }}">Apresentação</button>
-  <button mat-button routerLink="subevents">Subeventos</button>
+  <button mat-button routerLink="/events/{{ eventDto.slug }}/subevents">Subeventos</button>
   <button mat-button>Programação</button>
   <button mat-button>Organização</button>
 </app-event-header>
 
-<main>
+<main *ngIf="eventDto">
   <h1>Subeventos</h1>
   <p>Eventos programados para a {{ eventDto.title }}</p>
 

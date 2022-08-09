@@ -26,6 +26,35 @@
     flex-direction: column;
     justify-content: space-between;
 
+    @media screen and (max-width: 532px){
+      padding-left: 0;
+      width: 100%;
+
+      .header-responsive {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      mat-icon {
+        padding: 20px 16px;
+        display: block !important;
+      }
+
+      &__event {
+        padding-top: 20px !important;
+      }
+
+      &__menu {
+        flex-direction: column;
+        align-content: flex-start;
+        flex-wrap: wrap;
+      }
+    }
+
+    mat-icon {
+      display: none;
+    }
+
     &__event {
       padding-top: 40px;
     }
@@ -38,14 +67,17 @@
     }
 
     &__dates {
-      width: 45%;
-      text-align: justify;
       padding: 0 16px;
       margin-bottom: 10px;
     }
 
     &__menu {
       padding-bottom: 10px;
+
+      @media screen and (max-width: 532px){
+        display: none;
+        height: 40%;
+      }
     }
   }
 }

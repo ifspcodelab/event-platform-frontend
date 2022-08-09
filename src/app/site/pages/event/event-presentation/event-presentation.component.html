@@ -1,4 +1,5 @@
 <app-event-header
+  *ngIf="eventDto"
   [title]="eventDto.title"
   [image]="eventDto.biggerImage"
   [startDate]="eventDto.executionPeriod.startDate | date:'dd/MM/yyyy'"

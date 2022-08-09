@@ -20,4 +20,9 @@ export class EventHeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openMenu() {
+    let menu = document.querySelector(".header-content__menu")  as HTMLElement;
+    menu.style.display === "flex" ? menu.style.display = 'none' : menu.style.display = "flex";
+  }
+
 }

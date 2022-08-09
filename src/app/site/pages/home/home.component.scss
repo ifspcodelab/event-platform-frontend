@@ -2,7 +2,7 @@
   background-color: rgb(197, 197, 197);
   padding: 30px 80px;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 523px) {
     padding: 10px 20px 10px 20px;
 
     &__link {
@@ -31,7 +31,7 @@ main {
 .home-page-container {
   padding: 30px 80px;
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 532px) {
     padding: 10px 20px;
   }
 
