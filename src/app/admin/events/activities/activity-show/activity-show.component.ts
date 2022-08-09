@@ -8,6 +8,8 @@ import { ConfirmationDialogComponent } from "../../../../core/components/confirm
 import { MatDialog } from "@angular/material/dialog";
 import { NotificationService } from "../../../../core/services/notification.service";
 import { HttpErrorResponse } from "@angular/common/http";
+import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
+import { CancellationMessageCreateDto } from "../../../../core/models/event.model";
 
 @Component({
   selector: 'app-activity-show',
@@ -22,6 +24,7 @@ export class ActivityShowComponent implements OnInit {
   eventId: string = null;
   subeventId: string = null;
   sessionsDto: SessionDto[] = [];
+  cancellationMessageCreateDto: CancellationMessageCreateDto;
 
   constructor(
     private activityService: ActivityService,
@@ -131,12 +134,42 @@ export class ActivityShowComponent implements OnInit {
       });
   }
 
-  cancelActivity() {
-    if(this.eventMode) {
+  openCancelDialog() {
+    const dialogRef = this.dialog.open(CancelDialogComponent, {
+      width: '400px',
+      data: { name: "Atividade", cancelMessage: this.cancellationMessageCreateDto, cancelText: "Fechar", okText: "Cancelar"},
+    });
 
-    } else {
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.cancellationMessageCreateDto = result;
+        return this.eventMode ? this.cancelEventActivity() : this.cancelSubEventActivity();
+      }
+    });
+  }
 
-    }
+  cancelEventActivity() {
+    this.activityService.cancelEventActivity(this.eventId, this.activityId, this.cancellationMessageCreateDto)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.notificationService.success("Atividade cancelada com sucesso")
+          this.activityDto = activityDto;
+        },
+        error: error => this.handleError(error)
+      });
+  }
+
+  cancelSubEventActivity() {
+    this.activityService.cancelSubEventActivity(this.eventId, this.subeventId, this.activityId, this.cancellationMessageCreateDto)
+      .pipe(first())
+      .subscribe({
+        next: activityDto => {
+          this.notificationService.success("Atividade cancelada com sucesso")
+          this.activityDto = activityDto;
+        },
+        error: error => this.handleError(error)
+      });
   }
 
   private getConfirmationDialogConfig() {
