@@ -81,7 +81,6 @@ export class ActivityFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form)
     this.submitted = true;
 
     if(this.form.invalid) {

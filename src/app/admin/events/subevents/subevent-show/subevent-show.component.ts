@@ -23,16 +23,11 @@ export class SubeventShowComponent implements OnInit {
   subeventId: string;
   eventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
-
-  activitiesDto: ActivityDto[] = [];
-  activitiesDisplayedColumns: string[] = ['title', 'online', 'registrationRequired', 'status'];
-
   tabSelectedIndex: number = 0;
 
   constructor(
     private notificationService: NotificationService,
     private subeventService: SubeventService,
-    private activityService: ActivityService,
     private route: ActivatedRoute,
     private router: Router,
     private loaderService: LoaderService,
@@ -51,14 +46,6 @@ export class SubeventShowComponent implements OnInit {
       .pipe(first())
       .subscribe(subeventDto => {
         this.subeventDto = subeventDto
-        this.fetchActivities();
-      });
-  }
-
-  fetchActivities() {
-    this.activityService.getSubEventActivities(this.eventId, this.subeventId)
-      .subscribe(activities => {
-        this.activitiesDto = activities
         this.loaderService.hide();
         this.setTabSelectedIndex();
       });

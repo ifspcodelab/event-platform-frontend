@@ -16,6 +16,8 @@ import { ActivityShowComponent } from "./activities/activity-show/activity-show.
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 import { ActivityFormComponent } from './activities/activity-form/activity-form.component';
+import { ActivityListComponent } from './activities/activity-list/activity-list.component';
+import { ActivityTypesPipe } from "../../core/pipes/activity-types.pipe";
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ActivityFormComponent } from './activities/activity-form/activity-form.
     ActivityFormComponent,
     SessionShowComponent,
     SessionFormComponent,
+    ActivityListComponent,
     EventStatusPipe,
+    ActivityTypesPipe,
   ],
   imports: [
     CommonModule,

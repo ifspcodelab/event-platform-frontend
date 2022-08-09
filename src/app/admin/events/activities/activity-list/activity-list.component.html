@@ -1,0 +1,43 @@
+<article class="container">
+  <header class="container__header">
+    <h1 class="container__header__title">Atividades</h1>
+    <button mat-button color="primary" routerLink="activities/new">Nova Atividade</button>
+  </header>
+
+  <p *ngIf="!activitiesDto.length">Nenhum atividade cadastrado</p>
+
+  <table class="container__table" *ngIf="activitiesDto.length" mat-table [dataSource]="dataSource"
+         matSort (matSortChange)="announceSortChange($event)">
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por título">Título</th>
+      <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por tipo">Tipo</th>
+      <td mat-cell *matCellDef="let element"> {{ element.type | activityTypes }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="online">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por presencial ou on-line">Presencial/On-line</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.online">On-line</span>
+        <span *ngIf="!element.online">Presencial</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="registrationRequired">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por requer inscrição">Requer Inscrição</th>
+      <td mat-cell *matCellDef="let element"> {{ element.needRegistration }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por status">Status</th>
+      <td mat-cell *matCellDef="let element"> {{ element.status | eventStatus }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="activitiesDisplayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: activitiesDisplayedColumns;" (click)="openActivityShow(row)"></tr>
+  </table>
+</article>
