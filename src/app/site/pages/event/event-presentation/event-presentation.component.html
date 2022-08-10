@@ -11,10 +11,10 @@
   <button mat-button>Organização</button>
 </app-event-header>
 
-<main>
+<main *ngIf="eventDto">
   <h1>Apresentação</h1>
 
-  <div id="text"></div>
+  <div id="text" [innerHTML]="eventDto.presentation"></div>
 </main>
 
 <app-site-footer></app-site-footer>

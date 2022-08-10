@@ -32,8 +32,8 @@ export class EventPresentationComponent implements OnInit {
       .subscribe(
         eventsDto => {
           this.eventDto = eventsDto[0];
-          document.getElementById("text")
-            .innerHTML = this.eventDto.presentation;
+          // document.getElementById("text")
+          //   .innerHTML = this.eventDto.presentation;
         }
       );
   }
