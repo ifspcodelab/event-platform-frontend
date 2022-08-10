@@ -1,3 +1,5 @@
+import { OrganizerFormComponent } from './../organizer-form/organizer-form/organizer-form.component';
+import { AccountDto } from './../../../../core/models/account.model';
 import { OrganizerService } from './../../../../core/services/organizer.service';
 import { OrganizerDto } from './../../../../core/models/organizer.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -39,6 +41,7 @@ export class EventShowComponent implements OnInit {
   dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
   @ViewChild(MatSort)
   sortOrganizer: MatSort;
+  accountDto: AccountDto;
 
   constructor(
     private eventService: EventService,
@@ -187,12 +190,30 @@ export class EventShowComponent implements OnInit {
       });
   }
 
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        eventId: this.eventId,
+        organizerDto: this.organizerDto
+      }
+    };
+  }
+
+  openOrganizerFormDialog() {
+    const dialogRef = this.dialog.open(OrganizerFormComponent, this.getDialogConfig());
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    })
+  }
+
   private getConfirmationDialogConfigOrganizer() {
     return {
       autoFocus: true,
       data: {
         name: "Remover organizador",
-        text: `O organizador ${this.organizerDto.account.name} será excluído de forma definitiva.`,
+        text: `O organizador  ${this.organizerDto.account.name} será excluído de forma definitiva.`,
         cancelText: "Cancelar",
         okText: "Remover"
       }
@@ -202,8 +223,8 @@ export class EventShowComponent implements OnInit {
   openDeleteConfirmationDialogOrganizer() {
     this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizer())
       .afterClosed()
-      .subscribe(result => {
-        if (result) {
+      .subscribe(organizer => {
+        if(organizer) {
           this.deleteEvent();
         }
       });
@@ -213,11 +234,10 @@ export class EventShowComponent implements OnInit {
     this.organizerService.deleteOrganizer(this.eventId, this.organizerId)
       .pipe(first())
         .subscribe({
-          next: _ => {
+          next: () => {
             this.notificationService.success("Organizador excluído com sucesso");
             this.router.navigate(['admin', 'events', this.eventId])
-          },
-          error: error => this.handleError(error)
+          }
       });
   }
 

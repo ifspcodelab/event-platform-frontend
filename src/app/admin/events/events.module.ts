@@ -13,6 +13,7 @@ import { SubeventsFormComponent } from "./subevents/subevents-form/subevents-for
 import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
+import { OrganizerFormComponent } from './events/organizer-form/organizer-form/organizer-form.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MAT_DATE_LOCALE } from "@angular/material/core";
     SubeventShowComponent,
     SubeventsFormComponent,
     OrganizerTypePipe,
+    OrganizerFormComponent,
   ],
   imports: [
     CommonModule,
