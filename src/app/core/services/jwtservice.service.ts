@@ -42,15 +42,6 @@ export class JwtService {
     return jwtDecode(refreshToken)
   }
 
-  isAccessTokenExpired(accessToken: string): boolean {
-    const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
-
-    const now = Math.round(Date.now() / 1000);
-    const tokenExpiryDate: number = accessTokenData.exp
-
-    return now > tokenExpiryDate;
-  }
-
   isRefreshTokenValid(refreshToken: string): boolean {
     const refreshTokenData = this.decodeRefreshToken(refreshToken) as RefreshTokenData;
 
