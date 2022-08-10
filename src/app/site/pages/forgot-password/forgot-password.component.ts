@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PasswordResetService } from "../../../core/services/password-reset.service";
 import {ForgotPasswordCreateDto} from "../../../core/models/forgot-password-create-dto.model";
 import {Router} from "@angular/router";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-forgot-password',
@@ -13,6 +14,7 @@ export class ForgotPasswordComponent implements OnInit {
   submitted: boolean = false;
   userRecaptcha: string | undefined;
   form: FormGroup;
+  recaptchaSiteKey: string = environment.recaptchaSiteKey;
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +45,7 @@ export class ForgotPasswordComponent implements OnInit {
           this.form.reset();
           this.submitted = false;
           alert("Um link para recuperação sera enviado no email informado. Por favor confira sua caixa de entrada")
-          this.router.navigateByUrl("/redefinir-minha-senha/755350f2-d928-409c-bcdc-24e3e4e7b804");
+          // this.router.navigateByUrl("/redefinir-minha-senha/755350f2-d928-409c-bcdc-24e3e4e7b804");
         }
       );
 

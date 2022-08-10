@@ -1,0 +1,29 @@
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  padding: 5px 0 5px 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  vertical-align: center;
+  align-items: center;
+}
+
+re-captcha {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0 20px 0;
+  scale: 0.9;
+}
+
+.button {
+  margin: 15px 0;
+  color: white;
+  border: none;
+  width: 90%;
+}

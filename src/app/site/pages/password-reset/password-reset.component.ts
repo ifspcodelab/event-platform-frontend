@@ -4,6 +4,7 @@ import {PasswordResetService} from "../../../core/services/password-reset.servic
 import {PasswordResetDto} from "../../../core/models/password-reset-dto";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppValidators} from "../../../core/validators/app-validators";
+import {environment} from "../../../../environments/environment";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class PasswordResetComponent implements OnInit {
   userRecaptcha: string | undefined;
   token: string | null | undefined;
   form: FormGroup;
+  recaptchaSiteKey: string = environment.recaptchaSiteKey;
 
   constructor(
     private fb: FormBuilder,

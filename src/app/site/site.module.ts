@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
 import { SiteHeaderComponent } from './components/site-header/site-header.component';
-import { SharedModule } from "../shared/shared.module";
 import { SiteFooterComponent } from './components/site-footer/site-footer.component';
 import { SiteCardComponent } from './components/site-card/site-card.component';
 import { EventsModule } from "../admin/events/events.module";
-import { RouterModule } from "@angular/router";
 import { EventHeaderComponent } from './components/event-header/event-header.component';
 import { RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
 import { NgxMaskModule } from "ngx-mask";
@@ -22,6 +20,10 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { SharedModule } from "../shared/shared.module";
+import { RouterModule } from "@angular/router";
+
+
 
 @NgModule({
   declarations: [
@@ -44,6 +46,9 @@ import { PasswordResetComponent } from './pages/password-reset/password-reset.co
     SiteFooterComponent,
     SiteCardComponent,
     EventHeaderComponent,
+    RegistrationComponent,
+    LoginComponent,
+    AccountPageComponent
   ],
   imports: [
     CommonModule,
@@ -58,8 +63,11 @@ import { PasswordResetComponent } from './pages/password-reset/password-reset.co
     ReactiveFormsModule,
     RecaptchaFormsModule,
     RecaptchaModule,
-    SharedModule,
     NgxMaskModule.forRoot(),
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule,
+    RecaptchaModule
   ]
 })
 export class SiteModule { }

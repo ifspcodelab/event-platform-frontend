@@ -4,30 +4,27 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ForgotPasswordCreateDto} from "../models/forgot-password-create-dto.model";
 import {PasswordResetDto} from "../models/password-reset-dto";
 import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
+import {BaseService} from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PasswordResetService {
+export class PasswordResetService extends BaseService {
+  apiUrl = `${environment.apiUrl}/accounts/password`;
 
-  private readonly API_FORGOT = "http://localhost:8080/api/v1/accounts/password/forgot";
-  private readonly API_RESET = "http://localhost:8080/api/v1/accounts/password/reset";
-
-  constructor(private httpClient: HttpClient) { }
-
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   sendResetPasswordRequest(dto: ForgotPasswordCreateDto) {
-    return this.httpClient.post<ForgotPasswordCreateDto>(this.API_FORGOT, dto, this.httpOptions);
+    const url = `${this.apiUrl}/forgot`;
+    return this.httpClient.post<ForgotPasswordCreateDto>(url, dto, this.httpOptionsSkipInterceptor);
   }
 
   sendPasswordAndToken(dto: PasswordResetDto) {
-    return this.httpClient.post<PasswordResetDto>(this.API_RESET, dto, this.httpOptions);
+    const url = `${this.apiUrl}/reset`;
+    return this.httpClient.post<PasswordResetDto>(url, dto, this.httpOptionsSkipInterceptor);
   }
 }
 
