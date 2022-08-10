@@ -88,8 +88,8 @@ export class EventShowComponent implements OnInit {
           this.organizersDto = organizersDto;
           this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           this.loaderService.hide();
-          console.log(organizersDto)
-        })
+          console.log(organizersDto);
+        });
   }
 
   openEventList() {
@@ -180,45 +180,46 @@ export class EventShowComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.notificationService.success("Excluido com sucesso");
+          this.notificationService.success("Excluído com sucesso");
           this.router.navigate(['admin', 'events'])
         },
         error: error => this.handleError(error)
       });
   }
 
-  // private getConfirmationDialogConfigOrganizer() {
-  //   return {
-  //     autoFocus: true,
-  //     data: {
-  //       name: "Remover organizador",
-  //       text: `O organizador ${this.organizerDto.account.name} será excluido de forma definitiva.`,
-  //       cancelText: "Cancelar",
-  //       okText: "Remover"
-  //     }
-  //   }
-  // }
+  private getConfirmationDialogConfigOrganizer() {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Remover organizador",
+        text: `O organizador ${this.organizerDto.account.name} será excluído de forma definitiva.`,
+        cancelText: "Cancelar",
+        okText: "Remover"
+      }
+    }
+  }
 
-  // openDeleteConfirmationDialogOrganizer() {
-  //   this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizer()).afterClosed()
-  //     .subscribe( result => {
-  //       if (result) {
-  //         this.deleteOrganizer();
-  //       }
-  //     });
-  // }
+  openDeleteConfirmationDialogOrganizer() {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizer())
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.deleteEvent();
+        }
+      });
+  }
 
-  // deleteOrganizer() {
-  //   this.organizerService.deleteOrganizer(this.eventId, this.organizerId)
-  //   .pipe(first())
-  //     .subscribe({
-  //       next: () => {
-  //         this.notificationService.success("Excluido com sucesso");
-  //         this.router.navigate(['admin', 'events', this.eventId, 'organizers'])
-  //       },
-  //       error: error => this.handleError(error)
-  //     });
-  // }
+  deleteOrganizer() {
+    this.organizerService.deleteOrganizer(this.eventId, this.organizerId)
+      .pipe(first())
+        .subscribe({
+          next: _ => {
+            this.notificationService.success("Organizador excluído com sucesso");
+            this.router.navigate(['admin', 'events', this.eventId])
+          },
+          error: error => this.handleError(error)
+      });
+  }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
