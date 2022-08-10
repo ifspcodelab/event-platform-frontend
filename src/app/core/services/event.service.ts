@@ -27,6 +27,10 @@ export class EventService {
       );
   }
 
+  getEventsBySlug(eventSlug: string): Observable<EventDto[]> {
+    return this.httpClient.get<EventDto[]>(`${this.apiUrl}?slug=${eventSlug}`, this.httpOptions);
+  }
+
   getEventById(eventId: string): Observable<EventDto> {
     return this.httpClient.get<EventDto>(`${this.apiUrl}/${eventId}`, this.httpOptions);
   }

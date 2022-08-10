@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'termos', component: TermsComponent },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'events', loadChildren: () => import('./site/pages/event/event.module').then(m => m.EventModule) },
 ];
 
 @NgModule({

@@ -20,7 +20,6 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 
-
 @NgModule({
   declarations: [],
   imports: [
