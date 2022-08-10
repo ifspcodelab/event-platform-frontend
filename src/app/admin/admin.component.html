@@ -5,6 +5,10 @@
       <mat-icon class="app-toolbar__icon">event</mat-icon>
       Eventos
     </button>
+    <button class="app-toolbar__link" mat-button color="accent" routerLink="/admin/speakers" routerLinkActive="app-toolbar__link--active">
+      <mat-icon class="app-toolbar__icon">contacts</mat-icon>
+      Ministrantes
+    </button>
     <button class="app-toolbar__link" mat-button color="accent" routerLink="/admin/locations" routerLinkActive="app-toolbar__link--active">
       <mat-icon class="app-toolbar__icon">location_on</mat-icon>
       Locais
@@ -23,4 +27,5 @@
     </mat-menu>
   </nav>
 </mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="show"></mat-progress-bar>
 <router-outlet></router-outlet>

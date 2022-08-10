@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CancellationMessageCreateDto, EventDto } from "../../../../core/models/event.model";
 import { EventService } from "../../../../core/services/event.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -10,6 +10,10 @@ import { ConfirmationDialogComponent } from "../../../../core/components/confirm
 import { MatDialog } from "@angular/material/dialog";
 import { HttpErrorResponse } from "@angular/common/http";
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
+import { MatSort, Sort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-event-show',
@@ -23,6 +27,9 @@ export class EventShowComponent implements OnInit {
   eventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
   tabSelectedIndex: number = 0;
+  dataSource: MatTableDataSource<SubeventDto>;
+  @ViewChild(MatSort)
+  sort: MatSort;
 
   constructor(
     private eventService: EventService,
@@ -30,10 +37,13 @@ export class EventShowComponent implements OnInit {
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private loaderService: LoaderService,
+    private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.fetchEvent(this.eventId);
   }
@@ -53,16 +63,14 @@ export class EventShowComponent implements OnInit {
     this.subeventService.getSubevents(eventId)
       .subscribe(subevents => {
         this.subeventsDto = subevents
+        this.dataSource = new MatTableDataSource<SubeventDto>(this.subeventsDto);
+        this.loaderService.hide();
         this.setTabSelectedIndex();
       });
   }
 
   openEventList() {
     return this.router.navigate(['admin', 'events']);
-  }
-
-  openEventForm() {
-    return this.router.navigate(['admin', 'events', this.eventId, 'edit']);
   }
 
   setTabSelectedIndex() {
@@ -161,6 +169,16 @@ export class EventShowComponent implements OnInit {
       if(error.status === 409) {
         this.notificationService.error(error.error.violations[0].message);
       }
+    }
+  }
+
+  announceSortChange(sort: Sort) {
+    this.dataSource.sort = this.sort;
+
+    if (sort.direction) {
+      this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
+    } else {
+      this._liveAnnouncer.announce('Ordenação removida');
     }
   }
 }

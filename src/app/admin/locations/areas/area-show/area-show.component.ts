@@ -16,6 +16,7 @@ import {
   ConfirmationDialogComponent
 } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import {HttpErrorResponse} from "@angular/common/http";
+import { LoaderService } from "../../../loader.service";
 
 @Component({
   selector: 'app-area-show',
@@ -39,11 +40,13 @@ export class AreaShowComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     public dialog: MatDialog,
+    private loaderService: LoaderService,
     private _liveAnnouncer: LiveAnnouncer
   ) {
   }
 
   ngOnInit(): void {
+    this.loaderService.show()
     this.locationId = this.route.snapshot.paramMap.get('locationId');
     this.areaId = this.route.snapshot.paramMap.get('areaId');
     this.fetchArea(this.locationId, this.areaId);
@@ -66,6 +69,7 @@ export class AreaShowComponent implements OnInit {
       spacesDto => {
         this.spacesDto = spacesDto;
         this.dataSource = new MatTableDataSource<SpaceDto>(this.spacesDto);
+        this.loaderService.hide();
       });
   }
 

@@ -1,4 +1,4 @@
-<div *ngIf="spaceDto!=null">
+<div *ngIf="spaceDto">
   <app-admin-header title="Espaço: {{ spaceDto.name }}" (backLink)="openAreaShow()">
     <button mat-button color="primary" (click)="openEditSpaceFormDialog()">Editar</button>
     <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
