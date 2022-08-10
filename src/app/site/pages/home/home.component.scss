@@ -1,0 +1,41 @@
+.home-page-header {
+  background-color: rgb(197, 197, 197);
+  padding: 30px 80px;
+
+  @media screen and (max-width: 523px) {
+    padding: 10px 20px 10px 20px;
+
+    &__link {
+      padding: 0 10px;
+    }
+  }
+
+  &__title {
+    font-weight: 400;
+  }
+
+  &__description {
+    width: 45%;
+    text-align: justify;
+
+    @media screen and (max-width: 700px) {
+      width: 100% !important;
+    }
+  }
+}
+
+main {
+  min-height: 300px;
+}
+
+.home-page-container {
+  padding: 30px 80px;
+
+  @media screen and (max-width: 532px) {
+    padding: 10px 20px;
+  }
+
+  &__section {
+    margin-bottom: 50px;
+  }
+}

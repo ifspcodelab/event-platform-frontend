@@ -17,12 +17,11 @@ export class AdminGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const accountRoles = this.jwtService.getAccessTokenRoles();
 
-    if (accountRoles.includes(AccountRole.ADMIN)) {
+    if (this.jwtService.isAdmin()) {
       return true;
     } else {
-      this.router.navigate(['account', 'meus-dados']);
+      this.router.navigate(['']);
 
       return false;
     }

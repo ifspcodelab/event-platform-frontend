@@ -5,28 +5,22 @@ import { LoginCreateDto } from "../models/login.model";
 import { Observable } from "rxjs";
 import { JwtTokensDto } from "../models/jwt-tokens.model";
 import { RefreshTokenRotateDto } from "../models/refresh-token.model";
+import {BaseService} from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthenticationService extends BaseService {
   apiUrl = `${environment.apiUrl}/accounts`;
-  interceptorSkipHeader: string = 'Skip-Interceptor';
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   postLogin(loginCreateDto: LoginCreateDto): Observable<JwtTokensDto> {
     const url = `${this.apiUrl}/login`;
-    this.httpOptions.headers = this.httpOptions.headers.set(this.interceptorSkipHeader, '');
 
-    return this.httpClient.post<JwtTokensDto>(url, loginCreateDto, this.httpOptions);
+    return this.httpClient.post<JwtTokensDto>(url, loginCreateDto, this.httpOptionsSkipInterceptor);
   }
 
   deleteLogout(): Observable<unknown> {
@@ -36,8 +30,7 @@ export class AuthenticationService {
 
   postRefreshTokenRotation(refreshTokenDto: RefreshTokenRotateDto): Observable<JwtTokensDto> {
     const url = `${this.apiUrl}/refresh-token-rotation`;
-    this.httpOptions.headers = this.httpOptions.headers.set(this.interceptorSkipHeader, '');
 
-    return this.httpClient.post<JwtTokensDto>(url, refreshTokenDto, this.httpOptions);
+    return this.httpClient.post<JwtTokensDto>(url, refreshTokenDto, this.httpOptionsSkipInterceptor);
   }
 }

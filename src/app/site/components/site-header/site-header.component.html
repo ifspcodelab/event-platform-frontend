@@ -1,0 +1,16 @@
+<header class="site-header">
+  <h4 class="site-header__title" routerLink="/">Eventos do IFSP SPO</h4>
+
+  <nav class="site-header__menu" *ngIf="!isLoggedIn">
+    <button class="site-header__link" mat-button routerLink="/login">Login</button>
+    <button class="site-header__link" mat-button routerLink="/cadastro">Cadastrar</button>
+  </nav>
+
+  <nav class="site-header__menu" *ngIf="isLoggedIn">
+    <button class="site-header__link" mat-button routerLink="/admin" *ngIf="isAdmin">Área administrativa</button>
+    <button class="site-header__link" mat-button routerLink="/meus-dados">Meus dados</button>
+    <button class="site-header__link" mat-button (click)="logout()">Sair</button>
+  </nav>
+
+
+</header>

@@ -1,0 +1,67 @@
+<div *ngIf="eventDto">
+  <app-admin-header title="Evento {{ eventDto.title }}" (backLink)="openEventList()">
+    <button mat-button color="primary" (click)="publishEvent()">Publicar</button>
+    <button mat-button color="primary" (click)="unpublishEvent()">Despublicar</button>
+    <button mat-button color="primary" (click)="openCancelDialog()">Cancelar</button>
+    <button mat-button color="primary" routerLink="edit">Editar</button>
+    <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+  </app-admin-header>
+
+  <mat-tab-group mat-align-tabs="left" animationDuration="0ms" [selectedIndex]="tabSelectedIndex">
+
+    <mat-tab label="Dados Principais">
+      <article class="container">
+        <p class="container__item"><b>Resumo:</b> {{ eventDto.summary }}</p>
+        <p class="container__item"><b>Apresentação:</b> {{ eventDto.presentation }}</p>
+        <p class="container__item"><b>Status:</b> {{ eventDto.status | eventStatus }}</p>
+        <p *ngIf="eventDto.cancellationMessage"><b>Mensagem de cancelamento:</b> {{ eventDto.cancellationMessage }}</p>
+        <h3>Datas</h3>
+        <p class="container__item"><b>Início das incrições:</b> {{ eventDto.registrationPeriod.startDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Fim das incrições:</b> {{ eventDto.registrationPeriod.endDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Início:</b> {{ eventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Fim:</b> {{ eventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
+        <h3>Imagens</h3>
+        <p><b>Menor</b></p>
+        <img mat-card-image src="{{ eventDto.smallerImage }}" width="300px">
+        <p><b>Maior</b></p>
+        <img mat-card-image src="{{ eventDto.biggerImage }}" width="300px">
+      </article>
+    </mat-tab>
+
+    <mat-tab label="Subeventos">
+      <article class="container">
+        <header class="container__header">
+          <h2 class="container__header__title">Subeventos</h2>
+          <button mat-button color="primary" routerLink="sub-events/new">Novo Subevento</button>
+        </header>
+
+        <p *ngIf="!subeventsDto.length">Nenhum subevento cadastrado</p>
+
+        <table class="container__table *ngIf="subeventsDto.length mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por título">Título</th>
+            <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por título">Status</th>
+            <td mat-cell *matCellDef="let element"> {{ element.status | eventStatus }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef> Data de Início </th>
+            <td mat-cell *matCellDef="let element"> {{ element.executionPeriod.startDate | date:'dd/MM/yyyy' }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef> Data de Fim </th>
+            <td mat-cell *matCellDef="let element"> {{ element.executionPeriod.endDate | date:'dd/MM/yyyy' }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSubeventShow(row)" class="container__line"></tr>
+        </table>
+      </article>
+    </mat-tab>
+  </mat-tab-group>
+</div>

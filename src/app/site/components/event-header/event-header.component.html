@@ -1,0 +1,21 @@
+<header class="event-page-header" [ngStyle]="{'background-image': 'url(' + image + ')'}">
+
+  <div class="header-background"></div>
+  <div class="header-content">
+    <div class="header-responsive">
+      <div class="header-content__event">
+        <h2 class="header-content__title">{{ title }}</h2>
+        <p class="header-content__dates">
+          {{ startDate }} à {{ endDate }}
+        </p>
+      </div>
+
+      <mat-icon (click)="openMenu()">menu</mat-icon>
+    </div>
+
+
+    <nav class="header-content__menu">
+      <ng-content></ng-content>
+    </nav>
+  </div>
+</header>

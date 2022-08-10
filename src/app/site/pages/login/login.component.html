@@ -1,5 +1,5 @@
 <app-account-page
-  title="Login"
+  pageTitle="Login"
   description="Realize o login para ter acesso a seus eventos e inscrições."
 >
   <mat-card>
@@ -35,7 +35,7 @@
 
       <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
 
-      <re-captcha (resolved)="resolved($event)" siteKey="6LdirjAhAAAAANJcalTKs4KNA7c5YlP6dOby7x__"></re-captcha>
+      <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
 
       <div class="container">
         <a id="forgot-password-link" href="/esqueci-minha-senha">Esqueci minha senha</a>

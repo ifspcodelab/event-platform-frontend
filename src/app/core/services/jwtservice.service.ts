@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import jwtDecode from "jwt-decode";
 import { AccessTokenData } from "../models/access-token-data.model";
 import { RefreshTokenData } from "../models/refresh-token-data.model";
+import {AccountRole} from "../models/account-role.model";
 
 @Injectable({
   providedIn: 'root'
@@ -65,5 +66,14 @@ export class JwtService {
     } else {
       return false;
     }
+  }
+
+  logout() {
+    this.removeAccessToken();
+    this.removeRefreshToken();
+  }
+
+  isAdmin() {
+    return this.getAccessTokenRoles().includes(AccountRole.ADMIN);
   }
 }

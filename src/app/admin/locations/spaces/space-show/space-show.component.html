@@ -1,0 +1,13 @@
+<div *ngIf="spaceDto">
+  <app-admin-header title="Espaço: {{ spaceDto.name }}" (backLink)="openAreaShow()">
+    <button mat-button color="primary" (click)="openEditSpaceFormDialog()">Editar</button>
+    <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+  </app-admin-header>
+
+  <article class="container">
+    <p class="container__item"><b>Nome:</b> {{ spaceDto.name }}</p>
+    <p class="container__item"><b>Tipo:</b> {{ spaceDto.type | spaceTypes }}</p>
+    <p class="container__item"><b>Capacidade:</b> {{ spaceDto.capacity }} lugares</p>
+  </article>
+
+</div>

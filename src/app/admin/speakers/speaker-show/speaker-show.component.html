@@ -1,0 +1,20 @@
+<div *ngIf="speakerDto">
+  <app-admin-header title="{{ speakerDto.name }}" (backLink)="backLink()">
+    <button mat-button color="primary" routerLink="edit">Editar</button>
+    <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+  </app-admin-header>
+
+  <article class="container">
+    <h3>Dados Principais</h3>
+    <p class="container__item"><b>Nome:</b> {{ speakerDto.name }}</p>
+    <p class="container__item"><b>CPF:</b> {{ speakerDto.cpf }}</p>
+    <h3>Contato</h3>
+    <p class="container__item"><b>E-mail:</b> {{ speakerDto.email }}</p>
+    <p class="container__item"><b>Telefone:</b> {{ speakerDto.phoneNumber }}</p>
+    <h3>Currriculo</h3>
+    <p class="container__item"><b>Mini-Curriculo:</b> {{ speakerDto.curriculum }}</p>
+    <p class="container__item"><b>Lattes:</b> {{ speakerDto.lattes }}</p>
+    <p class="container__item"><b>Linkedin:</b> {{ speakerDto.linkedin }}</p>
+  </article>
+
+</div>

@@ -1,0 +1,30 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: rgb(197, 197, 197);
+
+  @media screen and (max-width: 370px) {
+    padding-right: 8px;
+
+    &__link {
+      font-size: 13px;
+      padding: 0;
+    }
+
+    &__title {
+      font-size: 13px;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  &__link {
+    margin-right: 5px;
+  }
+}

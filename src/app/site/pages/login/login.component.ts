@@ -8,6 +8,7 @@ import { JwtService } from "../../../core/services/jwtservice.service";
 import { JwtTokensDto } from "../../../core/models/jwt-tokens.model";
 import { LoginCreateDto } from "../../../core/models/login.model";
 import { AccountRole } from "../../../core/models/account-role.model";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   ]);
   errorMessage: string | null = null;
   userRecaptcha: string = '';
+  recaptchaSiteKey: string = environment.recaptchaSiteKey;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -83,14 +85,12 @@ export class LoginComponent implements OnInit {
             if (accountRoles.includes(AccountRole.ADMIN)) {
               this.router.navigate(['admin']);
             } else {
-              this.router.navigate(['account', 'meus-dados']);
+              this.router.navigate(['']);
             }
           },
           error: error => {
             if (error instanceof HttpErrorResponse) {
               this.errorMessage = this.mapAuthenticationErrorType.get(error.error.title)!;
-              console.log("an http error has ocurred");
-              console.log(error);
             }
           }
         }
