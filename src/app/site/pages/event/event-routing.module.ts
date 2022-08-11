@@ -4,21 +4,24 @@ import { EventComponent } from './event/event.component';
 import { EventPresentationComponent } from "./event-presentation/event-presentation.component";
 import { EventSubeventsComponent } from "./event-subevents/event-subevents.component";
 import { SubeventComponent } from "./subevent/subevent.component";
+import { SubeventPresentationComponent } from "./subevent-presentation/subevent-presentation.component";
 
 const routes: Routes = [
-  {
-    path: '',
+   {
+    path: ':eventSlug',
     component: EventComponent,
     children: [
-      { path: ':eventSlug', component: EventPresentationComponent },
-      { path: ':eventSlug/subevents', component: EventSubeventsComponent },
+      { path: '', redirectTo: 'presentation', pathMatch: 'full' },
+      { path: 'presentation', component: EventPresentationComponent },
+      { path: 'subevents', component: EventSubeventsComponent },
     ]
   },
   {
-    path: ':eventSlug/subevents/:subeventSlug',
+    path: ':eventSlug/sub-events/:subeventSlug',
     component: SubeventComponent,
     children: [
-      { path: 'presentation', component: EventPresentationComponent },
+      { path: '', redirectTo: 'presentation', pathMatch: 'full' },
+      { path: 'presentation', component: SubeventPresentationComponent },
       { path: 'schedule', component: EventSubeventsComponent },
     ]
   },

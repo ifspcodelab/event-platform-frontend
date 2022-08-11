@@ -19,7 +19,7 @@
       [startDate]="eventRegistrationDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
       [endDate]="eventRegistrationDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
       [summary]="eventRegistrationDto.summary"
-      [url]="'/events/'+ eventRegistrationDto.slug"
+      [url]="''+ eventRegistrationDto.slug"
     ></app-site-card>
   </section>
 
@@ -32,7 +32,7 @@
       [startDate]="eventExecutionDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
       [endDate]="eventExecutionDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
       [summary]="eventExecutionDto.summary"
-      [url]="'/events/'+ eventExecutionDto.slug"
+      [url]="''+ eventExecutionDto.slug"
     ></app-site-card>
   </section>
 
@@ -45,7 +45,7 @@
       [startDate]="eventFinishDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
       [endDate]="eventFinishDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
       [summary]="eventFinishDto.summary"
-      [url]="'/events/'+ eventFinishDto.slug"
+      [url]="''+ eventFinishDto.slug"
     ></app-site-card>
   </section>
 </main>

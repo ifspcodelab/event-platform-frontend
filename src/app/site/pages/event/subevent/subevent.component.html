@@ -1,5 +1,17 @@
-<h1>Header do subevento</h1>
-<button routerLink="presentation">Apresentação</button>
-<button routerLink="schedule">Subeventos</button>
+<app-site-header></app-site-header>
 
-<router-outlet></router-outlet>
+<app-event-header
+  *ngIf="subeventDto"
+  [title]="subeventDto.title"
+  [image]="subeventDto.biggerImage"
+  [startDate]="subeventDto.executionPeriod.startDate | date:'dd/MM/YY'"
+  [endDate]="subeventDto.executionPeriod.endDate | date: 'dd/MM/YY'"
+>
+  <button mat-button routerLink="presentation">Apresentação</button>
+  <button mat-button>Programação</button>
+  <button mat-button>Organização</button>
+</app-event-header>
+
+<div class="site-content">
+  <router-outlet></router-outlet>
+</div>
