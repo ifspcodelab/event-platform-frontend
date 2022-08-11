@@ -1,1 +1,20 @@
-<p>organizer-form works!</p>
+<h2 class="modal__title" mat-dialog-title>Cadastrar organizador</h2>
+
+<div mat-dialog-content>
+  <form class="modal" id="organizer-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="modal__input">
+      <mat-label>Nome</mat-label>
+      <input appearance="fill" matInput placeholder="" formControlName="name" name="name">
+    </mat-form-field>
+
+    <mat-form-field class="modal__input">
+      <mat-label>Papel</mat-label>
+      <input appearance="fill" matInput placeholder="" formControlName="type" name="type">
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions class="modal__buttons">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button type="submit" form="organizer-form" mat-button color="primary">Salvar</button>
+</div>

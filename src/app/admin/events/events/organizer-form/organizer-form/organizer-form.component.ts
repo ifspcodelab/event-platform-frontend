@@ -13,6 +13,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class OrganizerFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  organizerDto: OrganizerDto;
 
   constructor(
     private organizerService: OrganizerService,
