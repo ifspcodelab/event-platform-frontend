@@ -16,6 +16,7 @@ import { SessionShowComponent } from "./sessions/session-show/session-show.compo
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 import { ActivityFormComponent } from './activities/activity-form/activity-form.component';
 import { ActivityListComponent } from './activities/activity-list/activity-list.component';
+import { ActivitySpeakersComponent } from './activities/activity-speakers/activity-speakers.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ActivityListComponent } from './activities/activity-list/activity-list.
     ActivityFormComponent,
     SessionShowComponent,
     SessionFormComponent,
-    ActivityListComponent
+    ActivityListComponent,
+    ActivitySpeakersComponent
   ],
   imports: [
     CommonModule,

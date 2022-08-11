@@ -18,6 +18,8 @@
     <p class="container__item"><b>Status:</b> {{ activityDto.status | eventStatus }}</p>
   </article>
 
+  <app-activity-speakers [eventId]="eventId" [subeventId]="subeventId" [activityId]="activityId"></app-activity-speakers>
+
   <article class="container">
     <header class="container__header">
       <h1 class="container__header__title">Sessões</h1>
