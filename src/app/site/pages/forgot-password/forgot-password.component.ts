@@ -47,9 +47,7 @@ export class ForgotPasswordComponent implements OnInit {
           this.toaster.success("Um link será enviado ao e-mail informado", "Verifique sua caixa de entrada");
           this.form.reset();
           this.submitted = false;
-          this.redirect().then(() => {
-            return;
-          });
+          this.router.navigateByUrl("/login");
         },
         () => {
           this.toaster.error("Algo de errado com o recapctha", "Tente novamente");
@@ -75,7 +73,5 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
 
-  redirect() {
-    return this.router.navigateByUrl("/redefinir-minha-senha/755350f2-d928-409c-bcdc-24e3e4e7b804");
-  }
+
 }

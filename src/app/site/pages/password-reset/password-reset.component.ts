@@ -95,5 +95,6 @@ export class PasswordResetComponent implements OnInit {
   resolved(captchaResponse: string): void {
     this.userRecaptcha = captchaResponse;
   }
+
 }
 
