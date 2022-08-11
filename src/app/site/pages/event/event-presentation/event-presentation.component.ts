@@ -22,7 +22,7 @@ export class EventPresentationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.eventSlug = this.route.snapshot.paramMap.get('eventSlug');
+    this.eventSlug = this.route.parent.snapshot.paramMap.get('eventSlug');
     this.fetchEvent();
   }
 

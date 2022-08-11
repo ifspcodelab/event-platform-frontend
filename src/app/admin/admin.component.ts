@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from "rxjs";
+import { first, Subscription } from "rxjs";
 import { LoaderService } from "./loader.service";
+import { AuthenticationService } from "../core/services/authentication.service";
+import { JwtService } from "../core/services/jwtservice.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-admin',
@@ -13,6 +16,9 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   constructor(
     private loaderService: LoaderService,
+    private authenticationService: AuthenticationService,
+    private jwtService: JwtService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -24,5 +30,14 @@ export class AdminComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
+  }
+
+  logout() {
+    this.authenticationService.deleteLogout().pipe(first()).subscribe(
+      () => {
+        this.jwtService.logout();
+        this.router.navigate(['login']);
+      }
+    )
   }
 }

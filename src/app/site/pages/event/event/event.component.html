@@ -1,2 +1,20 @@
 <app-site-header></app-site-header>
-<router-outlet></router-outlet>
+
+<app-event-header
+  *ngIf="eventDto"
+  [title]="eventDto.title"
+  [image]="eventDto.biggerImage"
+  [startDate]="eventDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+  [endDate]="eventDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+>
+  <button mat-button routerLink="presentation">Apresentação</button>
+  <button mat-button routerLink="subevents">Subeventos</button>
+  <button mat-button>Programação</button>
+  <button mat-button>Organização</button>
+</app-event-header>
+
+<div class="site-content">
+  <router-outlet></router-outlet>
+</div>
+
+<app-site-footer></app-site-footer>
