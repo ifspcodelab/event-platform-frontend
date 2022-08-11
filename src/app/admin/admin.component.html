@@ -23,7 +23,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="/admin/my-account">Meus Dados</button>
-      <button mat-menu-item routerLink="/admin/logout">Sair</button>
+      <button mat-menu-item (click)="logout()">Sair</button>
     </mat-menu>
   </nav>
 </mat-toolbar>

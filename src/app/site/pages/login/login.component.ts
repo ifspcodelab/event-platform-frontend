@@ -63,7 +63,6 @@ export class LoginComponent implements OnInit {
       this.userRecaptcha
     )
 
-    console.log("form has been submitted");
     this.login(loginCreateDto);
   }
 
@@ -82,7 +81,7 @@ export class LoginComponent implements OnInit {
 
             const accountRoles = this.jwtService.getAccessTokenRoles();
 
-            if (accountRoles.includes(AccountRole.ADMIN)) {
+            if (accountRoles == AccountRole.ADMIN) {
               this.router.navigate(['admin']);
             } else {
               this.router.navigate(['']);

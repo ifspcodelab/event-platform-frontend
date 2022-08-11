@@ -56,9 +56,9 @@ export class JwtService {
     const accessToken = this.getAccessToken();
     if(accessToken) {
       const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
-      return accessTokenData.roles;
+      return accessTokenData.role;
     }
-    return [];
+    return null;
   }
 
   isAuthenticated() {
@@ -77,6 +77,6 @@ export class JwtService {
   }
 
   isAdmin() {
-    return this.getAccessTokenRoles().includes(AccountRole.ADMIN);
+    return this.getAccessTokenRoles() == AccountRole.ADMIN;
   }
 }
