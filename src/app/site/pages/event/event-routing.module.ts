@@ -16,9 +16,10 @@ const routes: Routes = [
     ]
   },
   {
-    path: ':eventSlug/subevents/:subeventSlug',
+    path: ':eventSlug/sub-events/:subeventSlug',
     component: SubeventComponent,
     children: [
+      { path: '', redirectTo: 'presentation', pathMatch: 'full' },
       { path: 'presentation', component: EventPresentationComponent },
       { path: 'schedule', component: EventSubeventsComponent },
     ]
