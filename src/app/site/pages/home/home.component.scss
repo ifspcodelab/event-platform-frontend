@@ -1,6 +1,17 @@
+.home-page-header-content {
+  padding: 0 20px;
+  background-color: #195128;
+  background-image: url("/assets/img/header-background.jpg");
+  background-position: center;
+  background-repeat: repeat;
+
+}
+
 .home-page-header {
-  background-color: rgb(197, 197, 197);
-  padding: 30px 80px;
+  margin: auto;
+  max-width: 1200px;
+  padding: 60px 5px;
+  color: #FFFFFF;
 
   @media screen and (max-width: 523px) {
     padding: 10px 20px 10px 20px;
@@ -11,11 +22,18 @@
   }
 
   &__title {
-    font-weight: 400;
+    font-size: 2.1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+
+  &__subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0px;
   }
 
   &__description {
-    width: 45%;
     text-align: justify;
 
     @media screen and (max-width: 700px) {
@@ -29,7 +47,9 @@ main {
 }
 
 .home-page-container {
-  padding: 30px 80px;
+  margin: auto;
+  max-width: 1200px;
+  padding: 40px 5px;
 
   @media screen and (max-width: 532px) {
     padding: 10px 20px;

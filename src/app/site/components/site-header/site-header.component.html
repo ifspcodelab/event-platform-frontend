@@ -1,16 +1,18 @@
-<header class="site-header">
-  <h4 class="site-header__title" routerLink="/">Eventos do IFSP SPO</h4>
+<div class="site-content">
+  <header class="site-header">
+    <h4 class="site-header__title" routerLink="/">Eventos IFSP SPO</h4>
 
-  <nav class="site-header__menu" *ngIf="!isLoggedIn">
-    <button class="site-header__link" mat-button routerLink="/login">Login</button>
-    <button class="site-header__link" mat-button routerLink="/cadastro">Cadastrar</button>
-  </nav>
+    <nav class="site-header__menu" *ngIf="!isLoggedIn">
+      <a class="site-header__link" routerLink="/login">Login</a>
+      <a class="site-header__link site-header__link--active " routerLink="/cadastro">Cadastrar</a>
+    </nav>
 
-  <nav class="site-header__menu" *ngIf="isLoggedIn">
-    <button class="site-header__link" mat-button routerLink="/admin" *ngIf="isAdmin">Área administrativa</button>
-    <button class="site-header__link" mat-button routerLink="/meus-dados">Meus dados</button>
-    <button class="site-header__link" mat-button (click)="logout()">Sair</button>
-  </nav>
+    <nav class="site-header__menu" *ngIf="isLoggedIn">
+      <a class="site-header__link" routerLink="/admin" *ngIf="isAdmin">Área administrativa</a>
+      <a class="site-header__link" routerLink="/meus-dados">Meus dados</a>
+      <a class="site-header__link" (click)="logout()">Sair</a>
+    </nav>
 
+  </header>
+</div>
 
-</header>
