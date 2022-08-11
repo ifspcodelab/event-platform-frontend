@@ -91,7 +91,6 @@ export class EventShowComponent implements OnInit {
           this.organizersDto = organizersDto;
           this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           this.loaderService.hide();
-          console.log(organizersDto);
         });
   }
 
@@ -208,35 +207,36 @@ export class EventShowComponent implements OnInit {
     })
   }
 
-  private getConfirmationDialogConfigOrganizer() {
+  private getConfirmationDialogConfigOrganizer(organizerDto: OrganizerDto) {
     return {
       autoFocus: true,
       data: {
         name: "Remover organizador",
-        text: `O organizador  ${this.organizerDto.account.name} será excluído de forma definitiva.`,
+        text: `O organizador  ${organizerDto.account.name} será excluído de forma definitiva.`,
         cancelText: "Cancelar",
         okText: "Remover"
       }
     }
   }
 
-  openDeleteConfirmationDialogOrganizer() {
-    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizer())
+  openDeleteConfirmationDialogOrganizer(organizerDto: OrganizerDto) {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizer(organizerDto))
       .afterClosed()
-      .subscribe(organizer => {
-        if(organizer) {
-          this.deleteEvent();
+      .subscribe(result => {
+        if(result) {
+          this.deleteOrganizer(organizerDto.id);
         }
       });
   }
 
-  deleteOrganizer() {
-    this.organizerService.deleteOrganizer(this.eventId, this.organizerId)
+  deleteOrganizer(organizerId: string) {
+    this.organizerService.deleteOrganizer(this.eventId, organizerId)
       .pipe(first())
         .subscribe({
           next: () => {
             this.notificationService.success("Organizador excluído com sucesso");
-            this.router.navigate(['admin', 'events', this.eventId])
+            this.organizersDto = this.organizersDto.filter(o => o.id != organizerId);
+            this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           }
       });
   }

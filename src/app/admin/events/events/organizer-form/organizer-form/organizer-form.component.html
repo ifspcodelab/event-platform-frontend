@@ -9,7 +9,9 @@
 
     <mat-form-field class="modal__input">
       <mat-label>Papel</mat-label>
-      <input appearance="fill" matInput placeholder="" formControlName="type" name="type">
+      <mat-select formControlName="type">
+        <!-- <mat-option *ngFor="let name of organizersType" [value]="name">{{ organizerType[name] }}</mat-option> -->
+      </mat-select>
     </mat-form-field>
   </form>
 </div>
