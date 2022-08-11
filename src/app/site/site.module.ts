@@ -13,7 +13,6 @@ import { LoginComponent } from "./pages/login/login.component";
 import { TermsComponent } from './pages/terms/terms.component';
 import { RegistrationVerifyComponent } from "./pages/registration-verify/registration-verify.component";
 import { AccountPageComponent } from './components/account-page/account-page.component';
-import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
@@ -22,6 +21,7 @@ import { MatCardModule } from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
+import {ForgotPasswordComponent} from "./pages/forgot-password/forgot-password.component";
 
 
 
