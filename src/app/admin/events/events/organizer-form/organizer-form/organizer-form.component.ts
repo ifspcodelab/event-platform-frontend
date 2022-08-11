@@ -15,7 +15,7 @@ import { OrganizerType } from 'src/app/core/models/organizer-type.model';
 export class OrganizerFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
   organizersType: any = [];
-  organizerType: OrganizerType;
+  organizerType = OrganizerType;
 
   constructor(
     private organizerService: OrganizerService,
