@@ -21,9 +21,11 @@ import { OrganizerSubeventService } from 'src/app/core/services/organizer-subeve
 export class SubeventShowComponent implements OnInit {
   displayedColumnsOrganizerSubevent: string[] = ['name', 'email', 'type', 'action'];
   organizersSubeventDto: OrganizerSubeventDto[] = [];
+  organizerSubeventDto: OrganizerSubeventDto;
   subeventDto: SubeventDto;
   subeventId: string;
   eventId: string;
+  organizerSubeventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
   tabSelectedIndex: number = 0;
 
@@ -40,6 +42,7 @@ export class SubeventShowComponent implements OnInit {
   ngOnInit(): void {
     this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
+    this.organizerSubeventId = this.route.snapshot.paramMap.get('organizerSubeventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
     this.fetchSubevent(this.eventId, this.subeventId);
     this.fetchOrganizersSubevent(this.eventId, this.subeventId);
@@ -154,6 +157,39 @@ export class SubeventShowComponent implements OnInit {
         error: error => this.handleError(error)
       });
   }
+
+  private getConfirmationDialogConfigOrganizerSubevent() {
+    return {
+       autoFocus: true,
+    data: {
+        name: "Remover organizador",
+        text: `O organizador ${this.organizerSubeventDto.account.name} será excluido de forma definitiva.`,
+        cancelText: "Cancelar",
+        okText: "Remover"
+      }
+    }
+  }
+
+  openDeleteConfirmationDialogOrganizerSubevent() {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizerSubevent()).afterClosed()
+      .subscribe( result => {
+        if (result) {
+          this.deleteOrganizerSubevent();
+        }
+      });
+  }
+
+  deleteOrganizerSubevent() {
+    this.organizerSubeventService.deleteOrganizerSubevent(this.eventId, this.subeventId, this.organizerSubeventId)
+      .pipe(first())
+      .subscribe({
+         next: () => {
+           this.notificationService.success("Excluido com sucesso");
+           this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'organizers'])
+        },
+        error: error => this.handleError(error)
+      });
+   }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {

@@ -49,6 +49,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     td:hover {
       cursor: pointer;
     }
+
+    &--not_clickable {
+      td:hover {
+        cursor: auto;
+      }
+    }
   }
 
   &__item {
