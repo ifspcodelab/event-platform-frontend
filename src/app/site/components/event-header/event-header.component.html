@@ -4,6 +4,7 @@
   <div class="header-content">
     <div class="header-responsive">
       <div class="header-content__event">
+        <a href="{{ url }}" *ngIf="url" class="header-content__link">&larr; {{ urlText }}</a>
         <h2 class="header-content__title">{{ title }}</h2>
         <p class="header-content__dates">
           {{ startDate }} à {{ endDate }}

@@ -3,6 +3,8 @@
 <app-event-header
   *ngIf="subeventDto"
   [title]="subeventDto.title"
+  [url]="'/' + eventDto.slug + '/sub-events'"
+  [urlText]="eventDto.title"
   [image]="subeventDto.biggerImage"
   [startDate]="subeventDto.executionPeriod.startDate | date:'dd/MM/YY'"
   [endDate]="subeventDto.executionPeriod.endDate | date: 'dd/MM/YY'"

@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'presentation', pathMatch: 'full' },
       { path: 'presentation', component: EventPresentationComponent },
-      { path: 'subevents', component: EventSubeventsComponent },
+      { path: 'sub-events', component: EventSubeventsComponent },
     ]
   },
   {

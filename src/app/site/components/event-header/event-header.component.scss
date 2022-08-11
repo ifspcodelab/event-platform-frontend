@@ -59,15 +59,24 @@
       padding-top: 40px;
     }
 
+    &__link {
+      display: inline-block;
+      text-decoration: none;
+      color: #515151;
+      padding-left: 16px;
+      margin-bottom: 5px !important;
+      font-weight: 500;
+    }
+
     &__title {
       font-size: 24px;
       font-weight: 400;
       margin-bottom: 5px;
-      padding: 0 16px;
+      padding-left: 16px;
     }
 
     &__dates {
-      padding: 0 16px;
+      padding-left: 16px;
       margin-bottom: 10px;
     }
 

@@ -7,6 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EventHeaderComponent implements OnInit {
   @Input()
+  url: string = "";
+  @Input()
+  urlText: string = "";
+  @Input()
   image: string = "";
   @Input()
   title: string = "";
