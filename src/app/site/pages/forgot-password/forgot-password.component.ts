@@ -41,7 +41,6 @@ export class ForgotPasswordComponent implements OnInit {
     if(this.form.invalid || this.userRecaptcha == ''){
       return;
     }
-   // const forgotPasswordRequest = new ForgotPasswordCreateDto(this.form.value['email'], "AUHAHSUA");
       const forgotPasswordRequest = new ForgotPasswordCreateDto(this.form.value['email'], this.userRecaptcha!);
       this.service.sendResetPasswordRequest(forgotPasswordRequest).subscribe(()=>{
           this.toaster.success("Um link será enviado ao e-mail informado", "Verifique sua caixa de entrada");
@@ -57,7 +56,6 @@ export class ForgotPasswordComponent implements OnInit {
       );
   }
 
-
   emailErrors() {
     return this.form.get('email')?.errors;
   }
@@ -69,7 +67,9 @@ export class ForgotPasswordComponent implements OnInit {
   buildForm(): FormGroup{
     return this.fb.group({
       email: ["",
-        [Validators.required, Validators.email, Validators.maxLength(349)]]
+        [Validators.required,
+          Validators.email,
+          Validators.maxLength(349)]]
     });
   }
 
