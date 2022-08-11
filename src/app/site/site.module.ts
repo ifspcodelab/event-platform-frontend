@@ -63,11 +63,9 @@ import { RouterModule } from "@angular/router";
     ReactiveFormsModule,
     RecaptchaFormsModule,
     RecaptchaModule,
-    NgxMaskModule.forRoot(),
-    CommonModule,
-    ReactiveFormsModule,
+    SharedModule,
     RouterModule,
-    RecaptchaModule
+    NgxMaskModule.forRoot(),
   ]
 })
 export class SiteModule { }
