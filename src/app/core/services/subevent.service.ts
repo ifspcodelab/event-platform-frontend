@@ -3,24 +3,20 @@ import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import {CancellationMessageCreateDto, SubeventCreateDto, SubeventDto} from "../models/subevent.model";
+import {BaseService} from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SubeventService {
+export class SubeventService extends BaseService {
   apiUrl = `${environment.apiUrl}/events`;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   getSubevents(eventId: string): Observable<SubeventDto[]> {
-    return this.httpClient.get<SubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events`, this.httpOptions);
+    return this.httpClient.get<SubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events`, this.httpOptionsSkipInterceptor);
   }
 
   getSubeventById(eventId: string, subeventId: string): Observable<SubeventDto> {

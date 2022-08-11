@@ -1,5 +1,5 @@
 <app-account-page
-  title="Cadastro Eventos do IFSP SPO"
+  pageTitle="Cadastro Eventos do IFSP SPO"
   description="Para ter acesso aos eventos e certificado você precisa realizar o cadastro."
   secondDescription="Caso já tenha um cadastro realize o login"
 >
@@ -90,7 +90,7 @@
       </mat-error>
     </div>
 
-    <re-captcha (resolved)="resolved($event)" siteKey="6LfjQjAhAAAAAGDIg5BkJMBccd-APYyY1AXM2eun"></re-captcha>
+    <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
 
     <button class="register full-width" mat-raised-button form="registration-form" color="primary">Cadastrar</button>
   </form>

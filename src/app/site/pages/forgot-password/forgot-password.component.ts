@@ -1,10 +1,10 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PasswordResetService } from "../../../core/services/password-reset.service";
-import {ForgotPasswordCreateDto} from "../../../core/models/forgot-password-create-dto.model";
-import {Router} from "@angular/router";
-import {NotificationService} from "../../../core/services/notification.service";
-import {ToastService} from "../../../core/services/toast.service";
+import { ForgotPasswordCreateDto } from "../../../core/models/forgot-password-create-dto.model";
+import { Router } from "@angular/router";
+import { environment } from "../../../../environments/environment";
+import { NotificationService } from "../../../core/services/notification.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   submitted: boolean = false;
   userRecaptcha: string | undefined;
   form: FormGroup;
+  recaptchaSiteKey: string = environment.recaptchaSiteKey;
 
   constructor(
     private fb: FormBuilder,
@@ -22,7 +23,6 @@ export class ForgotPasswordComponent implements OnInit {
     private renderer: Renderer2,
     private router: Router,
     private notificationService: NotificationService,
-    private toaster: ToastService,
   ) {
     this.form = this.buildForm();
     this.userRecaptcha = '';
@@ -43,17 +43,18 @@ export class ForgotPasswordComponent implements OnInit {
     }
       const forgotPasswordRequest = new ForgotPasswordCreateDto(this.form.value['email'], this.userRecaptcha!);
       this.service.sendResetPasswordRequest(forgotPasswordRequest).subscribe(()=>{
-          this.toaster.success("Um link será enviado ao e-mail informado", "Verifique sua caixa de entrada");
+          this.notificationService.success("Um link será enviado ao e-mail informado. Verifique sua caixa de entrada");
           this.form.reset();
           this.submitted = false;
           this.router.navigateByUrl("/login");
         },
         () => {
-          this.toaster.error("Algo de errado com o recapctha", "Tente novamente");
+          this.notificationService.error("Algo de errado com o recapctha. Tente novamente");
           this.form.reset();
           this.submitted = false;
         }
       );
+
   }
 
   emailErrors() {
@@ -72,6 +73,4 @@ export class ForgotPasswordComponent implements OnInit {
           Validators.maxLength(349)]]
     });
   }
-
-
 }

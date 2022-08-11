@@ -1,1 +1,56 @@
-<p>home works!</p>
+<app-site-header></app-site-header>
+
+<div class="home-page-header-content">
+  <header class="home-page-header">
+    <h1 class="home-page-header__title">Plataforma de Eventos</h1>
+    <h2 class="home-page-header__subtitle">IFSP - Câmpus São Paulo</h2>
+  <!--  <p class="home-page-header__description">O portal de eventos do IFSP SPO promovida por ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet lectus id mauris commodo mattis. Integer viverra ultricies molestie. Vivamus eleifend</p>-->
+  </header>
+</div>
+
+<div class="test">
+
+</div>
+
+<main class="home-page-container">
+  <section class="home-page-container__section">
+    <h2>Inscrições abertas</h2>
+    <app-site-card
+      *ngFor="let eventRegistrationDto of eventsRegistrationDto"
+      [image]="eventRegistrationDto.smallerImage"
+      [title]="eventRegistrationDto.title"
+      [startDate]="eventRegistrationDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="eventRegistrationDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+      [summary]="eventRegistrationDto.summary"
+      [url]="'/'+ eventRegistrationDto.slug + '/presentation'"
+    ></app-site-card>
+  </section>
+
+  <section class="home-page-container__section">
+    <h2>Em andamento</h2>
+    <app-site-card
+      *ngFor="let eventExecutionDto of eventsExecutionDto"
+      [image]="eventExecutionDto.smallerImage"
+      [title]="eventExecutionDto.title"
+      [startDate]="eventExecutionDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="eventExecutionDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+      [summary]="eventExecutionDto.summary"
+      [url]="'/events/'+ eventExecutionDto.slug"
+    ></app-site-card>
+  </section>
+
+  <section class="home-page-container__section">
+    <h2>Finalizados</h2>
+    <app-site-card
+      *ngFor="let eventFinishDto of eventsFinishDto"
+      [image]="eventFinishDto.smallerImage"
+      [title]="eventFinishDto.title"
+      [startDate]="eventFinishDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="eventFinishDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+      [summary]="eventFinishDto.summary"
+      [url]="'/events/'+ eventFinishDto.slug"
+    ></app-site-card>
+  </section>
+</main>
+
+<app-site-footer></app-site-footer>

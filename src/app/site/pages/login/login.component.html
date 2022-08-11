@@ -1,1 +1,47 @@
-<p>login works!</p>
+<app-account-page
+  pageTitle="Login"
+  description="Realize o login para ter acesso a seus eventos e inscrições."
+>
+  <mat-card>
+    <form class="login-form" id="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>email</mat-label>
+        <input matInput formControlName="email" name="email">
+        <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+          <mat-error class="error-message" *ngIf="email.errors?.['required']">
+            Campo email é obrigatório
+          </mat-error>
+          <mat-error *ngIf="email.errors?.['email']">
+            Campo email deve ser válido
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="password" name="password" type="password">
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+          <mat-error *ngIf="password.errors?.['required']">
+            Campo senha é obrigatório
+          </mat-error>
+          <mat-error *ngIf="password.errors?.['minlength']">
+            Campo senha deve ter no mínimo 8 caracteres
+          </mat-error>
+          <mat-error *ngIf="password.errors?.['maxlength']">
+            Campo senha deve ter no máximo 64 caracteres
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
+
+      <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
+
+      <div class="container">
+        <a id="forgot-password-link" href="/esqueci-minha-senha">Esqueci minha senha</a>
+        <a id="registration-link" href="/cadastro">Não tem uma conta? Cadastre-se</a>
+        <button class="button" mat-raised-button color="primary" type="submit">Entrar</button>
+      </div>
+    </form>
+  </mat-card>
+</app-account-page>

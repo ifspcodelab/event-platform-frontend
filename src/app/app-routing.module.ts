@@ -7,16 +7,19 @@ import { PasswordResetComponent } from "./site/pages/password-reset/password-res
 import { LoginComponent } from "./site/pages/login/login.component";
 import { TermsComponent } from "./site/pages/terms/terms.component";
 import { RegistrationVerifyComponent } from "./site/pages/registration-verify/registration-verify.component";
+import { AuthGuard } from "./core/security/auth.guard";
+import { AdminGuard } from "./core/security/admin.guard";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'cadastro', component: RegistrationComponent },
+  { path: 'cadastro/verificacao/:token', component: RegistrationVerifyComponent },
   { path: 'esqueci-minha-senha', component: ForgotPasswordComponent },
   { path: 'redefinir-minha-senha/:token', component: PasswordResetComponent },
-  { path: 'cadastro/verificacao/:token', component: RegistrationVerifyComponent },
   { path: 'login', component: LoginComponent },
   { path: 'termos', component: TermsComponent },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, AdminGuard] },
+  { path: '', loadChildren: () => import('./site/pages/event/event.module').then(m => m.EventModule) },
 ];
 
 @NgModule({

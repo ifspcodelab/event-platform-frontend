@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { NotificationService } from "../../../core/services/notification.service";
 import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 import { HttpErrorResponse } from "@angular/common/http";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-registration',
@@ -18,6 +19,7 @@ export class RegistrationComponent implements OnInit {
   form: FormGroup = this.buildForm();
   userReCaptcha: string | undefined = '';
   hide: boolean = true;
+  recaptchaSiteKey: string = environment.recaptchaSiteKey;
 
   constructor(
     private registrationService: RegistrationService,

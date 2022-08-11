@@ -40,7 +40,9 @@
 
     <mat-form-field class="form-field-lg">
       <mat-label>Resumo</mat-label>
-      <textarea matInput placeholder="" formControlName="summary" name="summary"></textarea>
+      <textarea matInput placeholder="Deve ter no mínimo 100 e no máximo 150 caracteres"
+                formControlName="summary" rows="5" name="summary">
+      </textarea>
       <mat-error *ngIf="fieldErrors('summary')?.['required']">Resumo é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['notblank']">Resumo não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['minlength']">Resumo deve ter no mínimo 100 caracteres</mat-error>
@@ -52,7 +54,9 @@
 
     <mat-form-field class="form-field-lg">
       <mat-label>Apresentação</mat-label>
-      <textarea matInput placeholder="" formControlName="presentation" name="presentation"></textarea>
+      <textarea matInput placeholder="Deve ter no mínimo 1000 e no máximo 5000 caracteres"
+                formControlName="presentation" rows="5" name="presentation">
+      </textarea>
       <mat-error *ngIf="fieldErrors('presentation')?.['required']">Apresentação é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('presentation')?.['minlength']">

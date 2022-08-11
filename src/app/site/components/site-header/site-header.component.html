@@ -1,0 +1,18 @@
+<div class="site-content">
+  <header class="site-header">
+    <h4 class="site-header__title" routerLink="/">Eventos IFSP SPO</h4>
+
+    <nav class="site-header__menu" *ngIf="!isLoggedIn">
+      <a class="site-header__link" routerLink="/login">Login</a>
+      <a class="site-header__link site-header__link--active " routerLink="/cadastro">Cadastrar</a>
+    </nav>
+
+    <nav class="site-header__menu" *ngIf="isLoggedIn">
+      <a class="site-header__link" routerLink="/admin" *ngIf="isAdmin">Área administrativa</a>
+      <a class="site-header__link" routerLink="/meus-dados">Meus dados</a>
+      <a class="site-header__link" (click)="logout()">Sair</a>
+    </nav>
+
+  </header>
+</div>
+

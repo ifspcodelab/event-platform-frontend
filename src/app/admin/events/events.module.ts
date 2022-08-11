@@ -14,23 +14,26 @@ import { SharedModule } from "../../shared/shared.module";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 @NgModule({
-  declarations: [
-    EventsComponent,
-    EventListComponent,
-    EventShowComponent,
-    EventFormComponent,
-    SubeventShowComponent,
-    SubeventsFormComponent,
-    EventStatusPipe,
-  ],
-  imports: [
-    CommonModule,
-    EventsRoutingModule,
-    CoreModule,
-    SharedModule,
-  ],
-  providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
-  ],
+    declarations: [
+        EventsComponent,
+        EventListComponent,
+        EventShowComponent,
+        EventFormComponent,
+        SubeventShowComponent,
+        SubeventsFormComponent,
+        EventStatusPipe,
+    ],
+    imports: [
+        CommonModule,
+        EventsRoutingModule,
+        CoreModule,
+        SharedModule,
+    ],
+    providers: [
+        {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+    ],
+    exports: [
+        EventStatusPipe
+    ]
 })
 export class EventsModule { }

@@ -2,8 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { SiteHeaderComponent } from './components/site-header/site-header.component';
+import { SiteFooterComponent } from './components/site-footer/site-footer.component';
+import { SiteCardComponent } from './components/site-card/site-card.component';
+import { EventsModule } from "../admin/events/events.module";
+import { EventHeaderComponent } from './components/event-header/event-header.component';
 import { RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
-import { SharedModule } from "../shared/shared.module";
 import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "./pages/login/login.component";
 import { TermsComponent } from './pages/terms/terms.component';
@@ -16,8 +20,8 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ToastrModule } from "ngx-toastr";
+import { SharedModule } from "../shared/shared.module";
+import { RouterModule } from "@angular/router";
 
 
 
@@ -25,6 +29,10 @@ import { ToastrModule } from "ngx-toastr";
   declarations: [
     HomeComponent,
     RegistrationComponent,
+    SiteHeaderComponent,
+    SiteFooterComponent,
+    SiteCardComponent,
+    EventHeaderComponent,
     ForgotPasswordComponent,
     PasswordResetComponent,
     RegistrationComponent,
@@ -33,8 +41,20 @@ import { ToastrModule } from "ngx-toastr";
     RegistrationVerifyComponent,
     AccountPageComponent,
   ],
+  exports: [
+    SiteHeaderComponent,
+    SiteFooterComponent,
+    SiteCardComponent,
+    EventHeaderComponent,
+    RegistrationComponent,
+    LoginComponent,
+    AccountPageComponent
+  ],
   imports: [
     CommonModule,
+    SharedModule,
+    EventsModule,
+    RouterModule,
     MatToolbarModule,
     FormsModule,
     MatInputModule,
@@ -44,13 +64,8 @@ import { ToastrModule } from "ngx-toastr";
     RecaptchaFormsModule,
     RecaptchaModule,
     SharedModule,
+    RouterModule,
     NgxMaskModule.forRoot(),
-    BrowserAnimationsModule,
-    ToastrModule.forRoot({
-      timeOut: 12000,
-      positionClass: 'toast-bottom-left',
-      countDuplicates: true,
-    }),
   ]
 })
 export class SiteModule { }
