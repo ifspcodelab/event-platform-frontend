@@ -24,7 +24,7 @@ export class OrganizerService {
     return this.httpClient.get<OrganizerDto[]>(`${this.apiUrl}/${eventId}/organizers`, this.httpOptions);
   }
 
-  postOrganizer(eventId: string, organizerCreateDto: OrganizerCreateDto): Observable<OrganizerDto> {
+  postOrganizer(eventId: string, accountId: string, organizerCreateDto: OrganizerCreateDto): Observable<OrganizerDto> {
     return this.httpClient.post<OrganizerDto>(`${this.apiUrl}/${eventId}/organizers`, organizerCreateDto, this.httpOptions);
   }
 

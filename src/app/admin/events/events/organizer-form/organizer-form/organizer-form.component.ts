@@ -1,3 +1,4 @@
+import { AccountDto } from './../../../../../core/models/account.model';
 import { first } from 'rxjs/operators';
 import { EventDto } from './../../../../../core/models/event.model';
 import { OrganizerDto } from './../../../../../core/models/organizer.model';
@@ -21,7 +22,7 @@ export class OrganizerFormComponent implements OnInit {
     private organizerService: OrganizerService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<OrganizerFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { eventDto: EventDto, organizerDto: OrganizerDto },
+    @Inject(MAT_DIALOG_DATA) public data: { eventId: string, accountId: string, organizerDto: OrganizerDto },
   ) {
     this.organizersType = Object.keys(this.organizerType);
   }
@@ -32,6 +33,7 @@ export class OrganizerFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
+      accountId: [''],
       type: [''],
     })
   }
@@ -42,7 +44,7 @@ export class OrganizerFormComponent implements OnInit {
 
   createOrganizer() {
     if(this.form) {
-      this.organizerService.postOrganizer(this.data.eventDto.id, this.form.value)
+      this.organizerService.postOrganizer(this.data.eventId, this.data.accountId, this.form.value)
           .pipe(first())
           .subscribe(organizerDto => {
             this.dialogRef.close(organizerDto);
