@@ -18,8 +18,8 @@ const routes: Routes = [
   { path: 'redefinir-minha-senha/:token', component: PasswordResetComponent },
   { path: 'login', component: LoginComponent },
   { path: 'termos', component: TermsComponent },
-  { path: 'events', loadChildren: () => import('./site/pages/event/event.module').then(m => m.EventModule) },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, AdminGuard] },
+  { path: 'events', loadChildren: () => import('./site/pages/event/event.module').then(m => m.EventModule) },
 ];
 
 @NgModule({

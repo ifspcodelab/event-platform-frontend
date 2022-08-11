@@ -2,7 +2,7 @@ import {AccountRole} from "./account-role.model";
 
 export interface AccessTokenData {
   sub: string,
-  role: AccountRole[],
+  roles: AccountRole[],
   iss: string,
   exp: number,
   iat: number,

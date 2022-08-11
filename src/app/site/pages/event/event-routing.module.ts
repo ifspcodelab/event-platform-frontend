@@ -6,12 +6,13 @@ import { EventSubeventsComponent } from "./event-subevents/event-subevents.compo
 import { SubeventComponent } from "./subevent/subevent.component";
 
 const routes: Routes = [
-  {
-    path: '',
+   {
+    path: ':eventSlug',
     component: EventComponent,
     children: [
-      { path: ':eventSlug', component: EventPresentationComponent },
-      { path: ':eventSlug/subevents', component: EventSubeventsComponent },
+      { path: '', redirectTo: 'presentation', pathMatch: 'full' },
+      { path: 'presentation', component: EventPresentationComponent },
+      { path: 'subevents', component: EventSubeventsComponent },
     ]
   },
   {

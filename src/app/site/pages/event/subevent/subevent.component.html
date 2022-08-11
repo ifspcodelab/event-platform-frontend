@@ -1,5 +1,19 @@
-<h1>Header do subevento</h1>
-<button routerLink="presentation">Apresentação</button>
-<button routerLink="schedule">Subeventos</button>
+<app-site-header></app-site-header>
 
-<router-outlet></router-outlet>
+<app-event-header
+  title="TITULO DO SUBEVENTO"
+  image=""
+  startDate="00/00/0000"
+  endDate="00/00/0000"
+>
+  <button mat-button routerLink="presentation">Apresentação</button>
+  <button mat-button>Programação</button>
+  <button mat-button>Organização</button>
+</app-event-header>
+
+
+<div class="site-content">
+  <router-outlet></router-outlet>
+</div>
+
+<app-site-footer></app-site-footer>

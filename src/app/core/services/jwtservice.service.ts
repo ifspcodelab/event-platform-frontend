@@ -53,9 +53,12 @@ export class JwtService {
   }
 
   getAccessTokenRoles() {
-    const accessTokenData = this.decodeAccessToken(this.getAccessToken()!) as AccessTokenData;
-
-    return accessTokenData.role;
+    const accessToken = this.getAccessToken();
+    if(accessToken) {
+      const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
+      return accessTokenData.roles;
+    }
+    return [];
   }
 
   isAuthenticated() {
