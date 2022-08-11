@@ -19,6 +19,7 @@ export class PasswordResetComponent implements OnInit {
   userRecaptcha: string | undefined;
   token: string | null | undefined;
   form: FormGroup;
+  hide: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -44,14 +45,13 @@ export class PasswordResetComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    if(this.form.invalid || !this.matches() || this.userRecaptcha == ''){
+    if(this.form.invalid || this.userRecaptcha == ''){
       return;
     }
-    //const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
-    const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, "uHUAHUH");
+    const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
     this.service.sendPasswordAndToken(passwordResetDto).subscribe(()=>{
-        alert("Sua senha foi alterada com sucesso");
-        this.router.navigateByUrl("/esqueci-minha-senha");
+        this.toaster.success("Parabéns", "Sua senha foi alterada com sucesso")
+        this.router.navigateByUrl("/login");
         this.form.reset();
         this.submitted = false;
       },
@@ -69,13 +69,9 @@ export class PasswordResetComponent implements OnInit {
         this.toaster.error("Algo de errado com a requisição", "Utilize apenas o link válido");
       }
       if (problem.title == "Invalid recaptcha"){
-        this.toaster.error("Algo de errado com o recapctha", "Tente novamente");
+        this.toaster.error("Algo de errado", "Atualize e tente novamente");
       }
     }
-  }
-
-  matches(){
-    return this.form.value['password'] === this.form.value['confirmPassword'];
   }
 
   field(path: string) {
@@ -89,12 +85,6 @@ export class PasswordResetComponent implements OnInit {
   buildForm(): FormGroup{
     return this.form = this.fb.group({
       password: ["",
-        [ Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(64),
-          AppValidators.validPassword()]],
-
-      confirmPassword: ["",
         [ Validators.required,
           Validators.minLength(8),
           Validators.maxLength(64),
