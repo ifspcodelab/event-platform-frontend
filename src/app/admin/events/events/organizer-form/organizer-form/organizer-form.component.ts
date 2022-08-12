@@ -1,3 +1,4 @@
+import { AppValidators } from 'src/app/core/validators/app-validator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccountDto } from './../../../../../core/models/account.model';
 import { first } from 'rxjs/operators';
@@ -36,8 +37,8 @@ export class OrganizerFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      accountId: [''],
-      type: [''],
+      accountId: ['', [Validators.required, AppValidators.notBlank]],
+      type: ['', [Validators.required]],
     })
   }
 
@@ -53,4 +54,11 @@ export class OrganizerFormComponent implements OnInit {
     }
   }
 
+  field(path: string) {
+    return this.form.get(path)!;
+  }
+
+  fieldErrors(path: string) {
+    return this.field(path).errors;
+  }
 }
