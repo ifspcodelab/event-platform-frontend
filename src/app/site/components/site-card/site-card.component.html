@@ -1,9 +1,9 @@
 <div class="site-card" [routerLink]="url">
-  <img src="{{ image }}">
+  <img class="card-image" src="{{ image }}">
 
   <div class="site-card__content">
     <h3>{{ title }}</h3>
-    <p>{{ startDate }} à {{ endDate }}</p>
+    <p class="site-card__dates">{{ startDate }} à {{ endDate }}</p>
     <p>{{ summary }}</p>
   </div>
 </div>

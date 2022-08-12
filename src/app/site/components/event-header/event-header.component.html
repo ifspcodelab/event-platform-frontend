@@ -1,6 +1,7 @@
-<header class="event-page-header" [ngStyle]="{'background-image': 'url(' + image + ')'}">
+<!--<header class="event-page-header" [ngStyle]="{'background-image': 'url(' + image + ')'}">-->
 
-  <div class="header-background"></div>
+<header class="event-page-header">
+  <img class="event-page-img" src="{{ image }}" >
   <div class="header-content">
     <div class="header-responsive">
       <div class="header-content__event">
@@ -11,7 +12,7 @@
         </p>
       </div>
 
-      <mat-icon (click)="openMenu()">menu</mat-icon>
+<!--      <mat-icon (click)="openMenu()">menu</mat-icon>-->
     </div>
 
 
