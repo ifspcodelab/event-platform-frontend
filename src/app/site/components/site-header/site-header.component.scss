@@ -6,7 +6,7 @@
 
   &__title {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: #5cb874;
     text-transform: uppercase;
@@ -29,17 +29,16 @@
   }
 
   &__link--active {
-    color: #5cb874;
     border-radius: 4px;
     border: 1px solid #5cb874;
+    background-color: #5cb874;
+    color: #FFFFFF;
 
     &:hover {
       background-color: #5cb874;
       color: #FFFFFF;
     }
   }
-
-
 
   @media screen and (max-width: 370px) {
     &__link {

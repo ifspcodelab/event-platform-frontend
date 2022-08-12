@@ -21,6 +21,7 @@ export class EventComponent implements OnInit {
   ngOnInit(): void {
     this.eventSlug = this.route.snapshot.paramMap.get('eventSlug');
     this.fetchEvent();
+
   }
 
   fetchEvent() {
@@ -29,9 +30,12 @@ export class EventComponent implements OnInit {
       .subscribe(
         eventsDto => {
           this.eventDto = eventsDto[0];
-          // document.getElementById("text")
-          //   .innerHTML = this.eventDto.presentation;
+          this.setTitle(this.eventDto.title);
         }
       );
+  }
+
+  setTitle(title: string) {
+    document.title = title;
   }
 }

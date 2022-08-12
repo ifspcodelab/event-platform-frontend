@@ -34,6 +34,7 @@ export class EventSubeventsComponent implements OnInit {
         eventsDto => {
           this.eventDto = eventsDto[0];
           this.fetchSubevents(this.eventDto.id);
+          this.setTitle(`${this.eventDto.title} - Subeventos`);
         }
       );
   }
@@ -45,4 +46,7 @@ export class EventSubeventsComponent implements OnInit {
       });
   }
 
+  setTitle(title: string) {
+    document.title = title;
+  }
 }

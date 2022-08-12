@@ -17,7 +17,6 @@ export class SubeventPresentationComponent implements OnInit {
   subeventSlug: string;
   eventSlug: string;
 
-
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
@@ -37,6 +36,7 @@ export class SubeventPresentationComponent implements OnInit {
         eventsDto => {
           this.eventDto = eventsDto[0];
           this.fetchSubevent();
+          this.setTitle(`${this.subeventDto.title} - ${this.eventDto.title}`);
         }
       );
   }
@@ -49,5 +49,9 @@ export class SubeventPresentationComponent implements OnInit {
           this.subeventDto = subeventDto[0];
         }
       )
+  }
+
+  setTitle(title: string) {
+    document.title = title;
   }
 }

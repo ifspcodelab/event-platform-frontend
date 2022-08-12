@@ -46,7 +46,12 @@ export class SubeventComponent implements OnInit {
       .subscribe(
         subeventDto => {
           this.subeventDto = subeventDto[0];
+          this.setTitle(`${this.subeventDto.title} - ${this.eventDto.title}`);
         }
       )
+  }
+
+  setTitle(title: string) {
+    document.title = title;
   }
 }

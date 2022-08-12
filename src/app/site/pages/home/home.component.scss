@@ -1,5 +1,5 @@
 .home-page-header-content {
-  padding: 0 20px;
+  padding: 15px 20px;
   background-color: #195128;
   background-image: url("/assets/img/header-background.jpg");
   background-position: center;
@@ -13,6 +13,7 @@
   padding: 60px 5px;
   color: #FFFFFF;
 
+
   @media screen and (max-width: 523px) {
     padding: 10px 20px 10px 20px;
 
@@ -22,15 +23,17 @@
   }
 
   &__title {
-    font-size: 2.1rem;
+    font-size: 2.2rem;
     font-weight: 500;
     margin-bottom: 5px;
+    text-transform: uppercase;
   }
 
   &__subtitle {
     font-size: 1.2rem;
     font-weight: 300;
     margin: 0px;
+    color: #b5e7c8;
   }
 
   &__description {
