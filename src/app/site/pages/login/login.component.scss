@@ -2,17 +2,6 @@
   width: 100%;
 }
 
-mat-form-field {
-  padding: 5px 0 5px 0;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  vertical-align: center;
-  align-items: center;
-}
-
 re-captcha {
   align-items: center;
   display: flex;
@@ -22,8 +11,12 @@ re-captcha {
 }
 
 .button {
-  margin: 15px 0;
-  color: white;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
   border: none;
-  width: 90%;
+  width: 100%;
+}
+
+.button-white {
+  color: #FFFFFF;
 }
