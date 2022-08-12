@@ -25,21 +25,17 @@ export class LoginComponent implements OnInit {
   errorMessage: string | null = null;
   userRecaptcha: string = '';
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
+  requestLoading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private jwtService: JwtService,
     private router: Router,
-    private renderer: Renderer2
   ) { }
 
   ngOnInit(): void {
-    let script = this.renderer.createElement('script');
-    script.defer = true;
-    script.async = true;
-    script.src="https://www.google.com/recaptcha/api.js";
-    this.renderer.appendChild(document.body, script);
+
   }
 
   private buildForm() {
@@ -71,6 +67,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(loginCreateDto: LoginCreateDto) {
+    this.requestLoading = true;
     this.authenticationService.postLogin(loginCreateDto)
       .pipe(first())
       .subscribe(
@@ -91,6 +88,7 @@ export class LoginComponent implements OnInit {
             if (error instanceof HttpErrorResponse) {
               this.errorMessage = this.mapAuthenticationErrorType.get(error.error.title)!;
             }
+            this.requestLoading = false;
           }
         }
       );

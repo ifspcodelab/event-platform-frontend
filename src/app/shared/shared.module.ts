@@ -19,6 +19,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from "@angular/material/card";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import { MatCardModule } from "@angular/material/card";
     MatCheckboxModule,
     MatMenuModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatToolbarModule,
@@ -65,6 +68,7 @@ import { MatCardModule } from "@angular/material/card";
     MatCheckboxModule,
     MatMenuModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class SharedModule { }

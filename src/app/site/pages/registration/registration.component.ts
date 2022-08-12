@@ -20,6 +20,7 @@ export class RegistrationComponent implements OnInit {
   userReCaptcha: string | undefined = '';
   hide: boolean = true;
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
+  requestLoading: boolean = false;
 
   constructor(
     private registrationService: RegistrationService,
@@ -30,11 +31,7 @@ export class RegistrationComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let script = this.renderer.createElement('script');
-    script.defer = true;
-    script.async = true;
-    script.src = "https://www.google.com/recaptcha/api.js\n";
-    this.renderer.appendChild(document.body, script);
+
   }
 
   buildForm(): FormGroup {
@@ -78,6 +75,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   createAccount(): void {
+    this.requestLoading = true;
+
     const accountCreateDto =
       new AccountCreateDto(
         this.form.value['name'],
@@ -99,6 +98,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   handleError(error: any): void {
+    this.requestLoading = false;
     if(error instanceof HttpErrorResponse) {
       if(error.status === 400) {
         const violations: Violation[] = error.error;

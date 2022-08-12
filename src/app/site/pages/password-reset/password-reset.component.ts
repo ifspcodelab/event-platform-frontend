@@ -22,6 +22,7 @@ export class PasswordResetComponent implements OnInit {
   form: FormGroup;
   hide: boolean = true;
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
+  requestLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -37,12 +38,6 @@ export class PasswordResetComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = this.route.snapshot.paramMap.get('token');
-
-    let script = this.renderer.createElement('script');
-    script.defer = true;
-    script.async = true;
-    script.src="https://www.google.com/recaptcha/api.js";
-    this.renderer.appendChild(document.body, script);
   }
 
   onSubmit() {
@@ -51,16 +46,21 @@ export class PasswordResetComponent implements OnInit {
       return;
     }
     const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
+
+    this.requestLoading = true;
+
     this.service.sendPasswordAndToken(passwordResetDto).subscribe(()=>{
         this.notificationService.success("Parabéns. Sua senha foi alterada com sucesso")
         this.router.navigateByUrl("/login");
         this.form.reset();
         this.submitted = false;
+        this.requestLoading = false;
       },
       error => {
         this.handleError(error);
         this.form.reset();
         this.submitted = false;
+        this.requestLoading = false;
       });
   }
 

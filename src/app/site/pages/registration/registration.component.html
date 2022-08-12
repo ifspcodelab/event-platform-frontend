@@ -89,7 +89,8 @@
     <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
 
     <mat-card-actions>
-      <button class="button button-white" mat-raised-button form="registration-form" color="primary">Cadastrar</button>
+      <button class="button button-white" mat-raised-button form="registration-form" color="primary" [disabled]="requestLoading">Cadastrar</button>
+      <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
     </mat-card-actions>
   </form>
 </app-account-page>
