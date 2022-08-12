@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { EventsRoutingModule } from './events-routing.module';
 import { EventsComponent } from './events.component';
 import { EventListComponent } from './events/event-list/event-list.component';
@@ -32,7 +31,7 @@ import { ActivitySpeakersComponent } from './activities/activity-speakers/activi
     SessionShowComponent,
     SessionFormComponent,
     ActivityListComponent,
-    ActivitySpeakersComponent
+    ActivitySpeakersComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +40,7 @@ import { ActivitySpeakersComponent } from './activities/activity-speakers/activi
     SharedModule
   ],
   providers: [
-    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   ],
 })
 export class EventsModule { }

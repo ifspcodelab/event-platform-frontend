@@ -7,16 +7,55 @@ import { PasswordResetComponent } from "./site/pages/password-reset/password-res
 import { LoginComponent } from "./site/pages/login/login.component";
 import { TermsComponent } from "./site/pages/terms/terms.component";
 import { RegistrationVerifyComponent } from "./site/pages/registration-verify/registration-verify.component";
+import { AuthGuard } from "./core/security/auth.guard";
+import { AdminGuard } from "./core/security/admin.guard";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'cadastro', component: RegistrationComponent },
-  { path: 'esqueci-minha-senha', component: ForgotPasswordComponent },
-  { path: 'redefinir-minha-senha/:token', component: PasswordResetComponent },
-  { path: 'cadastro/verificacao/:token', component: RegistrationVerifyComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'termos', component: TermsComponent },
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  {
+    path: '',
+    component: HomeComponent,
+    title: 'Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'cadastro',
+    component: RegistrationComponent ,
+    title: 'Cadastro - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'cadastro/verificacao/:token',
+    component: RegistrationVerifyComponent,
+    title: 'Verificação cadastro - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'esqueci-minha-senha',
+    component: ForgotPasswordComponent,
+    title: 'Esqueci minha senha - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'redefinir-minha-senha/:token',
+    component: PasswordResetComponent,
+    title: 'Redefinir senha - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    title: 'Login - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'termos',
+    component: TermsComponent,
+    title: 'Termos de Uso - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, AdminGuard],
+    title: 'Área Administrativa',
+  },
+  {
+    path: '',
+    loadChildren: () => import('./site/pages/event/event.module').then(m => m.EventModule),
+    title: 'Eventos',
+  },
 ];
 
 @NgModule({

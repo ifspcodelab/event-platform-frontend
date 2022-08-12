@@ -1,8 +1,16 @@
-<header>
-  <h1>{{ title }}</h1>
-  <p class="first-paragraph">{{ description }}</p>
-  <p class="second-paragraph">{{ secondDescription }}</p>
-</header>
-<main>
-  <ng-content></ng-content>
-</main>
+<div class="account-page-content">
+  <div class="account-main-content">
+    <header>
+      <a routerLink="/" class="account-main-title">
+        <h2>Eventos IFSP SPO</h2>
+      </a>
+    </header>
+    <main>
+      <mat-card class="account-card-content">
+        <mat-card-title class="account-card-content-title">{{ pageTitle }}</mat-card-title>
+        <mat-card-subtitle class="account-card-content-subtitle">{{ description }}</mat-card-subtitle>
+        <ng-content></ng-content>
+      </mat-card>
+    </main>
+  </div>
+</div>

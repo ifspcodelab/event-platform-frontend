@@ -1,9 +1,13 @@
-import {Component, EventEmitter, OnInit, Output, Renderer2} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PasswordResetService} from "../../../core/services/password-reset.service";
-import {PasswordResetDto} from "../../../core/models/password-reset-dto";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AppValidators} from "../../../core/validators/app-validators";
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { PasswordResetService } from "../../../core/services/password-reset.service";
+import { PasswordResetDto } from "../../../core/models/password-reset-dto";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AppValidators } from "../../../core/validators/app-validators";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ProblemDetail } from "../../../core/models/problem-detail";
+import { environment } from "../../../../environments/environment";
+import { NotificationService } from "../../../core/services/notification.service";
 
 
 @Component({
@@ -16,6 +20,9 @@ export class PasswordResetComponent implements OnInit {
   userRecaptcha: string | undefined;
   token: string | null | undefined;
   form: FormGroup;
+  hide: boolean = true;
+  recaptchaSiteKey: string = environment.recaptchaSiteKey;
+  requestLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +30,7 @@ export class PasswordResetComponent implements OnInit {
     private route: ActivatedRoute,
     private renderer: Renderer2,
     private router: Router,
+    private notificationService: NotificationService,
   ) {
     this.form = this.buildForm();
     this.userRecaptcha = '';
@@ -30,35 +38,42 @@ export class PasswordResetComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = this.route.snapshot.paramMap.get('token');
-
-    let script = this.renderer.createElement('script');
-    script.defer = true;
-    script.async = true;
-    script.src="https://www.google.com/recaptcha/api.js";
-    this.renderer.appendChild(document.body, script);
   }
 
   onSubmit() {
     this.submitted = true;
-    if(this.form.invalid || !this.matches() || this.userRecaptcha == ''){
+    if(this.form.invalid || this.userRecaptcha == ''){
       return;
     }
     const passwordResetDto = new PasswordResetDto(this.form.value['password'], this.token!, this.userRecaptcha!);
+
+    this.requestLoading = true;
+
     this.service.sendPasswordAndToken(passwordResetDto).subscribe(()=>{
-      alert("Sua senha foi alterada com sucesso");
-        this.router.navigateByUrl("/esqueci-minha-senha");
+        this.notificationService.success("Parabéns. Sua senha foi alterada com sucesso")
+        this.router.navigateByUrl("/login");
         this.form.reset();
         this.submitted = false;
+        this.requestLoading = false;
       },
-      () => {
-        alert("Requisição inválida");
+      error => {
+        this.handleError(error);
         this.form.reset();
         this.submitted = false;
+        this.requestLoading = false;
       });
   }
 
-  matches(){
-    return this.form.value['password'] === this.form.value['confirmPassword'];
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      const problem: ProblemDetail = error.error;
+      if (problem.title == "Token not valid"){
+        this.notificationService.error("Algo de errado com a requisição. Utilize apenas o link válido");
+      }
+      if (problem.title == "Invalid recaptcha"){
+        this.notificationService.error("Recaptcha inválido. Atualize e tente novamente");
+      }
+    }
   }
 
   field(path: string) {
@@ -72,9 +87,10 @@ export class PasswordResetComponent implements OnInit {
   buildForm(): FormGroup{
     return this.form = this.fb.group({
       password: ["",
-        [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]],
-      confirmPassword: ["",
-        [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]]
+        [ Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(64),
+          AppValidators.validPassword()]]
     });
   }
 

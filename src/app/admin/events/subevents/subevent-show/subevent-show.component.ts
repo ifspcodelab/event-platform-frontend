@@ -14,7 +14,7 @@ import { CancelDialogComponent } from "../../../../core/components/cancel-dialog
 import { LoaderService } from "../../../loader.service";
 
 @Component({
-  selector: 'app-subevent-show',
+  selector: 'app-subevent-presentation-show',
   templateUrl: './subevent-show.component.html',
   styleUrls: ['./subevent-show.component.scss']
 })

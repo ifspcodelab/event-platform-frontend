@@ -1,0 +1,45 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5px;
+
+  &__title {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #36a539;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__link {
+    display: block;
+    font-size: 0.8rem;
+    color: #147348;
+    padding: 3px 15px;
+    margin-left: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  &__link--active {
+    border: 1px solid #36a539;
+    background-color: #36a539;
+    color: #FFFFFF;
+  }
+
+  @media screen and (max-width: 370px) {
+    &__link {
+    }
+
+    &__title {
+    }
+  }
+}

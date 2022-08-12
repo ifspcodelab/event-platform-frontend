@@ -1,1 +1,43 @@
-<p>login works!</p>
+<app-account-page pageTitle="Login" description="Realize o login para ter acesso a seus eventos e inscrições.">
+  <form class="login-form" id="login-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" name="email">
+      <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+        <mat-error class="error-message" *ngIf="email.errors?.['required']">
+          Campo email é obrigatório
+        </mat-error>
+        <mat-error *ngIf="email.errors?.['email']">
+          Campo email deve ser válido
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Senha</mat-label>
+      <input matInput formControlName="password" name="password" type="password">
+      <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+        <mat-error *ngIf="password.errors?.['required']">
+          Campo senha é obrigatório
+        </mat-error>
+        <mat-error *ngIf="password.errors?.['minlength']">
+          Campo senha deve ter no mínimo 8 caracteres
+        </mat-error>
+        <mat-error *ngIf="password.errors?.['maxlength']">
+          Campo senha deve ter no máximo 64 caracteres
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-error *ngIf="errorMessage">{{ errorMessage }}</mat-error>
+
+    <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
+
+    <mat-card-actions>
+      <button class="button button-white" mat-raised-button color="primary" type="submit" style="color: #FFFFFF" [disabled]="requestLoading">Entrar</button>
+      <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+      <button class="button" mat-button color="" type="submit" routerLink="/esqueci-minha-senha">Esqueci minha senha</button>
+      <button class="button" mat-button color="" type="submit" routerLink="/cadastro">Não tem uma conta? Cadastre-se</button>
+    </mat-card-actions>
+  </form>
+</app-account-page>
