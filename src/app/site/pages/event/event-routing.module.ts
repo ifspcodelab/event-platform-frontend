@@ -7,7 +7,7 @@ import { SubeventComponent } from "./subevent/subevent.component";
 import { SubeventPresentationComponent } from "./subevent-presentation/subevent-presentation.component";
 
 const routes: Routes = [
-   {
+  {
     path: ':eventSlug',
     component: EventComponent,
     children: [

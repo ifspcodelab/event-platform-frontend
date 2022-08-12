@@ -15,6 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
   &__title {
     text-align: center;
+    text-align: center;
     margin-bottom: 0 !important;
   }
 
@@ -62,6 +63,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     b {
       font-weight: 500;
+    }
+  }
+
+  &__image {
+    display: inline-block;
+
+    img {
+      width: 60%;
     }
   }
 

@@ -13,6 +13,7 @@
 
   &__title {
     font-size: 2rem;
+    margin-bottom: 5px;
 
     @media screen and (max-width: 600px) {
       font-size: 1.4rem;
@@ -20,7 +21,7 @@
   }
 
   &__dates {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #195128;
 
     @media screen and (max-width: 600px) {

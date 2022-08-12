@@ -13,7 +13,7 @@
 </div>
 
 <main class="home-page-container">
-  <section class="home-page-container__section">
+  <section class="home-page-container__section" *ngIf="eventsRegistrationDto.length">
     <h2>Inscrições abertas</h2>
     <app-site-card
       *ngFor="let eventRegistrationDto of eventsRegistrationDto"
@@ -26,7 +26,7 @@
     ></app-site-card>
   </section>
 
-  <section class="home-page-container__section">
+  <section class="home-page-container__section" *ngIf="eventsExecutionDto.length">
     <h2>Em andamento</h2>
     <app-site-card
       *ngFor="let eventExecutionDto of eventsExecutionDto"
@@ -40,6 +40,19 @@
   </section>
 
   <section class="home-page-container__section">
+    <h2>Próximos eventos</h2>
+    <app-site-card
+      *ngFor="let eventRegistrationDto of futureEvents"
+      [image]="eventRegistrationDto.smallerImage"
+      [title]="eventRegistrationDto.title"
+      [startDate]="eventRegistrationDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="eventRegistrationDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+      [summary]="eventRegistrationDto.summary"
+      [url]="''+ eventRegistrationDto.slug"
+    ></app-site-card>
+  </section>
+
+  <section class="home-page-container__section" *ngIf="eventsFinishDto.length">
     <h2>Finalizados</h2>
     <app-site-card
       *ngFor="let eventFinishDto of eventsFinishDto"

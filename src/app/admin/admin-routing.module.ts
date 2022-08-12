@@ -8,6 +8,11 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'events',
+        pathMatch: 'full'
+      },
+      {
         path: 'locations',
         loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule),
         title: 'Locais - Área Administrativa'
