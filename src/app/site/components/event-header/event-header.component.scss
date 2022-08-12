@@ -2,7 +2,7 @@
   border-radius: 10px;
   width: 85%;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 750px) {
     width: 100%;
     border-radius: 0px;
   }
@@ -15,8 +15,9 @@
     font-size: 2rem;
     margin-bottom: 5px;
 
-    @media screen and (max-width: 600px) {
-      font-size: 1.4rem;
+    @media screen and (max-width: 750px) {
+      font-size: 1.5rem;
+      margin-bottom: 2px;
     }
   }
 
@@ -24,9 +25,13 @@
     font-size: 1rem;
     color: #195128;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 750px) {
       font-size: 0.9rem;
     }
+  }
+
+  &__event {
+
   }
 
 }
@@ -37,7 +42,7 @@
   text-align: center;
   margin-top: 10px;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 750px) {
     margin: 0;
   }
 
