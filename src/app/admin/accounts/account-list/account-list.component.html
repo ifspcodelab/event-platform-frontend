@@ -1,6 +1,31 @@
 <app-admin-header title="Usuários">
-  <button mat-button color="primary" routerLink="/admin/accounts/search">Pesquisar</button>
+
+  <form id="account-search-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+
+    <p>Buscar por</p>
+    <mat-select formControlName="searchType" placeholder="Buscar por ">
+      <mat-option *ngFor="let type of searchTypes" [value]="type">
+        {{type.show}}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="fieldErrors('searchType')?.['required']">
+      Tipo é obrigatório
+    </mat-error>
+
+    <mat-form-field>
+      <input type="search" formControlName="query" matInput placeholder="Pesquisar">
+    </mat-form-field>
+
+    <mat-card-actions>
+      <button class="button button-white" mat-raised-button form="account-search-form" color="primary" [disabled]="requestLoading">
+        <span>Enviar</span>
+      </button>
+      <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+    </mat-card-actions>
+  </form>
+
 </app-admin-header>
+
 
 <article class="container" *ngIf="usersDto.length" >
   <table class="container__table" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">

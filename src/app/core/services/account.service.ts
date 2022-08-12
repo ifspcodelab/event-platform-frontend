@@ -20,12 +20,21 @@ export class AccountService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUsers(): Observable<PageDto<UsersDto>> {
+  getAccounts(): Observable<PageDto<UsersDto>> {
     return this.httpClient.get<PageDto<UsersDto>>(this.apiUrl, this.httpOptions);
   }
 
-  getAccountsByName(query: string): Observable<PageDto<UsersDto>> {
-    let queryUrl = this.apiUrl + "?name=" + query;
+  getAccountsByQuery(query: string, type: string): Observable<PageDto<UsersDto>> {
+    let queryUrl = '';
+    if(type == 'name'){
+      queryUrl = this.apiUrl + "?name=" + query;
+    }
+    if(type == 'cpf'){
+      queryUrl = this.apiUrl + "?cpf=" + query;
+    }
+    if(type == 'email'){
+      queryUrl = this.apiUrl + "?email=" + query;
+    }
     return this.httpClient.get<PageDto<UsersDto>>(queryUrl, this.httpOptions);
   }
 }
