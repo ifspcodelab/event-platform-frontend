@@ -1,3 +1,5 @@
+import { Violation } from './../../../../../core/models/problem-detail';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AccountDto } from './../../../../../core/models/account.model';
@@ -50,7 +52,29 @@ export class OrganizerFormComponent implements OnInit {
     if(this.form) {
       this.organizerService.postOrganizer(this.data.eventId, this.data.accountId, this.form.value)
           .pipe(first())
-          .subscribe(organizerDto => this.dialogRef.close(organizerDto));
+          .subscribe({
+            next: organizerDto => this.dialogRef.close(organizerDto),
+            error: error => this.handleError(error)
+          });
+    }
+  }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 400) {
+        const violations: Violation[] = error.error;
+        violations.forEach(violation => {
+          const formControl = this.form.get(violation.name);
+          if(formControl) {
+            formControl.setErrors({ serverError: violation.message });
+          }
+        })
+      }
+
+      if(error.status === 409) {
+        const nameField = this.field('name');
+        nameField.setErrors({ serverError: `Organizador já existente com nome ${nameField.value}` })
+      }
     }
   }
 
