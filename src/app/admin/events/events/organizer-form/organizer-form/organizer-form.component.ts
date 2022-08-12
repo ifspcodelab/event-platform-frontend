@@ -1,3 +1,4 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { AccountDto } from './../../../../../core/models/account.model';
 import { first } from 'rxjs/operators';
 import { EventDto } from './../../../../../core/models/event.model';
@@ -17,6 +18,8 @@ export class OrganizerFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
   organizersType: any = [];
   organizerType = OrganizerType;
+  organizersDto: OrganizerDto;
+  dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
 
   constructor(
     private organizerService: OrganizerService,
@@ -46,9 +49,7 @@ export class OrganizerFormComponent implements OnInit {
     if(this.form) {
       this.organizerService.postOrganizer(this.data.eventId, this.data.accountId, this.form.value)
           .pipe(first())
-          .subscribe(organizerDto => {
-            this.dialogRef.close(organizerDto);
-          });
+          .subscribe(organizerDto => this.dialogRef.close(organizerDto));
     }
   }
 

@@ -200,11 +200,15 @@ export class EventShowComponent implements OnInit {
   }
 
   openOrganizerFormDialog() {
-    const dialogRef = this.dialog.open(OrganizerFormComponent, this.getDialogConfig());
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    })
+    this.dialog.open(OrganizerFormComponent, this.getDialogConfig())
+        .afterClosed()
+        .subscribe(organizerDto => {
+          if(organizerDto) {
+            this.organizersDto = [...this.organizersDto, organizerDto];
+            this.notificationService.success("Organizador cadastrado com sucesso");
+            this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
+          }
+        })
   }
 
   private getConfirmationDialogConfigOrganizer(organizerDto: OrganizerDto) {
