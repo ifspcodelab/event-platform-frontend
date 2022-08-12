@@ -181,34 +181,35 @@ export class SubeventShowComponent implements OnInit {
       });
   }
 
-  private getConfirmationDialogConfigOrganizerSubevent() {
+  private getConfirmationDialogConfigOrganizerSubevent(organizerSubeventDto: OrganizerSubeventDto) {
     return {
        autoFocus: true,
     data: {
         name: "Remover organizador",
-        text: `O organizador ${this.organizerSubeventDto.account.name} será excluido de forma definitiva.`,
+        text: `O organizador ${organizerSubeventDto.account.name} será excluido de forma definitiva.`,
         cancelText: "Cancelar",
         okText: "Remover"
       }
     }
   }
 
-  openDeleteConfirmationDialogOrganizerSubevent() {
-    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizerSubevent()).afterClosed()
-      .subscribe( result => {
+  openDeleteConfirmationDialogOrganizerSubevent(organizerSubeventDto: OrganizerSubeventDto) {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizerSubevent(organizerSubeventDto))
+      .afterClosed()
+      .subscribe(result => {
         if (result) {
-          this.deleteOrganizerSubevent();
+          this.deleteOrganizerSubevent(organizerSubeventDto.id);
         }
       });
   }
 
-  deleteOrganizerSubevent() {
-    this.organizerSubeventService.deleteOrganizerSubevent(this.eventId, this.subeventId, this.organizerSubeventId)
+  deleteOrganizerSubevent(organizerSubeventId: string) {
+    this.organizerSubeventService.deleteOrganizerSubevent(this.eventId, this.subeventId, organizerSubeventId)
       .pipe(first())
       .subscribe({
          next: () => {
            this.notificationService.success("Excluido com sucesso");
-           this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'organizers'])
+           this.organizersSubeventDto = this.organizersSubeventDto.filter(o => o.id != organizerSubeventId);
         },
         error: error => this.handleError(error)
       });
