@@ -1,0 +1,22 @@
+<h1 class="modal__title" mat-dialog-title>Cadastrar Organizador</h1>
+
+<div mat-dialog-content>
+  <form class="modal" id="organizer-subevent-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="modal__input">
+      <mat-label>Account Id</mat-label>
+      <input appearance="fill" matInput placeholder="" formControlName="accountId" name="accountId">
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="modal__input">
+      <mat-label>Papel</mat-label>
+      <mat-select formControlName="organizerSubeventType">
+        <mat-option *ngFor="let name of organizersSubeventType" [value]="name">{{ organizerSubeventType[name] }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions class="modal__buttons">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button type="submit" form="organizer-subevent-form" mat-button color="primary">Salvar</button>
+</div>

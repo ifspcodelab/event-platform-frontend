@@ -12,6 +12,7 @@ import { CancelDialogComponent } from "../../../../core/components/cancel-dialog
 import { LoaderService } from "../../../loader.service";
 import { OrganizerSubeventDto } from 'src/app/core/models/organizer-subevent.model';
 import { OrganizerSubeventService } from 'src/app/core/services/organizer-subevent.service';
+import { OrganizerSubeventFormComponent } from '../organizer-subevent-form/organizer-subevent-form.component';
 
 @Component({
   selector: 'app-subevent-show',
@@ -123,6 +124,28 @@ export class SubeventShowComponent implements OnInit {
         },
         error: error => this.handleError(error)
       });
+  }
+
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        eventId: this.eventId,
+        subeventId: this.subeventId,
+        organizerSubeventDto: this.organizerSubeventDto
+      }
+    };
+  }
+
+  openAddOrganizerSubeventFormDialog() {
+    const dialogRef = this.dialog.open(OrganizerSubeventFormComponent, this.getDialogConfig());
+    dialogRef.afterClosed().subscribe(
+      organizerSubeventDto => {
+        if (organizerSubeventDto) {
+          this.organizersSubeventDto = [...this.organizersSubeventDto, organizerSubeventDto];
+          this.notificationService.success("Cadastrado com sucesso");
+        }
+    })
   }
 
   private getConfirmationDialogConfig() {
