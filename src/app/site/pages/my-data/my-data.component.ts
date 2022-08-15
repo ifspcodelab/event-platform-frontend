@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { JwtService } from "../../../core/services/jwtservice.service";
-import { AccessTokenData } from "../../../core/models/access-token-data.model";
 import { MyDataService } from "../../../core/services/my-data.service";
+import { AccountDto } from "../../../core/models/account.model";
+import { first } from "rxjs";
 
 @Component({
   selector: 'app-my-data',
@@ -10,14 +11,7 @@ import { MyDataService } from "../../../core/services/my-data.service";
   styleUrls: ['./my-data.component.scss']
 })
 export class MyDataComponent implements OnInit {
-  currentUser: { name: string; cpf: string; email: string } = {name: "Marcelo da Silva", email: "marcelo01@email.com", cpf: "123441251"};
-  accessToken: string = this.jwtService.getAccessToken();
-  accessTokenData: AccessTokenData = this.jwtService.decodeAccessToken(this.accessToken) as AccessTokenData;
-  // console.log(accessTokenData: any);
-  // email: string = this.accessTokenData.email;
-  // cpf: string = this.accessTokenData.cpf;
-  // account = this.myDataService.getAccount(this.accessTokenData.id);
-  // currentUser: { name: string; cpf: string; email: string } = {name: "Marcelo da Silva", cpf: this.cpf,email: this.email};
+  accountDto: AccountDto;
 
   constructor(
     private router: Router,
@@ -26,12 +20,20 @@ export class MyDataComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.accessToken);
-    console.log(this.accessTokenData);
-    // console.log(this.accessTokenData.keys);
+    this.fetchAccount()
   }
 
   editMyData() {
     this.router.navigate(['meus-dados', 'edicao']);
+  }
+
+  fetchAccount() {
+    this.myDataService.getAccount()
+      .pipe(first())
+      .subscribe(
+      accountDto => {
+        this.accountDto = accountDto
+      }
+    );
   }
 }

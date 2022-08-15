@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { environment } from "../../../environments/environment";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { AccountDto, AccountTokenDto } from "../models/account.model";
+import { BaseService } from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class MyDataService {
+export class MyDataService extends BaseService{
   apiUrl = `${environment.apiUrl}/accounts`;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
-  constructor(private httpClient: HttpClient) { }
+  getAccount(): Observable<AccountDto> {
+    const url = `${this.apiUrl}/my-data`;
+    return this.httpClient.get<AccountDto>(url, this.httpOptions);
+  }
 
   patchAccount(accountTokenDto: AccountTokenDto): Observable<AccountDto> {
-    return this.httpClient.patch<AccountDto>(`${this.apiUrl}/my-data`, accountTokenDto, this.httpOptions);
+    const url = `${this.apiUrl}/my-data`;
+    return this.httpClient.patch<AccountDto>(url, accountTokenDto, this.httpOptions);
   }
 }

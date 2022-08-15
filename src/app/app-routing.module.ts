@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './site/pages/home/home.component';
 import { RegistrationComponent } from './site/pages/registration/registration.component';
-import { ForgotPasswordComponent} from "./site/pages/forgot-password/forgot-password.component";
+import { ForgotPasswordComponent } from "./site/pages/forgot-password/forgot-password.component";
 import { PasswordResetComponent } from "./site/pages/password-reset/password-reset.component";
 import { LoginComponent } from "./site/pages/login/login.component";
 import { TermsComponent } from "./site/pages/terms/terms.component";
@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'cadastro',
-    component: RegistrationComponent ,
+    component: RegistrationComponent,
     title: 'Cadastro - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
@@ -49,6 +49,16 @@ const routes: Routes = [
     title: 'Termos de Uso - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
+    path: 'meus-dados',
+    component: MyDataComponent,
+    title: 'Meus Dados - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'meus-dados/edicao',
+    component: MyDataEditComponent,
+    title: 'Edição Meus Dados - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, AdminGuard],
     title: 'Área Administrativa',
@@ -58,20 +68,10 @@ const routes: Routes = [
     loadChildren: () => import('./site/pages/event/event.module').then(m => m.EventModule),
     title: 'Eventos',
   },
-  { path: '', component: HomeComponent },
-  { path: 'cadastro', component: RegistrationComponent },
-  { path: 'esqueci-minha-senha', component: ForgotPasswordComponent },
-  { path: 'redefinir-minha-senha/:token', component: PasswordResetComponent },
-  { path: 'cadastro/verificacao/:token', component: RegistrationVerifyComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'termos', component: TermsComponent },
-  { path: 'meus-dados', component: MyDataComponent},
-  { path: 'meus-dados/edicao', component: MyDataEditComponent},
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

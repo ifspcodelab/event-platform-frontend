@@ -1,24 +1,21 @@
 <app-account-page
   title="Meus dados">
 
-
   <table>
     <tr>
       <td>Nome</td>
-      <td>{{currentUser.name}}</td>
+      <td [innerHTML]="accountDto.name"></td>
     </tr>
     <tr>
       <td>E-mail</td>
-      <td>{{currentUser.email}}</td>
+      <td [innerHTML]="accountDto.email"></td>
     </tr>
     <tr>
       <td>CPF</td>
-      <td>{{currentUser.cpf}}</td>
+      <td [innerHTML]="accountDto.cpf"></td>
     </tr>
   </table>
 
   <button class="edit full-width" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
-
-
 
 </app-account-page>
