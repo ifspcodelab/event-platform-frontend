@@ -8,7 +8,7 @@ export interface LoaderState {
 @Injectable({
   providedIn: 'root'
 })
-export class LoaderService {
+export class  LoaderService {
   loaderSubject = new Subject<LoaderState>();
   loaderState: Observable<LoaderState>;
 

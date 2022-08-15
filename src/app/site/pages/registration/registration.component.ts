@@ -132,5 +132,13 @@ export class RegistrationComponent implements OnInit {
   resolved(captchaResponse: string): void {
     this.userReCaptcha = captchaResponse;
   }
+
+  goToLogin() {
+    return this.router.navigate(['login']);
+  }
+
+  goToTerms() {
+    this.router.navigate(['terms']);
+  }
 }
 

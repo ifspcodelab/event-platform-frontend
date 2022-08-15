@@ -3,6 +3,7 @@
   description="Para ter acesso aos eventos e certificado você precisa realizar o cadastro."
   secondDescription="Caso já tenha um cadastro realize o login"
 >
+  <a href="/login" ref="noreferer noopener">Ir para login</a>
   <form id="registration-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nome Completo</mat-label>
@@ -78,7 +79,8 @@
       <mat-hint align="start">A senha deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
     </mat-form-field>
 
-    <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de uso</p>
+    <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de Uso</p>
+    <a href="/termos" ref="noreferrer noopener">Ir para os Termos de Uso</a>
 
     <div class="checkbox-container">
       <mat-checkbox name="agreed" id="agreed" value="true" formControlName="agreed"></mat-checkbox>

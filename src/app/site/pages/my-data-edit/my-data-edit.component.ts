@@ -1,8 +1,13 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AppValidators } from "../../../core/validators/app-validator";
-import { AccountCreateDto } from "../../../core/models/account.model";
+import { AccountDto, AccountTokenDto } from "../../../core/models/account.model";
 import { first } from "rxjs";
+import { MyDataService } from "../../../core/services/my-data.service";
+import { NotificationService } from "../../../core/services/notification.service";
+import { Router } from "@angular/router";
+import { JwtService } from "../../../core/services/jwtservice.service";
+import { AccessTokenData } from "../../../core/models/access-token-data.model";
 
 @Component({
   selector: 'app-my-data-edit',
@@ -12,10 +17,16 @@ import { first } from "rxjs";
 export class MyDataEditComponent implements OnInit {
   form: FormGroup = this.buildForm();
   userReCaptcha: string | undefined = '';
+  accessToken: string = this.jwtService.getAccessToken();
+  // accessTokenData: AccessTokenData = this.jwtService.decodeAccessToken(this.accessToken);
 
   constructor(
     private formBuilder: FormBuilder,
     private renderer: Renderer2,
+    private myDataService: MyDataService,
+    private notificationService: NotificationService,
+    private router: Router,
+    private jwtService: JwtService,
   ) { }
 
   ngOnInit(): void {
@@ -54,11 +65,32 @@ export class MyDataEditComponent implements OnInit {
     if (this.form.invalid || this.userReCaptcha == '') {
       return;
     }
-    this.updateAccount();
+    // this.updateAccount();
   }
 
-  private updateAccount() {
-    // TODO: precisa pegar o que tem no token de acesso e mandar a requisicao patch para
-    // TODO: o backend fazer o update do account
+  // private updateAccount() {
+  //   const accountTokenDto =
+  //     new AccountTokenDto(
+  //       this.form.value['name'],
+  //       this.form.value['email'],
+  //       this.form.value['cpf'],
+  //       // this.accessTokenData.agreed,
+  //       this.userReCaptcha,
+  //     );
+  //   this.myDataService.patchAccount(accountTokenDto)
+  //     .pipe(first())
+  //     .subscribe({
+  //       next: () => {
+  //         this.notificationService.success("Dados editados com sucesso");
+  //         this.router.navigate(['meus-dados']);
+  //       },
+  //       // error: error => this.handleError(error)
+  //     });
+  // }
+
+
+
+  resolved(captchaResponse: string): void {
+    this.userReCaptcha = captchaResponse;
   }
 }

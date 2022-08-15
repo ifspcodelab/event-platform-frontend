@@ -6,6 +6,29 @@ export interface AccountDto {
   agreed: boolean;
 }
 
+export class AccountTokenDto {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  agreed: boolean;
+  userRecaptcha: string | undefined;
+
+  constructor(
+    name: string,
+    email: string,
+    cpf: string,
+    agreed: boolean,
+    userRecaptcha: string | undefined,
+  ) {
+    this.name = name;
+    this.email = email;
+    this.cpf = cpf;
+    this.agreed = agreed;
+    this.userRecaptcha = userRecaptcha;
+  }
+}
+
 export class AccountCreateDto {
   name: string;
   email: string;

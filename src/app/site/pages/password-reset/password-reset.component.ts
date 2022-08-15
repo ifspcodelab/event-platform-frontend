@@ -16,6 +16,7 @@ export class PasswordResetComponent implements OnInit {
   userRecaptcha: string | undefined;
   token: string | null | undefined;
   form: FormGroup;
+  hide: boolean = true;
 
   constructor(
     private fb: FormBuilder,

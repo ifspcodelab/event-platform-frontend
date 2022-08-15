@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { PageDto } from "../models/page.model";
-import { UsersDto } from "../models/users.model";
+import { AccountDto, AccountTokenDto } from "../models/account.model";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService {
+export class MyDataService {
   apiUrl = `${environment.apiUrl}/accounts`;
 
   httpOptions = {
@@ -20,7 +19,7 @@ export class UsersService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getUsers(): Observable<PageDto<UsersDto>> {
-    return this.httpClient.get<PageDto<UsersDto>>(this.apiUrl, this.httpOptions);
+  patchAccount(accountTokenDto: AccountTokenDto): Observable<AccountDto> {
+    return this.httpClient.patch<AccountDto>(`${this.apiUrl}/my-data`, accountTokenDto, this.httpOptions);
   }
 }
