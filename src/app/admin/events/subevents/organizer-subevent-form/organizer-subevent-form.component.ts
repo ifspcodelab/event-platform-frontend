@@ -5,6 +5,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { OrganizerSubeventService } from 'src/app/core/services/organizer-subevent.service';
 import { OrganizerSubeventDto } from 'src/app/core/models/organizer-subevent.model';
 import { OrganizerType } from 'src/app/core/models/organizer-type.model';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Violation } from 'src/app/core/models/problem-detail';
 
 @Component({
   selector: 'app-organizer-form',
@@ -13,6 +15,7 @@ import { OrganizerType } from 'src/app/core/models/organizer-type.model';
 })
 export class OrganizerSubeventFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  submitted: boolean = false;
   organizersSubeventType: any = [];
   organizerSubeventType = OrganizerType;
 
@@ -37,6 +40,12 @@ export class OrganizerSubeventFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+
+    if(this.form.invalid) {
+      return;
+    }
+
     this.createOrganizerSubevent();
   }
 
@@ -44,10 +53,37 @@ export class OrganizerSubeventFormComponent implements OnInit {
     if(this.form) {
       this.organizerSubeventService.postOrganizerSubevent(this.data.eventId, this.data.subeventId, this.data.accountId, this.form.value)
           .pipe(first())
-          .subscribe(organizerSubeventDto => {
-            this.dialogRef.close(organizerSubeventDto);
+          .subscribe({
+            next: organizerSubeventDto => this.dialogRef.close(organizerSubeventDto),
+            error: error => this.handleError(error)
           });
     }
+  }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 400) {
+        const violations: Violation[] = error.error;
+        violations.forEach(violation => {
+          const formControl = this.form.get(violation.accountId);
+          if(formControl) {
+            formControl.setErrors({ serverError: violation.message });
+          }
+        })
+      }
+      if(error.status === 409) {
+        const nameField = this.field('accountId');
+        nameField.setErrors({ serverError: `Organizador já existente com id ${nameField.value}` })
+      }
+    }
+  }
+
+  field(path: string) {
+    return this.form.get(path)!;
+  }
+
+  fieldErrors(path: string) {
+    return this.field(path).errors;
   }
 
 }

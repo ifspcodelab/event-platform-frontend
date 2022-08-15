@@ -5,6 +5,9 @@
     <mat-form-field class="modal__input">
       <mat-label>Account Id</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="accountId" name="accountId">
+      <mat-error *ngIf="fieldErrors('accountId')?.['serverError'] && submitted">
+        {{ fieldErrors('accountId')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
     <br/>
     <mat-form-field class="modal__input">

@@ -126,28 +126,6 @@ export class SubeventShowComponent implements OnInit {
       });
   }
 
-  private getDialogConfig() {
-    return {
-      autoFocus: true,
-      data: {
-        eventId: this.eventId,
-        subeventId: this.subeventId,
-        organizerSubeventDto: this.organizerSubeventDto
-      }
-    };
-  }
-
-  openAddOrganizerSubeventFormDialog() {
-    const dialogRef = this.dialog.open(OrganizerSubeventFormComponent, this.getDialogConfig());
-    dialogRef.afterClosed().subscribe(
-      organizerSubeventDto => {
-        if (organizerSubeventDto) {
-          this.organizersSubeventDto = [...this.organizersSubeventDto, organizerSubeventDto];
-          this.notificationService.success("Cadastrado com sucesso");
-        }
-    })
-  }
-
   private getConfirmationDialogConfig() {
     return {
       autoFocus: true,
@@ -181,6 +159,28 @@ export class SubeventShowComponent implements OnInit {
       });
   }
 
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        eventId: this.eventId,
+        subeventId: this.subeventId,
+        organizerSubeventDto: this.organizerSubeventDto
+      }
+    };
+  }
+
+  openAddOrganizerSubeventFormDialog() {
+    const dialogRef = this.dialog.open(OrganizerSubeventFormComponent, this.getDialogConfig());
+    dialogRef.afterClosed().subscribe(
+      organizerSubeventDto => {
+        if (organizerSubeventDto) {
+          this.organizersSubeventDto = [...this.organizersSubeventDto, organizerSubeventDto];
+          this.notificationService.success("Cadastrado com sucesso");
+        }
+    })
+  }
+
   private getConfirmationDialogConfigOrganizerSubevent(organizerSubeventDto: OrganizerSubeventDto) {
     return {
        autoFocus: true,
@@ -210,8 +210,7 @@ export class SubeventShowComponent implements OnInit {
          next: () => {
            this.notificationService.success("Excluido com sucesso");
            this.organizersSubeventDto = this.organizersSubeventDto.filter(o => o.id != organizerSubeventId);
-        },
-        error: error => this.handleError(error)
+        }
       });
    }
 
