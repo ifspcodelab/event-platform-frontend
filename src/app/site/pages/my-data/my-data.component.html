@@ -1,21 +1,23 @@
 <app-account-page
-  title="Meus dados">
+  pageTitle="Meus Dados">
 
   <table>
-    <tr>
-      <td>Nome</td>
-      <td [innerHTML]="accountDto.name"></td>
-    </tr>
-    <tr>
-      <td>E-mail</td>
-      <td [innerHTML]="accountDto.email"></td>
-    </tr>
-    <tr>
-      <td>CPF</td>
-      <td [innerHTML]="accountDto.cpf"></td>
-    </tr>
+    <ng-container *ngIf="accountDto">
+      <tr>
+        <td>Nome</td>
+        <td>{{ accountDtoName }}</td>
+      </tr>
+      <tr>
+        <td>E-mail</td>
+        <td class="email">{{ accountDtoEmail }}</td>
+      </tr>
+      <tr>
+        <td>CPF</td>
+        <td>{{ accountDtoCpf | cpfFomat }}</td>
+      </tr>
+    </ng-container>
   </table>
 
-  <button class="edit full-width" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
+    <button class="edit full-width" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
 
 </app-account-page>

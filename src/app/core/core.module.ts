@@ -11,6 +11,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { EventStatusPipe } from "./pipes/event-status.pipe";
 import { ActivityTypesPipe } from "./pipes/activity-types.pipe";
 import { ActivityModalitiesPipe } from "./pipes/activity-modalities.pipe";
+import { CpfFomatPipe } from './pipes/cpfFomat.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ActivityModalitiesPipe } from "./pipes/activity-modalities.pipe";
     AdminHeaderComponent,
     EventStatusPipe,
     ActivityTypesPipe,
-    ActivityModalitiesPipe
+    ActivityModalitiesPipe,
+    CpfFomatPipe,
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { ActivityModalitiesPipe } from "./pipes/activity-modalities.pipe";
     AdminHeaderComponent,
     EventStatusPipe,
     ActivityTypesPipe,
-    ActivityModalitiesPipe
+    ActivityModalitiesPipe,
+    CpfFomatPipe
   ]
 })
 export class CoreModule { }

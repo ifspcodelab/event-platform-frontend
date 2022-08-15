@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 import { NotificationService } from "../../../core/services/notification.service";
 import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 import { HttpErrorResponse } from "@angular/common/http";
-import {environment} from "../../../../environments/environment";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-registration',

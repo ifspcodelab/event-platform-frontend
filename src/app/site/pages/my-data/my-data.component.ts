@@ -20,7 +20,7 @@ export class MyDataComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchAccount()
+    this.fetchAccount();
   }
 
   editMyData() {
@@ -35,5 +35,17 @@ export class MyDataComponent implements OnInit {
         this.accountDto = accountDto
       }
     );
+  }
+
+  get accountDtoName() {
+    return (this.accountDto && this.accountDto.name) ? this.accountDto.name : null;
+  }
+
+  get accountDtoEmail() {
+    return (this.accountDto && this.accountDto.email) ? this.accountDto.email : null;
+  }
+
+  get accountDtoCpf() {
+    return (this.accountDto && this.accountDto.cpf) ? this.accountDto.cpf : null;
   }
 }

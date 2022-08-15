@@ -1,13 +1,12 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AppValidators } from "../../../core/validators/app-validator";
-import { AccountDto, AccountTokenDto } from "../../../core/models/account.model";
-import { first } from "rxjs";
 import { MyDataService } from "../../../core/services/my-data.service";
 import { NotificationService } from "../../../core/services/notification.service";
 import { Router } from "@angular/router";
-import { JwtService } from "../../../core/services/jwtservice.service";
-import { AccessTokenData } from "../../../core/models/access-token-data.model";
+import { first } from "rxjs";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 
 @Component({
   selector: 'app-my-data-edit',
@@ -17,8 +16,6 @@ import { AccessTokenData } from "../../../core/models/access-token-data.model";
 export class MyDataEditComponent implements OnInit {
   form: FormGroup = this.buildForm();
   userReCaptcha: string | undefined = '';
-  accessToken: string = this.jwtService.getAccessToken();
-  // accessTokenData: AccessTokenData = this.jwtService.decodeAccessToken(this.accessToken);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +23,6 @@ export class MyDataEditComponent implements OnInit {
     private myDataService: MyDataService,
     private notificationService: NotificationService,
     private router: Router,
-    private jwtService: JwtService,
   ) { }
 
   ngOnInit(): void {
@@ -48,7 +44,6 @@ export class MyDataEditComponent implements OnInit {
           AppValidators.validName()
         ],
       ],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
       cpf: ['', [Validators.required, AppValidators.validCpf()]],
     });
   }
@@ -65,30 +60,41 @@ export class MyDataEditComponent implements OnInit {
     if (this.form.invalid || this.userReCaptcha == '') {
       return;
     }
-    // this.updateAccount();
+    this.updateAccount();
   }
 
-  // private updateAccount() {
-  //   const accountTokenDto =
-  //     new AccountTokenDto(
-  //       this.form.value['name'],
-  //       this.form.value['email'],
-  //       this.form.value['cpf'],
-  //       // this.accessTokenData.agreed,
-  //       this.userReCaptcha,
-  //     );
-  //   this.myDataService.patchAccount(accountTokenDto)
-  //     .pipe(first())
-  //     .subscribe({
-  //       next: () => {
-  //         this.notificationService.success("Dados editados com sucesso");
-  //         this.router.navigate(['meus-dados']);
-  //       },
-  //       // error: error => this.handleError(error)
-  //     });
-  // }
+  private updateAccount() {
+    this.myDataService.patchAccount(this.form.value)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.notificationService.success("Dados editados com sucesso");
+          this.router.navigate(['meus-dados']);
+        },
+        error: error => this.handleError(error)
+      });
+  }
 
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 400) {
+        const violations: Violation[] = error.error;
+        violations.forEach(violation => {
+          const formControl = this.form.get(violation.name);
+          if(formControl) {
+            formControl.setErrors({ serverError: violation.message });
+          }
+        })
+      }
 
+      if(error.status === 409) {
+        const problem: ProblemDetail = error.error;
+        if(problem.title === "Resource already exists exception") {
+          this.notificationService.error(problem.violations[0].message);
+        }
+      }
+    }
+  }
 
   resolved(captchaResponse: string): void {
     this.userReCaptcha = captchaResponse;

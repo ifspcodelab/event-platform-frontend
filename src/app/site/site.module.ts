@@ -24,6 +24,7 @@ import { MyDataComponent } from './pages/my-data/my-data.component';
 import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component';
 import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
+import { CoreModule } from "../core/core.module";
 
 @NgModule({
   declarations: [
@@ -52,22 +53,23 @@ import { RouterModule } from "@angular/router";
     LoginComponent,
     AccountPageComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    EventsModule,
-    RouterModule,
-    MatToolbarModule,
-    FormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    RecaptchaFormsModule,
-    RecaptchaModule,
-    SharedModule,
-    RouterModule,
-    NgxMaskModule.forRoot(),
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        EventsModule,
+        RouterModule,
+        MatToolbarModule,
+        FormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        RecaptchaFormsModule,
+        RecaptchaModule,
+        SharedModule,
+        RouterModule,
+        NgxMaskModule.forRoot(),
+        CoreModule,
+    ]
 })
 export class SiteModule { }
