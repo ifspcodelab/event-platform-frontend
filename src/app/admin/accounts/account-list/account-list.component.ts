@@ -8,8 +8,7 @@ import {Router} from "@angular/router";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountDto} from "../../../core/models/account.model";
-import {SpeakerDto} from "../../../core/models/speaker.model";
-
+import {SearchType} from "../../../core/models/search-types.model";
 
 
 @Component({
@@ -27,16 +26,9 @@ export class AccountListComponent implements OnInit {
   form: FormGroup;
   submitted: boolean = false;
   requestLoading: boolean = false;
-  searchTypes =[{
-    type:'name',
-    show:'Nome'
-  },{
-    type:'cpf',
-    show:'CPF'
-  },{
-    type:'email',
-    show:'E-mail'
-  }]
+  enumKeys: any = [];
+  searchType = SearchType;
+  selectedOption = 'NAME';
 
 
   constructor(
@@ -45,12 +37,12 @@ export class AccountListComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private _liveAnnouncer: LiveAnnouncer,
-  ) {}
+  ) {
+    this.enumKeys = Object.keys(this.searchType);
+  }
 
   ngOnInit(): void {
     this.form = this.buildForm();
-    const toSelect = this.searchTypes.find(t => t.type == 'name');
-    this.form.get('searchType').setValue(toSelect);
     this.loaderService.show();
     this.fetchAccounts();
   }
@@ -60,7 +52,7 @@ export class AccountListComponent implements OnInit {
       return;
     }
     this.requestLoading = true;
-    let type = this.form.get('searchType').value['type'];
+    let type = this.form.value['searchType'];
     let query =this.form.value['query'];
     this.fetchAccountsByQuery(query, type);
 
@@ -91,7 +83,7 @@ export class AccountListComponent implements OnInit {
   private buildForm() {
     return this.formBuilder.group({
       query: ['', [Validators.maxLength(50)]],
-      searchType: ['', [Validators.required]],
+      searchType: [this.selectedOption, [Validators.required]],
     })
   }
 

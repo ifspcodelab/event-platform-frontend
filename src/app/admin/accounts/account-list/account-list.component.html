@@ -4,8 +4,8 @@
 
     <p>Buscar por</p>
     <mat-select formControlName="searchType" placeholder="Buscar por ">
-      <mat-option *ngFor="let type of searchTypes" [value]="type">
-        {{type.show}}
+      <mat-option *ngFor="let type of enumKeys" [value]="type">
+        {{searchType[type]}}
       </mat-option>
     </mat-select>
     <mat-error *ngIf="fieldErrors('searchType')?.['required']">

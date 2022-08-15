@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import {PageDto} from "../models/page.model";
 import {UsersDto} from "../models/users.model";
-import {SpeakerDto} from "../models/speaker.model";
+import {SpeakerCreateDto, SpeakerDto} from "../models/speaker.model";
 import {AccountDto} from "../models/account.model";
 
 @Injectable({
@@ -28,13 +28,13 @@ export class AccountService {
 
   getAccountsByQuery(query: string, type: string): Observable<PageDto<UsersDto>> {
     let queryUrl = '';
-    if(type == 'name'){
+    if(type == 'NAME'){
       queryUrl = this.apiUrl + "?name=" + query;
     }
-    if(type == 'cpf'){
+    if(type == 'CPF'){
       queryUrl = this.apiUrl + "?cpf=" + query;
     }
-    if(type == 'email'){
+    if(type == 'EMAIL'){
       queryUrl = this.apiUrl + "?email=" + query;
     }
     return this.httpClient.get<PageDto<UsersDto>>(queryUrl, this.httpOptions);
@@ -46,5 +46,10 @@ export class AccountService {
 
   deleteAccount(accountId: string): Observable<unknown> {
     return this.httpClient.delete<AccountDto>(`${this.apiUrl}/${accountId}`, this.httpOptions);
+  }
+
+
+  putAccount(accountId: string, accoountDto: AccountDto): Observable<AccountDto> {
+    return this.httpClient.put<AccountDto>(`${this.apiUrl}/${accountId}`, accoountDto, this.httpOptions);
   }
 }

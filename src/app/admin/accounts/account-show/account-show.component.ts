@@ -31,10 +31,10 @@ export class AccountShowComponent implements OnInit {
   ngOnInit(): void {
     this.loaderService.show()
     this.accountId = this.route.snapshot.paramMap.get('accountId');
-    this.fetchSpeaker(this.accountId);
+    this.fetchAccount(this.accountId);
   }
 
-  private fetchSpeaker(accountId: string) {
+  private fetchAccount(accountId: string) {
     this.accountService.getAccountById(accountId)
       .pipe(first())
       .subscribe({
@@ -67,19 +67,19 @@ export class AccountShowComponent implements OnInit {
       .subscribe({
         next: result => {
           if (result) {
-            this.deleteSubevent();
+            this.deleteAccount();
           }
         }
       });
   }
 
-  deleteSubevent() {
+  deleteAccount() {
     this.accountService.deleteAccount(this.accountId)
       .pipe(first())
       .subscribe({
         next: () => {
-          this.notificationService.success("Ministrante excluído com sucesso");
-          return this.router.navigate(['admin', 'speakers'])
+          this.notificationService.success("Usuário excluído com sucesso");
+          return this.router.navigate(['admin', 'accounts'])
         },
         error: (error: any) => this.handleError(error)
       });

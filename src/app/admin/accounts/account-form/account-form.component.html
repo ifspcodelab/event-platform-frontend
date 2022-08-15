@@ -1,0 +1,77 @@
+<div *ngIf="accountDto">
+  <app-admin-header title="{{ accountDto.name }}" (backLink)="getBackUrl()">
+    <button type="submit" form="account-form" mat-raised-button color="primary">Salvar</button>
+  </app-admin-header>
+</div>
+
+<form id="account-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+
+  <fieldset>
+    <mat-form-field class="form-field-md">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" name="name">
+      <mat-error *ngIf="fieldErrors('name')?.['required']">Nome é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['minlength']">Nome deve ter no mínimo 5 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['maxlength']">Nome deve ter no máximo 256 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['notblank']">Nome não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['validname']">Nome deve deve conter um nome válido</mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['serverError'] && submitted">
+        {{ fieldErrors('name')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>CPF</mat-label>
+      <input matInput mask="000.000.000-00" formControlName="cpf" name="cpf">
+      <mat-error *ngIf="fieldErrors('cpf')?.['required']">Email é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">CPF deve conter um CPF válido</mat-error>
+      <mat-error *ngIf="fieldErrors('cpf')?.['serverError'] && submitted">
+        {{ fieldErrors('cpf')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+  </fieldset>
+
+  <fieldset>
+    <mat-form-field class="form-field-md">
+      <mat-label>E-mail</mat-label>
+      <input matInput placeholder="" formControlName="email" name="email">
+      <mat-error *ngIf="fieldErrors('email')?.['required']">E-mail é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('email')?.['email']">E-mail deve conter um e-mail válido</mat-error>
+      <mat-error *ngIf="fieldErrors('email')?.['maxlength']">E-mail deve ter no máximo 350 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('email')?.['serverError'] && submitted">
+        {{ fieldErrors('email')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Confirmado</mat-label>
+      <mat-hint>Informa se o usuário aceitou os termos de uso.</mat-hint>
+      <input matInput placeholder="" formControlName="agreed" name="agreed">
+    </mat-form-field>
+
+    <br>
+    <mat-form-field class="modal__input">
+    <mat-label>Perfil</mat-label>
+    <mat-select formControlName="role" name="role" placeholder="Perfil">
+      <mat-option *ngFor="let roleType of enumKeys" [value]="roleType">
+        {{roleType}}
+      </mat-option>
+    </mat-select>
+    </mat-form-field>
+    <br>
+
+
+    <mat-form-field class="form-field-md">
+      <mat-label>Verificado</mat-label>
+      <input matInput placeholder="" formControlName="verified" name="verified">
+      <mat-hint>Informa se o usuário possui conta confirmada através do e-mail.</mat-hint>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field class="form-field-md">
+      <mat-label>Registrado em</mat-label>
+      <input matInput placeholder="" formControlName="registrationTimestamp" name="registrationTimestamp">
+      <mat-hint>Data de criação da conta</mat-hint>
+    </mat-form-field>
+  </fieldset>
+</form>

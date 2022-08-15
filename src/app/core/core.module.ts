@@ -8,12 +8,14 @@ import { CancelDialogComponent } from './components/cancel-dialog/cancel-dialog.
 import { MatInputModule } from "@angular/material/input";
 import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
 import { MatIconModule } from "@angular/material/icon";
+import { SearchTypesPipe } from './pipes/search-types.pipe';
 
 @NgModule({
   declarations: [
     ConfirmationDialogComponent,
     CancelDialogComponent,
     AdminHeaderComponent,
+    SearchTypesPipe,
   ],
   imports: [
     CommonModule,
