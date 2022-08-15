@@ -11,6 +11,9 @@
       <mat-error *ngIf="fieldErrors('accountId')?.['required']">
         Account Id é obrigatório
       </mat-error>
+      <mat-error *ngIf="fieldErrors('accountId')?.['serverError'] && submitted">
+        {{ fieldErrors('accountId')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="modal__input">

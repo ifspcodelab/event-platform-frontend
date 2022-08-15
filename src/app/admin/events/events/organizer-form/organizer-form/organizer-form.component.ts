@@ -19,6 +19,7 @@ import { OrganizerType } from 'src/app/core/models/organizer-type.model';
 })
 export class OrganizerFormComponent implements OnInit {
   form: FormGroup = this.buildForm();
+  submitted: boolean = false;
   organizersType: any = [];
   organizerType = OrganizerType;
   organizersDto: OrganizerDto;
@@ -45,6 +46,12 @@ export class OrganizerFormComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitted = true;
+
+    if(this.form.invalid) {
+      return;
+    }
+
     this.createOrganizer();
   }
 
@@ -72,7 +79,7 @@ export class OrganizerFormComponent implements OnInit {
       }
 
       if(error.status === 409) {
-        const nameField = this.field('name');
+        const nameField = this.field('accountId');
         nameField.setErrors({ serverError: `Organizador já existente com nome ${nameField.value}` })
       }
     }
