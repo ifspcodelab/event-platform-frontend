@@ -4,6 +4,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import {PageDto} from "../models/page.model";
 import {UsersDto} from "../models/users.model";
+import {SpeakerDto} from "../models/speaker.model";
+import {AccountDto} from "../models/account.model";
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +38,13 @@ export class AccountService {
       queryUrl = this.apiUrl + "?email=" + query;
     }
     return this.httpClient.get<PageDto<UsersDto>>(queryUrl, this.httpOptions);
+  }
+
+  getAccountById(accountId: string): Observable<AccountDto> {
+    return this.httpClient.get<AccountDto>(`${this.apiUrl}/${accountId}`, this.httpOptions);
+  }
+
+  deleteAccount(accountId: string): Observable<unknown> {
+    return this.httpClient.delete<AccountDto>(`${this.apiUrl}/${accountId}`, this.httpOptions);
   }
 }

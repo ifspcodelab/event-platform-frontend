@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountDto} from "../../../core/models/account.model";
+import {SpeakerDto} from "../../../core/models/speaker.model";
 
 
 
@@ -19,7 +20,7 @@ import {AccountDto} from "../../../core/models/account.model";
 export class AccountListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'email', 'cpf', 'agreed', 'role', 'verified', 'registrationTimestamp'];
-  usersDto: AccountDto[] = [];
+  accountDto: AccountDto[] = [];
   dataSource: MatTableDataSource<UsersDto>;
   @ViewChild(MatSort)
   sort: MatSort;
@@ -69,8 +70,8 @@ export class AccountListComponent implements OnInit {
       this.accountService.getAccounts()
         .subscribe(
           pageDto => {
-            this.usersDto = pageDto.content;
-            this.dataSource = new MatTableDataSource<UsersDto>(this.usersDto);
+            this.accountDto = pageDto.content;
+            this.dataSource = new MatTableDataSource<UsersDto>(this.accountDto);
             this.loaderService.hide();
 
           }
@@ -106,12 +107,15 @@ export class AccountListComponent implements OnInit {
     this.accountService.getAccountsByQuery(query, type)
       .subscribe(
         pageDto => {
-          this.usersDto = pageDto.content;
-          this.dataSource = new MatTableDataSource<UsersDto>(this.usersDto);
+          this.accountDto = pageDto.content;
+          this.dataSource = new MatTableDataSource<UsersDto>(this.accountDto);
           this.loaderService.hide();
           this.requestLoading = false;
         }
       )
   }
 
+  openAccountShow(accountDto: AccountDto) {
+    return this.router.navigate(['admin', 'accounts', accountDto.id])
+  }
 }

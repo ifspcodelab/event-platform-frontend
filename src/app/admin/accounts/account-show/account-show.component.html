@@ -1,0 +1,20 @@
+<div *ngIf="accountId">
+  <app-admin-header title="{{ accountDto.name }}" (backLink)="backLink()">
+    <button mat-button color="primary" routerLink="edit">Editar</button>
+    <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+  </app-admin-header>
+
+  <article class="container">
+    <h3>Dados Principais</h3>
+    <p class="container__item"><b>Nome:</b> {{ accountDto.name }}</p>
+    <p class="container__item"><b>CPF:</b> {{ accountDto.cpf }}</p>
+    <p class="container__item"><b>E-mail:</b> {{ accountDto.email }}</p>
+    <p class="container__item"><b>Confirmado:</b> {{ accountDto.agreed }}</p>
+    <p class="container__item"><b>Perfil:</b> {{ accountDto.role }}</p>
+    <p class="container__item"><b>Verificado:</b> {{ accountDto.verified }}</p>
+    <p class="container__item"><b>Registrado Em:</b> {{ accountDto.registrationTimestamp }}</p>
+
+
+  </article>
+
+</div>
