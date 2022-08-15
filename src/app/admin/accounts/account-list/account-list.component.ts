@@ -4,7 +4,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {UsersDto} from "../../../core/models/users.model";
 import {AccountService} from "../../../core/services/account.service";
 import {LoaderService} from "../../loader.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountDto} from "../../../core/models/account.model";
@@ -20,7 +20,9 @@ export class AccountListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'email', 'cpf', 'agreed', 'role', 'verified', 'registrationTimestamp'];
   accountDto: AccountDto[] = [];
-  dataSource: MatTableDataSource<UsersDto>;
+  pageNumber: number;
+  totalPages: number
+  dataSource: MatTableDataSource<AccountDto>;
   @ViewChild(MatSort)
   sort: MatSort;
   form: FormGroup;
@@ -37,11 +39,13 @@ export class AccountListComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private _liveAnnouncer: LiveAnnouncer,
+    private route: ActivatedRoute,
   ) {
     this.enumKeys = Object.keys(this.searchType);
   }
 
   ngOnInit(): void {
+    this.getPageNumber();
     this.form = this.buildForm();
     this.loaderService.show();
     this.fetchAccounts();
@@ -59,10 +63,12 @@ export class AccountListComponent implements OnInit {
   }
 
   fetchAccounts() {
-      this.accountService.getAccounts()
+      this.accountService.getAccounts(this.pageNumber)
         .subscribe(
           pageDto => {
             this.accountDto = pageDto.content;
+            console.log("number: " + pageDto.number);
+            this.totalPages = pageDto.totalPages;
             this.dataSource = new MatTableDataSource<UsersDto>(this.accountDto);
             this.loaderService.hide();
 
@@ -100,7 +106,7 @@ export class AccountListComponent implements OnInit {
       .subscribe(
         pageDto => {
           this.accountDto = pageDto.content;
-          this.dataSource = new MatTableDataSource<UsersDto>(this.accountDto);
+          this.dataSource = new MatTableDataSource<AccountDto>(this.accountDto);
           this.loaderService.hide();
           this.requestLoading = false;
         }
@@ -109,5 +115,12 @@ export class AccountListComponent implements OnInit {
 
   openAccountShow(accountDto: AccountDto) {
     return this.router.navigate(['admin', 'accounts', accountDto.id])
+  }
+
+  private getPageNumber() {
+    this.pageNumber = this.route.snapshot.queryParams['page'];
+    if(this.pageNumber == undefined){
+      this.pageNumber = 0;
+    }
   }
 }

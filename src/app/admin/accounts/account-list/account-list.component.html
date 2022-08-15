@@ -27,7 +27,6 @@
 
 </app-admin-header>
 
-
 <article class="container" *ngIf="accountDto.length" >
   <table class="container__table" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
     <ng-container matColumnDef="name">
@@ -69,4 +68,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openAccountShow(row)" class="container__line"></tr>
 
   </table>
+
+
 </article>

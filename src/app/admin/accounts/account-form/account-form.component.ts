@@ -9,7 +9,6 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 import { AccountService } from "../../../core/services/account.service";
 import { AccountDto } from "../../../core/models/account.model";
-import {AccountRolePipe} from "../../../core/pipes/account-role.pipe";
 
 
 @Component({
@@ -38,8 +37,8 @@ export class AccountFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountId = this.route.snapshot.paramMap.get('accountId');
-    this.fetchAccount();
     this.form = this.buildForm();
+    this.fetchAccount();
   }
 
   fetchAccount() {

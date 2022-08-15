@@ -45,8 +45,11 @@
 
     <mat-form-field class="form-field-sm">
       <mat-label>Confirmado</mat-label>
+      <mat-select matInput placeholder="" formControlName="agreed" name="agreed">
+        <mat-option [value]="true"> Sim </mat-option>
+        <mat-option [value]="false"> Não </mat-option>
+      </mat-select>
       <mat-hint>Informa se o usuário aceitou os termos de uso.</mat-hint>
-      <input matInput placeholder="" formControlName="agreed" name="agreed">
     </mat-form-field>
 
     <br>
@@ -63,7 +66,10 @@
 
     <mat-form-field class="form-field-md">
       <mat-label>Verificado</mat-label>
-      <input matInput placeholder="" formControlName="verified" name="verified">
+      <mat-select matInput placeholder="" formControlName="verified" name="verified">
+      <mat-option [value]="true"> Sim </mat-option>
+      <mat-option [value]="false"> Não </mat-option>
+      </mat-select>
       <mat-hint>Informa se o usuário possui conta confirmada através do e-mail.</mat-hint>
     </mat-form-field>
     <br>
