@@ -9,6 +9,8 @@ import { NotificationService } from "../../../../core/services/notification.serv
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { HttpErrorResponse } from "@angular/common/http";
+import { ActivityService } from "../../../../core/services/activity.service";
+import { ActivityDto } from "../../../../core/models/activity.model";
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 import { MatSort, Sort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
@@ -23,6 +25,8 @@ import { LoaderService } from "../../../loader.service";
 export class EventShowComponent implements OnInit {
   displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
   subeventsDto: SubeventDto[] = [];
+  activitiesDto: ActivityDto[] = [];
+  activitiesDisplayedColumns: string[] = ['title', 'online', 'registrationRequired', 'status'];
   eventDto: EventDto;
   eventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
@@ -34,6 +38,7 @@ export class EventShowComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private subeventService: SubeventService,
+    private activityService: ActivityService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
@@ -64,17 +69,29 @@ export class EventShowComponent implements OnInit {
       .subscribe(subevents => {
         this.subeventsDto = subevents
         this.dataSource = new MatTableDataSource<SubeventDto>(this.subeventsDto);
+        this.fetchActivities(this.eventId);
+      });
+  }
+
+  fetchActivities(eventId: string) {
+    this.activityService.getEventActivities(eventId)
+      .subscribe(activities => {
+        this.activitiesDto = activities
         this.loaderService.hide();
         this.setTabSelectedIndex();
       });
+  }
+
+  setTabSelectedIndex() {
+    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
   }
 
   openEventList() {
     return this.router.navigate(['admin', 'events']);
   }
 
-  setTabSelectedIndex() {
-    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
+  openActivityShow(activityDto: ActivityDto) {
+    return this.router.navigate(['admin', 'events', this.eventDto.id, 'activities', activityDto.id]);
   }
 
   publishEvent() {

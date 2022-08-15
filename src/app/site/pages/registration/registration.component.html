@@ -1,9 +1,4 @@
-<app-account-page
-  title="Cadastro Eventos do IFSP SPO"
-  description="Para ter acesso aos eventos e certificado você precisa realizar o cadastro."
-  secondDescription="Caso já tenha um cadastro realize o login"
->
-  <a href="/login" ref="noreferer noopener">Ir para login</a>
+<app-account-page pageTitle="Realize seu cadastro" description="Você terá acesso aos eventos e certificados. Caso já tenha um cadastro realize o login">
   <form id="registration-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nome Completo</mat-label>
@@ -76,11 +71,10 @@
           Senha deve ser válida
         </mat-error>
       </mat-error>
-      <mat-hint align="start">A senha deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
+      <mat-hint align="start">A senha deve terentre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
     </mat-form-field>
 
-    <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de Uso</p>
-    <a href="/termos" ref="noreferrer noopener">Ir para os Termos de Uso</a>
+    <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de uso</p>
 
     <div class="checkbox-container">
       <mat-checkbox name="agreed" id="agreed" value="true" formControlName="agreed"></mat-checkbox>
@@ -88,13 +82,16 @@
     </div>
     <mat-error *ngIf="field('agreed').invalid && (field('agreed').dirty || field('agreed').touched)">
       <mat-error *ngIf="fieldErrors('agreed')?.['required']">
-        É obrigatório aceitar os termos
+        Você deve aceitar os termos de uso antes de continuar.
       </mat-error>
     </mat-error>
 
-    <re-captcha (resolved)="resolved($event)" siteKey="6LfjQjAhAAAAAGDIg5BkJMBccd-APYyY1AXM2eun"></re-captcha>
+    <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
 
-    <button class="register full-width" mat-raised-button form="registration-form" color="primary">Cadastrar</button>
+    <mat-card-actions>
+      <button class="button button-white" mat-raised-button form="registration-form" color="primary" [disabled]="requestLoading">Cadastrar</button>
+      <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+    </mat-card-actions>
   </form>
 </app-account-page>
 

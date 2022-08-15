@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import jwtDecode from 'jwt-decode';
-import { AccessTokenData } from '../models/access-token-data.model';
-import { RefreshTokenData } from '../models/refresh-token-data.model';
-import { AccountRole } from "../models/account-role.model";
-
+import jwtDecode from "jwt-decode";
+import { AccessTokenData } from "../models/access-token-data.model";
+import { RefreshTokenData } from "../models/refresh-token-data.model";
+import {AccountRole} from "../models/account-role.model";
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +36,7 @@ export class JwtService {
   }
 
   decodeAccessToken(accessToken: string) {
-    return jwtDecode(accessToken);
+    return jwtDecode(accessToken)
   }
 
   decodeRefreshToken(refreshToken: string) {
@@ -54,9 +53,12 @@ export class JwtService {
   }
 
   getAccessTokenRoles() {
-    const accessTokenData = this.decodeAccessToken(this.getAccessToken()!) as AccessTokenData;
-
-    return accessTokenData.role;
+    const accessToken = this.getAccessToken();
+    if(accessToken) {
+      const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
+      return accessTokenData.role;
+    }
+    return null;
   }
 
   isAuthenticated() {
@@ -75,6 +77,6 @@ export class JwtService {
   }
 
   isAdmin() {
-    return this.getAccessTokenRoles().includes(AccountRole.ADMIN);
+    return this.getAccessTokenRoles() == AccountRole.ADMIN;
   }
 }

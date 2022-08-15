@@ -9,7 +9,7 @@ a {
 }
 
 mat-form-field {
-  padding-bottom: 10px;
+  padding-bottom: 17px;
 }
 
 .visibility {
@@ -45,7 +45,13 @@ re-captcha {
   scale: 0.9;
 }
 
-.register {
-  margin: 15px 0;
-  color: #FFF;
+.button {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  border: none;
+  width: 100%;
+}
+
+.button-white {
+  color: #FFFFFF;
 }

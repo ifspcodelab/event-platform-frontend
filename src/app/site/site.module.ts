@@ -2,8 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
+import { SiteHeaderComponent } from './components/site-header/site-header.component';
+import { SiteFooterComponent } from './components/site-footer/site-footer.component';
+import { SiteCardComponent } from './components/site-card/site-card.component';
+import { EventsModule } from "../admin/events/events.module";
+import { EventHeaderComponent } from './components/event-header/event-header.component';
 import { RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
-import { SharedModule } from "../shared/shared.module";
 import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "./pages/login/login.component";
 import { TermsComponent } from './pages/terms/terms.component';
@@ -18,13 +22,17 @@ import { MatCardModule } from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
 import { MyDataComponent } from './pages/my-data/my-data.component';
 import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component';
-
-
+import { SharedModule } from "../shared/shared.module";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
     HomeComponent,
     RegistrationComponent,
+    SiteHeaderComponent,
+    SiteFooterComponent,
+    SiteCardComponent,
+    EventHeaderComponent,
     ForgotPasswordComponent,
     PasswordResetComponent,
     RegistrationComponent,
@@ -35,8 +43,20 @@ import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component
     MyDataComponent,
     MyDataEditComponent,
   ],
+  exports: [
+    SiteHeaderComponent,
+    SiteFooterComponent,
+    SiteCardComponent,
+    EventHeaderComponent,
+    RegistrationComponent,
+    LoginComponent,
+    AccountPageComponent
+  ],
   imports: [
     CommonModule,
+    SharedModule,
+    EventsModule,
+    RouterModule,
     MatToolbarModule,
     FormsModule,
     MatInputModule,
@@ -46,6 +66,7 @@ import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component
     RecaptchaFormsModule,
     RecaptchaModule,
     SharedModule,
+    RouterModule,
     NgxMaskModule.forRoot(),
   ]
 })

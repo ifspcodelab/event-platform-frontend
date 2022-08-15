@@ -1,0 +1,30 @@
+<article class="container">
+  <header class="container__header">
+    <h1 class="container__header__title">Ministrantes</h1>
+    <button mat-button color="primary" routerLink="activities/new">Adicionar Ministrante</button>
+  </header>
+
+  <p *ngIf="!activitySpeakersDto.length">Nenhum ministrante associado</p>
+
+  <table class="container__table" *ngIf="activitySpeakersDto.length" mat-table [dataSource]="dataSource"
+         matSort (matSortChange)="announceSortChange($event)">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por nome">Nome</th>
+      <td mat-cell *matCellDef="let element"> {{ element.speaker.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por email">Email</th>
+      <td mat-cell *matCellDef="let element"> {{ element.speaker.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por telefon">Telefone</th>
+      <td mat-cell *matCellDef="let element"> {{ element.speaker.phoneNumber }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="activitiesDisplayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: activitiesDisplayedColumns;"></tr>
+  </table>
+</article>

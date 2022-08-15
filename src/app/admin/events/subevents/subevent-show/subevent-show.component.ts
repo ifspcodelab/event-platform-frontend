@@ -8,11 +8,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProblemDetail } from 'src/app/core/models/problem-detail';
+import { ActivityDto } from "../../../../core/models/activity.model";
+import { ActivityService } from "../../../../core/services/activity.service";
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 import { LoaderService } from "../../../loader.service";
 
 @Component({
-  selector: 'app-subevent-show',
+  selector: 'app-subevent-presentation-show',
   templateUrl: './subevent-show.component.html',
   styleUrls: ['./subevent-show.component.scss']
 })
@@ -49,12 +51,16 @@ export class SubeventShowComponent implements OnInit {
       });
   }
 
+  setTabSelectedIndex() {
+    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
+  }
+
   openEventShow() {
     return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 1 }});
   }
 
-  setTabSelectedIndex() {
-    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
+  openActivityShow(activityDto: ActivityDto) {
+    return this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', activityDto.id]);
   }
 
   publishSubevent() {

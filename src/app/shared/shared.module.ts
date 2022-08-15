@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,9 +15,12 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatMenuModule } from "@angular/material/menu";
+import { MatCardModule } from "@angular/material/card";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -40,9 +42,12 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTabsModule,
     MatProgressBarModule,
     MatCheckboxModule,
+    MatCardModule,
+    MatTabsModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatToolbarModule,
@@ -60,9 +65,12 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTabsModule,
     MatProgressBarModule,
     MatCheckboxModule,
+    MatCardModule,
+    MatTabsModule,
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule { }
