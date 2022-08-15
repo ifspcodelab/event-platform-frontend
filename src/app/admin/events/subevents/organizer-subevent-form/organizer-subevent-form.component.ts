@@ -1,12 +1,14 @@
 import { first } from 'rxjs/operators';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { OrganizerSubeventService } from 'src/app/core/services/organizer-subevent.service';
 import { OrganizerSubeventDto } from 'src/app/core/models/organizer-subevent.model';
 import { OrganizerType } from 'src/app/core/models/organizer-type.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Violation } from 'src/app/core/models/problem-detail';
+import { NotificationService } from 'src/app/core/services/notification.service';
+import { AppValidators } from 'src/app/core/validators/app-validators';
 
 @Component({
   selector: 'app-organizer-form',
@@ -20,6 +22,7 @@ export class OrganizerSubeventFormComponent implements OnInit {
   organizerSubeventType = OrganizerType;
 
   constructor(
+    private notificationService: NotificationService,
     private organizerSubeventService: OrganizerSubeventService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<OrganizerSubeventFormComponent>,
@@ -34,8 +37,8 @@ export class OrganizerSubeventFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      accountId: [''],
-      organizerSubeventType: [''],
+      accountId: ['', [Validators.required, AppValidators.notBlank]],
+      organizerSubeventType: ['', [Validators.required]],
     })
   }
 
