@@ -45,7 +45,7 @@ export class AccountListComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.buildForm();
     this.loaderService.show();
-    this.fetchAccounts(0, this.form.value['query'], this.form.value['searchType']);
+    this.fetchAccounts(0);
   }
 
   onSubmit() {
@@ -53,14 +53,15 @@ export class AccountListComponent implements OnInit {
       return;
     }
     this.requestLoading = true;
-    this.fetchAccounts(0, this.form.value['query'], this.form.value['searchType']);
+    this.fetchAccounts(0);
   }
 
-  fetchAccounts(page: number, query: string, type: string) {
-    this.accountService.getAccounts(page, query, type)
+  fetchAccounts(page: number) {
+    this.accountService.getAccounts(page, this.form.value['query'], this.form.value['searchType'])
       .subscribe(
         pageDto => {
           this.page = pageDto;
+          console.log(this.page);
           this.accountDto = pageDto.content;
           this.dataSource = new MatTableDataSource<AccountDto>(this.accountDto);
           this.loaderService.hide();

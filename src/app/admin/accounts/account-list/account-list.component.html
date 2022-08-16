@@ -2,7 +2,7 @@
 
   <form id="account-search-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
 
-    <p>Buscar por</p>
+    <p>Buscar por:</p>
     <mat-select formControlName="searchType" placeholder="Buscar por ">
       <mat-option *ngFor="let type of enumKeys" [value]="type">
         {{searchType[type]}}
@@ -71,8 +71,8 @@
 
   <mat-paginator class="mat-elevation-z0"
     [length]="this.page.totalElements"
-    [pageSize]="20"
-    (page)="fetchAccounts($event.pageIndex, this.form.value['query'], this.form.value['searchType'])"
+    [pageSize]="this.page.size"
+    (page)="fetchAccounts($event.pageIndex)"
     aria-label="Select page">
   </mat-paginator>
 
