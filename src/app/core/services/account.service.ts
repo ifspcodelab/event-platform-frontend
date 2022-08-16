@@ -21,22 +21,13 @@ export class AccountService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAccounts(pageNumber: number): Observable<PageDto<UsersDto>> {
-    return this.httpClient.get<PageDto<UsersDto>>(this.apiUrl + "?page=" + pageNumber, this.httpOptions);
+  getAccounts(): Observable<PageDto<AccountDto>> {
+    return this.httpClient.get<PageDto<AccountDto>>(this.apiUrl, this.httpOptions);
   }
 
-  getAccountsByQuery(query: string, type: string): Observable<PageDto<UsersDto>> {
-    let queryUrl = '';
-    if(type == 'NAME'){
-      queryUrl = this.apiUrl + "?name=" + query;
-    }
-    if(type == 'CPF'){
-      queryUrl = this.apiUrl + "?cpf=" + query;
-    }
-    if(type == 'EMAIL'){
-      queryUrl = this.apiUrl + "?email=" + query;
-    }
-    return this.httpClient.get<PageDto<UsersDto>>(queryUrl, this.httpOptions);
+  getAccountsByQuery(query: string, type: string): Observable<PageDto<AccountDto>> {
+    let queryUrl = this.apiUrl + "?" + type.toLowerCase() + "=" + query;
+    return this.httpClient.get<PageDto<AccountDto>>(queryUrl, this.httpOptions);
   }
 
   getAccountById(accountId: string): Observable<AccountDto> {
@@ -46,7 +37,6 @@ export class AccountService {
   deleteAccount(accountId: string): Observable<unknown> {
     return this.httpClient.delete<AccountDto>(`${this.apiUrl}/${accountId}`, this.httpOptions);
   }
-
 
   putAccount(accountId: string, accoountDto: AccountDto): Observable<AccountDto> {
     return this.httpClient.put<AccountDto>(`${this.apiUrl}/${accountId}`, accoountDto, this.httpOptions);
