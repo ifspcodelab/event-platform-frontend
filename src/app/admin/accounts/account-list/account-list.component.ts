@@ -19,16 +19,16 @@ import {PageDto} from "../../../core/models/page.model";
 export class AccountListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'email', 'cpf', 'agreed', 'role', 'verified', 'registrationTimestamp'];
-  accountDto: AccountDto[] = [];
-  page: PageDto<AccountDto>;
   dataSource: MatTableDataSource<AccountDto>;
   @ViewChild(MatSort)
   sort: MatSort;
   form: FormGroup;
-  submitted: boolean = false;
   requestLoading: boolean = false;
-  enumKeys: any = [];
+  submitted: boolean = false;
+  accountDto: AccountDto[] = [];
+  page: PageDto<AccountDto>;
   searchType = SearchType;
+  enumKeys: any = [];
   selectedOption = 'NAME';
 
 
@@ -61,7 +61,6 @@ export class AccountListComponent implements OnInit {
       .subscribe(
         pageDto => {
           this.page = pageDto;
-          console.log(this.page);
           this.accountDto = pageDto.content;
           this.dataSource = new MatTableDataSource<AccountDto>(this.accountDto);
           this.loaderService.hide();

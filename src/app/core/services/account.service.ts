@@ -26,6 +26,7 @@ export class AccountService {
       "?page=" + page +
       "&" + type.toLowerCase() +
       "=" + query;
+    console.log(queryUrl);
     return this.httpClient.get<PageDto<AccountDto>>(queryUrl, this.httpOptions);
   }
 

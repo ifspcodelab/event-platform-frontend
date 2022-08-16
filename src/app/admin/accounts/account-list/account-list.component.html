@@ -1,31 +1,31 @@
 <app-admin-header title="Usuários">
+  <div class="app-toolbar" >
+    <form id="account-search-form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
-  <form id="account-search-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+      <mat-form-field>
+        <mat-select formControlName="searchType" placeholder="Buscar por:">
+          <mat-option *ngFor="let type of enumKeys" [value]="type">{{searchType[type]}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="fieldErrors('searchType')?.['required']">
+          Tipo é obrigatório
+        </mat-error>
+      </mat-form-field>
 
-    <p>Buscar por:</p>
-    <mat-select formControlName="searchType" placeholder="Buscar por ">
-      <mat-option *ngFor="let type of enumKeys" [value]="type">
-        {{searchType[type]}}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="fieldErrors('searchType')?.['required']">
-      Tipo é obrigatório
-    </mat-error>
+      <mat-form-field>
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="search" formControlName="query" matInput>
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-icon matPrefix>search</mat-icon>
-      <input type="search" formControlName="query" matInput>
-    </mat-form-field>
-
-    <mat-card-actions>
-      <button class="button button-white" mat-raised-button form="account-search-form" color="primary" [disabled]="requestLoading">
-        <span>Enviar</span>
-      </button>
-      <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
-    </mat-card-actions>
-  </form>
-
+      <mat-card-actions>
+        <button class="button button-white" mat-raised-button form="account-search-form" color="primary" [disabled]="requestLoading">
+          <span>Enviar</span>
+        </button>
+        <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+      </mat-card-actions>
+    </form>
+  </div>
 </app-admin-header>
+
 
 <article class="container" *ngIf="accountDto.length" >
   <table class="container__table" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
@@ -70,10 +70,11 @@
   </table>
 
   <mat-paginator class="mat-elevation-z0"
-    [length]="this.page.totalElements"
-    [pageSize]="this.page.size"
-    (page)="fetchAccounts($event.pageIndex)"
-    aria-label="Select page">
+                 [length]="this.page.totalElements"
+                 [pageIndex]="this.page.number"
+                 [pageSize]="this.page.size"
+                 (page)="fetchAccounts($event.pageIndex)"
+                 aria-label="Select page">
   </mat-paginator>
 
 </article>
