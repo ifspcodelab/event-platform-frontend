@@ -69,5 +69,11 @@
 
   </table>
 
+  <mat-paginator class="mat-elevation-z0"
+    [length]="this.page.totalElements"
+    [pageSize]="20"
+    (page)="fetchAccounts($event.pageIndex, this.form.value['query'], this.form.value['searchType'])"
+    aria-label="Select page">
+  </mat-paginator>
 
 </article>

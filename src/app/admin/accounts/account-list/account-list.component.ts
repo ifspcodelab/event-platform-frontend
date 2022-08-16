@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MatTableDataSource} from "@angular/material/table";
-import {UsersDto} from "../../../core/models/users.model";
 import {AccountService} from "../../../core/services/account.service";
 import {LoaderService} from "../../loader.service";
 import { Router} from "@angular/router";
@@ -9,6 +8,7 @@ import {LiveAnnouncer} from "@angular/cdk/a11y";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountDto} from "../../../core/models/account.model";
 import {SearchType} from "../../../core/models/search-types.model";
+import {PageDto} from "../../../core/models/page.model";
 
 
 @Component({
@@ -20,6 +20,7 @@ export class AccountListComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'email', 'cpf', 'agreed', 'role', 'verified', 'registrationTimestamp'];
   accountDto: AccountDto[] = [];
+  page: PageDto<AccountDto>;
   dataSource: MatTableDataSource<AccountDto>;
   @ViewChild(MatSort)
   sort: MatSort;
@@ -44,7 +45,7 @@ export class AccountListComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.buildForm();
     this.loaderService.show();
-    this.fetchAccountsByQuery('', this.selectedOption);
+    this.fetchAccounts(0, this.form.value['query'], this.form.value['searchType']);
   }
 
   onSubmit() {
@@ -52,28 +53,14 @@ export class AccountListComponent implements OnInit {
       return;
     }
     this.requestLoading = true;
-    let type = this.form.value['searchType'];
-    let query =this.form.value['query'];
-    this.fetchAccountsByQuery(query, type);
-
+    this.fetchAccounts(0, this.form.value['query'], this.form.value['searchType']);
   }
 
-  fetchAccounts() {
-      this.accountService.getAccounts()
-        .subscribe(
-          pageDto => {
-            this.accountDto = pageDto.content;
-            this.dataSource = new MatTableDataSource<UsersDto>(this.accountDto);
-            this.loaderService.hide();
-
-          }
-        )
-  }
-
-  private fetchAccountsByQuery(query: string, type: string) {
-    this.accountService.getAccountsByQuery(query, type)
+  fetchAccounts(page: number, query: string, type: string) {
+    this.accountService.getAccounts(page, query, type)
       .subscribe(
         pageDto => {
+          this.page = pageDto;
           this.accountDto = pageDto.content;
           this.dataSource = new MatTableDataSource<AccountDto>(this.accountDto);
           this.loaderService.hide();

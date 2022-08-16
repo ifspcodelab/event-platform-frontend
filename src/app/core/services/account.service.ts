@@ -3,7 +3,6 @@ import {environment} from "../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import {PageDto} from "../models/page.model";
-import {UsersDto} from "../models/users.model";
 import {AccountDto} from "../models/account.model";
 
 @Injectable({
@@ -21,12 +20,13 @@ export class AccountService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAccounts(): Observable<PageDto<AccountDto>> {
-    return this.httpClient.get<PageDto<AccountDto>>(this.apiUrl, this.httpOptions);
-  }
 
-  getAccountsByQuery(query: string, type: string): Observable<PageDto<AccountDto>> {
-    let queryUrl = this.apiUrl + "?" + type.toLowerCase() + "=" + query;
+  getAccounts(page: number, query: string, type: string): Observable<PageDto<AccountDto>> {
+    let queryUrl = this.apiUrl +
+      "?page=" + page +
+      "&" + type.toLowerCase() +
+      "=" + query;
+    console.log(queryUrl);
     return this.httpClient.get<PageDto<AccountDto>>(queryUrl, this.httpOptions);
   }
 
