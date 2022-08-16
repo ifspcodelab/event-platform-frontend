@@ -9,6 +9,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountDto} from "../../../core/models/account.model";
 import {SearchType} from "../../../core/models/search-types.model";
 import {PageDto} from "../../../core/models/page.model";
+import {AppValidators} from "../../../core/validators/app-validators";
 
 
 @Component({

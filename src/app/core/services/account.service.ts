@@ -24,8 +24,8 @@ export class AccountService {
   getAccounts(page: number, query: string, type: string): Observable<PageDto<AccountDto>> {
     let queryUrl = this.apiUrl +
       "?page=" + page +
-      "&" + type.toLowerCase() +
-      "=" + query;
+      "&searchType=" + type.toLowerCase() +
+      "&query=" + query;
     console.log(queryUrl);
     return this.httpClient.get<PageDto<AccountDto>>(queryUrl, this.httpOptions);
   }
