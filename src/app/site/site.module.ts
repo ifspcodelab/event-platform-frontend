@@ -25,6 +25,7 @@ import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component
 import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { CoreModule } from "../core/core.module";
+import { AlterMyDataPasswordComponent } from './pages/alter-my-data-password/alter-my-data-password.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { CoreModule } from "../core/core.module";
     AccountPageComponent,
     MyDataComponent,
     MyDataEditComponent,
+    AlterMyDataPasswordComponent,
   ],
   exports: [
     SiteHeaderComponent,

@@ -75,6 +75,7 @@
     </mat-form-field>
 
     <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de uso</p>
+    <button class="button-terms" mat-button color="" type="submit" routerLink="/termos">Leia os Termos de uso</button>
 
     <div class="checkbox-container">
       <mat-checkbox name="agreed" id="agreed" value="true" formControlName="agreed"></mat-checkbox>
@@ -91,6 +92,7 @@
     <mat-card-actions>
       <button class="button button-white" mat-raised-button form="registration-form" color="primary" [disabled]="requestLoading">Cadastrar</button>
       <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+      <button class="button" mat-button color="" type="submit" routerLink="/login">Já fez cadastro? Faça o login</button>
     </mat-card-actions>
   </form>
 </app-account-page>

@@ -4,20 +4,21 @@
   <table>
     <ng-container *ngIf="accountDto">
       <tr>
-        <td>Nome</td>
+        <td class="attribute">Nome</td>
         <td>{{ accountDtoName }}</td>
       </tr>
       <tr>
-        <td>E-mail</td>
+        <td class="attribute">E-mail</td>
         <td class="email">{{ accountDtoEmail }}</td>
       </tr>
       <tr>
-        <td>CPF</td>
+        <td class="attribute">CPF</td>
         <td>{{ accountDtoCpf | cpfFomat }}</td>
       </tr>
     </ng-container>
   </table>
 
-    <button class="edit full-width" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
+  <button class="edit full-width" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
+  <button class="alterPassword" mat-button color="" type="submit" routerLink="/alterar-minha-senha">Alterar minha senha</button>
 
 </app-account-page>

@@ -30,9 +30,7 @@ export class RegistrationComponent implements OnInit {
     private notificationService: NotificationService,
   ) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
@@ -106,6 +104,7 @@ export class RegistrationComponent implements OnInit {
           const formControl = this.form.get(violation.name);
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
+            this.notificationService.error(violation.message);
           }
         })
       }
@@ -113,7 +112,6 @@ export class RegistrationComponent implements OnInit {
       if(error.status === 409) {
         const problem: ProblemDetail = error.error;
         if(problem.title === "Resource already exists exception") {
-          // Depois será melhorado
           if(problem.violations.length > 0) {
             const violation = problem.violations[0];
             if(violation.message.includes("E-mail")) {

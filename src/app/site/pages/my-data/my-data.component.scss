@@ -10,13 +10,29 @@ td {
   padding: 8px;
 }
 
+.attribute {
+  text-align: center;
+  font-weight: bold;
+}
+
 .email {
   background-color: #cccccc;
 }
 
 .edit {
   width: 100%;
-  max-width: 400px;
   color: #FFF;
-  margin-top: 30px;
+  margin: 30px 0 5px 0 !important;
+}
+
+.button {
+  margin: 5px 0 !important;
+  border: none;
+  width: 100%;
+}
+
+.alterPassword {
+  margin: 5px 0 15px 0 !important;
+  border: none;
+  width: 100%;
 }

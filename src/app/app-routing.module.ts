@@ -11,6 +11,7 @@ import { AuthGuard } from "./core/security/auth.guard";
 import { AdminGuard } from "./core/security/admin.guard";
 import { MyDataComponent } from "./site/pages/my-data/my-data.component";
 import { MyDataEditComponent } from "./site/pages/my-data-edit/my-data-edit.component";
+import { AlterMyDataPasswordComponent } from "./site/pages/alter-my-data-password/alter-my-data-password.component";
 
 const routes: Routes = [
   {
@@ -57,6 +58,12 @@ const routes: Routes = [
     path: 'meus-dados/edicao',
     component: MyDataEditComponent,
     title: 'Edição Meus Dados - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'alterar-minha-senha',
+    component: AlterMyDataPasswordComponent,
+    canActivate: [AuthGuard],
+    title: 'Alterar Minha Senha - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'admin',
