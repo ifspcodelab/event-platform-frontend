@@ -1,3 +1,4 @@
+import { EventStatusModel } from './../../../../core/models/event-status.model';
 import { OrganizerFormComponent } from './../organizer-form/organizer-form/organizer-form.component';
 import { AccountDto } from './../../../../core/models/account.model';
 import { OrganizerService } from './../../../../core/services/organizer.service';
@@ -28,6 +29,7 @@ export class EventShowComponent implements OnInit {
   displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
   subeventsDto: SubeventDto[] = [];
   eventDto: EventDto;
+  eventStatus = EventStatusModel;
   eventId: string;
   dataSource: MatTableDataSource<SubeventDto>;
   @ViewChild(MatSort)
@@ -251,6 +253,10 @@ export class EventShowComponent implements OnInit {
         this.notificationService.error(error.error.violations[0].message);
       }
     }
+  }
+
+  checkEventIsCanceled() {
+    this.eventDto.status == this.eventStatus.CANCELED;
   }
 
   announceSortChangeEvent(sort: Sort) {

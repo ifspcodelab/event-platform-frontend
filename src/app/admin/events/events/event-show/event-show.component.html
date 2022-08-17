@@ -68,7 +68,12 @@
       <article class="container">
         <header class="container__header">
           <h2 class="container__header__title">Organização</h2>
-          <button mat-button color="primary" (click)="openOrganizerFormDialog()">Novo Organizador</button>
+          <div *ngIf="eventStatus.CANCELED">
+            <p>Não é possível adicionar um novo organizador com o evento cancelado.</p>
+          </div>
+          <!-- <div *ngIf="!eventStatus.CANCELED">
+            <button mat-button color="primary" (click)="openOrganizerFormDialog()">Novo Organizador</button>
+          </div> -->
         </header>
 
         <p *ngIf="!organizersDto.length">Nenhum organizador encontrado</p>
