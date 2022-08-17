@@ -1,5 +1,4 @@
-import {UsersRole} from "./users-role.model";
-import {Timestamp} from "rxjs";
+import {AccountRole} from "./account-role.model";
 
 export interface AccountDto {
   id: string;
@@ -7,9 +6,9 @@ export interface AccountDto {
   email: string;
   cpf: string;
   agreed: boolean;
-  role: UsersRole;
+  role: AccountRole;
   verified: boolean;
-  registrationTimestamp: Timestamp<any>;
+  registrationTimestamp: string;
 }
 
 export class AccountCreateDto {

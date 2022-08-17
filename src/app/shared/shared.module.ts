@@ -21,6 +21,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from "@angular/material/card";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 
@@ -48,6 +49,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatMenuModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
   ],
   exports: [
     MatToolbarModule,

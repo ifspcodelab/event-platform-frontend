@@ -7,6 +7,7 @@ import {CoreModule} from "../../core/core.module";
 import {SharedModule} from "../../shared/shared.module";
 import { AccountShowComponent } from './account-show/account-show.component';
 import { AccountFormComponent } from './account-form/account-form.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { AccountFormComponent } from './account-form/account-form.component';
     CommonModule,
     CoreModule,
     SharedModule,
-    AccountsRoutingModule
+    AccountsRoutingModule,
+    MatSlideToggleModule,
   ]
 })
 export class AccountsModule { }

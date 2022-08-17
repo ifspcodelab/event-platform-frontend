@@ -22,6 +22,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 100%;
   }
 
+  &__input__sm {
+    width: 50%;
+  }
+
   &__buttons {
     padding: 0 !important;
     justify-content: right !important;

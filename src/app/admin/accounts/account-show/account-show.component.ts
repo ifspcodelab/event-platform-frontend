@@ -20,7 +20,7 @@ export class AccountShowComponent implements OnInit {
   accountId: string;
 
   constructor(
-    private accountService: AccountService,
+    protected accountService: AccountService,
     private route: ActivatedRoute,
     private router: Router,
     private loaderService: LoaderService,

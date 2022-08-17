@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { Observable } from 'rxjs';
 import {PageDto} from "../models/page.model";
 import {AccountDto} from "../models/account.model";
+import {AccountRole} from "../models/account-role.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,6 @@ export class AccountService {
       "?page=" + page +
       "&searchType=" + type.toLowerCase() +
       "&query=" + query;
-    console.log(queryUrl);
     return this.httpClient.get<PageDto<AccountDto>>(queryUrl, this.httpOptions);
   }
 
@@ -41,4 +41,23 @@ export class AccountService {
   putAccount(accountId: string, accoountDto: AccountDto): Observable<AccountDto> {
     return this.httpClient.put<AccountDto>(`${this.apiUrl}/${accountId}`, accoountDto, this.httpOptions);
   }
+
+  getRole(role: string){
+
+
+    if(role == "ADMIN"){
+      return "Administrador";
+    }
+    if(role == "SPEAKER"){
+      return "Ministrante";
+    }
+    return "Participante";
+  }
+
+  transform(cpf: string): string {
+    cpf = cpf.replace(/[^\d]/g, "");
+
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  }
+
 }

@@ -22,7 +22,7 @@
 
     <mat-form-field class="form-field-sm">
       <mat-label>CPF</mat-label>
-      <input matInput mask="000.000.000-00" formControlName="cpf" name="cpf">
+      <input matInput formControlName="cpf" name="cpf">
       <mat-error *ngIf="fieldErrors('cpf')?.['required']">Email é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">CPF deve conter um CPF válido</mat-error>
       <mat-error *ngIf="fieldErrors('cpf')?.['serverError'] && submitted">
@@ -42,42 +42,37 @@
         {{ fieldErrors('email')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-
-    <mat-form-field class="form-field-sm">
-      <mat-label>Confirmado</mat-label>
-      <mat-select matInput placeholder="" formControlName="agreed" name="agreed">
-        <mat-option [value]="true"> Sim </mat-option>
-        <mat-option [value]="false"> Não </mat-option>
+    <br>
+    <mat-form-field class="modal__input__sm" >
+      <mat-label>Perfil</mat-label>
+      <mat-select formControlName="role" name="role" placeholder="Perfil">
+        <mat-option *ngFor="let roleType of enumKeys" [value]="roleType">
+          {{accountService.getRole(roleType)}}
+        </mat-option>
       </mat-select>
-      <mat-hint>Informa se o usuário aceitou os termos de uso.</mat-hint>
-    </mat-form-field>
-
-    <br>
-    <mat-form-field class="modal__input">
-    <mat-label>Perfil</mat-label>
-    <mat-select formControlName="role" name="role" placeholder="Perfil">
-      <mat-option *ngFor="let roleType of enumKeys" [value]="roleType">
-        {{roleType}}
-      </mat-option>
-    </mat-select>
-    </mat-form-field>
-    <br>
-
-
-    <mat-form-field class="form-field-md">
-      <mat-label>Verificado</mat-label>
-      <mat-select matInput placeholder="" formControlName="verified" name="verified">
-      <mat-option [value]="true"> Sim </mat-option>
-      <mat-option [value]="false"> Não </mat-option>
-      </mat-select>
-      <mat-hint>Informa se o usuário possui conta confirmada através do e-mail.</mat-hint>
-    </mat-form-field>
-    <br>
-
-    <mat-form-field class="form-field-md">
-      <mat-label>Registrado em</mat-label>
-      <input matInput placeholder="" formControlName="registrationTimestamp" name="registrationTimestamp">
-      <mat-hint>Data de criação da conta</mat-hint>
     </mat-form-field>
   </fieldset>
+
+  <fieldset>
+    <div>
+      <mat-label class="mat-hint">Confirmado</mat-label>
+      <br>
+      <mat-slide-toggle class="mat-slide-toggle-content" formControlName="agreed" name="agreed">
+        Informa se o usuário aceitou os termos de uso.
+      </mat-slide-toggle>
+    </div>
+
+    <div>
+      <mat-label class="mat-hint">Verificado</mat-label>
+      <br>
+      <mat-slide-toggle class="mat-slide-toggle-content" formControlName="verified">
+        Informa se o usuário possui conta confirmada através do e-mail
+      </mat-slide-toggle>
+    </div>
+  </fieldset>
+
+
+
+
+
 </form>

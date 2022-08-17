@@ -26,7 +26,7 @@ export class AccountFormComponent implements OnInit {
   enumKeys: any = [];
 
   constructor(
-    private accountService: AccountService,
+    protected accountService: AccountService,
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,

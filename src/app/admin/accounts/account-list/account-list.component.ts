@@ -9,7 +9,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountDto} from "../../../core/models/account.model";
 import {SearchType} from "../../../core/models/search-types.model";
 import {PageDto} from "../../../core/models/page.model";
-import {AppValidators} from "../../../core/validators/app-validators";
+import {AccountRole} from "../../../core/models/account-role.model";
 
 
 @Component({
@@ -19,22 +19,20 @@ import {AppValidators} from "../../../core/validators/app-validators";
 })
 export class AccountListComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'email', 'cpf', 'agreed', 'role', 'verified', 'registrationTimestamp'];
+  displayedColumns: string[] = ['name', 'email', 'cpf', 'agreed', 'role', 'verified',]
   dataSource: MatTableDataSource<AccountDto>;
-  @ViewChild(MatSort)
-  sort: MatSort;
-  form: FormGroup;
   requestLoading: boolean = false;
-  submitted: boolean = false;
   accountDto: AccountDto[] = [];
   page: PageDto<AccountDto>;
   searchType = SearchType;
-  enumKeys: any = [];
   selectedOption = 'NAME';
-
+  @ViewChild(MatSort)
+  sort: MatSort;
+  enumKeys: any = [];
+  form: FormGroup;
 
   constructor(
-    private accountService: AccountService,
+    protected accountService: AccountService,
     private loaderService: LoaderService,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -51,6 +49,7 @@ export class AccountListComponent implements OnInit {
 
   onSubmit() {
     if(this.form.invalid){
+      console.log(this.form.errors);
       return;
     }
     this.requestLoading = true;
@@ -82,7 +81,7 @@ export class AccountListComponent implements OnInit {
 
   private buildForm() {
     return this.formBuilder.group({
-      query: ['', [Validators.maxLength(50)]],
+      query: ['', [Validators.maxLength(50), Validators.pattern("^[a-zA-Z0-9 @._]*$")]],
       searchType: [this.selectedOption, [Validators.required]],
     })
   }
@@ -96,6 +95,8 @@ export class AccountListComponent implements OnInit {
   }
 
   openAccountShow(accountDto: AccountDto) {
-    return this.router.navigate(['admin', 'accounts', accountDto.id])
+    return this.router.navigate(['admin', 'accounts', accountDto.id]);
   }
+
+
 }
