@@ -79,6 +79,8 @@ export class MyDataEditComponent implements OnInit {
   }
 
   handleError(error: any) {
+    this.requestLoading = false;
+    this.refresh();
     if(error instanceof HttpErrorResponse) {
       if(error.status === 400) {
         const violations: Violation[] = error.error;
@@ -86,6 +88,7 @@ export class MyDataEditComponent implements OnInit {
           const formControl = this.form.get(violation.name);
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
+            this.notificationService.error(violation.message);
           }
         })
       }
@@ -101,5 +104,9 @@ export class MyDataEditComponent implements OnInit {
 
   resolved(captchaResponse: string): void {
     this.userReCaptcha = captchaResponse;
+  }
+
+  refresh(): void {
+    grecaptcha.reset();
   }
 }

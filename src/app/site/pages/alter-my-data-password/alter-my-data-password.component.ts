@@ -62,6 +62,8 @@ export class AlterMyDataPasswordComponent implements OnInit {
   }
 
   handleError(error: any) {
+    this.requestLoading = false;
+    this.refresh();
     if(error instanceof HttpErrorResponse) {
       const problem: ProblemDetail = error.error;
       if (problem.title == "Token not valid"){
@@ -94,6 +96,10 @@ export class AlterMyDataPasswordComponent implements OnInit {
 
   resolved(captchaResponse: string): void {
     this.userRecaptcha = captchaResponse;
+  }
+
+  refresh(): void {
+    grecaptcha.reset();
   }
 }
 

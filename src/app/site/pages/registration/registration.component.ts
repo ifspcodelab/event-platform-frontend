@@ -97,6 +97,7 @@ export class RegistrationComponent implements OnInit {
 
   handleError(error: any): void {
     this.requestLoading = false;
+    this.refresh();
     if(error instanceof HttpErrorResponse) {
       if(error.status === 400) {
         const violations: Violation[] = error.error;
@@ -133,12 +134,8 @@ export class RegistrationComponent implements OnInit {
     this.userReCaptcha = captchaResponse;
   }
 
-  goToLogin() {
-    return this.router.navigate(['login']);
-  }
-
-  goToTerms() {
-    this.router.navigate(['terms']);
+  refresh(): void {
+    grecaptcha.reset();
   }
 }
 
