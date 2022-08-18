@@ -20,10 +20,9 @@
   </table>
 
   <mat-card-actions>
-    <button class="edit full-width" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
+    <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
     <button class="alterPassword" mat-button color="" routerLink="/alterar-minha-senha">Alterar minha senha</button>
     <button class="eraseMyAccount" mat-button color="warn" routerLink="/apagar-minha-conta">Apagar minha conta</button>
-    <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
   </mat-card-actions>
 
 </app-account-page>
