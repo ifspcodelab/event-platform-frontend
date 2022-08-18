@@ -13,6 +13,8 @@ import { LoaderService } from "../../../loader.service";
 import { OrganizerSubeventDto } from 'src/app/core/models/organizer-subevent.model';
 import { OrganizerSubeventService } from 'src/app/core/services/organizer-subevent.service';
 import { OrganizerSubeventFormComponent } from '../organizer-subevent-form/organizer-subevent-form.component';
+import { EventDto } from 'src/app/core/models/event.model';
+import { EventStatusModel } from 'src/app/core/models/event-status.model';
 
 @Component({
   selector: 'app-subevent-show',
@@ -26,6 +28,8 @@ export class SubeventShowComponent implements OnInit {
   subeventDto: SubeventDto;
   subeventId: string;
   eventId: string;
+  eventDto: EventDto;
+  subeventStatus: EventStatusModel;
   organizerSubeventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
   tabSelectedIndex: number = 0;
@@ -212,6 +216,10 @@ export class SubeventShowComponent implements OnInit {
            this.organizersSubeventDto = this.organizersSubeventDto.filter(o => o.id != organizerSubeventId);
         }
       });
+   }
+
+   checkSubeventStatus(subeventDto: SubeventDto) {
+     return subeventDto.status == EventStatusModel.CANCELED;
    }
 
   handleError(error: any) {

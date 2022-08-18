@@ -30,7 +30,9 @@
       <article class="container">
         <header class="container__header">
           <h2 class="container__header__title">Organização</h2>
-          <button mat-button color="primary" (click)="openAddOrganizerSubeventFormDialog()">Novo Organizador</button>
+          <p *ngIf="checkSubeventStatus(subeventDto)">O evento foi cancelado</p>
+              <button mat-button color="primary" *ngIf="checkSubeventStatus(subeventDto)" (click)="openAddOrganizerSubeventFormDialog()">Novo Organizador</button>
+
         </header>
       </article>
 
