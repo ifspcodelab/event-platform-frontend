@@ -1,4 +1,4 @@
 export enum OrganizerType {
-  ADMINISTRATOR = ("Administrador"),
+  COORDINATOR = ("Coordenador"),
   COLLABORATOR = ("Colaborador")
 }

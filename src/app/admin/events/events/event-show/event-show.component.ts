@@ -29,7 +29,6 @@ export class EventShowComponent implements OnInit {
   displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
   subeventsDto: SubeventDto[] = [];
   eventDto: EventDto;
-  eventStatus = EventStatusModel;
   eventId: string;
   dataSource: MatTableDataSource<SubeventDto>;
   @ViewChild(MatSort)
@@ -255,9 +254,9 @@ export class EventShowComponent implements OnInit {
     }
   }
 
-  checkEventIsCanceled() {
-    this.eventDto.status == this.eventStatus.CANCELED;
-  }
+  // checkEventIsCanceled(): boolean {
+  //   return this.eventDto.status == EventStatusModel[EventStatusModel.CANCELED];
+  // }
 
   announceSortChangeEvent(sort: Sort) {
     this.dataSource.sort = this.sort;

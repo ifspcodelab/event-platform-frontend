@@ -65,15 +65,16 @@
     </mat-tab>
 
     <mat-tab label="Organização">
+      <!-- {{ checkEventIsCanceled() }} -->
       <article class="container">
         <header class="container__header">
           <h2 class="container__header__title">Organização</h2>
-          <div *ngIf="eventStatus.CANCELED">
+          <!-- <div *ngIf="checkEventIsCanceled(eventDto)">
             <p>Não é possível adicionar um novo organizador com o evento cancelado.</p>
-          </div>
-          <!-- <div *ngIf="!eventStatus.CANCELED">
-            <button mat-button color="primary" (click)="openOrganizerFormDialog()">Novo Organizador</button>
           </div> -->
+          <!-- <div> -->
+            <button mat-button color="primary" (click)="openOrganizerFormDialog()">Novo Organizador</button>
+          <!-- </div> -->
         </header>
 
         <p *ngIf="!organizersDto.length">Nenhum organizador encontrado</p>
