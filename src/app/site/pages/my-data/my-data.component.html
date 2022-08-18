@@ -1,5 +1,6 @@
 <app-account-page
-  pageTitle="Meus Dados">
+  pageTitle="Meus Dados"
+  description="Edite nome e CPF, redefina senha ou apague a conta">
 
   <table>
     <ng-container *ngIf="accountDto">
@@ -18,7 +19,11 @@
     </ng-container>
   </table>
 
-  <button class="edit full-width" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
-  <button class="alterPassword" mat-button color="" type="submit" routerLink="/alterar-minha-senha">Alterar minha senha</button>
+  <mat-card-actions>
+    <button class="edit full-width" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
+    <button class="alterPassword" mat-button color="" routerLink="/alterar-minha-senha">Alterar minha senha</button>
+    <button class="eraseMyAccount" mat-button color="warn" routerLink="/apagar-minha-conta">Apagar minha conta</button>
+    <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+  </mat-card-actions>
 
 </app-account-page>

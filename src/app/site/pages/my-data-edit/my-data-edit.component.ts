@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-my-data-edit',
@@ -16,6 +17,8 @@ import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 export class MyDataEditComponent implements OnInit {
   form: FormGroup = this.buildForm();
   userReCaptcha: string | undefined = '';
+  recaptchaSiteKey: string = environment.recaptchaSiteKey;
+  requestLoading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,

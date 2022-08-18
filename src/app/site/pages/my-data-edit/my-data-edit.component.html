@@ -1,5 +1,6 @@
 <app-account-page
-  pageTitle="Meus Dados">
+  pageTitle="Editar Meus Dados"
+  description="Insira nome e CPF">
 
   <form id="my-data-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" class="full-width">
@@ -36,8 +37,11 @@
       <mat-hint align="start">O cpf será usado para identificação e para emitir o certificado</mat-hint>
     </mat-form-field>
 
-    <re-captcha (resolved)="resolved($event)" siteKey="6LfjQjAhAAAAAGDIg5BkJMBccd-APYyY1AXM2eun"></re-captcha>
+    <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
 
-    <button class="redefine full-width" mat-raised-button form="my-data-form" color="primary">Redefinir</button>
+    <mat-card-actions>
+      <button class="redefine full-width" mat-raised-button form="my-data-form" color="primary">Redefinir</button>
+      <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+    </mat-card-actions>
   </form>
 </app-account-page>

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { environment } from "../../../../environments/environment";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NotificationService } from "../../../core/services/notification.service";
-import { AppValidators } from "../../../core/validators/app-validators";
+import { AppValidators } from "../../../core/validators/app-validator";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail } from "../../../core/models/problem-detail";
 import { AlterMyDataPasswordDto } from "../../../core/models/alter-my-data-password-dto.model";

@@ -12,6 +12,7 @@ import { first } from "rxjs";
 })
 export class MyDataComponent implements OnInit {
   accountDto: AccountDto;
+  requestLoading: boolean = false;
 
   constructor(
     private router: Router,
