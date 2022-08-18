@@ -17,7 +17,6 @@ export class AlterMyDataPasswordService extends BaseService{
   }
 
   sendAlterPasswordRequest(dto: AlterMyDataPasswordDto) {
-    console.log(this.apiUrl);
-    return this.httpClient.patch<AlterMyDataPasswordDto>(this.apiUrl, dto, this.httpOptionsSkipInterceptor);
+    return this.httpClient.patch<AlterMyDataPasswordDto>(this.apiUrl, dto, this.httpOptions);
   }
 }

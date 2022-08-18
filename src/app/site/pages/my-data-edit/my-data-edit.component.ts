@@ -8,6 +8,8 @@ import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 import { environment } from "../../../../environments/environment";
+import { ForgotPasswordCreateDto } from "../../../core/models/forgot-password-create-dto.model";
+import { MyDataDto } from "../../../core/models/account.model";
 
 @Component({
   selector: 'app-my-data-edit',
@@ -16,7 +18,7 @@ import { environment } from "../../../../environments/environment";
 })
 export class MyDataEditComponent implements OnInit {
   form: FormGroup = this.buildForm();
-  userReCaptcha: string | undefined = '';
+  userRecaptcha: string | undefined = '';
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
   requestLoading: boolean = false;
 
@@ -60,14 +62,15 @@ export class MyDataEditComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.invalid || this.userReCaptcha == '') {
+    if (this.form.invalid || this.userRecaptcha == '') {
       return;
     }
-    this.updateAccount();
+    const myDataDto  = new MyDataDto(this.form.value['name'], this.form.value['cpf'], this.userRecaptcha!);
+    this.updateAccount(myDataDto);
   }
 
-  private updateAccount() {
-    this.myDataService.patchAccount(this.form.value)
+  updateAccount(myDataDto: MyDataDto) {
+    this.myDataService.patchAccount(myDataDto)
       .pipe(first())
       .subscribe({
         next: () => {
@@ -103,7 +106,7 @@ export class MyDataEditComponent implements OnInit {
   }
 
   resolved(captchaResponse: string): void {
-    this.userReCaptcha = captchaResponse;
+    this.userRecaptcha = captchaResponse;
   }
 
   refresh(): void {

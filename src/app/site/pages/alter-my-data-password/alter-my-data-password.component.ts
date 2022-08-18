@@ -8,6 +8,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail } from "../../../core/models/problem-detail";
 import { AlterMyDataPasswordDto } from "../../../core/models/alter-my-data-password-dto.model";
 import { AlterMyDataPasswordService } from "../../../core/services/alter-my-data-password.service";
+import { JwtService } from "../../../core/services/jwtservice.service";
 
 @Component({
   selector: 'app-alter-my-data-password',
@@ -29,6 +30,7 @@ export class AlterMyDataPasswordComponent implements OnInit {
     private renderer: Renderer2,
     private router: Router,
     private notificationService: NotificationService,
+    private jwtService: JwtService,
   ) {
     this.form = this.buildForm();
     this.userRecaptcha = '';
@@ -48,6 +50,8 @@ export class AlterMyDataPasswordComponent implements OnInit {
 
     this.service.sendAlterPasswordRequest(alterMyDataPasswordDto).subscribe(()=>{
         this.notificationService.success("Parabéns. Sua senha foi alterada com sucesso")
+        this.jwtService.removeAccessToken();
+        this.jwtService.removeRefreshToken();
         this.router.navigateByUrl("/login");
         this.form.reset();
         this.submitted = false;
