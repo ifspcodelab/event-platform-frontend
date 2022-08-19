@@ -21,6 +21,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTabsModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatToolbarModule,
@@ -70,7 +72,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCardModule,
     MatTabsModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatAutocompleteModule
   ]
 })
 export class SharedModule { }

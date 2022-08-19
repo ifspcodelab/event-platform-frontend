@@ -14,6 +14,7 @@
     <p class="container__item"><b>Slug:</b> {{ activityDto.slug }}</p>
     <p class="container__item"><b>Descrição:</b> {{ activityDto.description }}</p>
     <p class="container__item"><b>Duração:</b> {{ activityDto.duration }} minutos</p>
+    <p class="container__item"><b>Tempo de Credenciamento:</b> {{ activityDto.setupTime }} minutos</p>
     <p class="container__item"><b>Requer inscrição:</b> {{ activityDto.needRegistration ? 'Sim' : 'Não' }}</p>
     <p class="container__item"><b>Status:</b> {{ activityDto.status | eventStatus }}</p>
   </article>

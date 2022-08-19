@@ -16,6 +16,7 @@ import { SessionFormComponent } from "./sessions/session-form/session-form.compo
 import { ActivityFormComponent } from './activities/activity-form/activity-form.component';
 import { ActivityListComponent } from './activities/activity-list/activity-list.component';
 import { ActivitySpeakersComponent } from './activities/activity-speakers/activity-speakers.component';
+import { ActivitySpeakerFormComponent } from './activities/activity-speaker-form/activity-speaker-form.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ActivitySpeakersComponent } from './activities/activity-speakers/activi
     SessionFormComponent,
     ActivityListComponent,
     ActivitySpeakersComponent,
+    ActivitySpeakerFormComponent,
   ],
   imports: [
     CommonModule,

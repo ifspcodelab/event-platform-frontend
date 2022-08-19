@@ -69,9 +69,19 @@
     </mat-form-field>
     <br>
     <mat-form-field class="form-field-xs">
+      <mat-label>Tempo de Credenciamento</mat-label>
+      <input matInput placeholder="" formControlName="setupTime" name="setupTime" type="number">
+      <mat-error *ngIf="fieldErrors('setupTime')?.['required']">Tempo de Credenciamento é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('setupTime')?.['min']">Tempo de Credenciamento deve ter no mínimo 5 minutos</mat-error>
+      <mat-error *ngIf="fieldErrors('setupTime')?.['serverError'] && submitted">
+        {{ fieldErrors('setupTime')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-xs">
       <mat-label>Duração em minutos</mat-label>
       <input matInput placeholder="" formControlName="duration" name="duration" type="number">
-      <mat-error *ngIf="fieldErrors('duration')?.['duration']">Duração é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('duration')?.['required']">Duração é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('duration')?.['min']">Duração deve ter no mínimo 10 minutos</mat-error>
       <mat-error *ngIf="fieldErrors('duration')?.['serverError'] && submitted">
         {{ fieldErrors('duration')?.['serverError'] }}

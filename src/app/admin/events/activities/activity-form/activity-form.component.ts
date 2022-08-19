@@ -97,6 +97,7 @@ export class ActivityFormComponent implements OnInit {
       type: ['', [Validators.required]],
       modality: ['', [Validators.required]],
       duration: [10, [Validators.required, Validators.min(10)]],
+      setupTime: [5, [Validators.required, Validators.min(5)]],
       needRegistration: [true, [Validators.required]],
     });
   }
