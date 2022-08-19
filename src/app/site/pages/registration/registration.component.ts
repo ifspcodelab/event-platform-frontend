@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
 import { NotificationService } from "../../../core/services/notification.service";
 import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 import { HttpErrorResponse } from "@angular/common/http";
-import {environment} from "../../../../environments/environment";
+import { environment } from "../../../../environments/environment";
 
 @Component({
   selector: 'app-registration',
@@ -30,9 +30,7 @@ export class RegistrationComponent implements OnInit {
     private notificationService: NotificationService,
   ) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
@@ -99,6 +97,7 @@ export class RegistrationComponent implements OnInit {
 
   handleError(error: any): void {
     this.requestLoading = false;
+    this.refresh();
     if(error instanceof HttpErrorResponse) {
       if(error.status === 400) {
         const violations: Violation[] = error.error;
@@ -106,6 +105,7 @@ export class RegistrationComponent implements OnInit {
           const formControl = this.form.get(violation.name);
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
+            this.notificationService.error(violation.message);
           }
         })
       }
@@ -113,7 +113,6 @@ export class RegistrationComponent implements OnInit {
       if(error.status === 409) {
         const problem: ProblemDetail = error.error;
         if(problem.title === "Resource already exists exception") {
-          // Depois será melhorado
           if(problem.violations.length > 0) {
             const violation = problem.violations[0];
             if(violation.message.includes("E-mail")) {
@@ -133,6 +132,10 @@ export class RegistrationComponent implements OnInit {
 
   resolved(captchaResponse: string): void {
     this.userReCaptcha = captchaResponse;
+  }
+
+  refresh(): void {
+    grecaptcha.reset();
   }
 }
 

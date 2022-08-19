@@ -26,6 +26,10 @@ const routes: Routes = [
         path: 'speakers',
         loadChildren: () => import('./speakers/speakers.module').then(m => m.SpeakersModule),
         title: 'Ministrantes - Área Administrativa'
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
       }
     ]
   },

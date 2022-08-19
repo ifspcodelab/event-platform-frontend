@@ -9,7 +9,7 @@ a {
 }
 
 mat-form-field {
-  padding-bottom: 17px;
+  padding-bottom: 10px;
 }
 
 .visibility {
@@ -17,7 +17,7 @@ mat-form-field {
 }
 
 .terms {
-  margin: 20px 0 0 0;
+  margin-top: 20px;
   text-align: left;
 }
 
@@ -45,18 +45,7 @@ re-captcha {
   scale: 0.9;
 }
 
-.button {
-  margin: 5px 0 !important;
-  border: none;
-  width: 100%;
-}
-
-.button-terms {
-  margin: 15px 0 !important;
-  border: none;
-  width: 100%;
-}
-
-.button-white {
-  color: #FFFFFF;
+.redefine {
+  margin: 15px 0;
+  color: #FFF;
 }

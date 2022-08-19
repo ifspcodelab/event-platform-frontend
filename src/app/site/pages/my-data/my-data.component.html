@@ -1,0 +1,29 @@
+<app-site-header></app-site-header>
+
+<app-account-page
+  pageTitle="Meus Dados"
+  description="Edite nome e CPF, redefina senha ou apague a conta">
+
+  <table>
+    <ng-container *ngIf="accountDto">
+      <tr>
+        <td class="attribute">Nome</td>
+        <td>{{ accountDtoName }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">E-mail</td>
+        <td class="email">{{ accountDtoEmail }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">CPF</td>
+        <td>{{ accountDtoCpf | cpfFomat }}</td>
+      </tr>
+    </ng-container>
+  </table>
+
+  <mat-card-actions>
+    <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar</button>
+    <button class="alterPassword" mat-button color="" routerLink="/meus-dados/alterar-minha-senha">Alterar minha senha</button>
+  </mat-card-actions>
+
+</app-account-page>

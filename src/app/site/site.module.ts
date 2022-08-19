@@ -20,8 +20,12 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { PasswordResetComponent } from './pages/password-reset/password-reset.component';
+import { MyDataComponent } from './pages/my-data/my-data.component';
+import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component';
 import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
+import { CoreModule } from "../core/core.module";
+import { AlterMyDataPasswordComponent } from './pages/alter-my-data-password/alter-my-data-password.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,9 @@ import { RouterModule } from "@angular/router";
     TermsComponent,
     RegistrationVerifyComponent,
     AccountPageComponent,
+    MyDataComponent,
+    MyDataEditComponent,
+    AlterMyDataPasswordComponent,
   ],
   exports: [
     SiteHeaderComponent,
@@ -48,22 +55,23 @@ import { RouterModule } from "@angular/router";
     LoginComponent,
     AccountPageComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    EventsModule,
-    RouterModule,
-    MatToolbarModule,
-    FormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    RecaptchaFormsModule,
-    RecaptchaModule,
-    SharedModule,
-    RouterModule,
-    NgxMaskModule.forRoot(),
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        EventsModule,
+        RouterModule,
+        MatToolbarModule,
+        FormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        RecaptchaFormsModule,
+        RecaptchaModule,
+        SharedModule,
+        RouterModule,
+        NgxMaskModule.forRoot(),
+        CoreModule,
+    ]
 })
 export class SiteModule { }
