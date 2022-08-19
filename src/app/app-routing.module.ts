@@ -53,21 +53,23 @@ const routes: Routes = [
   {
     path: 'meus-dados',
     component: MyDataComponent,
+    canActivate: [AuthGuard],
     title: 'Meus Dados - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
-    path: 'meus-dados/edicao',
+    path: 'meus-dados/editar',
     component: MyDataEditComponent,
-    title: 'Edição Meus Dados - Portal de Eventos IFSP - Câmpus São Paulo',
+    canActivate: [AuthGuard],
+    title: 'Editar Meus Dados - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
-    path: 'alterar-minha-senha',
+    path: 'meus-dados/alterar-minha-senha',
     component: AlterMyDataPasswordComponent,
     canActivate: [AuthGuard],
     title: 'Alterar Minha Senha - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
-    path: 'apagar-minha-conta',
+    path: 'meus-dados/apagar-minha-conta',
     component: EraseMyAccountComponent,
     canActivate: [AuthGuard],
     title: 'Apagar Minha Conta - Portal de Eventos IFSP - Câmpus São Paulo',

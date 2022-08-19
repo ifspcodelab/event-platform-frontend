@@ -24,7 +24,7 @@ export class MyDataComponent implements OnInit {
   }
 
   editMyData() {
-    this.router.navigate(['meus-dados', 'edicao']);
+    this.router.navigate(['meus-dados', 'editar']);
   }
 
   fetchAccount() {
