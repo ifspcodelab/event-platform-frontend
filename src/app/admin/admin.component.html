@@ -22,7 +22,9 @@
       <mat-icon class="app-toolbar__icon__dropdown">arrow_drop_down</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/admin/my-account">Meus Dados</button>
+      <button mat-menu-item routerLink="/">Voltar para o site</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/meus-dados">Meus Dados</button>
       <button mat-menu-item (click)="logout()">Sair</button>
     </mat-menu>
   </nav>
