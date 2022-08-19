@@ -19,7 +19,8 @@ export class AlterMyDataPasswordComponent implements OnInit {
   submitted: boolean = false;
   userRecaptcha: string | undefined;
   form: FormGroup;
-  hide: boolean = true;
+  hideCurrent: boolean = true;
+  hideNew: boolean = true;
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
   requestLoading: boolean = false;
 
