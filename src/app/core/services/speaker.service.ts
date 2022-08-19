@@ -35,4 +35,9 @@ export class SpeakerService extends BaseService {
   deleteSpeaker(speakerId: string): Observable<unknown> {
     return this.httpClient.delete<SpeakerDto>(`${this.apiUrl}/${speakerId}`, this.httpOptions);
   }
+
+  findByName(name: string): Observable<SpeakerDto[]> {
+    const url = `${this.apiUrl}/searchName/${name}`;
+    return this.httpClient.get<SpeakerDto[]>(url, this.httpOptions);
+  }
 }

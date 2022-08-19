@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ActivitySpeakerDto } from "../models/activity-speaker.model";
+import { ActivitySpeakerCreateDto, ActivitySpeakerDto } from "../models/activity-speaker.model";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,25 @@ export class ActivitySpeakerService {
   getSubEventActivitySpeakers(eventId: string, subeventId: string, activityId: string): Observable<ActivitySpeakerDto[]> {
     const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}/speakers`;
     return this.httpClient.get<ActivitySpeakerDto[]>(url, this.httpOptions);
+  }
+
+  postEventActivitySpeakers(
+    eventId: string,
+    activityId: string,
+    activitySpeakerCreateDto: ActivitySpeakerCreateDto
+  ): Observable<ActivitySpeakerDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/speakers`;
+    return this.httpClient.post<ActivitySpeakerDto>(url, activitySpeakerCreateDto, this.httpOptions);
+  }
+
+  postSubEventActivitySpeakers(
+    eventId: string,
+    subeventId: string,
+    activityId: string,
+    activitySpeakerCreateDto: ActivitySpeakerCreateDto
+  ): Observable<ActivitySpeakerDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}/speakers`;
+    return this.httpClient.post<ActivitySpeakerDto>(url, activitySpeakerCreateDto, this.httpOptions);
   }
 
   // getSubEventActivities(eventId: string, subeventId: string): Observable<ActivityDto[]> {

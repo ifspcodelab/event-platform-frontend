@@ -1,11 +1,13 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ActivityDto } from "../../../../core/models/activity.model";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort, Sort } from "@angular/material/sort";
 import { ActivitySpeakerService } from "../../../../core/services/activity-speaker.service";
 import { ActivitySpeakerDto } from "../../../../core/models/activity-speaker.model";
 import { Router } from "@angular/router";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { MatDialog } from "@angular/material/dialog";
+import { NotificationService } from "../../../../core/services/notification.service";
+import { ActivitySpeakerFormComponent } from "../activity-speaker-form/activity-speaker-form.component";
 
 @Component({
   selector: 'app-activity-speakers',
@@ -28,6 +30,8 @@ export class ActivitySpeakersComponent implements OnInit {
   constructor(
     private activitySpeakerService: ActivitySpeakerService,
     private router: Router,
+    public dialog: MatDialog,
+    private notificationService: NotificationService,
     private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
@@ -52,6 +56,25 @@ export class ActivitySpeakersComponent implements OnInit {
       .subscribe(activitySpeakersDto => {
         this.activitySpeakersDto = activitySpeakersDto
         this.dataSource = new MatTableDataSource<ActivitySpeakerDto>(this.activitySpeakersDto);
+      });
+  }
+
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      width: '450px',
+      data: { eventId: this.eventId, subeventId: this.subeventId, activityId: this.activityId }
+    };
+  }
+
+  openActivitySpeakerFormDialog() {
+    this.dialog.open(ActivitySpeakerFormComponent, this.getDialogConfig()).afterClosed()
+      .subscribe(activitySpeakerDto => {
+        if (activitySpeakerDto) {
+          this.notificationService.success("Ministrante adicionado com sucesso");
+          this.activitySpeakersDto = [...this.activitySpeakersDto, activitySpeakerDto];
+          this.dataSource = new MatTableDataSource<ActivitySpeakerDto>(this.activitySpeakersDto);
+        }
       });
   }
 
