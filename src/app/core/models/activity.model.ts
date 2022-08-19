@@ -15,9 +15,9 @@ export interface ActivityCreateDto{
   modality: ActivityModality;
   needRegistration: boolean;
   duration: number;
+  setupTime: number;
   status: EventStatusModel;
 }
-
 
 export interface ActivityDto{
   id: string;
@@ -28,6 +28,7 @@ export interface ActivityDto{
   modality: ActivityModality;
   needRegistration?: boolean;
   duration: number;
+  setupTime: number;
   status: EventStatusModel;
   cancellationMessage?: string;
   event?: EventDto;
@@ -40,7 +41,6 @@ export interface SessionDto{
   seats: number;
   schedulesSession: SessionScheduleDto[];
 }
-
 
 export interface SessionScheduleDto{
   id: string;
