@@ -1,16 +1,16 @@
 import { Violation } from './../../../../../core/models/problem-detail';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AppValidators } from 'src/app/core/validators/app-validator';
-import { MatTableDataSource } from '@angular/material/table';
 import { AccountDto } from './../../../../../core/models/account.model';
-import { first } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, first } from 'rxjs/operators';
 import { EventDto } from './../../../../../core/models/event.model';
 import { OrganizerDto } from './../../../../../core/models/organizer.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrganizerService } from './../../../../../core/services/organizer.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { OrganizerType } from 'src/app/core/models/organizer-type.model';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-organizer-form',
@@ -18,12 +18,13 @@ import { OrganizerType } from 'src/app/core/models/organizer-type.model';
   styleUrls: ['./organizer-form.component.scss']
 })
 export class OrganizerFormComponent implements OnInit {
-  form: FormGroup = this.buildForm();
+  form: FormGroup;
   submitted: boolean = false;
   organizersType: any = [];
   organizerType = OrganizerType;
-  organizersDto: OrganizerDto;
-  dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
+  organizersDto: OrganizerDto[] = [];
+  nameControl: FormControl = FormControl();
+  selectedOrganizerId: string;
 
   constructor(
     private organizerService: OrganizerService,
@@ -35,14 +36,33 @@ export class OrganizerFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data.organizerDto);
+    this.form = this.buildForm();
+    this.autocomplete();
   }
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
       accountId: ['', [Validators.required, AppValidators.notBlank]],
       type: ['', [Validators.required]],
-    })
+    });
+  }
+
+  autocomplete() {
+    this.nameControl.valueChanges
+        .pipe(
+          filter(res => res !== null && res.length >= 2),
+          distinctUntilChanged(),
+          debounceTime(600),
+          switchMap(value => this.organizerService.findByName(value))
+        )
+        .subscribe({
+          next: organizersDto => this.organizersDto = organizersDto
+        });
+  }
+
+  onSelected(event: MatAutocompleteSelectedEvent) {
+    this.selectedOrganizerId = event.option.id;
+    this.field('accountId').patchValue(this.selectedOrganizerId);
   }
 
   onSubmit() {
@@ -52,10 +72,10 @@ export class OrganizerFormComponent implements OnInit {
       return;
     }
 
-    this.createOrganizer();
+    this.addOrganizer();
   }
 
-  createOrganizer() {
+  addOrganizer() {
     if(this.form) {
       this.organizerService.postOrganizer(this.data.eventId, this.data.accountId, this.form.value)
           .pipe(first())

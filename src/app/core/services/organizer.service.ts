@@ -31,4 +31,8 @@ export class OrganizerService {
   deleteOrganizer(eventId: string, organizerId: string): Observable<unknown> {
     return this.httpClient.delete<OrganizerDto>(`${this.apiUrl}/${eventId}/organizers/${organizerId}`, this.httpOptions);
   }
+
+  findByName(name: string): Observable<OrganizerDto[]> {
+    return this.httpClient.get<OrganizerDto[]>(`${this.apiUrl}/searchName/${name}`, this.httpOptions);
+  }
 }

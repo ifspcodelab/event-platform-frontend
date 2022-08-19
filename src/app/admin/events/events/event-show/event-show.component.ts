@@ -193,6 +193,7 @@ export class EventShowComponent implements OnInit {
   private getDialogConfig() {
     return {
       autoFocus: true,
+      width: '450px',
       data: {
         eventId: this.eventId,
         organizerDto: this.organizerDto
@@ -201,15 +202,14 @@ export class EventShowComponent implements OnInit {
   }
 
   openOrganizerFormDialog() {
-    this.dialog.open(OrganizerFormComponent, this.getDialogConfig())
-        .afterClosed()
+    this.dialog.open(OrganizerFormComponent, this.getDialogConfig()).afterClosed()
         .subscribe(organizerDto => {
           if(organizerDto) {
             this.organizersDto = [...this.organizersDto, organizerDto];
             this.notificationService.success("Organizador cadastrado com sucesso");
             this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           }
-        })
+        });
   }
 
   private getConfirmationDialogConfigOrganizer(organizerDto: OrganizerDto) {
