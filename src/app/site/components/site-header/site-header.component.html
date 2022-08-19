@@ -10,7 +10,7 @@
 
       <nav class="site-header__menu" *ngIf="isLoggedIn">
         <a class="site-header__link" routerLink="/admin" *ngIf="isAdmin">Área administrativa</a>
-        <!--      <a class="site-header__link" routerLink="/meus-dados">Meus dados</a>-->
+        <a class="site-header__link" routerLink="/meus-dados">Meus dados</a>
         <a class="site-header__link" (click)="logout()">Sair</a>
       </nav>
 

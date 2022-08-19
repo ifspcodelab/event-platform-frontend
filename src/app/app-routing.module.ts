@@ -12,7 +12,6 @@ import { AdminGuard } from "./core/security/admin.guard";
 import { MyDataComponent } from "./site/pages/my-data/my-data.component";
 import { MyDataEditComponent } from "./site/pages/my-data-edit/my-data-edit.component";
 import { AlterMyDataPasswordComponent } from "./site/pages/alter-my-data-password/alter-my-data-password.component";
-import { EraseMyAccountComponent } from "./site/pages/erase-my-account/erase-my-account.component";
 
 const routes: Routes = [
   {
@@ -67,12 +66,6 @@ const routes: Routes = [
     component: AlterMyDataPasswordComponent,
     canActivate: [AuthGuard],
     title: 'Alterar Minha Senha - Portal de Eventos IFSP - Câmpus São Paulo',
-  },
-  {
-    path: 'meus-dados/apagar-minha-conta',
-    component: EraseMyAccountComponent,
-    canActivate: [AuthGuard],
-    title: 'Apagar Minha Conta - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'admin',
