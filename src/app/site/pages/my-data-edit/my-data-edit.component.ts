@@ -8,8 +8,7 @@ import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 import { environment } from "../../../../environments/environment";
-import { ForgotPasswordCreateDto } from "../../../core/models/forgot-password-create-dto.model";
-import { MyDataDto } from "../../../core/models/account.model";
+import { AccountDto, MyDataDto } from "../../../core/models/account.model";
 
 @Component({
   selector: 'app-my-data-edit',
@@ -17,7 +16,8 @@ import { MyDataDto } from "../../../core/models/account.model";
   styleUrls: ['./my-data-edit.component.scss']
 })
 export class MyDataEditComponent implements OnInit {
-  form: FormGroup = this.buildForm();
+  accountDto: AccountDto;
+  form: FormGroup;
   userRecaptcha: string | undefined = '';
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
   requestLoading: boolean = false;
@@ -31,17 +31,24 @@ export class MyDataEditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    let script = this.renderer.createElement('script');
-    script.defer = true;
-    script.async = true;
-    script.src = "https://www.google.com/recaptcha/api.js\n";
-    this.renderer.appendChild(document.body, script);
+    this.fetchAccount();
+  }
+
+  fetchAccount() {
+    this.myDataService.getAccount()
+      .pipe(first())
+      .subscribe(
+        accountDto => {
+          this.accountDto = accountDto;
+          this.form = this.buildForm();
+        }
+      );
   }
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
       name: [
-        '',
+        this.accountDto.name,
         [
           Validators.required,
           Validators.minLength(5),
@@ -49,7 +56,7 @@ export class MyDataEditComponent implements OnInit {
           AppValidators.validName()
         ],
       ],
-      cpf: ['', [Validators.required, AppValidators.validCpf()]],
+      cpf: [this.accountDto.cpf, [Validators.required, AppValidators.validCpf()]],
     });
   }
 
