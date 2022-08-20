@@ -21,6 +21,7 @@ export class MyDataEditComponent implements OnInit {
   userRecaptcha: string | undefined = '';
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
   requestLoading: boolean = false;
+  recaptchaErrorMessage: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,15 +48,7 @@ export class MyDataEditComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: [
-        this.accountDto.name,
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(256),
-          AppValidators.validName()
-        ],
-      ],
+      name: [this.accountDto.name, [Validators.required, Validators.minLength(5), Validators.maxLength(256), AppValidators.validName()]],
       cpf: [this.accountDto.cpf, [Validators.required, AppValidators.validCpf()]],
     });
   }
@@ -84,13 +77,16 @@ export class MyDataEditComponent implements OnInit {
           this.notificationService.success("Dados editados com sucesso");
           this.router.navigate(['meus-dados']);
         },
-        error: error => this.handleError(error)
+        error: error => {
+          this.handleError(error)
+          this.refreshRecaptcha();
+        }
       });
   }
 
   handleError(error: any) {
     this.requestLoading = false;
-    this.refresh();
+
     if(error instanceof HttpErrorResponse) {
       if(error.status === 400) {
         const violations: Violation[] = error.error;
@@ -98,7 +94,6 @@ export class MyDataEditComponent implements OnInit {
           const formControl = this.form.get(violation.name);
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
-            this.notificationService.error(violation.message);
           }
         })
       }
@@ -106,7 +101,10 @@ export class MyDataEditComponent implements OnInit {
       if(error.status === 409) {
         const problem: ProblemDetail = error.error;
         if(problem.title === "Resource already exists exception") {
-          this.notificationService.error(problem.violations[0].message);
+          this.field('cpf').setErrors({ serverError: 'Já existe uma conta com este CPF' });
+        }
+        if(problem.title === "Invalid recaptcha") {
+          this.recaptchaErrorMessage = "Recaptcha inválido, por favor realize novamente o desafio ou atualize a página";
         }
       }
     }
@@ -114,9 +112,10 @@ export class MyDataEditComponent implements OnInit {
 
   resolved(captchaResponse: string): void {
     this.userRecaptcha = captchaResponse;
+    this.recaptchaErrorMessage = null;
   }
 
-  refresh(): void {
+  refreshRecaptcha(): void {
     grecaptcha.reset();
   }
 }
