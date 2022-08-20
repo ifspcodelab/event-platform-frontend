@@ -71,7 +71,8 @@
           Senha deve ser válida. Entre 8 e 64 caracteres. No mínimo uma letra minúscula e uma maiúscula, um número e um caractere especial
         </mat-error>
       </mat-error>
-      <mat-hint align="start">A senha deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
+      <mat-hint align="start" *ngIf="fieldErrors('password')?.['validpassword']">A senha deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
+      <mat-hint style="color:#4caf50" align="start" *ngIf="!fieldErrors('password')?.['validpassword']">Senha válida</mat-hint>
     </mat-form-field>
 
     <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de uso</p>
