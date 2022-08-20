@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegistrationService } from 'src/app/core/services/registration.service';
 import { first } from 'rxjs';
@@ -21,11 +21,11 @@ export class RegistrationComponent implements OnInit {
   hide: boolean = true;
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
   requestLoading: boolean = false;
+  recaptchaErrorMessage: string | null = null;
 
   constructor(
     private registrationService: RegistrationService,
     private formBuilder: FormBuilder,
-    private renderer: Renderer2,
     private router: Router,
     private notificationService: NotificationService,
   ) { }
@@ -34,25 +34,10 @@ export class RegistrationComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(256),
-          AppValidators.validName()
-        ],
-      ],
+      name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(256), AppValidators.validName()]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
       cpf: ['', [Validators.required, AppValidators.validCpf()]],
-      password: ['',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.maxLength(64),
-          AppValidators.validPassword()
-        ]
-      ],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]],
       agreed: ['', [Validators.requiredTrue]]
     });
   }
@@ -75,15 +60,15 @@ export class RegistrationComponent implements OnInit {
   createAccount(): void {
     this.requestLoading = true;
 
-    const accountCreateDto =
-      new AccountCreateDto(
+    const accountCreateDto = new AccountCreateDto(
         this.form.value['name'],
         this.form.value['email'],
         this.form.value['cpf'],
         this.form.value['password'],
         this.form.value['agreed'],
         this.userReCaptcha
-      )
+    );
+
     this.registrationService.postAccount(accountCreateDto)
       .pipe(first())
       .subscribe({
@@ -91,13 +76,16 @@ export class RegistrationComponent implements OnInit {
           this.notificationService.success("Por favor, acesse o e-mail cadastrado para confirmar o cadastro");
           this.router.navigate(['login']);
         },
-        error: error => this.handleError(error)
+        error: error => {
+          this.handleError(error)
+          this.refreshRecaptcha();
+        }
       })
   }
 
   handleError(error: any): void {
     this.requestLoading = false;
-    this.refresh();
+
     if(error instanceof HttpErrorResponse) {
       if(error.status === 400) {
         const violations: Violation[] = error.error;
@@ -105,7 +93,6 @@ export class RegistrationComponent implements OnInit {
           const formControl = this.form.get(violation.name);
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
-            this.notificationService.error(violation.message);
           }
         })
       }
@@ -115,16 +102,16 @@ export class RegistrationComponent implements OnInit {
         if(problem.title === "Resource already exists exception") {
           if(problem.violations.length > 0) {
             const violation = problem.violations[0];
-            if(violation.message.includes("E-mail")) {
-              this.notificationService.error('Já existe uma conta com esse e-mail');
+            if(violation.name === "E-mail") {
+              this.field('email').setErrors({ serverError: 'Já existe uma conta com esse e-mail' });
             }
-            if(violation.message.includes("Cpf")) {
-              this.notificationService.error('Já existe uma conta com esse CPF');
+            if(violation.name === "CPF") {
+              this.field('cpf').setErrors({ serverError: 'Já existe uma conta com este CPF' });
             }
           }
         }
         if(problem.title === "Invalid recaptcha") {
-          this.notificationService.error("Recaptcha inválido, por favor atualize a página");
+          this.recaptchaErrorMessage = "Recaptcha inválido, por favor realize novamente o desafio ou atualize a página";
         }
       }
     }
@@ -132,9 +119,10 @@ export class RegistrationComponent implements OnInit {
 
   resolved(captchaResponse: string): void {
     this.userReCaptcha = captchaResponse;
+    this.recaptchaErrorMessage = null;
   }
 
-  refresh(): void {
+  refreshRecaptcha(): void {
     grecaptcha.reset();
   }
 }
