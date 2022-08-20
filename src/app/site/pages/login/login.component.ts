@@ -20,12 +20,13 @@ export class LoginComponent implements OnInit {
   mapAuthenticationErrorType = new Map<string, string>([
     ["The account for this email is not yet verified", "Conta ainda não verificada, verifique seu email para ativar a sua conta"],
     ["Incorrect email or password", "Email ou senha incorretos"],
-    ["Invalid recaptcha", "Recaptcha inválido ou expirado, atualize a página"]
+    ["Invalid recaptcha", "Recaptcha inválido, por favor realize novamente o desafio ou atualize a página"]
   ]);
   errorMessage: string | null = null;
   userRecaptcha: string = '';
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
   requestLoading: boolean = false;
+  hide: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -89,8 +90,13 @@ export class LoginComponent implements OnInit {
               this.errorMessage = this.mapAuthenticationErrorType.get(error.error.title)!;
             }
             this.requestLoading = false;
+            this.refreshRecaptcha();
           }
         }
       );
+  }
+
+  refreshRecaptcha(): void {
+    grecaptcha.reset();
   }
 }
