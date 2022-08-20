@@ -1,6 +1,4 @@
-<app-account-page
-  pageTitle="Editar Meus Dados"
-  description="Insira nome e CPF">
+<app-account-page pageTitle="Editar Meus Dados" description="Insira nome e CPF" *ngIf="accountDto">
 
   <form id="my-data-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" class="full-width">
