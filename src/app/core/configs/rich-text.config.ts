@@ -47,7 +47,8 @@ export const eventEditorConfig: AngularEditorConfig = {
       'justifyRight',
       'justifyFull',
       'heading',
-      'fontName'
+      'fontName',
+      'fontSize'
     ],
     [
       'insertImage',
