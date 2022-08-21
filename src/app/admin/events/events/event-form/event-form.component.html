@@ -103,7 +103,7 @@
         <p>O texto será exibido na página de apresentação do evento</p>
       </div>
       <angular-editor class="rich-text__control" id="presentation" formControlName="presentation" [config]="editorConfig"></angular-editor>
-      <div class="rich-text__errors">
+      <div class="rich-text__errors" *ngIf="field('presentation').invalid && (field('presentation').dirty || field('presentation').touched)">
         <p *ngIf="fieldErrors('presentation')?.['required']">Apresentação é obrigatório</p>
         <p *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazio</p>
         <p *ngIf="fieldErrors('presentation')?.['minlength']">Apresentação deve ter no mínimo 1000 caracteres</p>
@@ -118,7 +118,7 @@
         <p>O texto será exibido na página de contato do evento</p>
       </div>
       <angular-editor class="rich-text__control" id="contact" formControlName="contact" [config]="editorConfig"></angular-editor>
-      <div class="rich-text__errors">
+      <div class="rich-text__errors" *ngIf="field('contact').invalid && (field('contact').dirty || field('contact').touched)">
         <p *ngIf="fieldErrors('contact')?.['required']">Contato é obrigatório</p>
         <p *ngIf="fieldErrors('contact')?.['notblank']">Contato não pode ser vazio</p>
         <p *ngIf="fieldErrors('contact')?.['minlength']">Contato deve ter no mínimo 100 caracteres</p>
