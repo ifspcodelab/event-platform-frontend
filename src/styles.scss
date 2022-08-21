@@ -194,6 +194,34 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
+.rich-text {
+  margin: 20px 0;
+
+  &__label {
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  &__control {
+
+  }
+
+  &__hint {
+    color: #00000089;
+    font-size: 0.7rem;
+  }
+
+  &__errors {
+    margin-top: 5px;
+    p {
+      margin: 0;
+      color: #f44336;
+      font-size: 0.7rem;
+    }
+  }
+}
+
+
 .toast-center-center {
   top: 50%;
   left: 50%;

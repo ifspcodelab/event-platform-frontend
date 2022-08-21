@@ -27,7 +27,7 @@
         {{ fieldErrors('title')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-    <br>
+
     <mat-form-field class="form-field-lg">
       <mat-label>Slug</mat-label>
       <input matInput placeholder="" formControlName="slug" name="slug">
@@ -50,48 +50,10 @@
         {{ fieldErrors('summary')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-    <br>
-    <mat-form-field class="form-field-xl">
-      <mat-label>Apresentação</mat-label>
-      <mat-hint>O texto será exibido na página de apresentação do evento</mat-hint>
-      <textarea matInput placeholder="Deve ter no mínimo 1000 e no máximo 5000 caracteres" formControlName="presentation"
-                rows="10" name="presentation"></textarea>
-      <mat-error *ngIf="fieldErrors('presentation')?.['required']">Apresentação é obrigatório</mat-error>
-      <mat-error *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazio</mat-error>
-      <mat-error *ngIf="fieldErrors('presentation')?.['minlength']">
-        Apresentação deve ter no mínimo 1000 caracteres
-      </mat-error>
-      <mat-error *ngIf="fieldErrors('presentation')?.['maxlength']">
-        Apresentação deve ter no máximo 5000 caracteres
-      </mat-error>
-      <mat-error *ngIf="fieldErrors('presentation')?.['serverError'] && submitted">
-        {{ fieldErrors('presentation')?.['serverError'] }}
-      </mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field class="form-field-xl">
-      <mat-label>Contato</mat-label>
-      <mat-hint>O texto será exibido na página de contato do evento</mat-hint>
-      <textarea matInput placeholder="Deve ter no mínimo 100 e no máximo 5000 caracteres" formControlName="contact"
-                rows="10" name="contact">
-    </textarea>
-      <mat-error *ngIf="fieldErrors('contact')?.['required']">Contato é obrigatório</mat-error>
-      <mat-error *ngIf="fieldErrors('contact')?.['notblank']">Contato não pode ser vazio</mat-error>
-      <mat-error *ngIf="fieldErrors('contact')?.['minlength']">
-        Contato deve ter no mínimo 100 caracteres
-      </mat-error>
-      <mat-error *ngIf="fieldErrors('contact')?.['maxlength']">
-        Contato deve ter no máximo 5000 caracteres
-      </mat-error>
-      <mat-error *ngIf="fieldErrors('contact')?.['serverError'] && submitted">
-        {{ fieldErrors('contact')?.['serverError'] }}
-      </mat-error>
-    </mat-form-field>
   </fieldset>
 
   <fieldset formGroupName="registrationPeriod">
     <legend>Período de inscrições</legend>
-
     <mat-form-field class="form-field-sm">
       <mat-label>Início</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="startDate" name="start-date">
@@ -134,16 +96,49 @@
   </fieldset>
 
   <fieldset>
+    <legend>Conteúdo Páginas</legend>
+    <div class="rich-text">
+      <label class="rich-text__label" for="contact">Apresentação</label>
+      <div class="rich-text__hint">
+        <p>O texto será exibido na página de apresentação do evento</p>
+      </div>
+      <angular-editor class="rich-text__control" id="presentation" formControlName="presentation" [config]="editorConfig"></angular-editor>
+      <div class="rich-text__errors">
+        <p *ngIf="fieldErrors('presentation')?.['required']">Apresentação é obrigatório</p>
+        <p *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazio</p>
+        <p *ngIf="fieldErrors('presentation')?.['minlength']">Apresentação deve ter no mínimo 1000 caracteres</p>
+        <p *ngIf="fieldErrors('presentation')?.['maxlength']">Apresentação deve ter no máximo 5000 caracteres</p>
+        <p *ngIf="fieldErrors('presentation')?.['serverError'] && submitted">{{ fieldErrors('presentation')?.['serverError'] }}</p>
+      </div>
+    </div>
+
+    <div class="rich-text">
+      <label class="rich-text__label" for="contact">Contato</label>
+      <div class="rich-text__hint">
+        <p>O texto será exibido na página de contato do evento</p>
+      </div>
+      <angular-editor class="rich-text__control" id="contact" formControlName="contact" [config]="editorConfig"></angular-editor>
+      <div class="rich-text__errors">
+        <p *ngIf="fieldErrors('contact')?.['required']">Contato é obrigatório</p>
+        <p *ngIf="fieldErrors('contact')?.['notblank']">Contato não pode ser vazio</p>
+        <p *ngIf="fieldErrors('contact')?.['minlength']">Contato deve ter no mínimo 100 caracteres</p>
+        <p *ngIf="fieldErrors('contact')?.['maxlength']">Contato deve ter no máximo 5000 caracteres</p>
+        <p *ngIf="fieldErrors('contact')?.['serverError'] && submitted">{{ fieldErrors('contact')?.['serverError'] }}</p>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
     <legend>Capas</legend>
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="form-field-xl">
       <mat-label>Menor</mat-label>
       <input matInput placeholder="" formControlName="smallerImage" name="smaller-image">
       <mat-error *ngIf="fieldErrors('smallerImage')?.['serverError'] && submitted">
         {{ fieldErrors('smallerImage')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-
-    <mat-form-field class="form-field-lg">
+    <br>
+    <mat-form-field class="form-field-xl">
       <mat-label>Maior</mat-label>
       <input matInput placeholder="" formControlName="biggerImage" name="bigger-image">
       <mat-error *ngIf="fieldErrors('biggerImage')?.['serverError'] && submitted">

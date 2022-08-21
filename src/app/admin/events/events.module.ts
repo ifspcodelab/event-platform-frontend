@@ -17,6 +17,7 @@ import { ActivityFormComponent } from './activities/activity-form/activity-form.
 import { ActivityListComponent } from './activities/activity-list/activity-list.component';
 import { ActivitySpeakersComponent } from './activities/activity-speakers/activity-speakers.component';
 import { ActivitySpeakerFormComponent } from './activities/activity-speaker-form/activity-speaker-form.component';
+import { AngularEditorModule } from "@kolkov/angular-editor";
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ActivitySpeakerFormComponent } from './activities/activity-speaker-form
     CommonModule,
     EventsRoutingModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    AngularEditorModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
