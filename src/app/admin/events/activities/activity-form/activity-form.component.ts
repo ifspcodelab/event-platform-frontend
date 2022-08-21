@@ -11,6 +11,8 @@ import { first } from "rxjs";
 import { ProblemDetail, Violation } from "../../../../core/models/problem-detail";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ActivityModality } from "../../../../core/models/activity-modality.model";
+import { AngularEditorConfig } from "@kolkov/angular-editor";
+import { eventEditorConfig } from "../../../../core/configs/rich-text.config";
 
 @Component({
   selector: 'app-activity-form',
@@ -32,6 +34,7 @@ export class ActivityFormComponent implements OnInit {
   eventDto: string;
   subeventId: string;
   subeventDto: string;
+  editorConfig: AngularEditorConfig = eventEditorConfig;
 
   constructor(
     private eventService: EventService,
