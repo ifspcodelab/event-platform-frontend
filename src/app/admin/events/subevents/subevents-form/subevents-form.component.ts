@@ -9,6 +9,8 @@ import {ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Violation } from "../../../../core/models/problem-detail";
+import { AngularEditorConfig } from "@kolkov/angular-editor";
+import { eventEditorConfig } from "../../../../core/configs/rich-text.config";
 
 @Component({
   selector: 'app-subevents-form',
@@ -22,6 +24,7 @@ export class SubeventsFormComponent implements OnInit {
   subeventDto: SubeventDto;
   subeventId: string;
   createMode: boolean;
+  editorConfig: AngularEditorConfig = eventEditorConfig;
 
   constructor(
     private subeventService: SubeventService,
