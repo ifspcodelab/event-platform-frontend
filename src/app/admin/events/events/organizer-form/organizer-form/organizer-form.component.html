@@ -8,7 +8,7 @@
       <mat-label>Nome</mat-label>
       <input appearance="fill" matInput [formControl]="nameControl" name="name" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected($event)">
-        <mat-option *ngFor="let organizer of organizersDto" [value]="organizer.name" [id]="organizer.id">
+        <mat-option *ngFor="let organizer of accounts" [value]="organizer.name" [id]="organizer.id">
           {{ organizer.name }} ({{ organizer.email }})
         </mat-option>
       </mat-autocomplete>

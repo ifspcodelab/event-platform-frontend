@@ -1,8 +1,9 @@
+import { Observable } from 'rxjs';
 import { Violation } from './../../../../../core/models/problem-detail';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { AccountDto } from './../../../../../core/models/account.model';
-import { debounceTime, distinctUntilChanged, filter, first } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, first, switchMap, tap } from 'rxjs/operators';
 import { EventDto } from './../../../../../core/models/event.model';
 import { OrganizerDto } from './../../../../../core/models/organizer.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -23,7 +24,8 @@ export class OrganizerFormComponent implements OnInit {
   organizersType: any = [];
   organizerType = OrganizerType;
   organizersDto: OrganizerDto[] = [];
-  nameControl: FormControl = FormControl();
+  accounts: AccountDto[] = [];
+  nameControl: FormControl = new FormControl();
   selectedOrganizerId: string;
 
   constructor(
@@ -56,7 +58,7 @@ export class OrganizerFormComponent implements OnInit {
           switchMap(value => this.organizerService.findByName(value))
         )
         .subscribe({
-          next: organizersDto => this.organizersDto = organizersDto
+          next: accounts => this.organizersDto = accounts
         });
   }
 
