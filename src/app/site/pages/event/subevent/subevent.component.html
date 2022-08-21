@@ -9,9 +9,10 @@
   [startDate]="subeventDto.executionPeriod.startDate | date:'dd/MM/YY'"
   [endDate]="subeventDto.executionPeriod.endDate | date: 'dd/MM/YY'"
 >
-  <button mat-button routerLink="presentation">Apresentação</button>
+  <button mat-button routerLink="presentation" routerLinkActive="active-link">Apresentação</button>
   <button mat-button>Programação</button>
   <button mat-button>Organização</button>
+  <button mat-button routerLink="contact" routerLinkActive="active-link">Contato</button>
 </app-event-header>
 
 <div class="site-content">

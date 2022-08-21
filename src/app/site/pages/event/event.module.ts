@@ -9,6 +9,8 @@ import { SubeventComponent } from './subevent/subevent.component';
 import {SiteModule} from "../../site.module";
 import {SharedModule} from "../../../shared/shared.module";
 import { SubeventPresentationComponent } from "./subevent-presentation/subevent-presentation.component";
+import { EventContactComponent } from './event-contact/event-contact.component';
+import { SubeventContactComponent } from './subevent-contact/subevent-contact.component';
 
 
 @NgModule({
@@ -16,8 +18,10 @@ import { SubeventPresentationComponent } from "./subevent-presentation/subevent-
     EventComponent,
     EventPresentationComponent,
     EventSubeventsComponent,
+    EventContactComponent,
     SubeventComponent,
-    SubeventPresentationComponent
+    SubeventPresentationComponent,
+    SubeventContactComponent,
   ],
   imports: [
     CommonModule,

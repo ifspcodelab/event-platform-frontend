@@ -7,6 +7,8 @@ import { SubeventComponent } from "./subevent/subevent.component";
 import { SubeventPresentationComponent } from "./subevent-presentation/subevent-presentation.component";
 import { EventResolver } from "../../../core/resolvers/event.resolver";
 import { SubeventResolver } from "../../../core/resolvers/subevent.resolver";
+import { EventContactComponent } from "./event-contact/event-contact.component";
+import { SubeventContactComponent } from "./subevent-contact/subevent-contact.component";
 
 const routes: Routes = [
   {
@@ -17,6 +19,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'presentation', pathMatch: 'full' },
       { path: 'presentation', component: EventPresentationComponent },
       { path: 'sub-events', component: EventSubeventsComponent },
+      { path: 'contact', component: EventContactComponent },
     ]
   },
   {
@@ -27,6 +30,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'presentation', pathMatch: 'full' },
       { path: 'presentation', component: SubeventPresentationComponent },
       { path: 'schedule', component: EventSubeventsComponent },
+      { path: 'contact', component: SubeventContactComponent },
     ]
   },
 ];
