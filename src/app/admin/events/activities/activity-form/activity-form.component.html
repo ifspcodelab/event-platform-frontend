@@ -94,7 +94,7 @@
         <p *ngIf="fieldErrors('description')?.['required']">Descrição é obrigatório</p>
         <p *ngIf="fieldErrors('description')?.['notblank']">Descrição não pode ser vazio</p>
         <p *ngIf="fieldErrors('description')?.['minlength']">Descrição deve ter no mínimo 100 caracteres</p>
-        <p *ngIf="fieldErrors('description')?.['maxlength']">Descrição deve ter no máximo 500 caracteres</p>
+        <p *ngIf="fieldErrors('description')?.['maxlength']">Descrição deve ter no máximo 5000 caracteres</p>
         <p *ngIf="fieldErrors('description')?.['serverError'] && submitted">{{ fieldErrors('description')?.['serverError'] }}</p>
       </div>
     </div>
