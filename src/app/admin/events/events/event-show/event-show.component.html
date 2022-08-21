@@ -13,6 +13,7 @@
       <article class="container">
         <p class="container__item"><b>Resumo:</b> {{ eventDto.summary }}</p>
         <p class="container__item"><b>Apresentação:</b> {{ eventDto.presentation }}</p>
+        <p class="container__item"><b>Contato:</b> {{ eventDto.contact }}</p>
         <p class="container__item"><b>Status:</b> {{ eventDto.status | eventStatus }}</p>
         <p *ngIf="eventDto.cancellationMessage"><b>Mensagem de cancelamento:</b> {{ eventDto.cancellationMessage }}</p>
         <h3>Datas</h3>

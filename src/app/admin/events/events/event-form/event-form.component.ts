@@ -79,6 +79,7 @@ export class EventFormComponent implements OnInit {
           Validators.maxLength(5000)
         ]
       ],
+      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(5000)]],
       registrationPeriod: this.formBuilder.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]]

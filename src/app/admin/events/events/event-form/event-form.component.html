@@ -27,7 +27,7 @@
         {{ fieldErrors('title')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-
+    <br>
     <mat-form-field class="form-field-lg">
       <mat-label>Slug</mat-label>
       <input matInput placeholder="" formControlName="slug" name="slug">
@@ -36,13 +36,12 @@
       <mat-error *ngIf="fieldErrors('slug')?.['serverError'] && submitted">
         {{ fieldErrors('slug')?.['serverError'] }}
       </mat-error>
-    </mat-form-field> <br>
-
-    <mat-form-field class="form-field-lg">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="form-field-xl">
       <mat-label>Resumo</mat-label>
-      <textarea matInput placeholder="Deve ter no mínimo 100 e no máximo 150 caracteres"
-                formControlName="summary" rows="5" name="summary">
-      </textarea>
+      <textarea matInput placeholder="Deve ter no mínimo 100 e no máximo 150 caracteres" formControlName="summary"
+                rows="3" name="summary"></textarea>
       <mat-error *ngIf="fieldErrors('summary')?.['required']">Resumo é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['notblank']">Resumo não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['minlength']">Resumo deve ter no mínimo 100 caracteres</mat-error>
@@ -51,12 +50,12 @@
         {{ fieldErrors('summary')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-
-    <mat-form-field class="form-field-lg">
+    <br>
+    <mat-form-field class="form-field-xl">
       <mat-label>Apresentação</mat-label>
-      <textarea matInput placeholder="Deve ter no mínimo 1000 e no máximo 5000 caracteres"
-                formControlName="presentation" rows="5" name="presentation">
-      </textarea>
+      <mat-hint>O texto será exibido na página de apresentação do evento</mat-hint>
+      <textarea matInput placeholder="Deve ter no mínimo 1000 e no máximo 5000 caracteres" formControlName="presentation"
+                rows="10" name="presentation"></textarea>
       <mat-error *ngIf="fieldErrors('presentation')?.['required']">Apresentação é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('presentation')?.['minlength']">
@@ -69,12 +68,31 @@
         {{ fieldErrors('presentation')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
+    <br>
+    <mat-form-field class="form-field-xl">
+      <mat-label>Contato</mat-label>
+      <mat-hint>O texto será exibido na página de contato do evento</mat-hint>
+      <textarea matInput placeholder="Deve ter no mínimo 100 e no máximo 5000 caracteres" formControlName="contact"
+                rows="10" name="contact">
+    </textarea>
+      <mat-error *ngIf="fieldErrors('contact')?.['required']">Contato é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('contact')?.['notblank']">Contato não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('contact')?.['minlength']">
+        Contato deve ter no mínimo 100 caracteres
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('contact')?.['maxlength']">
+        Contato deve ter no máximo 5000 caracteres
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('contact')?.['serverError'] && submitted">
+        {{ fieldErrors('contact')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
   </fieldset>
 
   <fieldset formGroupName="registrationPeriod">
     <legend>Período de inscrições</legend>
 
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="form-field-sm">
       <mat-label>Início</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="startDate" name="start-date">
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -83,7 +101,7 @@
       <mat-error *ngIf="fieldErrors('registrationPeriod.startDate')?.['required']">Início é obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="form-field-sm">
       <mat-label>Fim</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="endDate" name="end-date">
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -96,7 +114,7 @@
   <fieldset formGroupName="executionPeriod">
     <legend>Período de execução</legend>
 
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="form-field-sm">
       <mat-label>Início</mat-label>
       <input matInput [matDatepicker]="picker2" formControlName="startDate" name="start-date">
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -105,7 +123,7 @@
       <mat-error *ngIf="fieldErrors('executionPeriod.startDate')?.['required']">Início é obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="form-field-sm">
       <mat-label>Fim</mat-label>
       <input matInput [matDatepicker]="picker3" formControlName="endDate" name="end-date">
       <mat-hint>MM/DD/YYYY</mat-hint>

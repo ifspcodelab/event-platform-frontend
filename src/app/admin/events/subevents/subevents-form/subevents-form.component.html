@@ -17,6 +17,7 @@
         {{ fieldErrors('title')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
+    <br>
     <mat-form-field class="form-field-lg">
       <mat-label> Slug </mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="slug" name="slug">
@@ -26,9 +27,11 @@
         {{ fieldErrors('slug')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="form-field-lg">
+    <br>
+    <mat-form-field class="form-field-xl">
       <mat-label> Resumo </mat-label>
-      <textarea matInput appearance="fill" matInput placeholder="" formControlName="summary" name="summary"></textarea>
+      <textarea matInput appearance="fill" matInput placeholder="Deve ter no mínimo 100 e no máximo 150 caracteres"
+                formControlName="summary" rows="2" name="summary"></textarea>
       <input appearance="fill" matInput placeholder="" formControlName="slug" name="slug">
       <mat-error *ngIf="fieldErrors('summary')?.['required']">Resumo é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['notblank']">Resumo não pode ser vazio</mat-error>
@@ -38,9 +41,12 @@
         {{ fieldErrors('summary')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="form-field-lg">
+    <br>
+    <mat-form-field class="form-field-xl">
       <mat-label> Apresentação </mat-label>
-      <textarea matInput appearance="fill" matInput placeholder="" formControlName="presentation" name="presentation"></textarea>
+      <mat-hint>O texto será exibido na página de apresentação do subevento</mat-hint>
+      <textarea matInput appearance="fill" matInput placeholder="Deve ter no mínimo 1000 e no máximo 5000 caracteres"
+                formControlName="presentation" rows="10" name="presentation"></textarea>
       <mat-error *ngIf="fieldErrors('presentation')?.['required']">Apresentação é obrigatória</mat-error>
       <mat-error *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazia</mat-error>
       <mat-error *ngIf="fieldErrors('presentation')?.['minlength']">Apresentação deve ter no mínimo 1000 caracteres</mat-error>
@@ -49,11 +55,30 @@
         {{ fieldErrors('presentation')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
+    <br>
+    <mat-form-field class="form-field-xl">
+      <mat-label>Contato</mat-label>
+      <mat-hint>O texto será exibido na página de contato do subevento</mat-hint>
+      <textarea matInput placeholder="Deve ter no mínimo 100 e no máximo 5000 caracteres"
+                formControlName="contact" rows="10" name="contact">
+    </textarea>
+      <mat-error *ngIf="fieldErrors('contact')?.['required']">Contato é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('contact')?.['notblank']">Contato não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('contact')?.['minlength']">
+        Contato deve ter no mínimo 100 caracteres
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('contact')?.['maxlength']">
+        Contato deve ter no máximo 5000 caracteres
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('contact')?.['serverError'] && submitted">
+        {{ fieldErrors('contact')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
   </fieldSet>
 
   <fieldset formGroupName="executionPeriod">
     <legend>Período de execução</legend>
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="form-field-sm">
       <mat-label>Início</mat-label>
       <input matInput [matDatepicker]="picker" formControlName="startDate" name="start-date">
       <mat-hint>DD/MM/YYYY</mat-hint>
@@ -62,7 +87,7 @@
       <mat-error *ngIf="fieldErrors('executionPeriod.startDate')?.['required']">Início é obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="form-field-sm">
       <mat-label>Fim</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="endDate" name="end-date">
       <mat-hint>DD/MM/YYYY</mat-hint>
@@ -76,12 +101,12 @@
     <legend>Capas</legend>
 
     <mat-form-field class="form-field-lg">
-      <mat-label>Menor </mat-label>
+      <mat-label>Menor</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="smallerImage" name="smallerImage">
     </mat-form-field>
 
     <mat-form-field class="form-field-lg">
-      <mat-label> Maior </mat-label>
+      <mat-label>Maior</mat-label>
       <input appearance="fill" matInput placeholder="" formControlName="biggerImage" name="biggerImage">
     </mat-form-field>
   </fieldset>
