@@ -1,5 +1,3 @@
-import { OrganizerService } from './../../../../core/services/organizer.service';
-import { OrganizerDto } from './../../../../core/models/organizer.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CancellationMessageCreateDto, EventDto } from "../../../../core/models/event.model";
 import { EventService } from "../../../../core/services/event.service";
@@ -7,6 +5,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
 import { SubeventDto } from "../../../../core/models/subevent.model";
 import { SubeventService } from "../../../../core/services/subevent.service";
+import { OrganizerFormComponent } from '../organizer-form/organizer-form/organizer-form.component';
+import { AccountDto } from '../../../../core/models/account.model';
+import { OrganizerService } from '../../../../core/services/organizer.service';
+import { OrganizerDto } from '../../../../core/models/organizer.model';
 import { NotificationService } from "../../../../core/services/notification.service";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -23,17 +25,23 @@ import { LoaderService } from "../../../loader.service";
   styleUrls: ['./event-show.component.scss']
 })
 export class EventShowComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
-  subeventsDto: SubeventDto[] = [];
-  displayedColumnsOrganizer: string[] = ['name', 'email', 'type', 'action'];
-  organizersDto: OrganizerDto[] = [];
+  tabSelectedIndex: number = 0;
   eventDto: EventDto;
   eventId: string;
-  cancellationMessageCreateDto: CancellationMessageCreateDto;
-  tabSelectedIndex: number = 0;
+  displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
+  subeventsDto: SubeventDto[] = [];
   dataSource: MatTableDataSource<SubeventDto>;
   @ViewChild(MatSort)
   sort: MatSort;
+  cancellationMessageCreateDto: CancellationMessageCreateDto;
+  displayedColumnsOrganizer: string[] = ['name', 'email', 'type', 'action'];
+  accountDto: AccountDto;
+  organizersDto: OrganizerDto[] = [];
+  organizerDto: OrganizerDto;
+  organizerId: string;
+  dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
+  @ViewChild(MatSort)
+  sortOrganizer: MatSort;
 
   constructor(
     private eventService: EventService,
@@ -50,6 +58,7 @@ export class EventShowComponent implements OnInit {
   ngOnInit(): void {
     this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
+    this.organizerId = this.route.snapshot.paramMap.get('organizerId');
     this.fetchEvent(this.eventId);
     this.fetchOrganizers(this.eventId);
   }
@@ -70,8 +79,6 @@ export class EventShowComponent implements OnInit {
       .subscribe(subevents => {
         this.subeventsDto = subevents;
         this.dataSource = new MatTableDataSource<SubeventDto>(this.subeventsDto);
-        this.loaderService.hide();
-        this.setTabSelectedIndex();
       });
   }
 
@@ -80,16 +87,18 @@ export class EventShowComponent implements OnInit {
         .pipe(first())
         .subscribe(organizersDto => {
           this.organizersDto = organizersDto;
-          console.log(organizersDto)
-        })
-  }
-
-  openEventList() {
-    return this.router.navigate(['admin', 'events']);
+          this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
+          this.loaderService.hide();
+          this.setTabSelectedIndex();
+        });
   }
 
   setTabSelectedIndex() {
     this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
+  }
+
+  openEventList() {
+    return this.router.navigate(['admin', 'events']);
   }
 
   publishEvent() {
@@ -146,7 +155,7 @@ export class EventShowComponent implements OnInit {
     return this.router.navigate(['admin', 'events', this.eventDto.id, 'sub-events', subeventDto.id]);
   }
 
-  private getConfirmationDialogConfig() {
+  private getConfirmationDialogConfigEvent() {
     return {
       autoFocus: true,
       data: {
@@ -158,9 +167,9 @@ export class EventShowComponent implements OnInit {
     }
   }
 
-  openDeleteConfirmationDialog() {
-    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfig()).afterClosed()
-      .subscribe( result => {
+  openDeleteConfirmationDialogEvent() {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigEvent()).afterClosed()
+      .subscribe(result => {
         if (result) {
           this.deleteEvent();
         }
@@ -179,6 +188,62 @@ export class EventShowComponent implements OnInit {
       });
   }
 
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      width: '450px',
+      data: {
+        eventId: this.eventId,
+        organizerDto: this.organizerDto
+      }
+    };
+  }
+
+  openOrganizerFormDialog() {
+    this.dialog.open(OrganizerFormComponent, this.getDialogConfig()).afterClosed()
+        .subscribe(organizerDto => {
+          if(organizerDto) {
+            this.organizersDto = [...this.organizersDto, organizerDto];
+            this.notificationService.success("Organizador cadastrado com sucesso");
+            // this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
+          }
+        });
+  }
+
+  private getConfirmationDialogConfigOrganizer(organizerDto: OrganizerDto) {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Remover organizador",
+        text: `O organizador  ${organizerDto.account.name} será excluído de forma definitiva.`,
+        cancelText: "Cancelar",
+        okText: "Remover"
+      }
+    }
+  }
+
+  openDeleteConfirmationDialogOrganizer(organizerDto: OrganizerDto) {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizer(organizerDto))
+      .afterClosed()
+      .subscribe(result => {
+        if(result) {
+          this.deleteOrganizer(organizerDto.id);
+        }
+      });
+  }
+
+  deleteOrganizer(organizerId: string) {
+    this.organizerService.deleteOrganizer(this.eventId, organizerId)
+      .pipe(first())
+        .subscribe({
+          next: () => {
+            this.notificationService.success("Organizador excluído com sucesso");
+            this.organizersDto = this.organizersDto.filter(o => o.id != organizerId);
+            this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
+          }
+      });
+  }
+
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
       if(error.status === 409) {
@@ -187,7 +252,7 @@ export class EventShowComponent implements OnInit {
     }
   }
 
-  announceSortChange(sort: Sort) {
+  announceSortChangeEvent(sort: Sort) {
     this.dataSource.sort = this.sort;
 
     if (sort.direction) {

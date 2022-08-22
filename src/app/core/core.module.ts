@@ -8,12 +8,20 @@ import { CancelDialogComponent } from './components/cancel-dialog/cancel-dialog.
 import { MatInputModule } from "@angular/material/input";
 import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
 import { MatIconModule } from "@angular/material/icon";
+import { EventStatusPipe } from "./pipes/event-status.pipe";
+import { ActivityTypesPipe } from "./pipes/activity-types.pipe";
+import { ActivityModalitiesPipe } from "./pipes/activity-modalities.pipe";
+import { CpfFomatPipe } from './pipes/cpfFomat.pipe';
 
 @NgModule({
   declarations: [
     ConfirmationDialogComponent,
     CancelDialogComponent,
     AdminHeaderComponent,
+    EventStatusPipe,
+    ActivityTypesPipe,
+    ActivityModalitiesPipe,
+    CpfFomatPipe,
   ],
   imports: [
     CommonModule,
@@ -30,6 +38,10 @@ import { MatIconModule } from "@angular/material/icon";
     ConfirmationDialogComponent,
     CancelDialogComponent,
     AdminHeaderComponent,
+    EventStatusPipe,
+    ActivityTypesPipe,
+    ActivityModalitiesPipe,
+    CpfFomatPipe
   ]
 })
 export class CoreModule { }

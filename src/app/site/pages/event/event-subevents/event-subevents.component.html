@@ -1,0 +1,16 @@
+<main *ngIf="eventDto">
+  <h1>Subeventos</h1>
+  <p>Eventos programados para a {{ eventDto.title }}</p>
+
+  <section>
+    <app-site-card
+      *ngFor="let subeventDto of subeventsDto"
+      [image]="subeventDto.smallerImage"
+      [title]="subeventDto.title"
+      [startDate]="subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+      [endDate]="subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+      [summary]="subeventDto.summary"
+      [url]="'/'+ eventDto.slug + '/sub-events/'+ subeventDto.slug"
+    ></app-site-card>
+  </section>
+</main>

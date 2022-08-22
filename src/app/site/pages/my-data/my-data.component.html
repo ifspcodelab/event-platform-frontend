@@ -1,0 +1,30 @@
+<app-site-header></app-site-header>
+
+<app-account-page
+  *ngIf="accountDto"
+  pageTitle="Meus Dados"
+  description="Olá {{accountDto.name}}. Você pode alterar seu nome e CPF ou redefinir a sua senha.">
+
+  <table>
+    <ng-container *ngIf="accountDto">
+      <tr>
+        <td class="attribute">Nome</td>
+        <td>{{ accountDtoName }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">E-mail</td>
+        <td class="email">{{ accountDtoEmail }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">CPF</td>
+        <td>{{ accountDtoCpf | cpfFomat }}</td>
+      </tr>
+    </ng-container>
+  </table>
+
+  <mat-card-actions>
+    <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar meus dados</button>
+    <button class="alterPassword" mat-button color="" routerLink="/meus-dados/alterar-minha-senha">Alterar minha senha</button>
+  </mat-card-actions>
+
+</app-account-page>

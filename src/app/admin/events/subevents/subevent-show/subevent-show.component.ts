@@ -47,8 +47,8 @@ export class SubeventShowComponent implements OnInit {
   ngOnInit(): void {
     this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
-    this.organizerSubeventId = this.route.snapshot.paramMap.get('organizerSubeventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
+    this.organizerSubeventId = this.route.snapshot.paramMap.get('organizerSubeventId');
     this.fetchSubevent(this.eventId, this.subeventId);
     this.fetchOrganizersSubevent(this.eventId, this.subeventId);
   }
@@ -71,12 +71,12 @@ export class SubeventShowComponent implements OnInit {
         })
   }
 
-  openEventShow() {
-    return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 1 }});
-  }
-
   setTabSelectedIndex() {
     this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
+  }
+
+  openEventShow() {
+    return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 1 }});
   }
 
   publishSubevent() {

@@ -1,0 +1,102 @@
+<app-admin-header [title]="createMode ? 'Nova Atividade' : 'Editar Atividade'" (backLink)="getBackUrl()">
+  <button type="submit" form="activity-form" mat-raised-button color="primary">Salvar</button>
+</app-admin-header>
+
+<form id="activity-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+
+  <fieldset>
+    <legend>Dados gerais</legend>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Tipo da Atividade</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let name of enumKeys" [value]="name">{{ activityType[name] }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="fieldErrors('type')?.['required']">
+        Tipo é obrigatório
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('type')?.['serverError'] && submitted">
+        {{ fieldErrors('type')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Modalidade</mat-label>
+      <mat-select formControlName="modality">
+        <mat-option *ngFor="let name of enumKeysModality" [value]="name">{{ activityModality[name] }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="fieldErrors('modality')?.['required']">
+        Modalidade é obrigatória
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('modality')?.['serverError'] && submitted">
+        {{ fieldErrors('modality')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Título</mat-label>
+      <input matInput placeholder="" formControlName="title" name="title">
+      <mat-error *ngIf="fieldErrors('title')?.['required']">Título é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 6 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 100 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['serverError'] && submitted">
+        {{ fieldErrors('title')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-sm">
+      <mat-label>Slug</mat-label>
+      <input matInput placeholder="" formControlName="slug" name="slug">
+      <mat-error *ngIf="fieldErrors('slug')?.['required']">Slug é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('slug')?.['notblank']">Slug não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('slug')?.['serverError'] && submitted">
+        {{ fieldErrors('slug')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field> <br>
+  </fieldset>
+  <fieldset>
+    <legend>Configurações</legend>
+    <mat-form-field class="form-field-xs">
+      <mat-label>Tempo de Credenciamento</mat-label>
+      <input matInput placeholder="" formControlName="setupTime" name="setupTime" type="number">
+      <mat-error *ngIf="fieldErrors('setupTime')?.['required']">Tempo de Credenciamento é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('setupTime')?.['min']">Tempo de Credenciamento deve ter no mínimo 5 minutos</mat-error>
+      <mat-error *ngIf="fieldErrors('setupTime')?.['serverError'] && submitted">
+        {{ fieldErrors('setupTime')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-field-xs">
+      <mat-label>Duração em minutos</mat-label>
+      <input matInput placeholder="" formControlName="duration" name="duration" type="number">
+      <mat-error *ngIf="fieldErrors('duration')?.['required']">Duração é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('duration')?.['min']">Duração deve ter no mínimo 10 minutos</mat-error>
+      <mat-error *ngIf="fieldErrors('duration')?.['serverError'] && submitted">
+        {{ fieldErrors('duration')?.['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+    <br><br>
+    <div class="form-field-lg">
+      <mat-slide-toggle color="primary" formControlName="needRegistration">Requer inscrição</mat-slide-toggle>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Conteúdo Página</legend>
+    <div class="rich-text">
+      <label class="rich-text__label" for="description">Descrição da Atividade</label>
+      <div class="rich-text__hint">
+        <p>O texto será exibido na página da atividade</p>
+      </div>
+      <angular-editor class="rich-text__control" id="description" formControlName="description" [config]="editorConfig"></angular-editor>
+      <div class="rich-text__errors" *ngIf="field('description').invalid && (field('description').dirty || field('description').touched)">
+        <p *ngIf="fieldErrors('description')?.['required']">Descrição é obrigatório</p>
+        <p *ngIf="fieldErrors('description')?.['notblank']">Descrição não pode ser vazio</p>
+        <p *ngIf="fieldErrors('description')?.['minlength']">Descrição deve ter no mínimo 100 caracteres</p>
+        <p *ngIf="fieldErrors('description')?.['maxlength']">Descrição deve ter no máximo 5000 caracteres</p>
+        <p *ngIf="fieldErrors('description')?.['serverError'] && submitted">{{ fieldErrors('description')?.['serverError'] }}</p>
+      </div>
+    </div>
+  </fieldset>
+</form>

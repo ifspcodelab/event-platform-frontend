@@ -7,6 +7,7 @@ export interface EventDto {
   slug: string;
   summary: string;
   presentation: string;
+  contact: string;
   registrationPeriod: Period;
   executionPeriod: Period;
   smallerImage: string;
@@ -20,6 +21,7 @@ export class EventCreateDto {
   slug: string;
   summary: string;
   presentation: string;
+  contact: string;
   registrationPeriod: Period;
   executionPeriod: Period;
   smallerImage: string;
@@ -30,6 +32,7 @@ export class EventCreateDto {
     slug: string,
     summary: string,
     presentation: string,
+    contact: string,
     registrationPeriod: Period,
     executionPeriod: Period,
     smallerImage: string,
@@ -39,6 +42,7 @@ export class EventCreateDto {
     this.slug = slug;
     this.summary = summary;
     this.presentation = presentation;
+    this.contact = contact;
     this.registrationPeriod = registrationPeriod;
     this.executionPeriod = executionPeriod;
     this.smallerImage = smallerImage;
