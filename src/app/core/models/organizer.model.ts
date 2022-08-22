@@ -1,4 +1,3 @@
-import { EventDto } from './event.model';
 import { AccountDto } from './account.model';
 import { OrganizerType } from './organizer-type.model';
 

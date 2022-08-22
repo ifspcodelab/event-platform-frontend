@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { OrganizerDto } from '../models/organizer.model';
+import { AccountDto } from '../models/account.model';
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -32,7 +33,7 @@ export class OrganizerService {
     return this.httpClient.delete<OrganizerDto>(`${this.apiUrl}/${eventId}/organizers/${organizerId}`, this.httpOptions);
   }
 
-  findByName(name: string): Observable<OrganizerDto[]> {
-    return this.httpClient.get<OrganizerDto[]>(`${this.apiUrl}/searchName/${name}`, this.httpOptions);
+  findByName(name: string): Observable<AccountDto[]> {
+    return this.httpClient.get<AccountDto[]>(`${environment.apiUrl}/accounts/searchName/${name}`, this.httpOptions);
   }
 }

@@ -206,8 +206,9 @@ export class EventShowComponent implements OnInit {
         .subscribe(organizerDto => {
           if(organizerDto) {
             this.organizersDto = [...this.organizersDto, organizerDto];
+            console.log(this.organizersDto);
             this.notificationService.success("Organizador cadastrado com sucesso");
-            this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
+            // this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           }
         });
   }

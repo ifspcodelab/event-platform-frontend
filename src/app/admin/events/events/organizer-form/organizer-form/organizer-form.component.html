@@ -8,22 +8,20 @@
       <mat-label>Nome</mat-label>
       <input appearance="fill" matInput [formControl]="nameControl" name="name" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected($event)">
-        <mat-option *ngFor="let organizer of accounts" [value]="organizer.name" [id]="organizer.id">
-          {{ organizer.name }} ({{ organizer.email }})
+        <mat-option *ngFor="let account of accounts" [value]="account.name" [id]="account.id">
+          {{ account.name }} ({{ account.email }})
         </mat-option>
       </mat-autocomplete>
-      <mat-error *ngIf="fieldErrors('accountId')?.['notblank']">
-        Account Id não pode ser vazio
+      <!-- <mat-error *ngIf="fieldErrors('accountId')?.['notblank']">
+        Nome não pode ser vazio
       </mat-error>
       <mat-error *ngIf="fieldErrors('accountId')?.['required']">
-        Account Id é obrigatório
-      </mat-error>
-      <mat-error *ngIf="fieldErrors('accountId')?.['serverError'] && submitted">
-        {{ fieldErrors('accountId')?.['serverError'] }}
+        Nome é obrigatório
+      </mat-error> -->
+      <mat-error *ngIf="nameControl.errors && submitted">
+        {{ nameControl.errors['serverError'] }}
       </mat-error>
     </mat-form-field>
-
-    <input hidden="true" appearance="fill" matInput formControlName="accountId" name="accountId">
 
     <mat-form-field class="modal__input">
       <mat-label>Papel</mat-label>
@@ -34,6 +32,8 @@
         Papel é obrigatório
       </mat-error>
     </mat-form-field>
+
+    <input hidden="true" appearance="fill" matInput formControlName="accountId" name="accountId">
   </form>
 </div>
 

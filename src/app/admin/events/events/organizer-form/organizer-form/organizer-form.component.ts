@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Violation } from './../../../../../core/models/problem-detail';
+import { Violation, ProblemDetail } from './../../../../../core/models/problem-detail';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { AccountDto } from './../../../../../core/models/account.model';
@@ -58,7 +58,7 @@ export class OrganizerFormComponent implements OnInit {
           switchMap(value => this.organizerService.findByName(value))
         )
         .subscribe({
-          next: accounts => this.organizersDto = accounts
+          next: accounts => this.accounts = accounts
         });
   }
 
@@ -101,8 +101,8 @@ export class OrganizerFormComponent implements OnInit {
       }
 
       if(error.status === 409) {
-        const nameField = this.field('accountId');
-        nameField.setErrors({ serverError: `Organizador já existente com nome ${nameField.value}` })
+        const problem: ProblemDetail = error.error;
+        this.nameControl.setErrors({ serverError: problem.violations[0].message })
       }
     }
   }
