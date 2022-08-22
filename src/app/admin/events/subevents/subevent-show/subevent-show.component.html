@@ -17,8 +17,8 @@
         <p class="container__item"><b>Status:</b> {{ subeventDto.status | eventStatus }}</p>
         <p *ngIf="subeventDto.cancellationMessage"><b>Mensagem de cancelamento:</b> {{ subeventDto.cancellationMessage }}</p>
         <h3>Datas</h3>
-        <p class="container__item"><b>Início:</b> {{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</p>
-        <p class="container__item"><b>Fim:</b> {{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Início:</b>{{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Fim:</b>{{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
         <h3>Imagens</h3>
         <p><b>Menor</b></p>
         <img mat-card-image src="{{ subeventDto.smallerImage }}" width="300px">
@@ -29,6 +29,44 @@
 
     <mat-tab label="Atividades">
       <app-activity-list [eventId]="eventId" [subeventId]="subeventId"></app-activity-list>
+    </mat-tab>
+
+    <mat-tab label="Organização">
+      <article class="container">
+        <header class="container__header">
+          <h2 class="container__header__title">Organização</h2>
+          <button mat-button color="primary" (click)="openAddOrganizerSubeventFormDialog()">Novo Organizador</button>
+        </header>
+
+        <p *ngIf="!organizersSubeventDto.length">Nenhum organizador encontrado</p>
+
+        <table class="container__table container__table--not_clickable" *ngIf="organizersSubeventDto.length" mat-table [dataSource]="organizersSubeventDto">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let element">{{ element.account.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>E-mail</th>
+            <td mat-cell *matCellDef="let element">{{ element.account.email }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Papel</th>
+            <td mat-cell *matCellDef="let element">{{ element.type | organizerType }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>Ação</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button class="delete__button" (click)="openDeleteConfirmationDialogOrganizerSubevent(element)">Remover</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsOrganizerSubevent"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsOrganizerSubevent;" class="container__line"></tr>
+        </table>
+      </article>
     </mat-tab>
   </mat-tab-group>
 </div>

@@ -1,3 +1,4 @@
+import { OrganizerSubeventFormComponent } from './subevents/organizer-subevent-form/organizer-subevent-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from "../../core/core.module";
@@ -38,6 +39,7 @@ import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
     SessionShowComponent,
     SessionFormComponent,
     OrganizerFormComponent,
+    OrganizerSubeventFormComponent,
     OrganizerTypePipe,
   ],
   imports: [

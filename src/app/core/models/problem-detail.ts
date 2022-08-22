@@ -5,5 +5,6 @@ export interface ProblemDetail {
 
 export interface Violation {
   name: string;
+  accountId: string;
   message: string;
 }

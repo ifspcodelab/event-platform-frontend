@@ -8,26 +8,36 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ProblemDetail } from 'src/app/core/models/problem-detail';
-import { ActivityDto } from "../../../../core/models/activity.model";
-import { ActivityService } from "../../../../core/services/activity.service";
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 import { LoaderService } from "../../../loader.service";
+import { OrganizerSubeventDto } from 'src/app/core/models/organizer-subevent.model';
+import { OrganizerSubeventService } from 'src/app/core/services/organizer-subevent.service';
+import { OrganizerSubeventFormComponent } from '../organizer-subevent-form/organizer-subevent-form.component';
+import { EventDto } from 'src/app/core/models/event.model';
+import { EventStatusModel } from 'src/app/core/models/event-status.model';
 
 @Component({
-  selector: 'app-subevent-presentation-show',
+  selector: 'app-subevent-show',
   templateUrl: './subevent-show.component.html',
   styleUrls: ['./subevent-show.component.scss']
 })
 export class SubeventShowComponent implements OnInit {
+  displayedColumnsOrganizerSubevent: string[] = ['name', 'email', 'type', 'action'];
+  organizersSubeventDto: OrganizerSubeventDto[] = [];
+  organizerSubeventDto: OrganizerSubeventDto;
   subeventDto: SubeventDto;
   subeventId: string;
   eventId: string;
+  eventDto: EventDto;
+  subeventStatus: EventStatusModel;
+  organizerSubeventId: string;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
   tabSelectedIndex: number = 0;
 
   constructor(
     private notificationService: NotificationService,
     private subeventService: SubeventService,
+    private organizerSubeventService: OrganizerSubeventService,
     private route: ActivatedRoute,
     private router: Router,
     private loaderService: LoaderService,
@@ -38,7 +48,9 @@ export class SubeventShowComponent implements OnInit {
     this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
+    this.organizerSubeventId = this.route.snapshot.paramMap.get('organizerSubeventId');
     this.fetchSubevent(this.eventId, this.subeventId);
+    this.fetchOrganizersSubevent(this.eventId, this.subeventId);
   }
 
   fetchSubevent(eventId: string, subeventId: string) {
@@ -51,16 +63,20 @@ export class SubeventShowComponent implements OnInit {
       });
   }
 
+  fetchOrganizersSubevent(eventId: string, subeventId: string) {
+    this.organizerSubeventService.getOrganizersSubevent(eventId, subeventId)
+        .pipe(first())
+        .subscribe(organizersSubeventDto => {
+          this.organizersSubeventDto = organizersSubeventDto;
+        })
+  }
+
   setTabSelectedIndex() {
     this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
   }
 
   openEventShow() {
     return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 1 }});
-  }
-
-  openActivityShow(activityDto: ActivityDto) {
-    return this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', activityDto.id]);
   }
 
   publishSubevent() {
@@ -145,6 +161,65 @@ export class SubeventShowComponent implements OnInit {
         error: error => this.handleError(error)
       });
   }
+
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      data: {
+        eventId: this.eventId,
+        subeventId: this.subeventId,
+        organizerSubeventDto: this.organizerSubeventDto
+      }
+    };
+  }
+
+  openAddOrganizerSubeventFormDialog() {
+    const dialogRef = this.dialog.open(OrganizerSubeventFormComponent, this.getDialogConfig());
+    dialogRef.afterClosed().subscribe(
+      organizerSubeventDto => {
+        if (organizerSubeventDto) {
+          this.organizersSubeventDto = [...this.organizersSubeventDto, organizerSubeventDto];
+          this.notificationService.success("Organizador cadastrado com sucesso");
+        }
+    })
+  }
+
+  private getConfirmationDialogConfigOrganizerSubevent(organizerSubeventDto: OrganizerSubeventDto) {
+    return {
+       autoFocus: true,
+    data: {
+        name: "Remover organizador",
+        text: `O organizador ${organizerSubeventDto.account.name} será excluido de forma definitiva.`,
+        cancelText: "Cancelar",
+        okText: "Remover"
+      }
+    }
+  }
+
+  openDeleteConfirmationDialogOrganizerSubevent(organizerSubeventDto: OrganizerSubeventDto) {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizerSubevent(organizerSubeventDto))
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.deleteOrganizerSubevent(organizerSubeventDto.id);
+        }
+      });
+  }
+
+  deleteOrganizerSubevent(organizerSubeventId: string) {
+    this.organizerSubeventService.deleteOrganizerSubevent(this.eventId, this.subeventId, organizerSubeventId)
+      .pipe(first())
+      .subscribe({
+         next: () => {
+           this.notificationService.success("Organizador excluído com sucesso");
+           this.organizersSubeventDto = this.organizersSubeventDto.filter(o => o.id != organizerSubeventId);
+        }
+      });
+   }
+
+   checkSubeventStatus(subeventDto: SubeventDto) {
+     return subeventDto.status == EventStatusModel.CANCELED;
+   }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
