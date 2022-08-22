@@ -8,6 +8,7 @@ import {SharedModule} from "../../shared/shared.module";
 import { AccountShowComponent } from './account-show/account-show.component';
 import { AccountFormComponent } from './account-form/account-form.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {NgxMaskModule} from "ngx-mask";
 
 
 @NgModule({
@@ -17,12 +18,13 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     AccountShowComponent,
     AccountFormComponent
   ],
-  imports: [
-    CommonModule,
-    CoreModule,
-    SharedModule,
-    AccountsRoutingModule,
-    MatSlideToggleModule,
-  ]
+    imports: [
+        CommonModule,
+        CoreModule,
+        SharedModule,
+        AccountsRoutingModule,
+        MatSlideToggleModule,
+        NgxMaskModule,
+    ]
 })
 export class AccountsModule { }

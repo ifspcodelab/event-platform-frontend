@@ -55,7 +55,7 @@ export class AccountFormComponent implements OnInit {
   private buildForm() {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(256), AppValidators.notBlank, AppValidators.validName]],
-      cpf: ['', [Validators.required, AppValidators.validCpf]],
+      cpf: ['', [Validators.required, AppValidators.validCpf()]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
       agreed: ['', []],
       role: ['', []],

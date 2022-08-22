@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { environment } from "../../../environments/environment";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import {PageDto} from "../models/page.model";
-import {AccountDto} from "../models/account.model";
-import {AccountRole} from "../models/account-role.model";
+import { PageDto } from "../models/page.model";
+import { AccountDto } from "../models/account.model";
+
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +44,6 @@ export class AccountService {
 
   getRole(role: string){
 
-
     if(role == "ADMIN"){
       return "Administrador";
     }
@@ -56,7 +55,6 @@ export class AccountService {
 
   transform(cpf: string): string {
     cpf = cpf.replace(/[^\d]/g, "");
-
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
   }
 

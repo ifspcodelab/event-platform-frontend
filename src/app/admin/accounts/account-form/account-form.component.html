@@ -22,11 +22,14 @@
 
     <mat-form-field class="form-field-sm">
       <mat-label>CPF</mat-label>
-      <input matInput formControlName="cpf" name="cpf">
-      <mat-error *ngIf="fieldErrors('cpf')?.['required']">Email é obrigatório</mat-error>
-      <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">CPF deve conter um CPF válido</mat-error>
-      <mat-error *ngIf="fieldErrors('cpf')?.['serverError'] && submitted">
-        {{ fieldErrors('cpf')?.['serverError'] }}
+      <input placeholder="123.456.789-01" mask="000.000.000-00" matInput formControlName="cpf" name="cpf">
+      <mat-error *ngIf="field('cpf').invalid && (field('cpf').dirty || field('cpf').touched)">
+        <mat-error *ngIf="fieldErrors('cpf')?.['required']">
+          CPF é obrigatório
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">
+          CPF deve ser válido
+        </mat-error>
       </mat-error>
     </mat-form-field>
   </fieldset>
@@ -58,7 +61,7 @@
       <mat-label class="mat-hint">Confirmado</mat-label>
       <br>
       <mat-slide-toggle class="mat-slide-toggle-content" formControlName="agreed" name="agreed">
-        Informa se o usuário aceitou os termos de uso.
+        <mat-hint>Informa se o usuário aceitou os termos de uso.</mat-hint>
       </mat-slide-toggle>
     </div>
 
@@ -66,7 +69,7 @@
       <mat-label class="mat-hint">Verificado</mat-label>
       <br>
       <mat-slide-toggle class="mat-slide-toggle-content" formControlName="verified">
-        Informa se o usuário possui conta confirmada através do e-mail
+        <mat-hint>Informa se o usuário possui conta confirmada através do e-mail</mat-hint>
       </mat-slide-toggle>
     </div>
   </fieldset>

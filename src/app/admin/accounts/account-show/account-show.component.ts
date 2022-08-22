@@ -9,6 +9,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ProblemDetail} from "../../../core/models/problem-detail";
 import {AccountService} from "../../../core/services/account.service";
 import {AccountDto} from "../../../core/models/account.model";
+import {AccountRole} from "../../../core/models/account-role.model";
 
 @Component({
   selector: 'app-account-show',
