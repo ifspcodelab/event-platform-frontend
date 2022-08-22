@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8080/api/v1',
-  recaptchaSiteKey: '6LdirjAhAAAAANJcalTKs4KNA7c5YlP6dOby7x__'
+  apiUrl: 'https://d14okd0zuxx3wy.cloudfront.net/api/v1',
+  recaptchaSiteKey: '6LftTpchAAAAABcx7I_oZ7IOvHsftqS9tYJM1Mf2'
 };
