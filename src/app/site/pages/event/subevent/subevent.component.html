@@ -1,0 +1,20 @@
+<app-site-header></app-site-header>
+
+<app-event-header
+  *ngIf="subeventDto"
+  [title]="subeventDto.title"
+  [url]="'/' + eventDto.slug + '/sub-events'"
+  [urlText]="eventDto.title"
+  [image]="subeventDto.biggerImage"
+  [startDate]="subeventDto.executionPeriod.startDate | date:'dd/MM/YY'"
+  [endDate]="subeventDto.executionPeriod.endDate | date: 'dd/MM/YY'"
+>
+  <button mat-button routerLink="presentation" routerLinkActive="active-link">Apresentação</button>
+  <button mat-button>Programação</button>
+  <button mat-button>Organização</button>
+  <button mat-button routerLink="contact" routerLinkActive="active-link">Contato</button>
+</app-event-header>
+
+<div class="site-content">
+  <router-outlet></router-outlet>
+</div>

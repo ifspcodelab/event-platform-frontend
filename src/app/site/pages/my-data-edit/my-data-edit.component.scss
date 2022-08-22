@@ -1,0 +1,51 @@
+a {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  padding-bottom: 10px;
+}
+
+.visibility {
+  scale: 1.5;
+}
+
+.terms {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.checkbox-container {
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  vertical-align: center;
+}
+
+.checkbox-container mat-checkbox {
+  margin-right: 8px;
+  padding-bottom: 5px;
+}
+
+.checkbox-container span {
+  padding-top: 1px;
+}
+
+re-captcha {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  scale: 0.9;
+}
+
+.redefine {
+  margin: 15px 0;
+  color: #FFF;
+}

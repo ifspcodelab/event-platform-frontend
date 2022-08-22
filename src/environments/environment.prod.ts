@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-  recaptcha: {
-    siteKey: '6LcrKywhAAAAADozaY446BAXumju7zNlTdm_f2vL',
-  }
+  apiUrl: 'https://d14okd0zuxx3wy.cloudfront.net/api/v1',
+  recaptchaSiteKey: '6LftTpchAAAAABcx7I_oZ7IOvHsftqS9tYJM1Mf2'
 };

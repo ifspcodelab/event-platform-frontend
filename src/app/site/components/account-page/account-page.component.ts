@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AccountPageComponent implements OnInit {
   @Input()
-  title: string = '';
+  pageTitle: string = '';
   @Input()
   description: string = '';
   @Input()

@@ -1,9 +1,15 @@
+a {
+  display: flex;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
 .full-width {
   width: 100%;
 }
 
 mat-form-field {
-  padding-bottom: 10px;
+  padding-bottom: 17px;
 }
 
 .visibility {
@@ -11,7 +17,7 @@ mat-form-field {
 }
 
 .terms {
-  margin-top: 20px;
+  margin: 20px 0 0 0;
   text-align: left;
 }
 
@@ -35,11 +41,22 @@ re-captcha {
   align-items: center;
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin: 15px 0;
   scale: 0.9;
 }
 
-.register {
-  margin: 15px 0;
-  color: #FFF;
+.button {
+  margin: 5px 0 !important;
+  border: none;
+  width: 100%;
+}
+
+.button-terms {
+  margin: 15px 0 !important;
+  border: none;
+  width: 100%;
+}
+
+.button-white {
+  color: #FFFFFF;
 }

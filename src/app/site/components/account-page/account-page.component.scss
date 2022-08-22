@@ -1,8 +1,45 @@
+.account-page-content {
+  background-color: #eaeaea;
+  height: 100%;
+}
+
+.account-main-content {
+  background-color: #eaeaea;
+}
+
+.account-main-title {
+  text-transform: uppercase;
+  color: #555555;
+  text-decoration: none;
+
+  h2 {
+    font-size: 1rem;
+    display: inline;
+  }
+
+  &:hover {
+    color: #000000;
+  }
+}
+.account-card-content {
+  margin: 0;
+  padding: 40px 40px 10px 40px;
+
+  &-title {
+    margin-bottom: 20px;
+  }
+
+  &-subtitle {
+    margin-bottom: 20px;
+  }
+}
+
 header {
   text-align: center;
-  padding: 20px 5px 0 5px;
+  padding-top: 10px;
 
   @media screen and (min-width: 481px) {
+    padding-top: 40px;
     h1 {
       font-weight: bold;
     }
@@ -20,9 +57,11 @@ header {
 }
 
 main {
-  max-width: 400px;
   text-align: center;
-  margin: auto;
-  padding: 0 5px;
+
+  @media screen and (min-width: 500px) {
+    max-width: 450px;
+    margin: auto;
+  }
 }
 

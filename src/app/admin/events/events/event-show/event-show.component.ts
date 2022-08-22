@@ -1,8 +1,3 @@
-import { EventStatusModel } from './../../../../core/models/event-status.model';
-import { OrganizerFormComponent } from './../organizer-form/organizer-form/organizer-form.component';
-import { AccountDto } from './../../../../core/models/account.model';
-import { OrganizerService } from './../../../../core/services/organizer.service';
-import { OrganizerDto } from './../../../../core/models/organizer.model';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CancellationMessageCreateDto, EventDto } from "../../../../core/models/event.model";
 import { EventService } from "../../../../core/services/event.service";
@@ -10,6 +5,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
 import { SubeventDto } from "../../../../core/models/subevent.model";
 import { SubeventService } from "../../../../core/services/subevent.service";
+import { OrganizerFormComponent } from '../organizer-form/organizer-form/organizer-form.component';
+import { AccountDto } from '../../../../core/models/account.model';
+import { OrganizerService } from '../../../../core/services/organizer.service';
+import { OrganizerDto } from '../../../../core/models/organizer.model';
 import { NotificationService } from "../../../../core/services/notification.service";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -26,23 +25,23 @@ import { LoaderService } from "../../../loader.service";
   styleUrls: ['./event-show.component.scss']
 })
 export class EventShowComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
-  subeventsDto: SubeventDto[] = [];
+  tabSelectedIndex: number = 0;
   eventDto: EventDto;
   eventId: string;
+  displayedColumns: string[] = ['title', 'status', 'startDate', 'endDate'];
+  subeventsDto: SubeventDto[] = [];
   dataSource: MatTableDataSource<SubeventDto>;
   @ViewChild(MatSort)
   sort: MatSort;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
-  tabSelectedIndex: number = 0;
   displayedColumnsOrganizer: string[] = ['name', 'email', 'type', 'action'];
+  accountDto: AccountDto;
   organizersDto: OrganizerDto[] = [];
   organizerDto: OrganizerDto;
   organizerId: string;
   dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
   @ViewChild(MatSort)
   sortOrganizer: MatSort;
-  accountDto: AccountDto;
 
   constructor(
     private eventService: EventService,
@@ -80,8 +79,6 @@ export class EventShowComponent implements OnInit {
       .subscribe(subevents => {
         this.subeventsDto = subevents;
         this.dataSource = new MatTableDataSource<SubeventDto>(this.subeventsDto);
-        this.loaderService.hide();
-        this.setTabSelectedIndex();
       });
   }
 
@@ -92,15 +89,16 @@ export class EventShowComponent implements OnInit {
           this.organizersDto = organizersDto;
           this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           this.loaderService.hide();
+          this.setTabSelectedIndex();
         });
-  }
-
-  openEventList() {
-    return this.router.navigate(['admin', 'events']);
   }
 
   setTabSelectedIndex() {
     this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
+  }
+
+  openEventList() {
+    return this.router.navigate(['admin', 'events']);
   }
 
   publishEvent() {
@@ -183,7 +181,7 @@ export class EventShowComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.notificationService.success("Excluído com sucesso");
+          this.notificationService.success("Excluido com sucesso");
           this.router.navigate(['admin', 'events'])
         },
         error: error => this.handleError(error)
@@ -206,7 +204,6 @@ export class EventShowComponent implements OnInit {
         .subscribe(organizerDto => {
           if(organizerDto) {
             this.organizersDto = [...this.organizersDto, organizerDto];
-            console.log(this.organizersDto);
             this.notificationService.success("Organizador cadastrado com sucesso");
             // this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
           }
@@ -255,25 +252,11 @@ export class EventShowComponent implements OnInit {
     }
   }
 
-  // checkEventIsCanceled(): boolean {
-  //   return this.eventDto.status == EventStatusModel[EventStatusModel.CANCELED];
-  // }
-
   announceSortChangeEvent(sort: Sort) {
     this.dataSource.sort = this.sort;
 
     if (sort.direction) {
       this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
-    } else {
-      this._liveAnnouncer.announce('Ordenação removida');
-    }
-  }
-
-  announceSortChangeOrganizer(sortOrganizer: Sort) {
-    this.dataSourceOrganizer.sort = this.sortOrganizer;
-
-    if (sortOrganizer.direction) {
-      this._liveAnnouncer.announce(`Ordenado ${sortOrganizer.direction}final`);
     } else {
       this._liveAnnouncer.announce('Ordenação removida');
     }

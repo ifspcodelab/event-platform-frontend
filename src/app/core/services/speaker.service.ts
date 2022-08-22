@@ -4,21 +4,17 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { SpeakerCreateDto, SpeakerDto } from "../models/speaker.model";
 import { PageDto } from "../models/page.model";
+import { BaseService } from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SpeakerService {
+export class SpeakerService extends BaseService {
   apiUrl = `${environment.apiUrl}/speakers`;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   getSpeakers(): Observable<PageDto<SpeakerDto>> {
     return this.httpClient.get<PageDto<SpeakerDto>>(this.apiUrl, this.httpOptions);
@@ -38,5 +34,10 @@ export class SpeakerService {
 
   deleteSpeaker(speakerId: string): Observable<unknown> {
     return this.httpClient.delete<SpeakerDto>(`${this.apiUrl}/${speakerId}`, this.httpOptions);
+  }
+
+  findByName(name: string): Observable<SpeakerDto[]> {
+    const url = `${this.apiUrl}/searchName/${name}`;
+    return this.httpClient.get<SpeakerDto[]>(url, this.httpOptions);
   }
 }

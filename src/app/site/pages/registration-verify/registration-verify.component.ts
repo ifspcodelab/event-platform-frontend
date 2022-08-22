@@ -44,10 +44,12 @@ export class RegistrationVerifyComponent implements OnInit {
         const problem: ProblemDetail = error.error;
         if(problem.title === "NONEXISTENT_TOKEN") {
           this.notificationService.error("Token de verificação inexistente");
+          this.router.navigate(['']);
         }
 
         if(problem.title === "VERIFICATION_TOKEN_EXPIRED") {
           this.notificationService.error("Token de verificação expirado");
+          this.router.navigate(['']);
         }
       }
     }

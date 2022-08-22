@@ -8,6 +8,8 @@ import { EventDto } from "../../../../core/models/event.model";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail, Violation } from "../../../../core/models/problem-detail";
 import { NotificationService } from "../../../../core/services/notification.service";
+import { AngularEditorConfig } from "@kolkov/angular-editor";
+import { eventEditorConfig } from "../../../../core/configs/rich-text.config";
 
 @Component({
   selector: 'app-event-form',
@@ -20,6 +22,7 @@ export class EventFormComponent implements OnInit {
   createMode: boolean;
   eventId: string;
   eventDto: EventDto;
+  editorConfig: AngularEditorConfig = eventEditorConfig;
 
   constructor(
     private eventService: EventService,
@@ -79,6 +82,7 @@ export class EventFormComponent implements OnInit {
           Validators.maxLength(5000)
         ]
       ],
+      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(5000)]],
       registrationPeriod: this.formBuilder.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]]

@@ -1,0 +1,40 @@
+.site-card {
+  display: flex;
+  margin-bottom: 25px;
+  cursor: pointer;
+
+  @media screen and (max-width: 500px){
+    img {
+      display: none;
+    }
+
+    &__content {
+      margin-left: 0 !important;
+    }
+  }
+
+  img {
+    max-width: 150px;
+    max-height: 100px;
+    border-radius: 10px;
+  }
+
+  &__dates {
+    color: #444444;
+  }
+
+  &__content {
+    margin-left: 30px;
+    text-align: justify;
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    p {
+      margin-bottom: 5px;
+    }
+  }
+}

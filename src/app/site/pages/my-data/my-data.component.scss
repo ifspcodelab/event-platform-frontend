@@ -1,0 +1,40 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 30px;
+}
+
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.attribute {
+  text-align: center;
+  font-weight: bold;
+}
+
+.email {
+  background-color: #bbbbbb;
+  color: #555555;
+  font-style: italic;
+}
+
+.edit {
+  width: 100%;
+  color: #FFF;
+  margin: 30px 0 5px 0 !important;
+}
+
+.button {
+  margin: 5px 0 !important;
+  border: none;
+  width: 100%;
+}
+
+.alterPassword {
+  margin: 5px 0 15px 0 !important;
+  border: none;
+  width: 100%;
+}

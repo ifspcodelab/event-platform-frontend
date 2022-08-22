@@ -4,27 +4,27 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { CancellationMessageCreateDto, EventCreateDto, EventDto } from "../models/event.model";
 import { map } from "rxjs/operators";
+import {BaseService} from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class EventService {
+export class EventService extends BaseService {
   apiUrl = `${environment.apiUrl}/events`;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   getEvents(): Observable<EventDto[]> {
-    return this.httpClient.get<EventDto[]>(this.apiUrl, this.httpOptions)
+    return this.httpClient.get<EventDto[]>(this.apiUrl, this.httpOptionsSkipInterceptor)
       .pipe(
         map(results => results.sort((a, b) => a.title.localeCompare(b.title)))
       );
+  }
+
+  getEventsBySlug(eventSlug: string): Observable<EventDto[]> {
+    return this.httpClient.get<EventDto[]>(`${this.apiUrl}?slug=${eventSlug}`, this.httpOptionsSkipInterceptor);
   }
 
   getEventById(eventId: string): Observable<EventDto> {
