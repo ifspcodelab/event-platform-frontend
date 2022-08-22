@@ -1,4 +1,3 @@
-import { SubeventDto } from './subevent.model';
 import { AccountDto } from './account.model';
 import { OrganizerType } from './organizer-type.model';
 
@@ -7,6 +6,7 @@ export interface OrganizerSubeventDto {
   type: OrganizerType;
   account: AccountDto;
 }
+
 export class OrganizerSubeventCreateDto {
   type: OrganizerType;
   accountId: string;

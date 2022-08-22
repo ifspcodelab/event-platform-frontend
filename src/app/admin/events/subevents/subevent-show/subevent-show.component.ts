@@ -68,7 +68,6 @@ export class SubeventShowComponent implements OnInit {
         .pipe(first())
         .subscribe(organizersSubeventDto => {
           this.organizersSubeventDto = organizersSubeventDto;
-          console.log(organizersSubeventDto)
         })
   }
 
@@ -180,7 +179,7 @@ export class SubeventShowComponent implements OnInit {
       organizerSubeventDto => {
         if (organizerSubeventDto) {
           this.organizersSubeventDto = [...this.organizersSubeventDto, organizerSubeventDto];
-          this.notificationService.success("Cadastrado com sucesso");
+          this.notificationService.success("Organizador cadastrado com sucesso");
         }
     })
   }
@@ -212,7 +211,7 @@ export class SubeventShowComponent implements OnInit {
       .pipe(first())
       .subscribe({
          next: () => {
-           this.notificationService.success("Excluido com sucesso");
+           this.notificationService.success("Organizador excluído com sucesso");
            this.organizersSubeventDto = this.organizersSubeventDto.filter(o => o.id != organizerSubeventId);
         }
       });

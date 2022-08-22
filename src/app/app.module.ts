@@ -20,7 +20,7 @@ import { MatDialogModule } from "@angular/material/dialog";
     BrowserAnimationsModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

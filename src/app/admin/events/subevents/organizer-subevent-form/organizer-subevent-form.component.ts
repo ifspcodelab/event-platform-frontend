@@ -1,14 +1,16 @@
-import { first } from 'rxjs/operators';
+import { OrganizerSubeventDto } from './../../../../core/models/organizer-subevent.model';
+import { debounceTime, distinctUntilChanged, filter, first, Observable, switchMap, tap } from "rxjs";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { OrganizerSubeventService } from 'src/app/core/services/organizer-subevent.service';
-import { OrganizerSubeventDto } from 'src/app/core/models/organizer-subevent.model';
 import { OrganizerType } from 'src/app/core/models/organizer-type.model';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Violation } from 'src/app/core/models/problem-detail';
+import { ProblemDetail, Violation } from 'src/app/core/models/problem-detail';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { AppValidators } from 'src/app/core/validators/app-validators';
+import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
+import { AccountDto } from 'src/app/core/models/account.model';
 
 @Component({
   selector: 'app-organizer-form',
@@ -16,8 +18,11 @@ import { AppValidators } from 'src/app/core/validators/app-validators';
   styleUrls: ['./organizer-subevent-form.component.scss']
 })
 export class OrganizerSubeventFormComponent implements OnInit {
-  form: FormGroup = this.buildForm();
+  form: FormGroup;
   submitted: boolean = false;
+  accounts: AccountDto[] = [];
+  nameControl: FormControl = new FormControl();
+  selectedAccountId: string;
   organizersSubeventType: any = [];
   organizerSubeventType = OrganizerType;
 
@@ -32,14 +37,33 @@ export class OrganizerSubeventFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data.organizerSubeventDto);
+    this.form = this.buildForm();
+    this.autocompleteOrganizerSubevent();
+  }
+
+  autocompleteOrganizerSubevent() {
+    this.nameControl.valueChanges
+      .pipe(
+        filter(res => res !== null && res.length >= 2),
+        distinctUntilChanged(),
+        debounceTime(600),
+        switchMap(value => this.organizerSubeventService.findByName(value))
+      )
+      .subscribe({
+        next: accounts => this.accounts = accounts
+      });
+  }
+
+  onSelected(event: MatAutocompleteSelectedEvent) {
+    this.selectedAccountId = event.option.id;
+    this.field('accountId').patchValue(this.selectedAccountId)
   }
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
       accountId: ['', [Validators.required, AppValidators.notBlank]],
-      organizerSubeventType: ['', [Validators.required]],
-    })
+      type: ['', [Validators.required]],
+    });
   }
 
   onSubmit() {
@@ -75,8 +99,8 @@ export class OrganizerSubeventFormComponent implements OnInit {
         })
       }
       if(error.status === 409) {
-        const nameField = this.field('accountId');
-        nameField.setErrors({ serverError: `Organizador já existente com id ${nameField.value}` })
+        const problem: ProblemDetail = error.error;
+        this.nameControl.setErrors({ serverError: problem.violations[0].message })
       }
     }
   }

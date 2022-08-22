@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { OrganizerSubeventCreateDto, OrganizerSubeventDto } from '../models/organizer-subevent.model';
+import { AccountDto } from '../models/account.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +30,10 @@ export class OrganizerSubeventService {
 
   deleteOrganizerSubevent(eventId: string, subeventId: string, organizerId: string): Observable<unknown> {
     return this.httpClient.delete<OrganizerSubeventDto>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/organizers/${organizerId}`, this.httpOptions);
+  }
+
+  findByName(name: string): Observable<AccountDto[]> {
+    const url = `${environment.apiUrl}/accounts/searchName/${name}`;
+    return this.httpClient.get<AccountDto[]>(url, this.httpOptions);
   }
 }
