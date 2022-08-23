@@ -13,6 +13,7 @@ import { ProblemDetail } from "../../../core/models/problem-detail";
 })
 export class RegistrationVerifyComponent implements OnInit {
   token: string;
+  verificationProblem: string = null;
 
   constructor(
     private router: Router,
@@ -43,17 +44,13 @@ export class RegistrationVerifyComponent implements OnInit {
       if(error.status === 409) {
         const problem: ProblemDetail = error.error;
         if(problem.title === "NONEXISTENT_TOKEN") {
-          this.notificationService.error("Token de verificação inexistente");
-          this.router.navigate(['']);
+          this.verificationProblem = "Token de verificação inexistente. Realize o cadastro novamente.";
         }
 
         if(problem.title === "VERIFICATION_TOKEN_EXPIRED") {
-          this.notificationService.error("Token de verificação expirado");
-          this.router.navigate(['']);
+          this.verificationProblem = "Token de verificação expirado. Realize o cadastro novamente.";
         }
       }
     }
   }
-
-
 }
