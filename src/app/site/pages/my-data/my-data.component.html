@@ -6,18 +6,22 @@
   description="Olá {{accountDto.name}}. Você pode alterar seu nome e CPF ou redefinir a sua senha.">
 
   <table>
-    <ng-container *ngIf="accountDto">
+    <ng-container>
       <tr>
         <td class="attribute">Nome</td>
-        <td>{{ accountDtoName }}</td>
+        <td>{{ accountDto.name }}</td>
       </tr>
       <tr>
         <td class="attribute">E-mail</td>
-        <td class="email">{{ accountDtoEmail }}</td>
+        <td class="email">{{ accountDto.email }}</td>
       </tr>
       <tr>
         <td class="attribute">CPF</td>
-        <td>{{ accountDtoCpf | cpfFomat }}</td>
+        <td>{{ accountDto.cpf | cpfFomat }}</td>
+      </tr>
+      <tr>
+        <td class="attribute">Preferencia de comunicação</td>
+        <td>{{ accountDto.allowEmail ? 'Aceita comunicação via e-mail' : 'Não aceita comunicação via e-mail'}}</td>
       </tr>
     </ng-container>
   </table>

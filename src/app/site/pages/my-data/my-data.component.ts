@@ -30,11 +30,7 @@ export class MyDataComponent implements OnInit {
   fetchAccount() {
     this.myDataService.getAccount()
       .pipe(first())
-      .subscribe(
-      accountDto => {
-        this.accountDto = accountDto
-      }
-    );
+      .subscribe(accountDto => this.accountDto = accountDto);
   }
 
   get accountDtoName() {

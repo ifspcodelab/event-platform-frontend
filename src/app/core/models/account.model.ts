@@ -4,20 +4,24 @@ export interface AccountDto {
   email: string;
   cpf: string;
   agreed: boolean;
+  allowEmail: boolean;
 }
 
 export class MyDataDto {
   name: string;
   cpf: string;
+  allowEmail: boolean;
   userRecaptcha: string | undefined;
 
   constructor(
     name: string,
     cpf: string,
+    allowEmail: boolean,
     userRecaptcha: string | undefined,
   ) {
     this.name = name;
     this.cpf = cpf;
+    this.allowEmail = allowEmail;
     this.userRecaptcha = userRecaptcha;
   }
 }
