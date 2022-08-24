@@ -9,7 +9,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AccountDto} from "../../../core/models/account.model";
 import {SearchType} from "../../../core/models/search-types.model";
 import {PageDto} from "../../../core/models/page.model";
-import {AccountRole} from "../../../core/models/account-role.model";
+import {MatPaginatorIntl} from "@angular/material/paginator";
 
 
 @Component({
@@ -37,6 +37,7 @@ export class AccountListComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private _liveAnnouncer: LiveAnnouncer,
+    private _MatPaginatorIntl: MatPaginatorIntl
   ) {
     this.enumKeys = Object.keys(this.searchType);
   }
@@ -45,6 +46,13 @@ export class AccountListComponent implements OnInit {
     this.form = this.buildForm();
     this.loaderService.show();
     this.fetchAccounts(0);
+
+    this._MatPaginatorIntl.firstPageLabel = 'Primeira página';
+    this._MatPaginatorIntl.itemsPerPageLabel = 'Usuários por página';
+    this._MatPaginatorIntl.lastPageLabel = 'Última página';
+    this._MatPaginatorIntl.nextPageLabel = 'Próxima página';
+    this._MatPaginatorIntl.previousPageLabel = 'Página anterior';
+
   }
 
   onSubmit() {
