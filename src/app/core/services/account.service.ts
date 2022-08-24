@@ -3,7 +3,7 @@ import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { PageDto } from "../models/page.model";
-import { AccountDto } from "../models/account.model";
+import {AccountDto, AccountUpdateDto} from "../models/account.model";
 
 
 @Injectable({
@@ -38,20 +38,10 @@ export class AccountService {
     return this.httpClient.delete<AccountDto>(`${this.apiUrl}/${accountId}`, this.httpOptions);
   }
 
-  putAccount(accountId: string, accoountDto: AccountDto): Observable<AccountDto> {
-    return this.httpClient.put<AccountDto>(`${this.apiUrl}/${accountId}`, accoountDto, this.httpOptions);
+  putAccount(accountId: string, accountDto: AccountUpdateDto): Observable<AccountDto> {
+    return this.httpClient.put<AccountDto>(`${this.apiUrl}/${accountId}`, accountDto, this.httpOptions);
   }
 
-  getRole(role: string){
-
-    if(role == "ADMIN"){
-      return "Administrador";
-    }
-    if(role == "SPEAKER"){
-      return "Ministrante";
-    }
-    return "Participante";
-  }
 
   transform(cpf: string): string {
     cpf = cpf.replace(/[^\d]/g, "");

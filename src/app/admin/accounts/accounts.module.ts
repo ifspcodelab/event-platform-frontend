@@ -9,6 +9,7 @@ import { AccountShowComponent } from './account-show/account-show.component';
 import { AccountFormComponent } from './account-form/account-form.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {NgxMaskModule} from "ngx-mask";
+import {AccountRolePipe} from "../../core/pipes/account-role.pipe";
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {NgxMaskModule} from "ngx-mask";
     AccountsComponent,
     AccountListComponent,
     AccountShowComponent,
-    AccountFormComponent
+    AccountFormComponent,
+    AccountRolePipe,
   ],
     imports: [
         CommonModule,

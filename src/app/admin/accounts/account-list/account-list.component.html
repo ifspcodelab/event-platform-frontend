@@ -58,7 +58,7 @@
 
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por role">Perfil</th>
-      <td mat-cell *matCellDef="let element">{{ accountService.getRole(element.role) }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.role | accountRole | titlecase }}</td>
     </ng-container>
 
     <ng-container matColumnDef="verified">

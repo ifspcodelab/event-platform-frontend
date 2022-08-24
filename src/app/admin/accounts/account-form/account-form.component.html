@@ -20,7 +20,8 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="form-field-sm">
+
+    <mat-form-field class="form-field-md">
       <mat-label>CPF</mat-label>
       <input placeholder="123.456.789-01" mask="000.000.000-00" matInput formControlName="cpf" name="cpf">
       <mat-error *ngIf="field('cpf').invalid && (field('cpf').dirty || field('cpf').touched)">
@@ -50,21 +51,13 @@
       <mat-label>Perfil</mat-label>
       <mat-select formControlName="role" name="role" placeholder="Perfil">
         <mat-option *ngFor="let roleType of enumKeys" [value]="roleType">
-          {{accountService.getRole(roleType)}}
+          {{roleType | accountRole | titlecase}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </fieldset>
 
   <fieldset>
-    <div>
-      <mat-label class="mat-hint">Confirmado</mat-label>
-      <br>
-      <mat-slide-toggle class="mat-slide-toggle-content" formControlName="agreed" name="agreed">
-        <mat-hint>Informa se o usuário aceitou os termos de uso.</mat-hint>
-      </mat-slide-toggle>
-    </div>
-
     <div>
       <mat-label class="mat-hint">Verificado</mat-label>
       <br>

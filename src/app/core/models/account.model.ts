@@ -28,3 +28,11 @@ export class AccountCreateDto {
     this.userRecaptcha = userRecaptcha;
   }
 }
+export interface AccountUpdateDto {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  role: AccountRole;
+  verified: boolean;
+}
