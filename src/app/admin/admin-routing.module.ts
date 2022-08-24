@@ -28,9 +28,10 @@ const routes: Routes = [
         title: 'Ministrantes - Área Administrativa'
       },
       {
-        path: 'users',
-        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
-      }
+        path: 'accounts',
+        loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule),
+        title: 'Usuários - Área Administrativa'
+      },
     ]
   },
 ];

@@ -1,6 +1,4 @@
-<app-account-page
-  title="Verificação de e-mail"
->
+<app-account-page title="Verificação de e-mail" *ngIf="verificationProblem">
   <mat-icon color="primary">error</mat-icon>
-  <h3>Houve um problema com a verificação do seu e-mail, por favor entre em contato com a organização.</h3>
+  <h3>{{ verificationProblem }}</h3>
 </app-account-page>

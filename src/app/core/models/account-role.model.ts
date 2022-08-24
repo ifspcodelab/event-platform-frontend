@@ -1,4 +1,11 @@
 export enum AccountRole {
+
   ADMIN = ("ADMIN"),
-  ATTENDANT = ("ATTENDANT")
+  ATTENDANT = ("PARTICIPANTE"),
+  SPEAKER = ("MINISTRANTE"),
+
 }
+
+
+
+
