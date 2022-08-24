@@ -8,6 +8,11 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'events',
+        pathMatch: 'full'
+      },
+      {
         path: 'locations',
         loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule),
         title: 'Locais - Área Administrativa'
@@ -22,9 +27,11 @@ const routes: Routes = [
         loadChildren: () => import('./speakers/speakers.module').then(m => m.SpeakersModule),
         title: 'Ministrantes - Área Administrativa'
       },
-      { path: 'accounts',
+      {
+        path: 'accounts',
         loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule),
-        title: 'Usuários - Área Administrativa'},
+        title: 'Usuários - Área Administrativa'
+      },
     ]
   },
 ];

@@ -8,48 +8,65 @@
   </header>
 </div>
 
-<div class="test">
-
-</div>
-
 <main class="home-page-container">
-  <section class="home-page-container__section">
+  <section class="home-page-container__section" *ngIf="eventsRegistrationDto.length">
     <h2>Inscrições abertas</h2>
-    <app-site-card
-      *ngFor="let eventRegistrationDto of eventsRegistrationDto"
-      [image]="eventRegistrationDto.smallerImage"
-      [title]="eventRegistrationDto.title"
-      [startDate]="eventRegistrationDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
-      [endDate]="eventRegistrationDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
-      [summary]="eventRegistrationDto.summary"
-      [url]="''+ eventRegistrationDto.slug"
-    ></app-site-card>
+    <div class="home-page-container__events">
+      <app-site-card
+        *ngFor="let eventRegistrationDto of eventsRegistrationDto"
+        [image]="eventRegistrationDto.smallerImage"
+        [title]="eventRegistrationDto.title"
+        [startDate]="eventRegistrationDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+        [endDate]="eventRegistrationDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+        [summary]="eventRegistrationDto.summary"
+        [url]="''+ eventRegistrationDto.slug"
+      ></app-site-card>
+    </div>
   </section>
 
-  <section class="home-page-container__section">
+  <section class="home-page-container__section" *ngIf="eventsExecutionDto.length">
     <h2>Em andamento</h2>
-    <app-site-card
-      *ngFor="let eventExecutionDto of eventsExecutionDto"
-      [image]="eventExecutionDto.smallerImage"
-      [title]="eventExecutionDto.title"
-      [startDate]="eventExecutionDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
-      [endDate]="eventExecutionDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
-      [summary]="eventExecutionDto.summary"
-      [url]="''+ eventExecutionDto.slug"
-    ></app-site-card>
+    <div class="home-page-container__events">
+      <app-site-card
+        *ngFor="let eventExecutionDto of eventsExecutionDto"
+        [image]="eventExecutionDto.smallerImage"
+        [title]="eventExecutionDto.title"
+        [startDate]="eventExecutionDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+        [endDate]="eventExecutionDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+        [summary]="eventExecutionDto.summary"
+        [url]="''+ eventExecutionDto.slug"
+      ></app-site-card>
+    </div>
   </section>
 
   <section class="home-page-container__section">
+    <h2>Próximos eventos</h2>
+    <div class="home-page-container__events">
+      <app-site-card
+        *ngFor="let eventRegistrationDto of futureEvents"
+        [image]="eventRegistrationDto.smallerImage"
+        [title]="eventRegistrationDto.title"
+        [startDate]="eventRegistrationDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+        [endDate]="eventRegistrationDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+        [summary]="eventRegistrationDto.summary"
+        [url]="''+ eventRegistrationDto.slug"
+      ></app-site-card>
+    </div>
+  </section>
+
+  <section class="home-page-container__section" *ngIf="eventsFinishDto.length">
     <h2>Finalizados</h2>
-    <app-site-card
-      *ngFor="let eventFinishDto of eventsFinishDto"
-      [image]="eventFinishDto.smallerImage"
-      [title]="eventFinishDto.title"
-      [startDate]="eventFinishDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
-      [endDate]="eventFinishDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
-      [summary]="eventFinishDto.summary"
-      [url]="''+ eventFinishDto.slug"
-    ></app-site-card>
+    <div class="home-page-container__events">
+      <app-site-card
+        *ngFor="let eventFinishDto of eventsFinishDto"
+        [image]="eventFinishDto.smallerImage"
+        [title]="eventFinishDto.title"
+        [startDate]="eventFinishDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
+        [endDate]="eventFinishDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
+        [summary]="eventFinishDto.summary"
+        [url]="''+ eventFinishDto.slug"
+      ></app-site-card>
+    </div>
   </section>
 </main>
 

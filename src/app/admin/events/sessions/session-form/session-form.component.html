@@ -1,0 +1,115 @@
+<header class="header">
+  <div class="header__titlecomponent">
+    <h1 class="header__title" *ngIf="createMode">Definir nova Sessão</h1>
+    <h1 class="header__title" *ngIf="!createMode">Editar Sessão</h1>
+  </div>
+  <div class="header__actions">
+    <button mat-button color="primary" (click)="getBackUrl()">Cancelar</button>
+    <button type="submit" form="event-form" mat-raised-button color="primary">Salvar</button>
+  </div>
+</header>
+
+<form id="event-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
+  <fieldset>
+    <legend>Dados Gerais</legend>
+      <mat-form-field class="form-field-sm">
+        <mat-label>Título</mat-label>
+        <input matInput placeholder="" formControlName="title" name="title">
+        <mat-error *ngIf="fieldErrors('title')?.['required']">Título é obrigatório</mat-error>
+        <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
+        <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 3 caracteres</mat-error>
+        <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 50 caracteres</mat-error>
+        <mat-error *ngIf="fieldErrors('title')?.['serverError'] && submitted">
+          {{ fieldErrors('title')?.['serverError'] }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field-xs">
+        <mat-label>Número de Vagas</mat-label>
+        <input matInput placeholder="" formControlName="seats" name="seats" type="number">
+        <mat-error *ngIf="fieldErrors('seats')?.['required']">Número de Vagas é obrigatório</mat-error>
+        <mat-error *ngIf="fieldErrors('seats')?.['min']">Uma sessão deve ter no mínimo 1 vaga</mat-error>
+        <mat-error *ngIf="fieldErrors('seats')?.['serverError'] && submitted">
+          {{ fieldErrors('seats')?.['serverError'] }}
+        </mat-error>
+      </mat-form-field>
+  </fieldset>
+  <fieldset>
+    <legend>Horários da Sessão <sub>Uma sessão pode ter um ou muitos horários, exemplos: Uma palestra tem apenas um horário,
+      mas um minicurso pode ser ministrado em diversos horários em dias diferentes</sub></legend>
+    <mat-error *ngIf="fieldErrors('schedulesSession')?.['required']">A sessão deve ter pelo menos 1 horário defindo</mat-error>
+    <ng-container formArrayName="schedulesSession">
+      <ng-container *ngFor="let t of schedulesSession.controls; let i = index">
+        <mat-card [formGroupName]="i">
+          <mat-card-title>Horário {{i+1}}</mat-card-title>
+
+
+<!--          <mat-form-field class="form-field-xs">-->
+<!--            <mat-label>Local</mat-label>-->
+<!--            <input type="text" placeholder="Selecione..." matInput-->
+<!--                name="{{'location'+i}}" id="{{'location'+i}}" formControlName="location" [matAutocomplete]="autoState">-->
+<!--            <mat-autocomplete autoActiveFirstOption #autoState="matAutocomplete" (optionSelected)='onStateSelected($event.option.value)'>-->
+<!--              <mat-option *ngFor="let state of stateFilteredOptions$ | async" [value]="state.name">-->
+<!--                {{state.name}}-->
+<!--              </mat-option>-->
+<!--            </mat-autocomplete>-->
+<!--          </mat-form-field>-->
+
+          <mat-form-field class="form-field-xs">
+          <mat-select placeholder="Local"  id="{{'location'+i}}" formControlName="location" (selectionChange)="locationChange($event, i)">
+            <mat-option *ngFor="let location of locationsOf()" [value]="location.id" >{{ location.name }}</mat-option>
+          </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-xs">
+            <mat-select placeholder="Área"  id="{{'area'+i}}" formControlName="area" (selectionChange)="areaChange($event, i)">
+              <mat-option *ngFor="let area of areasOf(i)" [value]="area.id" >{{ area.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="form-field-xs">
+            <mat-select placeholder="Espaço"  id="{{'space'+i}}" formControlName="space">
+              <mat-option *ngFor="let space of spacesOf(i)" [value]="space.id" >{{ space.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+
+          <!--          <mat-form-field class="form-field-xs">-->
+<!--            <mat-label>Local</mat-label>-->
+<!--            <input matInput formControlName="location" name="{{'location'+i}}" id="{{'location'+i}}" >-->
+<!--          </mat-form-field>-->
+<!--          <mat-form-field class="form-field-xs">-->
+<!--            <mat-label>Area</mat-label>-->
+<!--            <input matInput placeholder="" formControlName="area" name="{{'area'+i}}" id="{{'area'+i}}" >-->
+<!--          </mat-form-field>-->
+<!--          <mat-form-field class="form-field-xs">-->
+<!--            <mat-label>Espaço</mat-label>-->
+<!--            <input matInput placeholder="" formControlName="space" name="{{'space'+i}}" id="{{'space'+i}}" >-->
+<!--            <mat-hint>Será verificada a disponibilidade do espaço no dia e período selecionado.</mat-hint>-->
+<!--          </mat-form-field>-->
+          <mat-form-field class="form-field-xs">
+            <mat-label>Dia</mat-label>
+            <input matInput placeholder="" formControlName="date" name="{{'date'+i}}" id="{{'date'+i}}" type="date">
+          </mat-form-field>
+          <mat-form-field class="form-field-xs">
+            <mat-label>Início</mat-label>
+            <input matInput placeholder="" formControlName="start" name="{{'start'+i}}" id="{{'start'+i}}" type="time">
+          </mat-form-field>
+          <mat-form-field class="form-field-xs">
+            <mat-label>Fim</mat-label>
+            <input matInput placeholder="" formControlName="end" name="{{'end'+i}}" id="{{'end'+i}}"  type="time">
+          </mat-form-field>
+          <mat-card-actions>
+            <button mat-button color="warn" (click)="removeScheduleSession(i)">
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </ng-container>
+    </ng-container>
+    <br>
+    <div>
+      <button mat-button color="primary" (click)="addScheduleSession()">Adicionar Novo Horário</button>
+    </div>
+  </fieldset>
+</form>

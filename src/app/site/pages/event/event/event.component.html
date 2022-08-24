@@ -7,10 +7,11 @@
   [startDate]="eventDto.executionPeriod.startDate | date:'dd/MM/yyyy'"
   [endDate]="eventDto.executionPeriod.endDate | date:'dd/MM/yyyy'"
 >
-  <button mat-button routerLink="presentation">Apresentação</button>
-  <button mat-button routerLink="sub-events">Subeventos</button>
+  <button mat-button routerLink="presentation" routerLinkActive="active-link">Apresentação</button>
+  <button mat-button routerLink="sub-events" routerLinkActive="active-link">Subeventos</button>
   <button mat-button>Programação</button>
   <button mat-button>Organização</button>
+  <button mat-button routerLink="contact" routerLinkActive="active-link">Contato</button>
 </app-event-header>
 
 <div class="site-content">

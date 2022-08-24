@@ -1,0 +1,27 @@
+<div>
+  <h2 class="modal__title" mat-dialog-title>Adicionar Ministrante</h2>
+</div>
+<div mat-dialog-content>
+  <form class="modal" id="space-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="modal__input">
+      <mat-label>Nome</mat-label>
+      <input appearance="fill" matInput [formControl]="nameControl" name="name" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected($event)">
+        <mat-option *ngFor="let speaker of speakers" [value]="speaker.name" [id]="speaker.id">
+          {{speaker.name}} ({{speaker.email}})
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="nameControl.errors && submitted">
+        {{ nameControl.errors['serverError'] }}
+      </mat-error>
+    </mat-form-field>
+
+    <input  hidden="true" appearance="fill" matInput formControlName="speakerId" name="speakerId">
+
+  </form>
+</div>
+
+<div mat-dialog-actions class="modal__buttons">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button type="submit" form="space-form" mat-button color="primary">Adicionar</button>
+</div>

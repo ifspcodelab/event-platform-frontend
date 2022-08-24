@@ -1,4 +1,4 @@
-<app-account-page pageTitle="Realize seu cadastro" description="Você terá acesso aos eventos e certificados. Caso já tenha um cadastro realize o login">
+<app-account-page pageTitle="Realize seu cadastro" description="Você terá acesso aos eventos e atividades disponíveis na plataforma.">
   <form id="registration-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nome Completo</mat-label>
@@ -8,7 +8,7 @@
           Nome é obrigatório
         </mat-error>
         <mat-error *ngIf="fieldErrors('name')?.['validname']">
-          Nome deve ser válido
+          Nome deve ser completo com nome e sobrenome
         </mat-error>
         <mat-error *ngIf="fieldErrors('name')?.['minlength']">
           Nome deve ter no mínimo 5 caracteres
@@ -28,10 +28,13 @@
           E-mail é obrigatório
         </mat-error>
         <mat-error *ngIf="fieldErrors('email')?.['email']">
-          E-mail deve ser válido
+          E-mail deve ser válido. Será utilizado para validação do cadastro e comunicação
         </mat-error>
         <mat-error *ngIf="fieldErrors('email')?.['maxlength']">
           E-mail deve ter no máximo 350 caracteres
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('email')?.['serverError']">
+          {{ fieldErrors('email')?.['serverError'] }}
         </mat-error>
       </mat-error>
       <mat-hint align="start">O email será usado para identificação, comunicação e confirmação de cadastro</mat-hint>
@@ -46,6 +49,9 @@
         </mat-error>
         <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">
           CPF deve ser válido
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('cpf')?.['serverError']">
+          {{ fieldErrors('cpf')?.['serverError'] }}
         </mat-error>
       </mat-error>
       <mat-hint align="start">O cpf será usado para identificação e para emitir o certificado</mat-hint>
@@ -68,13 +74,15 @@
           Senha deve ter 64 caracteres no máximo
         </mat-error>
         <mat-error *ngIf="fieldErrors('password')?.['validpassword']">
-          Senha deve ser válida
+          Senha deve ser válida. Entre 8 e 64 caracteres. No mínimo uma letra minúscula e uma maiúscula, um número e um caractere especial
         </mat-error>
       </mat-error>
-      <mat-hint align="start">A senha deve terentre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
+      <mat-hint align="start" *ngIf="fieldErrors('password')?.['validpassword']">A senha deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
+      <mat-hint style="color:#4caf50" align="start" *ngIf="!fieldErrors('password')?.['validpassword']">Senha válida</mat-hint>
     </mat-form-field>
 
     <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de uso</p>
+    <button class="button-terms" mat-button color="" type="submit" routerLink="/termos">Termos de Uso</button>
 
     <div class="checkbox-container">
       <mat-checkbox name="agreed" id="agreed" value="true" formControlName="agreed"></mat-checkbox>
@@ -86,10 +94,13 @@
       </mat-error>
     </mat-error>
 
+    <mat-error *ngIf="recaptchaErrorMessage">{{ recaptchaErrorMessage }}</mat-error>
+
     <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
 
     <mat-card-actions>
       <button class="button button-white" mat-raised-button form="registration-form" color="primary" [disabled]="requestLoading">Cadastrar</button>
+      <button class="button" mat-button color="" routerLink="/login">Já é cadastrado? Realize o Login.</button>
       <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
     </mat-card-actions>
   </form>

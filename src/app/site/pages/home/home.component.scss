@@ -14,8 +14,9 @@
   color: #FFFFFF;
 
 
-  @media screen and (max-width: 523px) {
-    padding: 10px 20px 10px 20px;
+  @media screen and (max-width: 600px) {
+    padding: 40px;
+    text-align: center;
 
     &__link {
       padding: 0 10px;
@@ -23,23 +24,32 @@
   }
 
   &__title {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     font-weight: 500;
     margin-bottom: 5px;
     text-transform: uppercase;
+
+    @media screen and (max-width: 600px) {
+      font-size: 1.8rem;
+      margin-bottom: 2px;
+    }
   }
 
   &__subtitle {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 300;
-    margin: 0px;
+    margin: 0;
     color: #b5e7c8;
+
+    @media screen and (max-width: 600px) {
+      font-size: 0.9rem;
+    }
   }
 
   &__description {
     text-align: justify;
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 600px) {
       width: 100% !important;
     }
   }
@@ -52,13 +62,25 @@ main {
 .home-page-container {
   margin: auto;
   max-width: 1100px;
-  padding: 40px 5px;
+  padding: 30px 20px;
 
-  @media screen and (max-width: 532px) {
-    padding: 10px 20px;
+  @media screen and (max-width: 600px) {
+    padding: 30px 20px;
   }
 
   &__section {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+
+    h2 {
+      font-weight: 400;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      color: #666666;
+      border-bottom: 1px solid #CCCCCC;
+    }
+  }
+
+  &__events {
+    padding: 10px;
   }
 }

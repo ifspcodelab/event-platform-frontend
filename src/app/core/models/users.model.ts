@@ -1,6 +1,5 @@
-
+import { UsersRole } from "./users-role.model";
 import { Timestamp } from "rxjs";
-import {UsersRole} from "./users-role.model";
 
 export interface UsersDto {
   id: string;
@@ -12,3 +11,4 @@ export interface UsersDto {
   verified: boolean;
   registrationTimestamp: Timestamp<any>;
 }
+

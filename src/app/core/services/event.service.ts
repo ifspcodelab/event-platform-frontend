@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import {CancellationMessageCreateDto, EventCreateDto, EventDto} from "../models/event.model";
+import { CancellationMessageCreateDto, EventCreateDto, EventDto } from "../models/event.model";
 import { map } from "rxjs/operators";
 import {BaseService} from "./base.service";
 

@@ -1,0 +1,12 @@
+main {
+  padding: 30px 96px;
+  min-height: 300px;
+
+  @media screen and (max-width: 532px) {
+    padding: 10px 20px;
+  }
+}
+
+#text {
+  text-align: justify;
+}

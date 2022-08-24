@@ -1,8 +1,7 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import { Component, Injectable, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 import { EventDto } from "../../../../core/models/event.model";
-import { first } from "rxjs";
-import { EventService } from "../../../../core/services/event.service";
+
 
 @Component({
   selector: 'app-event-presentation',
@@ -13,31 +12,12 @@ import { EventService } from "../../../../core/services/event.service";
   providedIn: "root"
 })
 export class EventPresentationComponent implements OnInit {
-  eventSlug: string;
   eventDto: EventDto;
 
-  constructor(
-    private route: ActivatedRoute,
-    private eventService: EventService,
-  ) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.eventSlug = this.route.parent.snapshot.paramMap.get('eventSlug');
-    this.fetchEvent();
-  }
-
-  fetchEvent() {
-    this.eventService.getEventsBySlug(this.eventSlug)
-      .pipe(first())
-      .subscribe(
-        eventsDto => {
-          this.eventDto = eventsDto[0];
-          this.setTitle(this.eventDto.title);
-        }
-      );
-  }
-
-  setTitle(title: string) {
-    document.title = title;
+    this.eventDto = this.route.parent.snapshot.data['event'];
+    document.title = this.eventDto.title;
   }
 }

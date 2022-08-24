@@ -8,10 +8,11 @@ import {EventDto} from "../../../core/models/event.model";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  eventsRegistrationDto: EventDto[];
-  eventsExecutionDto: EventDto[];
-  eventsFinishDto: EventDto[];
-  eventsDtoPublished: EventDto[];
+  eventsRegistrationDto: EventDto[] = [];
+  eventsExecutionDto: EventDto[] = [];
+  eventsFinishDto: EventDto[] = [];
+  eventsDtoPublished: EventDto[] = [];
+  futureEvents: EventDto[] = [];
 
   constructor(private eventService: EventService) { }
 
@@ -23,11 +24,11 @@ export class HomeComponent implements OnInit {
   }
 
   getEventsPublished(events: EventDto[]) {
-    this.eventsDtoPublished = events
-      .filter(e => e.status.toString() === "PUBLISHED");
+    this.eventsDtoPublished = events.filter(e => e.status.toString() === "PUBLISHED");
     this.getEventsWithRegistrationPeriodStarted();
     this.getEventsWithExecutionPeriodStarted();
     this.getEventsWithExecutionPeriodFinished();
+    this.getFuturesEvents();
   }
 
   getEventsWithRegistrationPeriodStarted() {
@@ -49,6 +50,11 @@ export class HomeComponent implements OnInit {
   getEventsWithExecutionPeriodFinished() {
     this.eventsFinishDto = this.eventsDtoPublished
       .filter(e => this.formatDate(e.executionPeriod.endDate) < this.getCurrentDate());
+  }
+
+  getFuturesEvents() {
+    this.futureEvents = this.eventsDtoPublished
+      .filter(e => this.formatDate(e.registrationPeriod.startDate) > this.getCurrentDate());
   }
 
   formatDate(date: string): Date {

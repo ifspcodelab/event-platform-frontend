@@ -9,4 +9,5 @@ export class SpaceTypesPipe implements PipeTransform {
   transform(value: any):  string {
     return SpaceType[value];
   }
+
 }
