@@ -60,7 +60,7 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Senha</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password">
-      <button class="visibility" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <button class="visibility" type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon color="primary">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </button>
       <mat-error *ngIf="field('password').invalid && (field('password').dirty || field('password').touched)">
@@ -82,7 +82,7 @@
     </mat-form-field>
 
     <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de uso</p>
-    <button class="button-terms" mat-button color="" type="submit" routerLink="/termos">Termos de Uso</button>
+    <button class="button-terms" mat-button color="" (click)="openNewWindowToTerms()">Termos de Uso</button>
 
     <div class="checkbox-container">
       <mat-checkbox name="agreed" id="agreed" value="true" formControlName="agreed"></mat-checkbox>
@@ -99,7 +99,7 @@
     <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
 
     <mat-card-actions>
-      <button class="button button-white" mat-raised-button form="registration-form" color="primary" [disabled]="requestLoading">Cadastrar</button>
+      <button class="button button-white" type="submit" mat-raised-button form="registration-form" color="primary" [disabled]="requestLoading">Cadastrar</button>
       <button class="button" mat-button color="" routerLink="/login">Já é cadastrado? Realize o Login.</button>
       <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
     </mat-card-actions>

@@ -125,5 +125,9 @@ export class RegistrationComponent implements OnInit {
   refreshRecaptcha(): void {
     grecaptcha.reset();
   }
+
+  openNewWindowToTerms() {
+    window.open("/termos");
+  }
 }
 
