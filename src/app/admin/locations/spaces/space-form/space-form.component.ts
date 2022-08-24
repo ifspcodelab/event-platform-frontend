@@ -28,6 +28,7 @@ export class SpaceFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { locationId: string, areaId: string, spaceDto: SpaceDto }
   ) {
     this.enumKeys = Object.keys(this.spaceType);
+    console.log(this.spaceType);
   }
 
   ngOnInit(): void {

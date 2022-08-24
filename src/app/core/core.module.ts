@@ -8,6 +8,7 @@ import { CancelDialogComponent } from './components/cancel-dialog/cancel-dialog.
 import { MatInputModule } from "@angular/material/input";
 import { AdminHeaderComponent } from './components/admin-header/admin-header.component';
 import { MatIconModule } from "@angular/material/icon";
+import { SearchTypesPipe } from './pipes/search-types.pipe';
 import { EventStatusPipe } from "./pipes/event-status.pipe";
 import { ActivityTypesPipe } from "./pipes/activity-types.pipe";
 import { ActivityModalitiesPipe } from "./pipes/activity-modalities.pipe";
@@ -22,6 +23,7 @@ import { CpfFomatPipe } from './pipes/cpfFomat.pipe';
     ActivityTypesPipe,
     ActivityModalitiesPipe,
     CpfFomatPipe,
+    SearchTypesPipe,
   ],
   imports: [
     CommonModule,

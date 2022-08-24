@@ -1,9 +1,14 @@
+import {AccountRole} from "./account-role.model";
+
 export interface AccountDto {
   id: string;
   name: string;
   email: string;
   cpf: string;
   agreed: boolean;
+  role: AccountRole;
+  verified: boolean;
+  registrationTimestamp: string;
 }
 
 export class MyDataDto {
@@ -45,4 +50,12 @@ export class AccountCreateDto {
     this.agreed = agreed;
     this.userRecaptcha = userRecaptcha;
   }
+}
+export interface AccountUpdateDto {
+  id: string;
+  name: string;
+  email: string;
+  cpf: string;
+  role: AccountRole;
+  verified: boolean;
 }

@@ -1,0 +1,82 @@
+<app-admin-header title="Usuários">
+  <div class="app-toolbar" >
+    <form id="account-search-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <mat-form-field>
+        <mat-select formControlName="searchType" placeholder="Buscar por:">
+          <mat-option *ngFor="let type of enumKeys" [value]="type">{{searchType[type]}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="fieldErrors('searchType')?.['required']">
+          Tipo é obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="search" formControlName="query" matInput>
+        <mat-error *ngIf="fieldErrors('query')?.['pattern']">
+          Somente são permitidos caracteres alfanuméricos e espaços.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-card-actions>
+        <button class="button button-white"
+                mat-raised-button form="account-search-form"
+                color="primary" [disabled]="requestLoading">
+                <span>Enviar</span>
+        </button>
+        <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+      </mat-card-actions>
+    </form>
+  </div>
+</app-admin-header>
+
+
+<article class="container" *ngIf="accountDto.length" >
+  <table class="container__table"
+         mat-table [dataSource]="dataSource"
+         matSort (matSortChange)="announceSortChange($event)">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por nome">Nome</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por email">Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="cpf">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por cpf">CPF</th>
+      <td mat-cell *matCellDef="let element">{{ accountService.transform(element.cpf) }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="agreed">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por agreed">Confirmado</th>
+      <td mat-cell *matCellDef="let element">{{ element.agreed == true ? "Sim":"Não"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por role">Perfil</th>
+      <td mat-cell *matCellDef="let element">{{ element.role | accountRole | titlecase }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="verified">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por verified">Verificado</th>
+      <td mat-cell *matCellDef="let element">{{ element.verified == true ? "Sim":"Não" }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openAccountShow(row)" class="container__line"></tr>
+
+  </table>
+
+  <mat-paginator class="mat-elevation-z0"
+                 [length]="this.page.totalElements"
+                 [pageIndex]="this.page.number"
+                 [pageSize]="this.page.size"
+                 (page)="fetchAccounts($event.pageIndex)"
+                 aria-label="Select page">
+  </mat-paginator>
+
+</article>
