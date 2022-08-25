@@ -26,6 +26,8 @@ import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { CoreModule } from "../core/core.module";
 import { AlterMyDataPasswordComponent } from './pages/alter-my-data-password/alter-my-data-password.component';
+import { AccountDeletionComponent } from './pages/account-deletion/account-deletion.component';
+import { AccountDeletionDialogComponent } from "./pages/account-deletion/dialog/account-deletion-dialog";
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { AlterMyDataPasswordComponent } from './pages/alter-my-data-password/alt
     MyDataComponent,
     MyDataEditComponent,
     AlterMyDataPasswordComponent,
+    AccountDeletionComponent,
+    AccountDeletionDialogComponent,
   ],
   exports: [
     SiteHeaderComponent,

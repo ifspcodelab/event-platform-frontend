@@ -4,6 +4,8 @@ import { JwtService } from "../../../core/services/jwtservice.service";
 import { MyDataService } from "../../../core/services/my-data.service";
 import { AccountDto } from "../../../core/models/account.model";
 import { first } from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {AccountDeletionDialogComponent} from "../account-deletion/dialog/account-deletion-dialog";
 
 @Component({
   selector: 'app-my-data',
@@ -17,6 +19,7 @@ export class MyDataComponent implements OnInit {
     private router: Router,
     private jwtService: JwtService,
     private myDataService: MyDataService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -47,5 +50,9 @@ export class MyDataComponent implements OnInit {
 
   get accountDtoCpf() {
     return (this.accountDto && this.accountDto.cpf) ? this.accountDto.cpf : null;
+  }
+
+  openDialog() {
+    this.dialog.open(AccountDeletionDialogComponent);
   }
 }
