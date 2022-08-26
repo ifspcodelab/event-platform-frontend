@@ -10,7 +10,6 @@ import { AuthGuard } from "./core/security/auth.guard";
 import { AdminGuard } from "./core/security/admin.guard";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from "@angular/material/dialog";
-import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [

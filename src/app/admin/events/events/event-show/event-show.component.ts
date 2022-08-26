@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
 import { SubeventDto } from "../../../../core/models/subevent.model";
 import { SubeventService } from "../../../../core/services/subevent.service";
-import { OrganizerFormComponent } from '../organizer-form/organizer-form/organizer-form.component';
+import { OrganizerFormComponent } from '../organizer/organizer-form/organizer-form.component';
 import { AccountDto } from '../../../../core/models/account.model';
 import { OrganizerService } from '../../../../core/services/organizer.service';
 import { OrganizerDto } from '../../../../core/models/organizer.model';
@@ -34,14 +34,6 @@ export class EventShowComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
-  displayedColumnsOrganizer: string[] = ['name', 'email', 'type', 'action'];
-  accountDto: AccountDto;
-  organizersDto: OrganizerDto[] = [];
-  organizerDto: OrganizerDto;
-  organizerId: string;
-  dataSourceOrganizer: MatTableDataSource<OrganizerDto>;
-  @ViewChild(MatSort)
-  sortOrganizer: MatSort;
 
   constructor(
     private eventService: EventService,
@@ -58,9 +50,7 @@ export class EventShowComponent implements OnInit {
   ngOnInit(): void {
     this.loaderService.show()
     this.eventId = this.route.snapshot.paramMap.get('eventId');
-    this.organizerId = this.route.snapshot.paramMap.get('organizerId');
     this.fetchEvent(this.eventId);
-    this.fetchOrganizers(this.eventId);
   }
 
   fetchEvent(eventId: string) {
@@ -80,21 +70,6 @@ export class EventShowComponent implements OnInit {
         this.subeventsDto = subevents;
         this.dataSource = new MatTableDataSource<SubeventDto>(this.subeventsDto);
       });
-  }
-
-  fetchOrganizers(eventId: string) {
-    this.organizerService.getOrganizers(eventId)
-        .pipe(first())
-        .subscribe(organizersDto => {
-          this.organizersDto = organizersDto;
-          this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
-          this.loaderService.hide();
-          this.setTabSelectedIndex();
-        });
-  }
-
-  setTabSelectedIndex() {
-    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
   }
 
   openEventList() {
@@ -193,55 +168,9 @@ export class EventShowComponent implements OnInit {
       autoFocus: true,
       width: '450px',
       data: {
-        eventId: this.eventId,
-        organizerDto: this.organizerDto
+        eventId: this.eventId
       }
     };
-  }
-
-  openOrganizerFormDialog() {
-    this.dialog.open(OrganizerFormComponent, this.getDialogConfig()).afterClosed()
-        .subscribe(organizerDto => {
-          if(organizerDto) {
-            this.organizersDto = [...this.organizersDto, organizerDto];
-            this.notificationService.success("Organizador cadastrado com sucesso");
-            // this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
-          }
-        });
-  }
-
-  private getConfirmationDialogConfigOrganizer(organizerDto: OrganizerDto) {
-    return {
-      autoFocus: true,
-      data: {
-        name: "Remover organizador",
-        text: `O organizador  ${organizerDto.account.name} será excluído de forma definitiva.`,
-        cancelText: "Cancelar",
-        okText: "Remover"
-      }
-    }
-  }
-
-  openDeleteConfirmationDialogOrganizer(organizerDto: OrganizerDto) {
-    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfigOrganizer(organizerDto))
-      .afterClosed()
-      .subscribe(result => {
-        if(result) {
-          this.deleteOrganizer(organizerDto.id);
-        }
-      });
-  }
-
-  deleteOrganizer(organizerId: string) {
-    this.organizerService.deleteOrganizer(this.eventId, organizerId)
-      .pipe(first())
-        .subscribe({
-          next: () => {
-            this.notificationService.success("Organizador excluído com sucesso");
-            this.organizersDto = this.organizersDto.filter(o => o.id != organizerId);
-            this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
-          }
-      });
   }
 
   handleError(error: any) {

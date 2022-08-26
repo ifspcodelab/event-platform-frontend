@@ -19,29 +19,33 @@ import { ActivitySpeakersComponent } from './activities/activity-speakers/activi
 import { ActivitySpeakerFormComponent } from './activities/activity-speaker-form/activity-speaker-form.component';
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
-import { OrganizerFormComponent } from './events/organizer-form/organizer-form/organizer-form.component';
+import { OrganizerFormComponent } from './events/organizer/organizer-form/organizer-form.component';
 import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
+import { OrganizerListComponent } from './organizer/organizer-list/organizer-list.component';
+import {OrganizerListComponent} from "./events/organizer/organizer-list/organizer-list.component";
 
 
 @NgModule({
-  declarations: [
-    EventsComponent,
-    EventListComponent,
-    EventShowComponent,
-    EventFormComponent,
-    SubeventShowComponent,
-    SubeventsFormComponent,
-    ActivityShowComponent,
-    ActivityFormComponent,
-    ActivityListComponent,
-    ActivitySpeakersComponent,
-    ActivitySpeakerFormComponent,
-    SessionShowComponent,
-    SessionFormComponent,
-    OrganizerFormComponent,
-    OrganizerSubeventFormComponent,
-    OrganizerTypePipe,
-  ],
+    declarations: [
+        EventsComponent,
+        EventListComponent,
+        EventShowComponent,
+        EventFormComponent,
+        SubeventShowComponent,
+        SubeventsFormComponent,
+        ActivityShowComponent,
+        ActivityFormComponent,
+        ActivityListComponent,
+        ActivitySpeakersComponent,
+        ActivitySpeakerFormComponent,
+        SessionShowComponent,
+        SessionFormComponent,
+        OrganizerFormComponent,
+        OrganizerSubeventFormComponent,
+        OrganizerTypePipe,
+        OrganizerListComponent,
+        OrganizerListComponent,
+    ],
   imports: [
     CommonModule,
     EventsRoutingModule,

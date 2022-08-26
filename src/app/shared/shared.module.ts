@@ -20,8 +20,8 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 

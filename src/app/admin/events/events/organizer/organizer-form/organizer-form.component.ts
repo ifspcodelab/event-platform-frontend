@@ -1,13 +1,13 @@
 import { Observable } from 'rxjs';
-import { Violation, ProblemDetail } from './../../../../../core/models/problem-detail';
+import { Violation, ProblemDetail } from '../../../../../core/models/problem-detail';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AppValidators } from 'src/app/core/validators/app-validator';
-import { AccountDto } from './../../../../../core/models/account.model';
+import { AccountDto } from '../../../../../core/models/account.model';
 import { debounceTime, distinctUntilChanged, filter, first, switchMap, tap } from 'rxjs/operators';
-import { EventDto } from './../../../../../core/models/event.model';
-import { OrganizerDto } from './../../../../../core/models/organizer.model';
+import { EventDto } from '../../../../../core/models/event.model';
+import { OrganizerDto } from '../../../../../core/models/organizer.model';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OrganizerService } from './../../../../../core/services/organizer.service';
+import { OrganizerService } from '../../../../../core/services/organizer.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { OrganizerType } from 'src/app/core/models/organizer-type.model';
