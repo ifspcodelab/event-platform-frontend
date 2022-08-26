@@ -18,7 +18,7 @@ export class OrganizerSubeventService extends BaseService {
   }
 
   getOrganizersSubevent(eventId: string, subeventId: string): Observable<OrganizerSubeventDto[]> {
-    return this.httpClient.get<OrganizerSubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/organizers`, this.httpOptionsSkipInterceptor);
+    return this.httpClient.get<OrganizerSubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events/${subeventId}/organizers`, this.httpOptions);
   }
 
   getOrganizersSubeventForSite(eventId: string, subeventId: string): Observable<OrganizerSiteDto[]> {

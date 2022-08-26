@@ -232,14 +232,18 @@ export class SessionFormComponent implements OnInit {
       this.sessionService.postEventSession(this.eventId, this.activityId, this.form.value)
         .pipe(first())
         .subscribe({
-          next: sessionDto => console.log(sessionDto),
+          next: sessionDto => {
+            this.router.navigate(['admin', 'events', this.eventId, 'activities', this.activityId], { queryParams: { tab: 2 }});
+          },
           error: error => this.handleError(error)
         });
     } else {
       this.sessionService.postSubEventSession(this.eventId, this.subeventId, this.activityId, this.form.value)
         .pipe(first())
         .subscribe({
-          next: sessionDto => console.log(sessionDto),
+          next: sessionDto => {
+            this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', this.activityId], { queryParams: { tab: 2 }});
+          },
           error: error => this.handleError(error)
         });
     }

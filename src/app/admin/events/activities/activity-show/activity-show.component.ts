@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { EventStatusModel } from "../../../../core/models/event-status.model";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ActivityDto, SessionDto } from "../../../../core/models/activity.model";
+import { ActivityDto } from "../../../../core/models/activity.model";
 import { ActivityService } from "../../../../core/services/activity.service";
 import { first } from "rxjs";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
@@ -23,8 +22,8 @@ export class ActivityShowComponent implements OnInit {
   activityDto: ActivityDto;
   eventId: string = null;
   subeventId: string = null;
-  sessionsDto: SessionDto[] = [];
   cancellationMessageCreateDto: CancellationMessageCreateDto;
+  tabSelectedIndex: number = 0;
 
   constructor(
     private activityService: ActivityService,
@@ -73,7 +72,7 @@ export class ActivityShowComponent implements OnInit {
     if(this.eventMode) {
       return this.router.navigate(['admin', 'events', this.eventId], { queryParams: { tab: 2 } });
     } else {
-      return this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId], { queryParams: { tab: 2 } });
+      return this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId], { queryParams: { tab: 1 } });
     }
 
   }
@@ -230,15 +229,4 @@ export class ActivityShowComponent implements OnInit {
     }
   }
 
-  openSessionShow(row: any) {
-    console.log(this.subeventId)
-    if (this.eventMode) {
-      return this.router.navigate(
-        ['admin', 'events',  this.eventId, 'activities', this.activityDto.id, 'sessions', row.id]
-      );
-    }
-    return this.router.navigate(
-      ['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', this.activityDto.id, 'sessions', row.id]
-    );
-  }
 }
