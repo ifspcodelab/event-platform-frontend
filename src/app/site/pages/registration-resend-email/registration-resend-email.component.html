@@ -7,8 +7,10 @@
     <p><mat-icon class="icon-text" color="primary">check_circle</mat-icon>Obrigado por fazer inscrição na plataforma.
     Por favor, faça a <b>verificação</b> do seu cadastro na sua caixa de e-mail ou de spam
       {{email ? "em " : "no"}} <b>{{email ? email : "e-mail registrado"}}</b> clicando no botão que está na mensagem
-      enviada
+      enviada. Caso não tenha recebido o e-mail, clique <span class="resend" (click)="resendEmail()">aqui</span>.
        </p>
     <button class="button button-white" mat-raised-button color="primary" routerLink="/cadastro">Voltar</button>
+
+  <div class="contact">Precisa de ajuda? Entre em contato em <a href="{{contato}}" target="_blank">{{contato}}</a></div>
   </div>
 </main>

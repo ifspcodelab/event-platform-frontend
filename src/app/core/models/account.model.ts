@@ -65,17 +65,3 @@ export interface AccountUpdateDto {
   verified: boolean;
 }
 
-export class ResendEmailDto {
-  email: string;
-  userRecaptcha: string | undefined;
-
-  constructor(
-    email: string,
-    userRecaptcha: string | undefined,
-  ) {
-    this.email = email;
-    this.userRecaptcha = userRecaptcha;
-  }
-
-
-}

@@ -29,12 +29,25 @@ main {
   margin-right: 5px;
 }
 
+.resend {
+  cursor: pointer;
+  font-weight: bold;
+}
+
 .button {
-  margin: 25px 0 !important;
+  margin: 10px 0 25px 0 !important;
   border: none;
   width: 100%;
 }
 
 .button-white {
   color: #FFFFFF;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: auto;
+  font-size: 0.8rem;
 }
