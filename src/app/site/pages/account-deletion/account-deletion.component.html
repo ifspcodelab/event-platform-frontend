@@ -1,1 +1,72 @@
-<p>account-deletion works!</p>
+<app-site-header></app-site-header>
+<app-account-page pageTitle="Solicitar Exclusão de Conta">
+
+  <mat-card-subtitle>
+    Tem certeza que deseja excluir sua conta?
+    Caso confirme esta ação, o sistema enviará
+    um e-mail ao administrador do sistema
+    para que este prossiga com os processos da exclusão.
+  </mat-card-subtitle>
+
+  <form id="account-deletion-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Senha</mat-label>
+      <input matInput [type]="hideCurrent ? 'password' : 'text'" formControlName="password" name="password">
+      <button class="visibility" mat-icon-button matSuffix (click)="hideCurrent = !hideCurrent" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideCurrent">
+        <mat-icon color="primary">{{hideCurrent ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
+
+      <mat-error *ngIf="field('password').invalid && (field('password').dirty || field('password').touched)">
+
+        <mat-error *ngIf="fieldErrors('password')?.['required']">
+          Senha atual é obrigatória
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('password')?.['minlength']">
+          Senha atual deve ter 8 caracteres no mínimo
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('password')?.['maxlength']">
+          Senha atual deve ter 64 caracteres no máximo
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('password')?.['validpassword']">
+          Senha atual deve ser válida
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Confirmação de senha</mat-label>
+      <input matInput [type]="hideNew ? 'password' : 'text'" formControlName="confirmPassword" name="confirmPassword">
+      <button class="visibility" mat-icon-button matSuffix (click)="hideNew = !hideNew" [attr.aria-label]="'Hide confirm password'" [attr.aria-pressed]="hideNew">
+        <mat-icon color="primary">{{hideNew ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
+
+      <mat-error *ngIf="field('confirmPassword').invalid && (field('confirmPassword').dirty || field('confirmPassword').touched)">
+
+        <mat-error *ngIf="fieldErrors('confirmPassword')?.['required']">
+          Senha nova é obrigatória
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('confirmPassword')?.['minlength']">
+          Senha nova deve ter 8 caracteres no mínimo
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('confirmPassword')?.['maxlength']">
+          Senha nova deve ter 64 caracteres no máximo
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('confirmPassword')?.['validpassword']">
+          Senha nova deve ser válida
+        </mat-error>
+      </mat-error>
+      <mat-hint align="start">A Senha nova deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
+    </mat-form-field>
+
+
+    <re-captcha (resolved)="resolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
+
+
+    <mat-card-actions>
+      <button class="button button-white" mat-raised-button form="account-deletion-form" color="warn" [disabled]="requestLoading">Enviar solicitação</button>
+      <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+    </mat-card-actions>
+  </form>
+
+</app-account-page>

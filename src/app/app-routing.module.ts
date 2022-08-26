@@ -69,7 +69,7 @@ const routes: Routes = [
     title: 'Alterar Minha Senha - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
-    path: 'meus-dados/excluir-minha-conta',
+    path: 'meus-dados/solicitar-exclusao-de-conta',
     component: AccountDeletionComponent,
     canActivate: [AuthGuard],
     title: 'Excluir Minha Conta - Portal de Eventos IFSP - Câmpus São Paulo',
