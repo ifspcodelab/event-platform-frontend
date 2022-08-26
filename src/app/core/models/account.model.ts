@@ -1,4 +1,4 @@
-import {AccountRole} from "./account-role.model";
+import { AccountRole } from "./account-role.model";
 
 export interface AccountDto {
   id: string;
@@ -63,4 +63,19 @@ export interface AccountUpdateDto {
   cpf: string;
   role: AccountRole;
   verified: boolean;
+}
+
+export class ResendEmailDto {
+  email: string;
+  userRecaptcha: string | undefined;
+
+  constructor(
+    email: string,
+    userRecaptcha: string | undefined,
+  ) {
+    this.email = email;
+    this.userRecaptcha = userRecaptcha;
+  }
+
+
 }
