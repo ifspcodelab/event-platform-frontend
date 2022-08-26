@@ -1,7 +1,6 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {environment} from "../../../../environments/environment";
-import {AlterMyDataPasswordService} from "../../../core/services/alter-my-data-password.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {NotificationService} from "../../../core/services/notification.service";
 import {JwtService} from "../../../core/services/jwtservice.service";
@@ -10,7 +9,6 @@ import {ProblemDetail} from "../../../core/models/problem-detail";
 import {AppValidators} from "../../../core/validators/app-validator";
 import {AccountDeletionModel} from "../../../core/models/account-deletion.model";
 import {AccountDeletionService} from "../../../core/services/account-deletion.service";
-import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-account-deletion',
@@ -35,7 +33,6 @@ export class AccountDeletionComponent implements OnInit {
     private router: Router,
     private notificationService: NotificationService,
     private jwtService: JwtService,
-    private dialog: MatDialog,
   ) {
     this.form = this.buildForm();
     this.userRecaptcha = '';
@@ -49,12 +46,19 @@ export class AccountDeletionComponent implements OnInit {
     if (this.form.invalid || this.userRecaptcha == '') {
       return;
     }
+    if(!this.matches()){
+      this.notificationService.error("As senhas devem ser iguais.");
+      this.refresh();
+      this.form.reset();
+      return;
+    }
+
     const accountDeletionDto = new AccountDeletionModel(this.form.value['password'], this.userRecaptcha!);
 
     this.requestLoading = true;
 
     this.service.sendAccountDeletionRequest(accountDeletionDto).subscribe(()=>{
-        this.notificationService.success("Sua solicitação foi enviada ao administrador. Logo ele entrará em contato com você para finaliar o processo.")
+        this.notificationService.success("Sua solicitação foi enviada ao administrador. Em breve ele entrará em contato para finalizar o processo.")
         this.jwtService.removeAccessToken();
         this.jwtService.removeRefreshToken();
         this.router.navigateByUrl("/login");
@@ -112,5 +116,10 @@ export class AccountDeletionComponent implements OnInit {
 
   refresh(): void {
     grecaptcha.reset();
+  }
+
+  matches(){
+    console.log(this.form.value['password'] == this.form.value['confirmPassword'])
+    return(this.form.value['password'] == this.form.value['confirmPassword']);
   }
 }

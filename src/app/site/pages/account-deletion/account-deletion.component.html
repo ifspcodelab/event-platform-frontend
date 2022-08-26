@@ -20,16 +20,16 @@
       <mat-error *ngIf="field('password').invalid && (field('password').dirty || field('password').touched)">
 
         <mat-error *ngIf="fieldErrors('password')?.['required']">
-          Senha atual é obrigatória
+          Senha é obrigatória
         </mat-error>
         <mat-error *ngIf="fieldErrors('password')?.['minlength']">
-          Senha atual deve ter 8 caracteres no mínimo
+          Senha deve ter 8 caracteres no mínimo
         </mat-error>
         <mat-error *ngIf="fieldErrors('password')?.['maxlength']">
-          Senha atual deve ter 64 caracteres no máximo
+          Senha deve ter 64 caracteres no máximo
         </mat-error>
         <mat-error *ngIf="fieldErrors('password')?.['validpassword']">
-          Senha atual deve ser válida
+          Senha deve ser válida
         </mat-error>
       </mat-error>
     </mat-form-field>
@@ -44,19 +44,20 @@
       <mat-error *ngIf="field('confirmPassword').invalid && (field('confirmPassword').dirty || field('confirmPassword').touched)">
 
         <mat-error *ngIf="fieldErrors('confirmPassword')?.['required']">
-          Senha nova é obrigatória
+          Confirmação de senha é obrigatória
         </mat-error>
         <mat-error *ngIf="fieldErrors('confirmPassword')?.['minlength']">
-          Senha nova deve ter 8 caracteres no mínimo
+          Confirmação de senha  deve ter 8 caracteres no mínimo
         </mat-error>
         <mat-error *ngIf="fieldErrors('confirmPassword')?.['maxlength']">
-          Senha nova deve ter 64 caracteres no máximo
+          Confirmação de senha  deve ter 64 caracteres no máximo
         </mat-error>
         <mat-error *ngIf="fieldErrors('confirmPassword')?.['validpassword']">
-          Senha nova deve ser válida
+          Confirmação de senha  deve ser válida
         </mat-error>
       </mat-error>
-      <mat-hint align="start">A Senha nova deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
+
+      <mat-hint align="start">Confirmação de senha  deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
     </mat-form-field>
 
 
