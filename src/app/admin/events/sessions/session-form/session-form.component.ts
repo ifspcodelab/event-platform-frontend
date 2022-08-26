@@ -2,16 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AppValidators } from "../../../../core/validators/app-validator";
 import { LocationDto } from "../../../../core/models/location.model";
-import { first, Observable, startWith } from "rxjs";
+import { first } from "rxjs";
 import { LocationService } from "../../../../core/services/location.service";
-import { map } from "rxjs/operators";
 import { AreaDto } from "../../../../core/models/area.model";
 import { SpaceDto } from "../../../../core/models/space.model";
 import { AreaService } from "../../../../core/services/area.service";
 import { SpaceService } from "../../../../core/services/space.service";
-import { SessionDto, SessionScheduleDto } from "../../../../core/models/activity.model";
-import { SpaceType } from "../../../../core/models/spaceType.model";
+import { ActivityDto, SessionDto, SessionScheduleDto } from "../../../../core/models/activity.model";
 import { ActivatedRoute, Router } from "@angular/router";
+import { EventService } from "../../../../core/services/event.service";
+import { ActivityService } from "../../../../core/services/activity.service";
+import { SessionService } from "../../../../core/services/session.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ProblemDetail, Violation } from "../../../../core/models/problem-detail";
+import { NotificationService } from "../../../../core/services/notification.service";
 
 @Component({
   selector: 'app-session-form',
@@ -19,73 +23,70 @@ import { ActivatedRoute, Router } from "@angular/router";
   styleUrls: ['./session-form.component.scss']
 })
 export class SessionFormComponent implements OnInit {
+  eventId: string;
+  subeventId: string;
+  activityId: string;
+  activityDto: ActivityDto;
+  sessionId: string;
+  sessionDto: SessionDto;
   createMode: boolean = true;
+  eventMode: boolean = true;
   form: FormGroup;
   submitted: boolean = false;
-  sessionId: string = null;
   locationsDto: LocationDto[];
   formData: { locationId: string, areasDto: AreaDto[], spacesDto: SpaceDto[] }[] = [
     { locationId: "", areasDto: [], spacesDto: [] }
   ]
 
-  sessionDto: SessionDto;
-
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private eventService: EventService,
+    private activityService: ActivityService,
+    private sessionService: SessionService,
     private locationService: LocationService,
     private areaService: AreaService,
-    private spaceService: SpaceService
+    private spaceService: SpaceService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
     this.form = this.buildForm();
+
+    this.eventId = this.route.snapshot.paramMap.get('eventId');
+    this.subeventId = this.route.snapshot.paramMap.get('subeventId');
+    this.activityId = this.route.snapshot.paramMap.get('activityId');
     this.sessionId = this.route.snapshot.paramMap.get('sessionId');
+
+    if(this.subeventId) {
+      this.eventMode = false;
+    }
 
     if(this.sessionId) {
       this.createMode = false;
-      this.fetchSession();
-    } else {
-      this.createMode = true;
+
+      if(this.eventMode) {
+        this.fetchEventActivity()
+      } else {
+        this.fetchSubEventActivity()
+      }
     }
 
     this.fetchLocation();
   }
 
-  fetchSession() {
-    this.sessionDto = {
-      id: "d7b09a41-6b9e-40e1-8c19-fd655a0ce8c5",
-      title: "Sessão 1",
-      seats: 30,
-      schedulesSession: [
-        {
-          id: "",
-          start: "19/09/2022 08:00",
-          end: "19/09/2022 10:00",
-          location: { id: "7b679c58-6b28-45ce-8643-cf4ab259343b", name: "IFSP Campus São Paulo", address: "" },
-          area: null,
-          space: null
-        },
-        {
-          id: "",
-          start: "20/09/2022 09:00",
-          end: "20/09/2022 11:00",
-          location: { id: "7b679c58-6b28-45ce-8643-cf4ab259343b", name: "IFSP Campus São Paulo", address: "" },
-          area: { id: "ca1783a4-92f8-483d-a742-b5460a082dfa", name: "Bloco C", reference: null },
-          space: null
-        },
-        {
-          id: "",
-          start: "21/09/2022 09:00",
-          end: "21/09/2022 11:00",
-          location: { id: "5607ddd3-31ed-4435-bd61-23133d2f3381", name: "IFSP Campus São Paulo", address: "" },
-          area: { id: "ab0c4b24-f85f-469d-a50a-7152cc143648", name: "Bloco C", reference: null },
-          space: { id: "678b3256-a518-41f4-a905-4ac219747d59", name: "Laboratório 2", capacity: 20, type: SpaceType.LABORATORY }
-        }
-      ]
-    };
-    console.log(this.sessionDto)
+  fetchEventActivity() {
+    this.activityService.getEventActivity(this.eventId, this.activityId)
+      .pipe(first())
+      .subscribe(activityDto => this.activityDto = activityDto)
+  }
+
+  fetchEventSession() {
+    this.loadFormData();
+  }
+
+  fetchSubEventSession() {
     this.loadFormData();
   }
 
@@ -93,25 +94,31 @@ export class SessionFormComponent implements OnInit {
     console.log(this.form);
     this.form.patchValue(this.sessionDto);
 
-    this.sessionDto.schedulesSession.forEach((scheduleSession, index) => {
-      this.formData[index] = { locationId: scheduleSession.location.id, areasDto: [], spacesDto: [] }
+    this.sessionDto.sessionSchedules.forEach((sessionsSchedule, index) => {
+      this.formData[index] = { locationId: sessionsSchedule.location.id, areasDto: [], spacesDto: [] }
 
       const scheduleFormGroup = this.buildScheduleFormGroup()
 
-      scheduleFormGroup.get("location").setValue(scheduleSession.location.id);
+      scheduleFormGroup.get("locationId").setValue(sessionsSchedule.location.id);
 
-      this.fetchArea(scheduleSession.location.id, index);
+      this.fetchArea(sessionsSchedule.location.id, index);
 
-      if(scheduleSession.area) {
-        scheduleFormGroup.get("area").setValue(scheduleSession.area.id);
-        this.fetchSpace(scheduleSession.location.id, scheduleSession.area.id, index);
+      if(sessionsSchedule.area) {
+        scheduleFormGroup.get("areaId").setValue(sessionsSchedule.area.id);
+        this.fetchSpace(sessionsSchedule.location.id, sessionsSchedule.area.id, index);
       }
 
-      if(scheduleSession.space) {
-        scheduleFormGroup.get("space").setValue(scheduleSession.space.id);
+      if(sessionsSchedule.space) {
+        scheduleFormGroup.get("spaceId").setValue(sessionsSchedule.space.id);
       }
-      this.schedulesSession.push(scheduleFormGroup);
+      this.sessionSchedules.push(scheduleFormGroup);
     })
+  }
+
+  fetchSubEventActivity() {
+    this.activityService.getSubEventActivity(this.eventId, this.subeventId, this.activityId)
+      .pipe(first())
+      .subscribe(activityDto => this.activityDto = activityDto)
   }
 
   fetchLocation() {
@@ -132,41 +139,45 @@ export class SessionFormComponent implements OnInit {
       .subscribe(spacesDto => this.formData[scheduleFormGroupIndex].spacesDto = spacesDto);
   }
 
+  // TODO: COLOCAR O min date e max date com base no execution date do evento
+  // https://h2qutc.github.io/angular-material-components/datetimepicker
+
+
   private buildForm() {
-    const schedulesSessionArray = this.createMode ?
+    const sessionSchedulesArray = this.createMode ?
       this.formBuilder.array([this.buildScheduleFormGroup()], Validators.required) :
       this.formBuilder.array([], Validators.required)
 
     return this.formBuilder.group({
-      title: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(3), Validators.maxLength(50)]],
+      title: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(1), Validators.maxLength(30)]],
       seats: ['', [Validators.required, Validators.min(1)]],
-      schedulesSession:  this.formBuilder.array([], Validators.required)
+      sessionSchedules:  sessionSchedulesArray
     });
   }
 
   private buildScheduleFormGroup() {
     return this.formBuilder.group({
-      location: ['', [Validators.required]],
-      area: [''],
-      space: [''],
-      date: [''],
-      start: [''],
-      end: ['']
+      locationId: ['', [Validators.required]],
+      areaId: [''],
+      spaceId: [''],
+      url: [''],
+      executionStart: [''],
+      executionEnd: ['']
     })
   }
 
-  get schedulesSession(): FormArray {
-    return this.form.get('schedulesSession') as FormArray;
+  get sessionSchedules(): FormArray {
+    return this.form.get('sessionSchedules') as FormArray;
   }
 
-  addScheduleSession() {
+  addSessionSchedule() {
     this.formData.push({ locationId: "", areasDto: [], spacesDto: [] })
-    this.schedulesSession.push(this.buildScheduleFormGroup());
+    this.sessionSchedules.push(this.buildScheduleFormGroup());
   }
 
-  removeScheduleSession(formGroupIndex: any) {
+  removeSessionSchedule(formGroupIndex: any) {
     this.formData = this.formData.filter((_, index) => index != formGroupIndex);
-    this.schedulesSession.removeAt(formGroupIndex);
+    this.sessionSchedules.removeAt(formGroupIndex);
   }
 
   locationChange(matSelectChange: any, scheduleFormGroupIndex: any) {
@@ -197,9 +208,9 @@ export class SessionFormComponent implements OnInit {
     this.submitted = true;
     console.log(this.form);
     console.log(this.form.value);
-    if(this.form.invalid) {
-      return;
-    }
+    // if(this.form.invalid) {
+    //   return;
+    // }
 
     if(this.createMode) {
       this.createSession();
@@ -209,16 +220,65 @@ export class SessionFormComponent implements OnInit {
   }
 
   getBackUrl() {
-
+    if(this.eventMode) {
+      return this.router.navigate(['admin', 'events', this.eventId, 'activities', this.activityId], { queryParams: { tab: 2 }});
+    } else {
+      return this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', this.activityId], { queryParams: { tab: 2 }});
+    }
   }
 
   private createSession() {
-
+    if(this.eventMode) {
+      this.sessionService.postEventSession(this.eventId, this.activityId, this.form.value)
+        .pipe(first())
+        .subscribe({
+          next: sessionDto => console.log(sessionDto),
+          error: error => this.handleError(error)
+        });
+    } else {
+      this.sessionService.postSubEventSession(this.eventId, this.subeventId, this.activityId, this.form.value)
+        .pipe(first())
+        .subscribe({
+          next: sessionDto => console.log(sessionDto),
+          error: error => this.handleError(error)
+        });
+    }
   }
 
   private updateSession() {
 
   }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 400) {
+        const violations: Violation[] = error.error;
+        violations.forEach(violation => {
+          const formControl = this.form.get(violation.name);
+          if(formControl) {
+            formControl.setErrors({ serverError: violation.message });
+          }
+        })
+      }
+
+      if(error.status === 409) {
+        const problem: ProblemDetail = error.error;
+        if(problem.title === "Resource already exists exception") {
+          const violation = problem.violations[0];
+          if(violation.message.includes("title")) {
+            this.form.get("title").setErrors({ serverError: 'Já existe uma atividade com esse título' });
+          }
+          if(violation.message.includes("slug")) {
+            this.form.get("slug").setErrors({ serverError: 'Já existe uma atividade com esse slug' });
+          }
+        } else {
+          this.notificationService.error(problem.violations[0].message);
+        }
+      }
+    }
+  }
+
+
 
   field(path: string) {
     return this.form.get(path)!;
@@ -227,7 +287,5 @@ export class SessionFormComponent implements OnInit {
   fieldErrors(path: string) {
     return this.field(path)?.errors;
   }
-
-
 
 }

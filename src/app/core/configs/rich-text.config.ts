@@ -36,7 +36,7 @@ export const eventEditorConfig: AngularEditorConfig = {
   ],
   uploadUrl: 'v1/image',
   uploadWithCredentials: false,
-  sanitize: true,
+  sanitize: false,
   toolbarPosition: 'top',
   toolbarHiddenButtons: [
     [

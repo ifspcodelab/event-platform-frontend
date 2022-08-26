@@ -21,6 +21,11 @@ import { SessionShowComponent } from "./sessions/session-show/session-show.compo
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 import { OrganizerFormComponent } from './events/organizer-form/organizer-form/organizer-form.component';
 import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatNativeDateModule,
+  NgxMatTimepickerModule
+} from "@angular-material-components/datetime-picker";
 
 
 @NgModule({
@@ -47,10 +52,16 @@ import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
     EventsRoutingModule,
     CoreModule,
     SharedModule,
-    AngularEditorModule
+    AngularEditorModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
   ],
+  exports: [
+    OrganizerTypePipe
+  ]
 })
 export class EventsModule { }

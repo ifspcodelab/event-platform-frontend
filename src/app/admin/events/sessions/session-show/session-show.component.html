@@ -1,20 +1,10 @@
+<app-admin-header title="Sessão Matutino" (backLink)="getBackUrl()">
+  <button mat-button color="primary" (click)="cancelActivity()">Cancelar</button>
+  <button mat-button color="primary" routerLink="edit">Editar</button>
+  <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+</app-admin-header>
 <div *ngIf="sessionDto">
-  <header class="header">
-    <div class="header__titlecomponent">
-      <button class="header__back" mat-icon-button aria-label="Button to go back to previous page" color="primary">
-        <mat-icon mat-list-icon (click)="openActivityList()">arrow_back</mat-icon>
-      </button>
-      <h1 class="header__title">Sessão: {{ sessionDto.id }}</h1>
-    </div>
-    <div class="header__actions" *ngIf="showActions()">
-      <button mat-button color="primary" (click)="cancelActivity()">Cancelar</button>
-      <button mat-button color="primary" routerLink="edit">Editar</button>
-      <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
-    </div>
-    <div class="header__actions" *ngIf="!showActions()">
-      <p>Sessão Cancelada</p>
-    </div>
-  </header>
+
 
   <mat-list>
     <mat-list-item>
@@ -60,12 +50,12 @@
 
       <ng-container matColumnDef="start">
         <th mat-header-cell *matHeaderCellDef>Início</th>
-        <td mat-cell *matCellDef="let element"> {{ element.start }} </td>
+        <td mat-cell *matCellDef="let element"> {{ element.executionStart }} </td>
       </ng-container>
 
       <ng-container matColumnDef="end">
         <th mat-header-cell *matHeaderCellDef>Fim</th>
-        <td mat-cell *matCellDef="let element"> {{ element.end }} </td>
+        <td mat-cell *matCellDef="let element"> {{ element.executionEnd }} </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">

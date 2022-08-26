@@ -1,44 +1,58 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ActivityCreateDto, ActivityDto, SessionScheduleDto } from "../models/activity.model";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { ActivityCreateDto, ActivityDto, ActivitySiteDto, SessionScheduleDto } from "../models/activity.model";
 import { EventStatusModel } from "../models/event-status.model";
 import { CancellationMessageCreateDto, EventCreateDto, EventDto } from "../models/event.model";
+import { BaseService } from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActivityService {
+export class ActivityService extends BaseService{
   apiUrl = environment.apiUrl;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   getEventActivities(eventId: string): Observable<ActivityDto[]> {
     const url = `${this.apiUrl}/events/${eventId}/activities`;
     return this.httpClient.get<ActivityDto[]>(url, this.httpOptions);
   }
 
+  getEventActivitiesForSite(eventId: string): Observable<ActivitySiteDto[]> {
+    let httpOptions = {
+      ... this.httpOptionsSkipInterceptor,
+      params: new HttpParams().append('forSite', true)
+    };
+    const url = `${this.apiUrl}/events/${eventId}/activities`;
+    return this.httpClient.get<ActivitySiteDto[]>(url, httpOptions);
+  }
+
+  getSubEventActivitiesForSite(eventId: string, subeventId: string): Observable<ActivitySiteDto[]> {
+    let httpOptions = {
+      ... this.httpOptionsSkipInterceptor,
+      params: new HttpParams().append('forSite', true)
+    };
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities`;
+    return this.httpClient.get<ActivitySiteDto[]>(url, httpOptions);
+  }
+
   getSubEventActivities(eventId: string, subeventId: string): Observable<ActivityDto[]> {
     const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities`;
-    return this.httpClient.get<ActivityDto[]>(url, this.httpOptions);
+    return this.httpClient.get<ActivityDto[]>(url, this.httpOptionsSkipInterceptor);
   }
 
   getEventActivity(eventId: string, activityId: string): Observable<ActivityDto> {
     const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}`;
-    return this.httpClient.get<ActivityDto>(url, this.httpOptions);
+    return this.httpClient.get<ActivityDto>(url, this.httpOptionsSkipInterceptor);
   }
 
   getSubEventActivity(eventId: string, subeventId: string, activityId: string): Observable<ActivityDto> {
     const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}`;
-    return this.httpClient.get<ActivityDto>(url, this.httpOptions);
+    return this.httpClient.get<ActivityDto>(url, this.httpOptionsSkipInterceptor);
   }
 
   postEventActivity(eventId: string, activityCreateDto: ActivityCreateDto): Observable<ActivityDto> {
