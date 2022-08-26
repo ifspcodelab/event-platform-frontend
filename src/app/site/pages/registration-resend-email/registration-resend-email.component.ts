@@ -14,7 +14,7 @@ import { ProblemDetail } from "../../../core/models/problem-detail";
 
 export class RegistrationResendEmailComponent implements OnInit {
   email: string;
-  contact: string = "https://eventos.spo.ifsp.edu.br/sedcitec-2022/contact";
+  contact: string = "social.spo@ifsp.edu.br";
   requestLoading: boolean = false;
   verificationProblem: string = null;
 
@@ -30,12 +30,13 @@ export class RegistrationResendEmailComponent implements OnInit {
 
   resendEmail(): void {
     this.requestLoading = true;
-
+    console.log("oi");
     this.registrationService.postEmail(this.email)
       .pipe(first())
       .subscribe({
         next: () => {
           this.notificationService.success("Reenvio realizado com sucesso");
+          this.router.navigate(["login"]);
         },
         error: error => {
           this.handleError(error)

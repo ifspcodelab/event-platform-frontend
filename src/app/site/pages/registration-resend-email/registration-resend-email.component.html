@@ -5,13 +5,12 @@
     </mat-icon>
     <h1>Cadastro efetuado com sucesso</h1>
     <p><mat-icon class="icon-text" color="primary">check_circle</mat-icon>Obrigado por fazer inscrição na plataforma.
-    Por favor, faça a <b>verificação</b> do seu cadastro na sua caixa de e-mail ou de spam
-      {{email ? "em " : "no"}} <b>{{email ? email : "e-mail registrado"}}</b> clicando no botão que está na mensagem
-      enviada. Caso tenha escrito o e-mail errado ou incorreto, você pode esperar 15 minutos e refazer o cadastro.
-      <span *ngIf="email"> Caso não tenha recebido o e-mail, clique <span class="resend" (click)="resendEmail()">aqui</span>.</span>
+    Por favor, faça a <b>verificação</b> do seu cadastro {{email ? "em " : "no"}} <b>{{email ? email : "e-mail registrado"}}</b>
+      <span *ngIf="email"> <br><br> Caso não tenha recebido o e-mail, clique <span class="resend" (click)="resendEmail()">aqui</span>
+        para reenviá-lo ou espere 15 minutos para refazer o cadastro.</span><br>
     </p>
     <button class="button button-white" mat-raised-button color="primary" routerLink="/cadastro">Voltar</button>
 
-  <div class="contact">Precisa de ajuda? Entre em contact em <a href="{{contact}}" target="_blank">{{contact}}</a></div>
+  <div class="contact">Precisa de ajuda? Entre em contato em <b>{{contact}}</b></div>
   </div>
 </main>
