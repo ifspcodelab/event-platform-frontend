@@ -1,0 +1,11 @@
+<main *ngIf="eventDto">
+  <h1>Organização</h1>
+  <section>
+    <div *ngFor="let group of groupOrganizers | keyvalue">
+      <h2>{{ group.key == 'COORDINATOR' ? 'Coordenadores' : 'Colaboradores' }}</h2>
+      <p *ngFor="let organizer of $any(group).value"> {{ organizer.organizerName }}</p>
+    </div>
+  </section>
+
+  <p *ngIf="organizers.length == 0">Nenhum organizador cadastrado</p>
+</main>
