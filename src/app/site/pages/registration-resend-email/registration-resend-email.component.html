@@ -7,10 +7,11 @@
     <p><mat-icon class="icon-text" color="primary">check_circle</mat-icon>Obrigado por fazer inscrição na plataforma.
     Por favor, faça a <b>verificação</b> do seu cadastro na sua caixa de e-mail ou de spam
       {{email ? "em " : "no"}} <b>{{email ? email : "e-mail registrado"}}</b> clicando no botão que está na mensagem
-      enviada. Caso não tenha recebido o e-mail, clique <span class="resend" (click)="resendEmail()">aqui</span>.
-       </p>
+      enviada. Caso tenha escrito o e-mail errado ou incorreto, você pode esperar 15 minutos e refazer o cadastro.
+      <span *ngIf="email"> Caso não tenha recebido o e-mail, clique <span class="resend" (click)="resendEmail()">aqui</span>.</span>
+    </p>
     <button class="button button-white" mat-raised-button color="primary" routerLink="/cadastro">Voltar</button>
 
-  <div class="contact">Precisa de ajuda? Entre em contato em <a href="{{contato}}" target="_blank">{{contato}}</a></div>
+  <div class="contact">Precisa de ajuda? Entre em contact em <a href="{{contact}}" target="_blank">{{contact}}</a></div>
   </div>
 </main>
