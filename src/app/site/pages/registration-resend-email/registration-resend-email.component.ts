@@ -15,8 +15,8 @@ import { ProblemDetail } from "../../../core/models/problem-detail";
 export class RegistrationResendEmailComponent implements OnInit {
   email: string;
   contact: string = "social.spo@ifsp.edu.br";
-  requestLoading: boolean = false;
   verificationProblem: string = null;
+  requestLoading: boolean = false;
 
   constructor(
     private registrationService: RegistrationService,
@@ -30,13 +30,13 @@ export class RegistrationResendEmailComponent implements OnInit {
 
   resendEmail(): void {
     this.requestLoading = true;
-    console.log("oi");
+
     this.registrationService.postEmail(this.email)
       .pipe(first())
       .subscribe({
         next: () => {
           this.notificationService.success("Reenvio realizado com sucesso");
-          this.router.navigate(["login"]);
+          this.requestLoading = false;
         },
         error: error => {
           this.handleError(error)
@@ -58,11 +58,11 @@ export class RegistrationResendEmailComponent implements OnInit {
       if(error.status === 409) {
         const problem: ProblemDetail = error.error;
         if(problem.title === "NONEXISTENT_TOKEN") {
-          this.verificationProblem = "Token de verificação inexistente. Realize o cadastro novamente.";
+          this.verificationProblem = "Token de verificação inexistente";
         }
 
         if(problem.title === "VERIFICATION_TOKEN_EXPIRED") {
-          this.verificationProblem = "Token de verificação expirado. Realize o cadastro novamente.";
+          this.verificationProblem = "Token de verificação expirado";
         }
       }
     }

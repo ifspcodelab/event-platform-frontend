@@ -25,8 +25,9 @@ export class RegistrationService extends BaseService {
     return this.httpClient.patch<AccountDto>(url, null, this.httpOptionsSkipInterceptor);
   }
 
-  postEmail(resendEmail: string): Observable<String> {
+  postEmail(resendEmail: string): Observable<AccountDto> {
     const url = `${this.apiUrl}/resend-email`;
-    return this.httpClient.post<String>(url, resendEmail, this.httpOptionsSkipInterceptor)
+    return this.httpClient.post<AccountDto>(url, resendEmail, this.httpOptionsSkipInterceptor)
   }
 }
+

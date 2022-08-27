@@ -30,8 +30,14 @@ main {
 }
 
 .resend {
-  cursor: pointer;
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
   font-weight: bold;
+  cursor: pointer;
+  outline: inherit;
 }
 
 .button {
@@ -50,4 +56,17 @@ main {
   text-align: center;
   margin-top: auto;
   font-size: 0.8rem;
+}
+
+.verification {
+  font-weight: bold;
+  color: red;
+}
+
+.spinner{
+  position: relative !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
 }

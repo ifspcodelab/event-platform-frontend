@@ -6,11 +6,18 @@
     <h1>Cadastro efetuado com sucesso</h1>
     <p><mat-icon class="icon-text" color="primary">check_circle</mat-icon>Obrigado por fazer inscrição na plataforma.
     Por favor, faça a <b>verificação</b> do seu cadastro {{email ? "em " : "no"}} <b>{{email ? email : "e-mail registrado"}}</b>
-      <span *ngIf="email"> <br><br> Caso não tenha recebido o e-mail, clique <span class="resend" (click)="resendEmail()">aqui</span>
+      <span *ngIf="email"> <br><br> Caso não tenha recebido o e-mail, clique <button class="resend" (click)="resendEmail()">aqui</button>
         para reenviá-lo ou espere 15 minutos para refazer o cadastro.</span><br>
     </p>
-    <button class="button button-white" mat-raised-button color="primary" routerLink="/cadastro">Voltar</button>
+    <p class="verification" *ngIf="verificationProblem">{{verificationProblem}}</p>
+    <div class="spinner" *ngIf="requestLoading">
+      <mat-progress-spinner color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+    </div>
+    <button class="button button-white" mat-raised-button type="button" color="primary" routerLink="/cadastro" >
+      Voltar
+    </button>
 
   <div class="contact">Precisa de ajuda? Entre em contato em <b>{{contact}}</b></div>
+
   </div>
 </main>
