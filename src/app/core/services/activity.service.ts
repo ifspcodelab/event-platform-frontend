@@ -23,36 +23,28 @@ export class ActivityService extends BaseService{
   }
 
   getEventActivitiesForSite(eventId: string): Observable<ActivitySiteDto[]> {
-    let httpOptions = {
-      ... this.httpOptionsSkipInterceptor,
-      params: new HttpParams().append('forSite', true)
-    };
-    const url = `${this.apiUrl}/events/${eventId}/activities`;
-    return this.httpClient.get<ActivitySiteDto[]>(url, httpOptions);
+    const url = `${this.apiUrl}/events/${eventId}/activities/for-site`;
+    return this.httpClient.get<ActivitySiteDto[]>(url, this.httpOptionsSkipInterceptor);
   }
 
   getSubEventActivitiesForSite(eventId: string, subeventId: string): Observable<ActivitySiteDto[]> {
-    let httpOptions = {
-      ... this.httpOptionsSkipInterceptor,
-      params: new HttpParams().append('forSite', true)
-    };
-    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities`;
-    return this.httpClient.get<ActivitySiteDto[]>(url, httpOptions);
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/for-site`;
+    return this.httpClient.get<ActivitySiteDto[]>(url, this.httpOptionsSkipInterceptor);
   }
 
   getSubEventActivities(eventId: string, subeventId: string): Observable<ActivityDto[]> {
     const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities`;
-    return this.httpClient.get<ActivityDto[]>(url, this.httpOptionsSkipInterceptor);
+    return this.httpClient.get<ActivityDto[]>(url, this.httpOptions);
   }
 
   getEventActivity(eventId: string, activityId: string): Observable<ActivityDto> {
     const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}`;
-    return this.httpClient.get<ActivityDto>(url, this.httpOptionsSkipInterceptor);
+    return this.httpClient.get<ActivityDto>(url, this.httpOptions);
   }
 
   getSubEventActivity(eventId: string, subeventId: string, activityId: string): Observable<ActivityDto> {
     const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}`;
-    return this.httpClient.get<ActivityDto>(url, this.httpOptionsSkipInterceptor);
+    return this.httpClient.get<ActivityDto>(url, this.httpOptions);
   }
 
   postEventActivity(eventId: string, activityCreateDto: ActivityCreateDto): Observable<ActivityDto> {

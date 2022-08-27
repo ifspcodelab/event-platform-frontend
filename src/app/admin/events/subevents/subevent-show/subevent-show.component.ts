@@ -50,7 +50,6 @@ export class SubeventShowComponent implements OnInit {
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
     this.organizerSubeventId = this.route.snapshot.paramMap.get('organizerSubeventId');
     this.fetchSubevent(this.eventId, this.subeventId);
-    this.fetchOrganizersSubevent(this.eventId, this.subeventId);
   }
 
   fetchSubevent(eventId: string, subeventId: string) {
@@ -58,6 +57,7 @@ export class SubeventShowComponent implements OnInit {
       .pipe(first())
       .subscribe(subeventDto => {
         this.subeventDto = subeventDto
+        this.fetchOrganizersSubevent(this.eventId, this.subeventId);
         this.loaderService.hide();
         this.setTabSelectedIndex();
       });

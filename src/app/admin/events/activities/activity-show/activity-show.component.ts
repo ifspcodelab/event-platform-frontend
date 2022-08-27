@@ -19,7 +19,7 @@ export class ActivityShowComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title'];
   eventMode: boolean = true;
   activityId: string;
-  activityDto: ActivityDto;
+  activityDto: ActivityDto = null;
   eventId: string = null;
   subeventId: string = null;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
@@ -44,8 +44,6 @@ export class ActivityShowComponent implements OnInit {
     } else {
       this.fetchEventActivity();
     }
-
-
   }
 
   fetchEventActivity() {
