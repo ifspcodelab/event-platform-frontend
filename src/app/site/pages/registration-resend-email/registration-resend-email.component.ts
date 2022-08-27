@@ -35,8 +35,9 @@ export class RegistrationResendEmailComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.notificationService.success("Reenvio realizado com sucesso");
+          this.notificationService.success("Email reenviado. Em caso de não ter recebido entre em contato com a comissão");
           this.requestLoading = false;
+          this.email = null;
         },
         error: error => {
           this.handleError(error)
@@ -52,6 +53,7 @@ export class RegistrationResendEmailComponent implements OnInit {
         const problem: ProblemDetail = error.error;
         if (problem.title === "Resource not found exception"){
           this.verificationProblem = "E-mail não encontrado";
+          this.sleep(5000).then(() => this.verificationProblem = null);
         }
       }
 
@@ -59,13 +61,24 @@ export class RegistrationResendEmailComponent implements OnInit {
         const problem: ProblemDetail = error.error;
         if(problem.title === "NONEXISTENT_TOKEN") {
           this.verificationProblem = "Token de verificação inexistente";
+          this.sleep(5000).then(() => this.verificationProblem = null);
         }
 
         if(problem.title === "VERIFICATION_TOKEN_EXPIRED") {
           this.verificationProblem = "Token de verificação expirado";
+          this.sleep(5000).then(() => this.verificationProblem = null);
+        }
+
+        if(problem.title === "Business rule exception") {
+          this.verificationProblem = "Espere um minuto para reenviar o email";
+          this.sleep(5000).then(() => this.verificationProblem = null);
         }
       }
     }
+  }
+
+  sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
 
