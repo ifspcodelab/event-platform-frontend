@@ -99,18 +99,22 @@
     </div>
   </fieldset>
 
-
   <fieldset>
     <legend>Capas</legend>
-
-    <mat-form-field class="form-field-lg">
+    <mat-form-field class="form-field-xl">
       <mat-label>Menor</mat-label>
-      <input appearance="fill" matInput placeholder="" formControlName="smallerImage" name="smallerImage">
+      <input matInput placeholder="" formControlName="smallerImage" name="smaller-image">
+      <mat-error *ngIf="fieldErrors('smallerImage')?.['serverError'] && submitted">
+        {{ fieldErrors('smallerImage')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
-
-    <mat-form-field class="form-field-lg">
+    <br>
+    <mat-form-field class="form-field-xl">
       <mat-label>Maior</mat-label>
-      <input appearance="fill" matInput placeholder="" formControlName="biggerImage" name="biggerImage">
+      <input matInput placeholder="" formControlName="biggerImage" name="bigger-image">
+      <mat-error *ngIf="fieldErrors('biggerImage')?.['serverError'] && submitted">
+        {{ fieldErrors('biggerImage')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
   </fieldset>
 </form>
