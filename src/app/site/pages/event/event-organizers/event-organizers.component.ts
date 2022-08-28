@@ -30,14 +30,12 @@ export class EventOrganizersComponent implements OnInit {
     this.eventDto = this.route.parent.snapshot.data['event'];
 
     if(this.eventDto) {
-      document.title = `${this.eventDto.title} - Programação`;
       this.fetchEventOrganizers()
     } else {
       this.eventMode = false;
       const subeventDtoResolved: SubeventDtoResolved = this.route.parent.snapshot.data['subevent'];
       this.eventDto = subeventDtoResolved.eventDto;
       this.subeventDto = subeventDtoResolved.subeventDto;
-      document.title = `${this.subeventDto.title} - Programação`;
       this.fetchSubEventOrganizers()
     }
   }
@@ -52,6 +50,7 @@ export class EventOrganizersComponent implements OnInit {
         next: organizers => {
           this.organizers = organizers
           this.groupOrganizers = this.groupOrganizersReduce(this.organizers);
+          document.title = `${this.eventDto.title} - Organização`;
         }
       })
   }
@@ -63,6 +62,7 @@ export class EventOrganizersComponent implements OnInit {
         next: organizers => {
           this.organizers = organizers
           this.groupOrganizers = this.groupOrganizersReduce(this.organizers);
+          document.title = `${this.eventDto.title} - ${this.subeventDto.title} - Organização`;
         }
       })
   }

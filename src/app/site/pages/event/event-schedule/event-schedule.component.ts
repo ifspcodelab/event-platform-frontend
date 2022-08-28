@@ -29,14 +29,12 @@ export class EventScheduleComponent implements OnInit {
     this.eventDto = this.route.parent.snapshot.data['event'];
 
     if(this.eventDto) {
-      document.title = `${this.eventDto.title} - Programação`;
       this.fetchEventActivities()
     } else {
       this.eventMode = false;
       const subeventDtoResolved: SubeventDtoResolved = this.route.parent.snapshot.data['subevent'];
       this.eventDto = subeventDtoResolved.eventDto;
       this.subeventDto = subeventDtoResolved.subeventDto;
-      document.title = `${this.subeventDto.title} - Programação`;
       this.fetchSubEventActivities()
     }
   }
@@ -50,6 +48,7 @@ export class EventScheduleComponent implements OnInit {
       .subscribe(activities => {
         this.activities = activities;
         this.groupActivities = this.groupActivitiesReduce(activities);
+        document.title = `${this.eventDto.title} - Programação`;
       });
   }
 
@@ -61,6 +60,7 @@ export class EventScheduleComponent implements OnInit {
       .subscribe(activities => {
         this.activities = activities;
         this.groupActivities = this.groupActivitiesReduce(activities);
+        document.title = `${this.eventDto.title} - ${this.subeventDto.title} - Programação`;
       });
   }
 
