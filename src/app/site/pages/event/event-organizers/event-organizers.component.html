@@ -1,8 +1,8 @@
-<main *ngIf="eventDto">
-  <h1>Organização</h1>
-  <section>
+<main *ngIf="eventDto" class="event-page">
+  <h1 class="event-page__title">Organização</h1>
+  <section class="event-page__content" >
     <div *ngFor="let group of groupOrganizers | keyvalue">
-      <h2>{{ group.key == 'COORDINATOR' ? 'Coordenadores' : 'Colaboradores' }}</h2>
+      <h2 class="event-page__sub-title">{{ group.key == 'COORDINATOR' ? 'Coordenadores' : 'Colaboradores' }}</h2>
       <p *ngFor="let organizer of $any(group).value"> {{ organizer.organizerName }}</p>
     </div>
   </section>

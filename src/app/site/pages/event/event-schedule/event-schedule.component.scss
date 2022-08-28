@@ -1,34 +1,11 @@
-main {
-  padding: 10px 80px;
-  margin-top: 30px;
-
-  h1 {
-    margin-bottom: 22px;
-  }
-
-  @media screen and (max-width: 750px) {
-    padding: 10px 10px;
-  }
-}
-
-#text {
-  font-size: 0.9rem;
-  text-align: justify;
-  line-height: 1.5rem;
-}
-
-.active {
-  background-color: red;
-}
-
 .activity-list {
-  margin: 0px;
-  padding: 10px;
+  margin: 20px 10px;
+  padding: 0;
 }
 
 .activity-card {
   margin: 0 0 10px;
-  padding: 10px 0;
+  padding: 0px 0;
   border-bottom: 1px solid #eee;
   //cursor: pointer;
 
@@ -38,7 +15,7 @@ main {
     padding: 5px 10px;
     border-radius: 100px;
     font-size: 10px;
-    background-color: #2b9441;
+    background-color: #559f90;
     color: #FFF;
   }
 
@@ -47,6 +24,10 @@ main {
     padding: 0;
     font-size: 18px;
     color: #333;
+
+    @media screen and (max-width: 750px) {
+      font-size: 16px;
+    }
   }
 
   &__subtitle {
@@ -75,43 +56,3 @@ main {
   }
 }
 
-
-
-//::ng-deep .mat-tab-labels {
-//  min-width: auto !important;
-//  div {
-//    border: 1px solid #fff;
-//    background-color: #404040;
-//    &.mat-tab-label-active {
-//      background-color: #3aafa9;
-//      .mat-tab-label-content {
-//        border: none;
-//        background-color: #3aafa9;
-//      }
-//    }
-//    .mat-tab-label-content {
-//      border: none;
-//      color: #fff !important;
-//    }
-//  }
-//}
-//
-//::ng-deep .mat-tab-group{
-//  &.mat-primary {
-//    .mat-ink-bar {
-//      background-color: transparent;
-//    }
-//  }
-//}
-//
-//::ng-deep .mat-tab-body-wrapper{
-//  min-height: 550px
-//}
-//
-//::ng-deep .mat-tab-label-container {
-//  flex-grow: 0 !important;
-//}
-//
-//::ng-deep .mat-tab-label{
-//  opacity: 1 !important;
-//}

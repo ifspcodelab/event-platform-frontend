@@ -230,3 +230,39 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
   }
 }
+
+.event-page {
+  padding: 10px 80px;
+  margin-top: 30px;
+
+  @media screen and (max-width: 750px) {
+    padding: 0;
+  }
+
+  &__title {
+    font-size: 20px !important;
+    font-weight: 500 !important;
+
+    @media screen and (max-width: 750px) {
+      font-size: 19px !important;
+    }
+  }
+
+  &__sub-title {
+    font-size: 17px !important;
+
+    @media screen and (max-width: 750px) {
+      font-size: 14px !important;
+    }
+  }
+
+  &__content {
+    font-size: 14px !important;
+    line-height: 24px;
+
+    @media screen and (max-width: 750px) {
+      font-size: 12px !important;
+      line-height: 22px;
+    }
+  }
+}

@@ -1,5 +1,4 @@
-<main *ngIf="subeventDto">
-  <h1>Contato</h1>
-
-  <div id="text" [innerHTML]="subeventDto.contact"></div>
+<main *ngIf="subeventDto" class="event-page">
+  <h1 class="event-page__title">Contato</h1>
+  <div class="event-page__content" [innerHTML]="subeventDto.contact"></div>
 </main>
