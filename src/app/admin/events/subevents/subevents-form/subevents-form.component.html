@@ -60,6 +60,9 @@
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
       <mat-error *ngIf="fieldErrors('executionPeriod.endDate')?.['required']">Fim é obrigatório</mat-error>
+      <mat-error *ngIf="fieldErrors('executionPeriod.endDate')?.['serverError'] && submitted">
+        {{ fieldErrors('executionPeriod.endDate')?.['serverError'] }}
+      </mat-error>
     </mat-form-field>
   </fieldset>
 

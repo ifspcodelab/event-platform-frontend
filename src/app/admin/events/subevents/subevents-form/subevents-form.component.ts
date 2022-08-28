@@ -149,8 +149,13 @@ export class SubeventsFormComponent implements OnInit {
         const violations: Violation[] = error.error;
         violations.forEach(violation => {
           const formControl = this.form.get(violation.name);
+
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
+          }
+
+          if(violation.name == "executionPeriod") {
+            this.form.get('executionPeriod.endDate').setErrors({ serverError: violation.message });
           }
         })
       }

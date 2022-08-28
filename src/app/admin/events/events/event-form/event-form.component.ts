@@ -159,6 +159,14 @@ export class EventFormComponent implements OnInit {
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
           }
+
+          if(violation.name == "executionPeriod") {
+            this.form.get('executionPeriod.endDate').setErrors({ serverError: violation.message });
+          }
+
+          if(violation.name == "registrationPeriod") {
+            this.form.get('registrationPeriod.endDate').setErrors({ serverError: violation.message });
+          }
         })
       }
 
