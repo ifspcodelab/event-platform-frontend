@@ -51,7 +51,7 @@ export class AreaFormComponent implements OnInit {
       return;
     }
 
-    if(this.form.value.reference.trim() == '') {
+    if(this.form.value.reference == null || this.form.value.reference.trim() == '') {
       this.form.value.reference = null;
     }
 

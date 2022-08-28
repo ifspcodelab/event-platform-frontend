@@ -12,11 +12,11 @@ export class AppValidators {
 
   static optional(params: { minLength: number, maxLength: number }): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value.trim();
-
-      if(value === '') {
+      if(control.value === '' || control.value === null || control.value === undefined) {
         return null;
       }
+
+      const value = control.value.trim();
 
       if(value.length < params.minLength || value.length > params.maxLength ) {
         return { 'optional': true };
