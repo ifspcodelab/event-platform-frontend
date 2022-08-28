@@ -21,8 +21,7 @@ import { SessionShowComponent } from "./sessions/session-show/session-show.compo
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 import { OrganizerFormComponent } from './events/organizer/organizer-form/organizer-form.component';
 import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
-import { OrganizerListComponent } from './organizer/organizer-list/organizer-list.component';
-import {OrganizerListComponent} from "./events/organizer/organizer-list/organizer-list.component";
+import { OrganizerListComponent } from "./events/organizer/organizer-list/organizer-list.component";
 
 
 @NgModule({
@@ -43,8 +42,7 @@ import {OrganizerListComponent} from "./events/organizer/organizer-list/organize
         OrganizerFormComponent,
         OrganizerSubeventFormComponent,
         OrganizerTypePipe,
-        OrganizerListComponent,
-        OrganizerListComponent,
+        OrganizerListComponent
     ],
   imports: [
     CommonModule,

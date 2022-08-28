@@ -12,7 +12,6 @@ import { MatTableDataSource } from "@angular/material/table";
 import { OrganizerFormComponent } from "../organizer-form/organizer-form.component";
 import { ConfirmationDialogComponent } from "../../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { HttpErrorResponse } from "@angular/common/http";
-import { MatSort, Sort } from "@angular/material/sort";
 
 @Component({
   selector: 'app-organizer-list',
@@ -29,8 +28,6 @@ export class OrganizerListComponent implements OnInit {
   dataSource: MatTableDataSource<OrganizerDto>;
   @Input()
   eventId: string;
-  @ViewChild(MatSort)
-  sort: MatSort;
 
   constructor(
     private organizerService: OrganizerService,
@@ -81,7 +78,6 @@ export class OrganizerListComponent implements OnInit {
         if (organizerDto) {
           this.organizersDto = [...this.organizersDto, organizerDto];
           this.notificationService.success("Organizador cadastrado com sucesso");
-          // this.dataSourceOrganizer = new MatTableDataSource<OrganizerDto>(this.organizersDto);
         }
       });
   }
@@ -125,17 +121,6 @@ export class OrganizerListComponent implements OnInit {
       if (error.status === 409) {
         this.notificationService.error(error.error.violations[0].message);
       }
-    }
-  }
-
-
-  announceSortChangeEvent(sort: Sort) {
-    this.dataSource.sort = this.sort;
-
-    if (sort.direction) {
-      this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
-    } else {
-      this._liveAnnouncer.announce('Ordenação removida');
     }
   }
 }
