@@ -54,6 +54,8 @@ export class SubeventsFormComponent implements OnInit {
         subeventDto => {
           this.subeventDto = subeventDto;
           this.form.patchValue(subeventDto);
+          this.form.get('executionPeriod.startDate').patchValue(new Date(this.subeventDto.executionPeriod.startDate.replace(/-/g, '/')));
+          this.form.get('executionPeriod.endDate').patchValue(new Date(this.subeventDto.executionPeriod.endDate.replace(/-/g, '/')));
         }
       );
   }

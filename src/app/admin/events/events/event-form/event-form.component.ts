@@ -51,6 +51,10 @@ export class EventFormComponent implements OnInit {
         eventDto => {
           this.eventDto = eventDto;
           this.form.patchValue(this.eventDto);
+          this.form.get('registrationPeriod.startDate').patchValue(new Date(this.eventDto.registrationPeriod.startDate.replace(/-/g, '/')));
+          this.form.get('registrationPeriod.endDate').patchValue(new Date(this.eventDto.registrationPeriod.endDate.replace(/-/g, '/')));
+          this.form.get('executionPeriod.startDate').patchValue(new Date(this.eventDto.executionPeriod.startDate.replace(/-/g, '/')));
+          this.form.get('executionPeriod.endDate').patchValue(new Date(this.eventDto.executionPeriod.endDate.replace(/-/g, '/')));
         }
       );
   }
