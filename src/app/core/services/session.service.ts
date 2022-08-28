@@ -31,7 +31,7 @@ export class SessionService extends BaseService{
     return this.httpClient.get<SessionDto>(url, this.httpOptions);
   }
 
-  getSubEventSession(eventId: string, subeventId: string, sessionId: string, activityId: string): Observable<SessionDto> {
+  getSubEventSession(eventId: string, subeventId: string, activityId: string, sessionId: string): Observable<SessionDto> {
     const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}/sessions/${sessionId}`;
     return this.httpClient.get<SessionDto>(url, this.httpOptions);
   }

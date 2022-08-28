@@ -52,6 +52,7 @@ export class ActivityShowComponent implements OnInit {
       .subscribe({
         next: activityDto => {
           this.activityDto = activityDto;
+          this.setTabSelectedIndex();
         }
       })
   }
@@ -62,8 +63,13 @@ export class ActivityShowComponent implements OnInit {
       .subscribe({
         next: activityDto => {
           this.activityDto = activityDto;
+          this.setTabSelectedIndex();
         }
       })
+  }
+
+  setTabSelectedIndex() {
+    this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
   }
 
   backLink() {

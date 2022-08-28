@@ -21,7 +21,14 @@
 
     <ng-container matColumnDef="schedules">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Horários">Modalidade</th>
-      <td mat-cell *matCellDef="let element">{{ element.sessionSchedules | json }</td>
+      <td mat-cell *matCellDef="let element">
+        <p style="margin: 0" *ngFor="let sessionSchedule of element.sessionSchedules">
+          {{ sessionSchedule.executionStart | date: 'ccc dd/MM/yyyy HH:mm' : '' : 'pt-BR' }} à
+          {{ sessionSchedule.executionEnd | date: 'HH:mm' }}
+        </p>
+
+
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
