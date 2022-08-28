@@ -21,9 +21,13 @@
         <p class="container__item"><b>Fim:</b>{{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
         <h3>Imagens</h3>
         <p><b>Menor</b></p>
-        <img mat-card-image src="{{ subeventDto.smallerImage }}" width="300px">
+        <span class="container__image" >
+          <img mat-card-image src="{{ subeventDto.smallerImage }}">
+        </span>
         <p><b>Maior</b></p>
-        <img mat-card-image src="{{ subeventDto.biggerImage }}" width="300px">
+        <span class="container__image" >
+          <img mat-card-image src="{{ subeventDto.biggerImage }}">
+        </span>
       </article>
     </mat-tab>
 
