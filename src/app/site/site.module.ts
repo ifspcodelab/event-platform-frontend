@@ -27,7 +27,6 @@ import { RouterModule } from "@angular/router";
 import { CoreModule } from "../core/core.module";
 import { AlterMyDataPasswordComponent } from './pages/alter-my-data-password/alter-my-data-password.component';
 import { RegistrationResendEmailComponent } from './pages/registration-resend-email/registration-resend-email.component';
-import { ForgotPasswordResendEmailComponent } from './pages/forgot-password-resend-email/forgot-password-resend-email.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,6 @@ import { ForgotPasswordResendEmailComponent } from './pages/forgot-password-rese
     MyDataEditComponent,
     AlterMyDataPasswordComponent,
     RegistrationResendEmailComponent,
-    ForgotPasswordResendEmailComponent,
   ],
   exports: [
     SiteHeaderComponent,

@@ -31,10 +31,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  ngOnDestroy() {
-    this.passwordResetService.email = this.form.value['email'];
-  }
-
   onSubmit() {
     this.submitted = true;
 
@@ -50,11 +46,13 @@ export class ForgotPasswordComponent implements OnInit {
       .subscribe({
         next: ()=> {
           this.notificationService.success("Um link será enviado ao e-mail informado. Verifique sua caixa de entrada");
+          this.form.reset();
           this.submitted = false;
-          return this.router.navigate(['esqueci-minha-senha','reenviar-email']);
+          return this.router.navigate(['login']);
         },
         error: () => {
           this.notificationService.error("Algo de errado com o recaptcha. Tente novamente");
+          this.form.reset();
           this.submitted = false;
           this.requestLoading = false;
           this.refreshRecaptcha();

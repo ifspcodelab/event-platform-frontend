@@ -5,15 +5,12 @@ import {ForgotPasswordCreateDto} from "../models/forgot-password-create-dto.mode
 import {PasswordResetDto} from "../models/password-reset-dto";
 import {environment} from "../../../environments/environment";
 import {BaseService} from "./base.service";
-import { Observable } from "rxjs";
-import { AccountDto } from "../models/account.model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PasswordResetService extends BaseService {
   apiUrl = `${environment.apiUrl}/accounts/password`;
-  public email: string;
 
   constructor(private httpClient: HttpClient) {
     super();
@@ -22,11 +19,6 @@ export class PasswordResetService extends BaseService {
   sendResetPasswordRequest(dto: ForgotPasswordCreateDto) {
     const url = `${this.apiUrl}/forgot`;
     return this.httpClient.post<ForgotPasswordCreateDto>(url, dto, this.httpOptionsSkipInterceptor);
-  }
-
-  postEmail(resendEmail: string): Observable<AccountDto> {
-    const url = `${this.apiUrl}/forgot/resend-email`;
-    return this.httpClient.post<AccountDto>(url, resendEmail, this.httpOptionsSkipInterceptor)
   }
 
   sendPasswordAndToken(dto: PasswordResetDto) {

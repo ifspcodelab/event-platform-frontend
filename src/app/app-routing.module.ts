@@ -15,9 +15,6 @@ import { AlterMyDataPasswordComponent } from "./site/pages/alter-my-data-passwor
 import {
   RegistrationResendEmailComponent
 } from "./site/pages/registration-resend-email/registration-resend-email.component";
-import {
-  ForgotPasswordResendEmailComponent
-} from "./site/pages/forgot-password-resend-email/forgot-password-resend-email.component";
 
 const routes: Routes = [
   {
@@ -44,11 +41,6 @@ const routes: Routes = [
     path: 'esqueci-minha-senha',
     component: ForgotPasswordComponent,
     title: 'Esqueci minha senha - Portal de Eventos IFSP - Câmpus São Paulo',
-  },
-  {
-    path: 'esqueci-minha-senha/reenviar-email',
-    component: ForgotPasswordResendEmailComponent,
-    title: 'Reenvio de email Esqueci minha senha - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'redefinir-minha-senha/:token',
