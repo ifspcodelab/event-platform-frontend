@@ -9,7 +9,6 @@ import { BaseService } from "./base.service";
   providedIn: 'root'
 })
 export class RegistrationService extends BaseService {
-  public email: string;
   apiUrl = `${environment.apiUrl}/accounts/registration`;
 
   constructor(private httpClient: HttpClient) {

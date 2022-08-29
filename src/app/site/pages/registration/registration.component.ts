@@ -33,7 +33,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void { }
 
   ngOnDestroy() {
-    this.registrationService.email = this.form.value['email'];
+    localStorage.setItem('email', this.form.value['email']);
   }
 
   buildForm(): FormGroup {
