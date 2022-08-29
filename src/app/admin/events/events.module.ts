@@ -47,7 +47,7 @@ import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
     EventsRoutingModule,
     CoreModule,
     SharedModule,
-    AngularEditorModule
+    AngularEditorModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
