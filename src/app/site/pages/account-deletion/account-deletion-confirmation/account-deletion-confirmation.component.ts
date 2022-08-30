@@ -12,6 +12,7 @@ import {NotificationService} from "../../../../core/services/notification.servic
 })
 export class AccountDeletionConfirmationComponent implements OnInit {
   token: string | null | undefined;
+  requestLoading: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,23 +23,31 @@ export class AccountDeletionConfirmationComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = this.route.snapshot.paramMap.get('token');
+    this.requestLoading = true;
     this.service.accountDeletionConfirmation(this.token).subscribe(()=>{
         this.notificationService.success("Um email foi enviado ao administrador do sistema que logo entrará em contato com você para prosseguir com o processo.")
-        this.router.navigateByUrl("/login");
+        this.requestLoading = false;
       },
       error => {
         this.handleError(error);
-        this.router.navigateByUrl("/login");
+        this.requestLoading = false;
       });
   }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
       const problem: ProblemDetail = error.error;
+      console.log(error.error);
       if (problem.title == "Account deletion token expired"){
         this.notificationService.error("Tempo do link expirado, solicite a exclusão novamente.");
+      }
+      if (problem.title == "Resource not found exception"){
+        this.notificationService.error("Nenhuma solicitação de exclusão de conta encontrada");
       }
     }
   }
 
+  getBack() {
+    this.router.navigateByUrl("/login");
+  }
 }

@@ -1,6 +1,13 @@
 <app-site-header></app-site-header>
-<app-account-page pageTitle="Confirmar Solicitação de Exclusão de Conta">
+<app-account-page pageTitle="Exclusão de Conta">
 
   <mat-card-subtitle>
-    É triste saber que você vai embora.
+    Sua solicitação está sendo processada...
   </mat-card-subtitle>
+
+  <mat-card-actions>
+    <button class="button button-white" mat-raised-button (click)="getBack()"  color="primary" [disabled]="requestLoading">
+      <span>Voltar</span>
+    </button>
+    <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
+  </mat-card-actions>
