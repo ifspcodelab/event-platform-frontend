@@ -1,0 +1,30 @@
+<!--<div *ngIf="sessionDto">
+  <header class="header">
+    <div class="header__titlecomponent">
+      <h1 class="header__title">{{ sessionDto.title }}</h1>
+    </div>
+  </header>-->
+
+  <article class="container">
+    <header class="header">
+      <h1 class="header__title">Lista de Inscritos</h1>
+    </header>
+
+    <p *ngIf="!enrolledsDto.length">Nenhum inscrito cadastrado</p>
+
+    <table mat-table [dataSource]="enrolledsDto" *ngIf="enrolledsDto.length"  class="container__table">
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element">{{ element.user.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="container__line"></tr>
+    </table>
+  </article>
+<!--</div>-->

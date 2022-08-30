@@ -21,6 +21,7 @@ import { SessionShowComponent } from "./sessions/session-show/session-show.compo
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 import { OrganizerFormComponent } from './events/organizer-form/organizer-form/organizer-form.component';
 import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
+import { RegistrationListComponent } from './sessions/session-show/registration/registration-list/registration-list.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
     OrganizerFormComponent,
     OrganizerSubeventFormComponent,
     OrganizerTypePipe,
+    RegistrationListComponent,
   ],
   imports: [
     CommonModule,

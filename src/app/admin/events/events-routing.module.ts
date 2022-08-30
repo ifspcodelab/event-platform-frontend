@@ -10,6 +10,7 @@ import { ActivityShowComponent } from "./activities/activity-show/activity-show.
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 import { ActivityFormComponent } from "./activities/activity-form/activity-form.component";
+import { RegistrationListComponent } from './sessions/session-show/registration/registration-list/registration-list.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: ':eventId/activities/:activityId/edit', component: ActivityFormComponent },
       { path: ':eventId/activities/:activityId/sessions/new', component: SessionFormComponent },
       { path: ':eventId/activities/:activityId/sessions/:sessionId', component: SessionShowComponent },
+      { path: ':eventId/activities/:activityId/sessions/:sessionId/enrolled', component: RegistrationListComponent },
       { path: ':eventId/activities/:activityId/sessions/:sessionId/edit', component: SessionFormComponent },
       { path: ':eventId/sub-events/new', component: SubeventsFormComponent },
       { path: ':eventId/sub-events/:subeventId', component: SubeventShowComponent },
