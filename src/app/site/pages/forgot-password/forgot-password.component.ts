@@ -34,6 +34,8 @@ export class ForgotPasswordComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
+    localStorage.setItem('email', this.form.value['email']);
+
     if(this.form.invalid || this.userRecaptcha == ''){
       return;
     }
@@ -48,7 +50,7 @@ export class ForgotPasswordComponent implements OnInit {
           this.notificationService.success("Um link será enviado ao e-mail informado. Verifique sua caixa de entrada");
           this.form.reset();
           this.submitted = false;
-          return this.router.navigate(['login']);
+          return this.router.navigate(['esqueci-minha-senha','reenviar-email']);
         },
         error: () => {
           this.notificationService.error("Algo de errado com o recaptcha. Tente novamente");
