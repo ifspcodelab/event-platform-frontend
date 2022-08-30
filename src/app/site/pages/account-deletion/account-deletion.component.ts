@@ -58,7 +58,7 @@ export class AccountDeletionComponent implements OnInit {
     this.requestLoading = true;
 
     this.service.sendAccountDeletionRequest(accountDeletionDto).subscribe(()=>{
-        this.notificationService.success("Sua solicitação foi enviada ao administrador. Em breve ele entrará em contato para finalizar o processo.")
+        this.notificationService.success("Enviamos um link para o seu email para solicitar a exclusão da conta. Confira também a sua caixa de spam.")
         this.jwtService.removeAccessToken();
         this.jwtService.removeRefreshToken();
         this.router.navigateByUrl("/login");
@@ -119,7 +119,6 @@ export class AccountDeletionComponent implements OnInit {
   }
 
   matches(){
-    console.log(this.form.value['password'] == this.form.value['confirmPassword'])
     return(this.form.value['password'] == this.form.value['confirmPassword']);
   }
 }

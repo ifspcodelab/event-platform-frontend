@@ -28,6 +28,7 @@ import { CoreModule } from "../core/core.module";
 import { AlterMyDataPasswordComponent } from './pages/alter-my-data-password/alter-my-data-password.component';
 import { AccountDeletionComponent } from './pages/account-deletion/account-deletion.component';
 import { AccountDeletionDialogComponent } from "./pages/account-deletion/dialog/account-deletion-dialog";
+import { AccountDeletionConfirmationComponent } from './pages/account-deletion/account-deletion-confirmation/account-deletion-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AccountDeletionDialogComponent } from "./pages/account-deletion/dialog/
     AlterMyDataPasswordComponent,
     AccountDeletionComponent,
     AccountDeletionDialogComponent,
+    AccountDeletionConfirmationComponent,
   ],
   exports: [
     SiteHeaderComponent,

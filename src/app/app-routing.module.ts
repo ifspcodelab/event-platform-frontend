@@ -13,6 +13,7 @@ import { MyDataComponent } from "./site/pages/my-data/my-data.component";
 import { MyDataEditComponent } from "./site/pages/my-data-edit/my-data-edit.component";
 import { AlterMyDataPasswordComponent } from "./site/pages/alter-my-data-password/alter-my-data-password.component";
 import {AccountDeletionComponent} from "./site/pages/account-deletion/account-deletion.component";
+import { AccountDeletionConfirmationComponent } from "./site/pages/account-deletion/account-deletion-confirmation/account-deletion-confirmation.component";
 
 const routes: Routes = [
   {
@@ -73,6 +74,11 @@ const routes: Routes = [
     component: AccountDeletionComponent,
     canActivate: [AuthGuard],
     title: 'Excluir Minha Conta - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'solicitacao-de-exclusao-de-conta-confirmada/:token',
+    component: AccountDeletionConfirmationComponent,
+    title: 'Solicitação Confirmada - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'admin',
