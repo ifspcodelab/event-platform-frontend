@@ -15,7 +15,7 @@ export class ForgotPasswordResendEmailComponent implements OnInit {
   contact: string = "social.spo@ifsp.edu.br";
   passwordResetProblem: string = null;
   requestLoading: boolean = false;
-  public intervalObserver$: Subscription;
+  intervalSubscription$: Subscription;
   intervalUnit: number = 0;
   timeToSendEmail: number = 60;
 
@@ -27,11 +27,11 @@ export class ForgotPasswordResendEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = localStorage.getItem('email');
-    this.intervalObserver$ = interval(1000)
+    this.intervalSubscription$ = interval(1000)
     .subscribe((intervalUnit) => {
       this.intervalUnit = intervalUnit;
       if (intervalUnit > this.timeToSendEmail) {
-        this.intervalObserver$.unsubscribe();
+        this.intervalSubscription$.unsubscribe();
       }
     })
   }
@@ -39,7 +39,7 @@ export class ForgotPasswordResendEmailComponent implements OnInit {
   @HostListener('unloaded')
   public ngOnDestroy(): void {
     localStorage.removeItem('email');
-    this.intervalObserver$.unsubscribe();
+    this.intervalSubscription$.unsubscribe();
   }
 
   resendEmail(): void {
@@ -59,10 +59,10 @@ export class ForgotPasswordResendEmailComponent implements OnInit {
           this.email = null;
           localStorage.removeItem('email');
           this.router.navigate(['login']);
-          this.intervalObserver$.unsubscribe();
+          this.intervalSubscription$.unsubscribe();
         },
         error: () =>{
-          this.intervalObserver$.unsubscribe();
+          this.intervalSubscription$.unsubscribe();
         }
       }
       )
