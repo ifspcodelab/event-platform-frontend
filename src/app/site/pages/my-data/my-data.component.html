@@ -3,7 +3,7 @@
 <app-account-page
   *ngIf="accountDto"
   pageTitle="Meus Dados"
-  description="Olá {{accountDto.name}}. Você pode alterar seu nome e CPF ou redefinir a sua senha.">
+  description="Olá {{accountDto.name.toString().split(' ')[0]}}. Você pode alterar seu nome e CPF ou redefinir a sua senha.">
 
   <table>
     <ng-container>
@@ -20,8 +20,8 @@
         <td>{{ accountDto.cpf | cpfFomat }}</td>
       </tr>
       <tr>
-        <td class="attribute">Preferencia de comunicação</td>
-        <td>{{ accountDto.allowEmail ? 'Aceita comunicação via e-mail' : 'Não aceita comunicação via e-mail'}}</td>
+        <td class="attribute">Preferência de comunicação</td>
+        <td>{{ accountDto.allowEmail ? 'Aceita via e-mail' : 'Não aceita via e-mail'}}</td>
       </tr>
     </ng-container>
   </table>
@@ -31,4 +31,25 @@
     <button class="alterPassword" mat-button color="" routerLink="/meus-dados/alterar-minha-senha">Alterar minha senha</button>
   </mat-card-actions>
 
+
+  <div class="container__table">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Data </th>
+        <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy - hh:mm'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="resourceData">
+        <th mat-header-cell *matHeaderCellDef> log </th>
+        <td mat-cell *matCellDef="let element"> {{element.resourceData}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
 </app-account-page>
+
+
+

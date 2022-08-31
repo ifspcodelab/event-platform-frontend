@@ -6,7 +6,7 @@ table {
 
 td {
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
 }
 
@@ -37,4 +37,35 @@ td {
   margin: 5px 0 15px 0 !important;
   border: none;
   width: 100%;
+}
+
+.container__table {
+  overflow: auto;
+  height: 200px;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.container__table::-webkit-scrollbar {
+  display: none;
+}
+
+.container__table th{
+  background-color: #93E9BE;
+}
+
+.mat-elevation-z8 * {
+  text-align: center;
+  vertical-align: center;
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 0 !important;
+}
+
+.mat-elevation-z8 ng-container:nth-child(even) {
+  background-color: #ccc;
+}
+
+mat-card-actions {
+  margin-bottom: 0 !important;
 }

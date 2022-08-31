@@ -4,6 +4,7 @@ import { JwtService } from "../../../core/services/jwtservice.service";
 import { MyDataService } from "../../../core/services/my-data.service";
 import { AccountDto } from "../../../core/models/account.model";
 import { first } from "rxjs";
+import { LogDto } from "../../../core/models/log.model";
 
 @Component({
   selector: 'app-my-data',
@@ -12,6 +13,9 @@ import { first } from "rxjs";
 })
 export class MyDataComponent implements OnInit {
   accountDto: AccountDto;
+  logs: LogDto[];
+  dataSource: LogDto[];
+  displayedColumns: string[] = ['createdAt', 'resourceData'];
 
   constructor(
     private router: Router,
@@ -30,18 +34,18 @@ export class MyDataComponent implements OnInit {
   fetchAccount() {
     this.myDataService.getAccount()
       .pipe(first())
-      .subscribe(accountDto => this.accountDto = accountDto);
-  }
-
-  get accountDtoName() {
-    return (this.accountDto && this.accountDto.name) ? this.accountDto.name : null;
-  }
-
-  get accountDtoEmail() {
-    return (this.accountDto && this.accountDto.email) ? this.accountDto.email : null;
-  }
-
-  get accountDtoCpf() {
-    return (this.accountDto && this.accountDto.cpf) ? this.accountDto.cpf : null;
+      .subscribe({
+        next: accountDto => {
+          this.accountDto = accountDto;
+          this.myDataService.getLogs()
+            .pipe(first())
+            .subscribe({
+              next: logs => {
+                this.logs = logs;
+                this.dataSource = logs;
+              },
+            });
+        }
+      });
   }
 }
