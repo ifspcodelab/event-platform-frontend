@@ -22,7 +22,7 @@
       <mat-error *ngIf="fieldErrors('title')?.['required']">Título é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 3 caracteres</mat-error>
-      <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 50 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 100 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['serverError'] && submitted">
         {{ fieldErrors('title')?.['serverError'] }}
       </mat-error>
@@ -44,7 +44,7 @@
                 rows="3" name="summary"></textarea>
       <mat-error *ngIf="fieldErrors('summary')?.['required']">Resumo é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['notblank']">Resumo não pode ser vazio</mat-error>
-      <mat-error *ngIf="fieldErrors('summary')?.['minlength']">Resumo deve ter no mínimo 100 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('summary')?.['minlength']">Resumo deve ter no mínimo 50 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['maxlength']">Resumo deve ter no máximo 150 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('summary')?.['serverError'] && submitted">
         {{ fieldErrors('summary')?.['serverError'] }}
@@ -112,7 +112,7 @@
       <div class="rich-text__errors" *ngIf="field('presentation').invalid && (field('presentation').dirty || field('presentation').touched)">
         <p *ngIf="fieldErrors('presentation')?.['required']">Apresentação é obrigatório</p>
         <p *ngIf="fieldErrors('presentation')?.['notblank']">Apresentação não pode ser vazio</p>
-        <p *ngIf="fieldErrors('presentation')?.['minlength']">Apresentação deve ter no mínimo 1000 caracteres</p>
+        <p *ngIf="fieldErrors('presentation')?.['minlength']">Apresentação deve ter no mínimo 100 caracteres</p>
         <p *ngIf="fieldErrors('presentation')?.['maxlength']">Apresentação deve ter no máximo 5000 caracteres</p>
         <p *ngIf="fieldErrors('presentation')?.['serverError'] && submitted">{{ fieldErrors('presentation')?.['serverError'] }}</p>
       </div>
@@ -127,7 +127,7 @@
       <div class="rich-text__errors" *ngIf="field('contact').invalid && (field('contact').dirty || field('contact').touched)">
         <p *ngIf="fieldErrors('contact')?.['required']">Contato é obrigatório</p>
         <p *ngIf="fieldErrors('contact')?.['notblank']">Contato não pode ser vazio</p>
-        <p *ngIf="fieldErrors('contact')?.['minlength']">Contato deve ter no mínimo 100 caracteres</p>
+        <p *ngIf="fieldErrors('contact')?.['minlength']">Contato deve ter no mínimo 50 caracteres</p>
         <p *ngIf="fieldErrors('contact')?.['maxlength']">Contato deve ter no máximo 5000 caracteres</p>
         <p *ngIf="fieldErrors('contact')?.['serverError'] && submitted">{{ fieldErrors('contact')?.['serverError'] }}</p>
       </div>

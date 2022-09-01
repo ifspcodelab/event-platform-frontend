@@ -1,11 +1,11 @@
-import { SubeventDto } from './../../../../core/models/subevent.model';
-import { NotificationService } from './../../../../core/services/notification.service';
-import { ProblemDetail } from './../../../../core/models/problem-detail';
+import { SubeventDto } from '../../../../core/models/subevent.model';
+import { NotificationService } from '../../../../core/services/notification.service';
+import { ProblemDetail } from '../../../../core/models/problem-detail';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SubeventService } from "../../../../core/services/subevent.service";
-import {ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Violation } from "../../../../core/models/problem-detail";
@@ -67,7 +67,7 @@ export class SubeventsFormComponent implements OnInit {
           Validators.required,
           AppValidators.notBlank,
           Validators.minLength(3),
-          Validators.maxLength(50)
+          Validators.maxLength(100)
         ]
       ],
       slug: ['', [Validators.required, AppValidators.notBlank]],
@@ -75,7 +75,7 @@ export class SubeventsFormComponent implements OnInit {
         [
           Validators.required,
           AppValidators.notBlank,
-          Validators.minLength(100),
+          Validators.minLength(50),
           Validators.maxLength(150)
         ]
       ],
@@ -83,11 +83,11 @@ export class SubeventsFormComponent implements OnInit {
         [
           Validators.required,
           AppValidators.notBlank,
-          Validators.minLength(1000),
+          Validators.minLength(100),
           Validators.maxLength(5000)
         ]
       ],
-      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(5000)]],
+      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(50), Validators.maxLength(5000)]],
       executionPeriod: this.formBuilder.group({
         startDate: ['', [Validators.required]],
         endDate: ['',[Validators.required]]

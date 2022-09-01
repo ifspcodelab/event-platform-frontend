@@ -66,7 +66,7 @@ export class EventFormComponent implements OnInit {
           Validators.required,
           AppValidators.notBlank,
           Validators.minLength(3),
-          Validators.maxLength(50)
+          Validators.maxLength(100)
         ]
       ],
       slug: ['', [Validators.required, AppValidators.notBlank]],
@@ -74,7 +74,7 @@ export class EventFormComponent implements OnInit {
         [
           Validators.required,
           AppValidators.notBlank,
-          Validators.minLength(100),
+          Validators.minLength(50),
           Validators.maxLength(150)
         ]
       ],
@@ -82,11 +82,11 @@ export class EventFormComponent implements OnInit {
         [
           Validators.required,
           AppValidators.notBlank,
-          Validators.minLength(1000),
+          Validators.minLength(100),
           Validators.maxLength(5000)
         ]
       ],
-      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(5000)]],
+      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(50), Validators.maxLength(5000)]],
       registrationPeriod: this.formBuilder.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]]

@@ -39,8 +39,8 @@
       <input matInput placeholder="" formControlName="title" name="title">
       <mat-error *ngIf="fieldErrors('title')?.['required']">Título é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['notblank']">Título não pode ser vazio</mat-error>
-      <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 6 caracteres</mat-error>
-      <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 100 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['minlength']">Título deve ter no mínimo 5 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('title')?.['maxlength']">Título deve ter no máximo 200 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('title')?.['serverError'] && submitted">
         {{ fieldErrors('title')?.['serverError'] }}
       </mat-error>
@@ -93,7 +93,7 @@
       <div class="rich-text__errors" *ngIf="field('description').invalid && (field('description').dirty || field('description').touched)">
         <p *ngIf="fieldErrors('description')?.['required']">Descrição é obrigatório</p>
         <p *ngIf="fieldErrors('description')?.['notblank']">Descrição não pode ser vazio</p>
-        <p *ngIf="fieldErrors('description')?.['minlength']">Descrição deve ter no mínimo 100 caracteres</p>
+        <p *ngIf="fieldErrors('description')?.['minlength']">Descrição deve ter no mínimo 50 caracteres</p>
         <p *ngIf="fieldErrors('description')?.['maxlength']">Descrição deve ter no máximo 5000 caracteres</p>
         <p *ngIf="fieldErrors('description')?.['serverError'] && submitted">{{ fieldErrors('description')?.['serverError'] }}</p>
       </div>

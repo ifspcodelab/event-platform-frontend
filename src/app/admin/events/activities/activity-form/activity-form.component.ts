@@ -94,13 +94,13 @@ export class ActivityFormComponent implements OnInit {
 
   private buildForm() {
     return this.formBuilder.group({
-      title: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(5), Validators.maxLength(100)]],
+      title: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(5), Validators.maxLength(200)]],
       slug: ['', [Validators.required, AppValidators.notBlank]],
-      description: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(5000)]],
+      description: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(50), Validators.maxLength(5000)]],
       type: ['', [Validators.required]],
       modality: ['', [Validators.required]],
-      duration: [10, [Validators.required, Validators.min(10)]],
-      setupTime: [5, [Validators.required, Validators.min(5)]],
+      duration: [0, [Validators.required, Validators.min(10)]],
+      setupTime: [15, [Validators.required, Validators.min(5)]],
       needRegistration: [true, [Validators.required]],
     });
   }
