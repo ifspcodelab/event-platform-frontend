@@ -14,7 +14,7 @@ import { ProblemDetail } from "../../../core/models/problem-detail";
 
 export class RegistrationResendEmailComponent implements OnInit {
   email: string;
-  contact: string = "social.spo@ifsp.edu.br";
+  contact: string = "eventos.spo@ifsp.edu.br";
   verificationProblem: string = null;
   requestLoading: boolean = false;
 
@@ -26,6 +26,9 @@ export class RegistrationResendEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = localStorage.getItem('email');
+    if (typeof this.email != 'string') {
+      this.router.navigate(['/']);
+    }
   }
 
   resendEmail(): void {
@@ -72,7 +75,7 @@ export class RegistrationResendEmailComponent implements OnInit {
         }
 
         if(problem.title === "Business rule exception") {
-          this.verificationProblem = "Espere um minuto para reenviar o email";
+          this.verificationProblem = "Espere um minuto, verifique seu email novamente";
           this.sleep(5000).then(() => this.verificationProblem = null);
         }
       }

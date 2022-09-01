@@ -32,10 +32,6 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  ngOnDestroy() {
-    localStorage.setItem('email', this.form.value['email']);
-  }
-
   buildForm(): FormGroup {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(256), AppValidators.validName()]],
@@ -78,6 +74,7 @@ export class RegistrationComponent implements OnInit {
       .subscribe({
         next: () => {
           this.notificationService.success("Por favor, acesse o e-mail cadastrado para confirmar o cadastro");
+          localStorage.setItem('email', this.form.value['email']);
           this.router.navigate(['cadastro','reenviar-email'], {state: this.form.value['email']});
         },
         error: error => {

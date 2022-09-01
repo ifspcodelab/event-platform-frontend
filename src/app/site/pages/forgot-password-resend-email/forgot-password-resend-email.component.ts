@@ -12,7 +12,7 @@ import { PasswordResetService } from "../../../core/services/password-reset.serv
 
 export class ForgotPasswordResendEmailComponent implements OnInit {
   email: string;
-  contact: string = "social.spo@ifsp.edu.br";
+  contact: string = "eventos.spo@ifsp.edu.br";
   passwordResetProblem: string = null;
   requestLoading: boolean = false;
   intervalSubscription$: Subscription;
@@ -27,6 +27,9 @@ export class ForgotPasswordResendEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = localStorage.getItem('email');
+    if (typeof this.email != 'string') {
+      this.router.navigate(['/']);
+    }
     this.intervalSubscription$ = interval(1000)
     .subscribe((intervalUnit) => {
       this.intervalUnit = intervalUnit;
@@ -44,7 +47,7 @@ export class ForgotPasswordResendEmailComponent implements OnInit {
 
   resendEmail(): void {
     if (this.timeToSendEmail - this.intervalUnit > 0) {
-      this.passwordResetProblem = `Espere um minuto para reenviar o email`;
+      this.passwordResetProblem = `Espere um minuto, verifique seu email novamente`;
       this.sleep(5000).then(() => this.passwordResetProblem = null);
       return null;
     }
