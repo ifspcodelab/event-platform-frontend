@@ -58,7 +58,7 @@ export class AccountDeletionComponent implements OnInit {
     this.requestLoading = true;
 
     this.service.sendAccountDeletionRequest(accountDeletionDto).subscribe(()=>{
-        this.notificationService.success("Enviamos um link para o seu email para solicitar a exclusão da conta. Confira também a sua caixa de spam.")
+        this.notificationService.success("Sua solicitação foi recebida com sucesso. Logo seus dados serão apagados do sistema.")
         this.jwtService.removeAccessToken();
         this.jwtService.removeRefreshToken();
         this.router.navigateByUrl("/login");
