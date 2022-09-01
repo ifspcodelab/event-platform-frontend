@@ -92,7 +92,7 @@
         <p>O texto será exibido na página da atividade</p>
       </div>
       <angular-editor class="rich-text__control" id="description" formControlName="description" [config]="editorConfig"></angular-editor>
-      <div class="rich-text__errors" *ngIf="field('description').invalid && (field('description').dirty || field('description').touched)">
+      <div class="rich-text__errors" *ngIf="field('description').invalid && (field('description').dirty || field('description').touched) || submitted">
         <p *ngIf="fieldErrors('description')?.['required']">Descrição é obrigatório</p>
         <p *ngIf="fieldErrors('description')?.['notblank']">Descrição não pode ser vazio</p>
         <p *ngIf="fieldErrors('description')?.['minlength']">Descrição deve ter no mínimo 50 caracteres</p>
