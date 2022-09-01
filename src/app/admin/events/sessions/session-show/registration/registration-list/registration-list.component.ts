@@ -24,19 +24,21 @@ export class RegistrationListComponent implements OnInit {
   }
 ]
 
-// sessionDto: SessionDto = {
-//   id: "",
-//   title: "Sessão 1",
-//   seats: 8,
-//   schedulesSession: SessionScheduleDto[] [{
-//   id: "",
-//   start: "21/09/2022 09:00",
-//   end: "21/09/2022 11:00",
-//   location: { id: "", name: "IFSP Campus São Paulo", address: "" },
-//   area: { id: "", name: "Bloco C", reference: null },
-//   space: { id: "", name: "Laboratório 2", capacity: 20, type: SpaceType.LABORATORY }
-//   }],
-// }
+sessionDto: SessionDto = {
+  id: "",
+  title: "Sessão 1",
+  seats: 8,
+  schedulesSession: [
+    {
+    id: "",
+    start: "21/09/2022 09:00",
+    end: "21/09/2022 11:00",
+    location: { id: "", name: "IFSP Campus São Paulo", address: "" },
+    area: { id: "", name: "Bloco C", reference: null },
+    space: { id: "", name: "Laboratório 2", capacity: 20, type: SpaceType.LABORATORY }
+    }
+  ]
+}
 
   constructor() { }
 
