@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "../../../core/services/authentication.service";
 import { first } from "rxjs";
@@ -9,6 +9,8 @@ import { JwtTokensDto } from "../../../core/models/jwt-tokens.model";
 import { LoginCreateDto } from "../../../core/models/login.model";
 import { AccountRole } from "../../../core/models/account-role.model";
 import {environment} from "../../../../environments/environment";
+import {ProblemDetail} from "../../../core/models/problem-detail";
+import {NotificationService} from "../../../core/services/notification.service";
 
 @Component({
   selector: 'app-login',
@@ -17,11 +19,6 @@ import {environment} from "../../../../environments/environment";
 })
 export class LoginComponent implements OnInit {
   form: FormGroup = this.buildForm();
-  mapAuthenticationErrorType = new Map<string, string>([
-    ["The account for this email is not yet verified", "Conta ainda não verificada, verifique seu email para ativar a sua conta"],
-    ["Incorrect email or password", "Email ou senha incorretos"],
-    ["Invalid recaptcha", "Recaptcha inválido, por favor realize novamente o desafio ou atualize a página"]
-  ]);
   errorMessage: string | null = null;
   userRecaptcha: string = '';
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
@@ -33,6 +30,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private jwtService: JwtService,
     private router: Router,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -86,11 +84,7 @@ export class LoginComponent implements OnInit {
             }
           },
           error: error => {
-            if (error instanceof HttpErrorResponse) {
-              this.errorMessage = this.mapAuthenticationErrorType.get(error.error.title)!;
-            }
-            this.requestLoading = false;
-            this.refreshRecaptcha();
+            this.handleError(error);
           }
         }
       );
@@ -98,5 +92,29 @@ export class LoginComponent implements OnInit {
 
   refreshRecaptcha(): void {
     grecaptcha.reset();
+  }
+
+  handleError(error: any) {
+    this.requestLoading = false;
+    this.refreshRecaptcha();
+
+    if(error instanceof HttpErrorResponse) {
+      const problem: ProblemDetail = error.error;
+      if (problem.title == "The account for this email is not yet verified"){
+        this.notificationService.error("Por favor verifique sua conta");
+      }
+      if (problem.title == "The account for this email is blocked by admin"){
+        this.notificationService.error("Sua conta foi bloqueada");
+      }
+      if (problem.title == "The account for this email is waiting for exclusion"){
+        this.notificationService.error("Sua conta foi bloqueada");
+      }
+      if (problem.title == "Incorrect email or password"){
+        this.notificationService.error("Login falhou");
+      }
+      if (problem.title == "Invalid recaptcha"){
+        this.notificationService.error("Recaptcha inválido. Atualize e tente novamente");
+      }
+    }
   }
 }

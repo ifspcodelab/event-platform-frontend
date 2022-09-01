@@ -1,14 +1,14 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {environment} from "../../../../environments/environment";
-import {ActivatedRoute, Router} from "@angular/router";
-import {NotificationService} from "../../../core/services/notification.service";
-import {JwtService} from "../../../core/services/jwtservice.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {ProblemDetail} from "../../../core/models/problem-detail";
-import {AppValidators} from "../../../core/validators/app-validator";
-import {AccountDeletionModel} from "../../../core/models/account-deletion.model";
-import {AccountDeletionService} from "../../../core/services/account-deletion.service";
+import { Component, OnInit, Renderer2 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { environment } from "../../../../environments/environment";
+import { ActivatedRoute, Router } from "@angular/router";
+import { NotificationService } from "../../../core/services/notification.service";
+import { JwtService } from "../../../core/services/jwtservice.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ProblemDetail } from "../../../core/models/problem-detail";
+import { AppValidators } from "../../../core/validators/app-validator";
+import { AccountDeletionModel } from "../../../core/models/account-deletion.model";
+import { AccountDeletionService } from "../../../core/services/account-deletion.service";
 
 @Component({
   selector: 'app-account-deletion',
