@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrationResendEmailComponent } from './registration-resend-email.component';
+import { SignupResendEmailComponent } from './signup-resend-email.component';
 
 describe('RegistrationResendEmailComponent', () => {
-  let component: RegistrationResendEmailComponent;
-  let fixture: ComponentFixture<RegistrationResendEmailComponent>;
+  let component: SignupResendEmailComponent;
+  let fixture: ComponentFixture<SignupResendEmailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistrationResendEmailComponent ]
+      declarations: [ SignupResendEmailComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RegistrationResendEmailComponent);
+    fixture = TestBed.createComponent(SignupResendEmailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

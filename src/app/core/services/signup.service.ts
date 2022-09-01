@@ -8,8 +8,8 @@ import { BaseService } from "./base.service";
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationService extends BaseService {
-  apiUrl = `${environment.apiUrl}/accounts/registration`;
+export class SignupService extends BaseService {
+  apiUrl = `${environment.apiUrl}/accounts/signup`;
 
   constructor(private httpClient: HttpClient) {
     super();

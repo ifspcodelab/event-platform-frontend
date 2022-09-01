@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { RegistrationService } from "../../../core/services/registration.service";
+import { SignupService } from "../../../core/services/signup.service";
 import { first } from "rxjs";
 import { NotificationService } from "../../../core/services/notification.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail } from "../../../core/models/problem-detail";
 
 @Component({
-  selector: 'app-registration-verify',
-  templateUrl: './registration-verify.component.html',
-  styleUrls: ['./registration-verify.component.scss']
+  selector: 'app-signup-verify',
+  templateUrl: './signup-verify.component.html',
+  styleUrls: ['./signup-verify.component.scss']
 })
-export class RegistrationVerifyComponent implements OnInit {
+export class SignupVerifyComponent implements OnInit {
   token: string;
   verificationProblem: string = null;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private registrationService: RegistrationService,
+    private registrationService: SignupService,
     private notificationService: NotificationService,
     ) { }
 

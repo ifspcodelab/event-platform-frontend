@@ -2,24 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { NotificationService } from "../../../core/services/notification.service";
 import { first } from "rxjs";
-import { RegistrationService } from "../../../core/services/registration.service";
+import { SignupService } from "../../../core/services/signup.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail } from "../../../core/models/problem-detail";
 
 @Component({
-  selector: 'app-registration-resend-email',
-  templateUrl: './registration-resend-email.component.html',
-  styleUrls: ['./registration-resend-email.component.scss']
+  selector: 'app-signup-resend-email',
+  templateUrl: './signup-resend-email.component.html',
+  styleUrls: ['./signup-resend-email.component.scss']
 })
 
-export class RegistrationResendEmailComponent implements OnInit {
+export class SignupResendEmailComponent implements OnInit {
   email: string;
   contact: string = "eventos.spo@ifsp.edu.br";
   verificationProblem: string = null;
   requestLoading: boolean = false;
 
   constructor(
-    private registrationService: RegistrationService,
+    private registrationService: SignupService,
     private router: Router,
     private notificationService: NotificationService,
   ) { }
