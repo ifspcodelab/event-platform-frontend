@@ -62,8 +62,8 @@
     </ng-container>
 
     <ng-container matColumnDef="verified">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por verified">Verificado</th>
-      <td mat-cell *matCellDef="let element">{{ element.verified == true ? "Sim":"Não" }}</td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por verified">Status</th>
+      <td mat-cell *matCellDef="let element">{{ element.status | accountStatus}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

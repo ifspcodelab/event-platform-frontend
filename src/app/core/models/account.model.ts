@@ -1,4 +1,5 @@
 import {AccountRole} from "./account-role.model";
+import {AccountStatus} from "./account-status.model";
 
 export interface AccountDto {
   id: string;
@@ -7,7 +8,7 @@ export interface AccountDto {
   cpf: string;
   agreed: boolean;
   role: AccountRole;
-  verified: boolean;
+  status: AccountStatus;
   registrationTimestamp: string;
 }
 
@@ -57,5 +58,5 @@ export interface AccountUpdateDto {
   email: string;
   cpf: string;
   role: AccountRole;
-  verified: boolean;
+  status: AccountStatus;
 }

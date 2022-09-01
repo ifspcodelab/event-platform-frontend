@@ -13,6 +13,7 @@ import { EventStatusPipe } from "./pipes/event-status.pipe";
 import { ActivityTypesPipe } from "./pipes/activity-types.pipe";
 import { ActivityModalitiesPipe } from "./pipes/activity-modalities.pipe";
 import { CpfFomatPipe } from './pipes/cpfFomat.pipe';
+import { AccountStatusPipe } from './pipes/account-status.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CpfFomatPipe } from './pipes/cpfFomat.pipe';
     ActivityModalitiesPipe,
     CpfFomatPipe,
     SearchTypesPipe,
+    AccountStatusPipe,
   ],
   imports: [
     CommonModule,
@@ -34,16 +36,17 @@ import { CpfFomatPipe } from './pipes/cpfFomat.pipe';
     MatInputModule,
     MatIconModule,
   ],
-  exports: [
-    FormsModule,
-    ReactiveFormsModule,
-    ConfirmationDialogComponent,
-    CancelDialogComponent,
-    AdminHeaderComponent,
-    EventStatusPipe,
-    ActivityTypesPipe,
-    ActivityModalitiesPipe,
-    CpfFomatPipe
-  ]
+    exports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ConfirmationDialogComponent,
+        CancelDialogComponent,
+        AdminHeaderComponent,
+        EventStatusPipe,
+        ActivityTypesPipe,
+        ActivityModalitiesPipe,
+        CpfFomatPipe,
+        AccountStatusPipe
+    ]
 })
 export class CoreModule { }
