@@ -69,7 +69,7 @@ export class EventFormComponent implements OnInit {
           Validators.maxLength(100)
         ]
       ],
-      slug: ['', [Validators.required, AppValidators.notBlank]],
+      slug: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(3), Validators.maxLength(100)]],
       summary: ['',
         [
           Validators.required,

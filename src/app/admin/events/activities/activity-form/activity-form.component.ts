@@ -95,7 +95,7 @@ export class ActivityFormComponent implements OnInit {
   private buildForm() {
     return this.formBuilder.group({
       title: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(5), Validators.maxLength(200)]],
-      slug: ['', [Validators.required, AppValidators.notBlank]],
+      slug: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(5), Validators.maxLength(200)]],
       description: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(50), Validators.maxLength(5000)]],
       type: ['', [Validators.required]],
       modality: ['', [Validators.required]],

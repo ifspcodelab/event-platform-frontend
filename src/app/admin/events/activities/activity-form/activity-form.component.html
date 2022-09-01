@@ -51,6 +51,8 @@
       <input matInput placeholder="" formControlName="slug" name="slug">
       <mat-error *ngIf="fieldErrors('slug')?.['required']">Slug é obrigatório</mat-error>
       <mat-error *ngIf="fieldErrors('slug')?.['notblank']">Slug não pode ser vazio</mat-error>
+      <mat-error *ngIf="fieldErrors('slug')?.['minlength']">Slug deve ter no mínimo 5 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('slug')?.['maxlength']">Slug deve ter no máximo 200 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('slug')?.['serverError'] && submitted">
         {{ fieldErrors('slug')?.['serverError'] }}
       </mat-error>
