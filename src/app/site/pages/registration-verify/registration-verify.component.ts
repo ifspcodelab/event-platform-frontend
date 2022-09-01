@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { RegistrationService } from "../../../core/services/registration.service";
+import { SignupService } from "../../../core/services/signup.service";
 import { first } from "rxjs";
 import { NotificationService } from "../../../core/services/notification.service";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -18,7 +18,7 @@ export class RegistrationVerifyComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private registrationService: RegistrationService,
+    private registrationService: SignupService,
     private notificationService: NotificationService,
     ) { }
 

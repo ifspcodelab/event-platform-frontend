@@ -21,38 +21,45 @@ import { SessionShowComponent } from "./sessions/session-show/session-show.compo
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 import { OrganizerFormComponent } from './events/organizer/organizer-form/organizer-form.component';
 import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
+import { RegistrationListComponent } from './sessions/session-show/registration/registration-list/registration-list.component';
 import { OrganizerListComponent } from "./events/organizer/organizer-list/organizer-list.component";
+import { AttendanceListComponent} from "./sessions/session-show/attendance-list/attendance-list.component";
 
 
 @NgModule({
-    declarations: [
-        EventsComponent,
-        EventListComponent,
-        EventShowComponent,
-        EventFormComponent,
-        SubeventShowComponent,
-        SubeventsFormComponent,
-        ActivityShowComponent,
-        ActivityFormComponent,
-        ActivityListComponent,
-        ActivitySpeakersComponent,
-        ActivitySpeakerFormComponent,
-        SessionShowComponent,
-        SessionFormComponent,
-        OrganizerFormComponent,
-        OrganizerSubeventFormComponent,
-        OrganizerTypePipe,
-        OrganizerListComponent
-    ],
+  declarations: [
+    EventsComponent,
+    EventListComponent,
+    EventShowComponent,
+    EventFormComponent,
+    SubeventShowComponent,
+    SubeventsFormComponent,
+    ActivityShowComponent,
+    ActivityFormComponent,
+    ActivityListComponent,
+    ActivitySpeakersComponent,
+    ActivitySpeakerFormComponent,
+    SessionShowComponent,
+    SessionFormComponent,
+    OrganizerFormComponent,
+    OrganizerSubeventFormComponent,
+    OrganizerTypePipe,
+    RegistrationListComponent,
+    OrganizerListComponent,
+    AttendanceListComponent,
+  ],
   imports: [
     CommonModule,
     EventsRoutingModule,
     CoreModule,
     SharedModule,
-    AngularEditorModule
+    AngularEditorModule,
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'},
   ],
+  exports: [
+    OrganizerListComponent
+  ]
 })
 export class EventsModule { }

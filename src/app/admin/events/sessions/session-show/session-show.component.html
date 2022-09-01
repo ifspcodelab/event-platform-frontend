@@ -16,73 +16,80 @@
     </div>
   </header>
 
-  <mat-list>
-    <mat-list-item>
-      <p><b>Id:</b> {{ sessionDto.id }}</p>
-    </mat-list-item>
-    <mat-list-item>
-      <p><b>Vagas:</b> {{ sessionDto.seats }}</p>
-    </mat-list-item>
-  </mat-list>
+  <mat-tab-group mat-align-tabs="left" animationDuration="0ms" [selectedIndex]="tabSelectedIndex">
+  <mat-tab label="Dados principais">
+    <mat-list>
+      <mat-list-item>
+        <p><b>Id:</b> {{ sessionDto.id }}</p>
+      </mat-list-item>
+      <mat-list-item>
+        <p><b>Vagas:</b> {{ sessionDto.seats }}</p>
+      </mat-list-item>
+    </mat-list>
 
-  <article class="container">
-    <header class="header">
-      <h1 class="header__title">Horários</h1>
-      <button class="container__actions" mat-button color="primary" routerLink="sub-events/new">Novo Horário</button>
-    </header>
+    <article class="container">
+      <header class="header">
+        <h1 class="header__title">Horários</h1>
+        <button class="container__actions" mat-button color="primary" routerLink="sub-events/new">Novo Horário</button>
+      </header>
 
-    <p *ngIf="!sessionSchedulesDto.length">Nenhum horário cadastrado</p>
+      <p *ngIf="!sessionSchedulesDto.length">Nenhum horário cadastrado</p>
 
-    <table mat-table [dataSource]="sessionSchedulesDto" *ngIf="sessionSchedulesDto.length" class="container__table">
+      <table mat-table [dataSource]="sessionSchedulesDto" *ngIf="sessionSchedulesDto.length" class="container__table">
 
-      <ng-container matColumnDef="location">
-        <th mat-header-cell *matHeaderCellDef>Local / Área / Espaço</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.location.name }}
-          <span *ngIf="element.area">
-              | {{ element.area?.name }}
-          </span>
-          <span *ngIf="element.space">
-              | {{ element.space?.name }}
-          </span>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef>Local / Área / Espaço</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.location.name }}
+            <span *ngIf="element.area">
+                | {{ element.area?.name }}
+            </span>
+            <span *ngIf="element.space">
+                | {{ element.space?.name }}
+            </span>
+          </td>
+        </ng-container>
 
-<!--      <ng-container matColumnDef="area">-->
-<!--        <th mat-header-cell *matHeaderCellDef>Área</th>-->
-<!--        <td mat-cell *matCellDef="let element"> {{ element.area?.name }} </td>-->
-<!--      </ng-container>-->
+  <!--      <ng-container matColumnDef="area">-->
+  <!--        <th mat-header-cell *matHeaderCellDef>Área</th>-->
+  <!--        <td mat-cell *matCellDef="let element"> {{ element.area?.name }} </td>-->
+  <!--      </ng-container>-->
 
-<!--      <ng-container matColumnDef="space">-->
-<!--        <th mat-header-cell *matHeaderCellDef>Espaço</th>-->
-<!--        <td mat-cell *matCellDef="let element"> {{ element.space?.name }} </td>-->
-<!--      </ng-container>-->
+  <!--      <ng-container matColumnDef="space">-->
+  <!--        <th mat-header-cell *matHeaderCellDef>Espaço</th>-->
+  <!--        <td mat-cell *matCellDef="let element"> {{ element.space?.name }} </td>-->
+  <!--      </ng-container>-->
 
-      <ng-container matColumnDef="start">
-        <th mat-header-cell *matHeaderCellDef>Início</th>
-        <td mat-cell *matCellDef="let element"> {{ element.start }} </td>
-      </ng-container>
+        <ng-container matColumnDef="start">
+          <th mat-header-cell *matHeaderCellDef>Início</th>
+          <td mat-cell *matCellDef="let element"> {{ element.start }} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="end">
-        <th mat-header-cell *matHeaderCellDef>Fim</th>
-        <td mat-cell *matCellDef="let element"> {{ element.end }} </td>
-      </ng-container>
+        <ng-container matColumnDef="end">
+          <th mat-header-cell *matHeaderCellDef>Fim</th>
+          <td mat-cell *matCellDef="let element"> {{ element.end }} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Ações</th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editSessionSchedule(row)">
-            <mat-icon aria-label="Edit">edit</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn" (click)="deleteSessionSchedule(row)">
-            <mat-icon aria-label="Delete">delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Ações</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button matTooltip="Click to Edit" class="iconbutton" color="primary" (click)="editSessionSchedule(row)">
+              <mat-icon aria-label="Edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" color="warn" (click)="deleteSessionSchedule(row)">
+              <mat-icon aria-label="Delete">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      </article>
+    </mat-tab>
 
-  </article>
+    <mat-tab label="Inscritos">
+      <app-registration-list [sessionId]="sessionDto.id"></app-registration-list>
+    </mat-tab>
+  </mat-tab-group>
 </div>

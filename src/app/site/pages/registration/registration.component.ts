@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from 'src/app/core/services/registration.service';
+import { SignupService } from 'src/app/core/services/signup.service';
 import { first } from 'rxjs';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { AccountCreateDto } from "../../../core/models/account.model";
@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
   recaptchaErrorMessage: string | null = null;
 
   constructor(
-    private registrationService: RegistrationService,
+    private registrationService: SignupService,
     private formBuilder: FormBuilder,
     private router: Router,
     private notificationService: NotificationService,

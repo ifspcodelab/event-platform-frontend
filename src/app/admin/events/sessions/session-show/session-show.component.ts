@@ -12,6 +12,7 @@ import { SpaceType } from "../../../../core/models/spaceType.model";
 })
 export class SessionShowComponent implements OnInit {
   // displayedColumns: string[] = ['location', 'area', 'space', 'start', 'end', 'actions'];
+  tabSelectedIndex: number = 0;
   displayedColumns: string[] = ['location', 'start', 'end', 'actions'];
   eventId: string = null;
   subEventId: string = null;
