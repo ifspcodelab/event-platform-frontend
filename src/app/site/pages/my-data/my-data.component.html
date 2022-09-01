@@ -1,12 +1,12 @@
 <app-site-header></app-site-header>
 
-<div class="data-content">
+<div class="data-content" *ngIf="accountDto">
   <h1>Meus Dados</h1>
-  <p>Olá Fulano de Ciclano. Você pode administrar seus dados.</p>
+  <p>Olá {{accountDto.name.toString().split(' ')[0]}}. Você pode alterar seu nome e CPF ou redefinir a sua senha</p>
 
 <mat-tab-group mat-align-tabs="center">
       <mat-tab class="meus-dados" label="Meus Dados">
-        <table>
+        <table >
           <ng-container>
             <tr>
               <td class="attribute">Nome</td>
@@ -22,7 +22,7 @@
             </tr>
             <tr>
               <td class="attribute">Preferência de comunicação</td>
-              <td>{{ accountDto.allowEmail ? 'Aceita via e-mail' : 'Não aceita via e-mail'}}</td>
+              <td>{{ accountDto.allowEmail ? 'Aceita comunicação via e-mail' : 'Não aceita comunicação via e-mail'}}</td>
             </tr>
           </ng-container>
         </table>

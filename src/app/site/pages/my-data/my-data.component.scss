@@ -5,9 +5,13 @@ table {
 }
 
 td {
-  border: 1px solid #dddddd;
+  border: none;
   text-align: center;
   padding: 8px;
+}
+
+tr:nth-child(odd) {
+  background-color: #93E9BE;
 }
 
 .attribute {
@@ -16,8 +20,7 @@ td {
 }
 
 .email {
-  background-color: #bbbbbb;
-  color: #555555;
+  color: maroon;
   font-style: italic;
 }
 

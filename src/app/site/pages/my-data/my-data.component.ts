@@ -11,9 +11,9 @@ import { LogDto } from "../../../core/models/log.model";
   templateUrl: './my-data.component.html',
   styleUrls: ['./my-data.component.scss']
 })
+
 export class MyDataComponent implements OnInit {
   accountDto: AccountDto;
-  logs: LogDto[];
   dataSource: LogDto[];
   displayedColumns: string[] = ['createdAt', 'resourceData'];
 
@@ -41,7 +41,6 @@ export class MyDataComponent implements OnInit {
             .pipe(first())
             .subscribe({
               next: logs => {
-                this.logs = logs;
                 this.dataSource = logs;
               },
             });
