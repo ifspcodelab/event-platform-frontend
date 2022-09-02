@@ -8,9 +8,9 @@ import { JwtService } from "../../../core/services/jwtservice.service";
 import { JwtTokensDto } from "../../../core/models/jwt-tokens.model";
 import { LoginCreateDto } from "../../../core/models/login.model";
 import { AccountRole } from "../../../core/models/account-role.model";
-import {environment} from "../../../../environments/environment";
-import {ProblemDetail} from "../../../core/models/problem-detail";
-import {NotificationService} from "../../../core/services/notification.service";
+import { environment } from "../../../../environments/environment";
+import { ProblemDetail } from "../../../core/models/problem-detail";
+import { NotificationService } from "../../../core/services/notification.service";
 
 @Component({
   selector: 'app-login',

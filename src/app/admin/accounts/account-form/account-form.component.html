@@ -48,7 +48,7 @@
   </fieldset>
 
 
-    <fieldset>
+  <fieldset>
     <mat-form-field class="modal__input__sm" >
       <mat-label>Perfil</mat-label>
       <mat-select formControlName="role" name="role" placeholder="Perfil">
@@ -59,14 +59,14 @@
     </mat-form-field>
 
 
-  <mat-form-field class="modal__input__sm" >
-    <mat-label>Status</mat-label>
-    <mat-select formControlName="status" name="status" placeholder="Status">
-      <mat-option *ngFor="let statusType of statusKeys" [value]="statusType">
-        {{statusType | accountStatus | titlecase}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-    </fieldset>
+    <mat-form-field class="modal__input__sm" >
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" name="status" placeholder="Status">
+        <mat-option *ngFor="let statusType of statusKeys" [value]="statusType">
+          {{statusType | accountStatus | titlecase}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </fieldset>
 
 </form>

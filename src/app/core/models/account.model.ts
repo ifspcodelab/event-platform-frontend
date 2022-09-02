@@ -1,5 +1,5 @@
-import {AccountRole} from "./account-role.model";
-import {AccountStatus} from "./account-status.model";
+import { AccountRole } from "./account-role.model";
+import { AccountStatus } from "./account-status.model";
 
 export interface AccountDto {
   id: string;

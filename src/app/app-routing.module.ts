@@ -12,7 +12,7 @@ import { AdminGuard } from "./core/security/admin.guard";
 import { MyDataComponent } from "./site/pages/my-data/my-data.component";
 import { MyDataEditComponent } from "./site/pages/my-data-edit/my-data-edit.component";
 import { AlterMyDataPasswordComponent } from "./site/pages/alter-my-data-password/alter-my-data-password.component";
-import {AccountDeletionComponent} from "./site/pages/account-deletion/account-deletion.component";
+import { AccountDeletionComponent } from "./site/pages/account-deletion/account-deletion.component";
 
 const routes: Routes = [
   {
