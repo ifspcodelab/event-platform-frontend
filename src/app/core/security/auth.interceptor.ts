@@ -72,16 +72,28 @@ export class AuthInterceptor implements HttpInterceptor{
           this.jwtService.storeRefreshToken(jwtDto.refreshToken);
 
           const refreshedRequest = req.clone(AuthInterceptor.addAuthorizationHeader(req, jwtDto.accessToken));
-          return next.handle(refreshedRequest);
+
+          return next.handle(refreshedRequest).pipe(
+            catchError((error) => {
+              if(error.status == 401) {
+                this.jwtService.removeAccessToken();
+                this.jwtService.removeRefreshToken();
+                this.router.navigate(['login']);
+                return throwError(() => error)
+              }
+              return throwError(() => error)
+            })
+          )
         }
       ),
-      catchError(() => {
-        this.jwtService.removeAccessToken();
-        this.jwtService.removeRefreshToken();
-
-        this.router.navigate(['login']);
-
-        return throwError(() => givenError);
+      catchError(error => {
+        if(error.status == 401 || error.error.title == "Invalid Refresh Token") {
+          this.jwtService.removeAccessToken();
+          this.jwtService.removeRefreshToken();
+          this.router.navigate(['login']);
+          return throwError(() => error)
+        }
+        return throwError(() => error)
       })
     )
   }

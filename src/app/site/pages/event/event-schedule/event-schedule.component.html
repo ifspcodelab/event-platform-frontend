@@ -1,0 +1,28 @@
+<main *ngIf="eventDto" class="event-page">
+  <h1 class="event-page__title">Programação</h1>
+  <p class="event-page__content" *ngIf="activities.length == 0">A programação deste evento ainda não foi definida.</p>
+  <section class="event-page__content" *ngIf="activities.length != 0">
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab *ngFor="let group of groupActivities | keyvalue" [label]="group.key | date:'dd/MM' : '' : 'pt-BR'" >
+        <div class="activity-list">
+          <div *ngFor="let activity of group.value | keyvalue">
+<!--            <div class="activity-card" *ngFor="let session of $any(activity).value" routerLink="/{{eventDto.slug}}/activities/{{session.activitySlug}}">-->
+            <div class="activity-card" *ngFor="let session of $any(activity).value">
+              <h2 class="activity-card__title">
+                {{ session.activityTitle }}
+                <span class="activity-card__type">{{ session.activityType | activityTypes }}</span>
+              </h2>
+              <p class="activity-card__date">
+                {{ session.sessionScheduleExecutionStart | date:'ccc' : '' : 'pt-BR' }}
+                {{ session.sessionScheduleExecutionStart | date:'HH:mm' }}
+                - {{ session.sessionScheduleExecutionEnd | date:'HH:mm' }}
+              </p>
+              <p class="activity-card__subtitle"><b>Ministrantes:</b> {{ session.speakerName }}</p>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </section>
+
+</main>

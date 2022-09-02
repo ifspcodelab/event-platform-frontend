@@ -58,7 +58,7 @@ export class SpeakerFormComponent implements OnInit {
       cpf: ['', [Validators.required, AppValidators.validCpf]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
       phoneNumber: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(15), AppValidators.notBlank]],
-      curriculum: ['', [Validators.required, Validators.minLength(150), Validators.maxLength(300), AppValidators.notBlank]],
+      curriculum: ['', [Validators.required, Validators.minLength(50), Validators.maxLength(300), AppValidators.notBlank]],
       lattes: ['', []],
       linkedin: ['', []],
     });

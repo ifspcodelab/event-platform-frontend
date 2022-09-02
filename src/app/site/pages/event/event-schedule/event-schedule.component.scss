@@ -1,0 +1,58 @@
+.activity-list {
+  margin: 20px 10px;
+  padding: 0;
+}
+
+.activity-card {
+  margin: 0 0 10px;
+  padding: 0px 0;
+  border-bottom: 1px solid #eee;
+  //cursor: pointer;
+
+  &__type {
+    display: inline;
+    margin: 0;
+    padding: 5px 10px;
+    border-radius: 100px;
+    font-size: 10px;
+    background-color: #559f90;
+    color: #FFF;
+  }
+
+  &__title {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    color: #333;
+
+    @media screen and (max-width: 750px) {
+      font-size: 16px;
+    }
+  }
+
+  &__subtitle {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: #666;
+
+    b {
+      font-weight: 500;
+    }
+
+  }
+
+  &__date {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    color: #888;
+  }
+
+  &__description {
+    margin: 0;
+    padding: 0;
+
+  }
+}
+

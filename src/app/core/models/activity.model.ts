@@ -25,28 +25,63 @@ export interface ActivityDto{
   slug: string;
   description: string;
   type: ActivityType;
+  status: EventStatusModel;
   modality: ActivityModality;
   needRegistration?: boolean;
   duration: number;
   setupTime: number;
-  status: EventStatusModel;
   cancellationMessage?: string;
-  event?: EventDto;
-  subevent?: SubeventDto;
+  event: EventDto;
+  subevent: SubeventDto;
+}
+
+export interface ActivitySiteDto {
+  activityid: string;
+  activityTitle: string;
+  activitySlug: string;
+  activityType: string;
+  activityDescription: string;
+  speakerName: string;
+  sessionTitle: string;
+  sessionScheduleId: string;
+  sessionScheduleExecutionStart: string;
+  sessionScheduleExecutionEnd: string;
+  sessionScheduleExecutionStartDate: string;
+}
+
+
+export interface SessionCreateDto{
+  title: string;
+  seats: number;
+  sessionSchedules: SessionScheduleCreateDto[];
 }
 
 export interface SessionDto{
   id: string;
   title: string;
   seats: number;
-  schedulesSession: SessionScheduleDto[];
+  cancellationMessage?: string;
+  canceled?: boolean;
+  activity?: ActivityDto;
+  sessionSchedules: SessionScheduleDto[];
 }
+
+export interface SessionScheduleCreateDto{
+  executionStart: string;
+  executionEnd: string;
+  url?: string,
+  locationId?: string;
+  areaId?: string;
+  spaceId?: string;
+}
+
 
 export interface SessionScheduleDto{
   id: string;
-  start: string;
-  end: string;
-  location: LocationDto;
+  executionStart: string;
+  executionEnd: string;
+  url?: string,
+  location?: LocationDto;
   area?: AreaDto;
   space?: SpaceDto;
 }

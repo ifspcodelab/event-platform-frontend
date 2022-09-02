@@ -7,43 +7,27 @@
     <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
   </app-admin-header>
 
-  <article class="container">
-    <p class="container__item"><b>Tipo:</b> {{ activityDto.type | activityTypes }}</p>
-    <p class="container__item"><b>Modalidade:</b> {{ activityDto.modality | activityModalities }}</p>
-    <p class="container__item"><b>Titulo:</b> {{ activityDto.title }}</p>
-    <p class="container__item"><b>Slug:</b> {{ activityDto.slug }}</p>
-    <p class="container__item"><b>Descrição:</b> {{ activityDto.description }}</p>
-    <p class="container__item"><b>Duração:</b> {{ activityDto.duration }} minutos</p>
-    <p class="container__item"><b>Tempo de Credenciamento:</b> {{ activityDto.setupTime }} minutos</p>
-    <p class="container__item"><b>Requer inscrição:</b> {{ activityDto.needRegistration ? 'Sim' : 'Não' }}</p>
-    <p class="container__item"><b>Status:</b> {{ activityDto.status | eventStatus }}</p>
-  </article>
+  <mat-tab-group mat-align-tabs="left" animationDuration="0ms" [selectedIndex]="tabSelectedIndex">
+    <mat-tab label="Dados Principais">
+      <article class="container">
+        <p class="container__item"><b>Tipo:</b> {{ activityDto.type | activityTypes }}</p>
+        <p class="container__item"><b>Modalidade:</b> {{ activityDto.modality | activityModalities }}</p>
+        <p class="container__item"><b>Titulo:</b> {{ activityDto.title }}</p>
+        <p class="container__item"><b>Slug:</b> {{ activityDto.slug }}</p>
+        <p class="container__item"><b>Descrição:</b> {{ activityDto.description }}</p>
+        <p class="container__item"><b>Duração:</b> {{ activityDto.duration }} minutos</p>
+        <p class="container__item"><b>Tempo de Credenciamento:</b> {{ activityDto.setupTime }} minutos</p>
+        <p class="container__item"><b>Requer inscrição:</b> {{ activityDto.needRegistration ? 'Sim' : 'Não' }}</p>
+        <p class="container__item"><b>Status:</b> {{ activityDto.status | eventStatus }}</p>
+      </article>
+    </mat-tab>
 
-  <app-activity-speakers [eventId]="eventId" [subeventId]="subeventId" [activityId]="activityId"></app-activity-speakers>
+    <mat-tab label="Ministrantes">
+      <app-activity-speakers [eventId]="eventId" [subeventId]="subeventId" [activityId]="activityId"></app-activity-speakers>
+    </mat-tab>
 
-  <article class="container">
-    <header class="container__header">
-      <h1 class="container__header__title">Sessões</h1>
-      <button mat-button color="primary" routerLink="sessions/new">Nova Sessão</button>
-    </header>
-
-    <p *ngIf="!sessionsDto.length">Nenhuma sessão cadastrada para a atividade</p>
-
-    <table mat-table [dataSource]="sessionsDto" *ngIf="sessionsDto.length" class="container__table">
-
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
-        <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef>Vagas</th>
-        <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSessionShow(row)"></tr>
-    </table>
-
-  </article>
+    <mat-tab label="Sessões">
+      <app-session-list [eventId]="eventId" [subeventId]="subeventId" [activityId]="activityId"></app-session-list>
+    </mat-tab>
+  </mat-tab-group>
 </div>

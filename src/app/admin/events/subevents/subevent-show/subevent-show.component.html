@@ -17,13 +17,17 @@
         <p class="container__item"><b>Status:</b> {{ subeventDto.status | eventStatus }}</p>
         <p *ngIf="subeventDto.cancellationMessage"><b>Mensagem de cancelamento:</b> {{ subeventDto.cancellationMessage }}</p>
         <h3>Datas</h3>
-        <p class="container__item"><b>Início:</b>{{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</p>
-        <p class="container__item"><b>Fim:</b>{{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Início:</b> {{ subeventDto.executionPeriod.startDate | date:'dd/MM/yyyy' }}</p>
+        <p class="container__item"><b>Fim:</b> {{ subeventDto.executionPeriod.endDate | date:'dd/MM/yyyy' }}</p>
         <h3>Imagens</h3>
         <p><b>Menor</b></p>
-        <img mat-card-image src="{{ subeventDto.smallerImage }}" width="300px">
+        <span class="container__image" >
+          <img mat-card-image src="{{ subeventDto.smallerImage }}">
+        </span>
         <p><b>Maior</b></p>
-        <img mat-card-image src="{{ subeventDto.biggerImage }}" width="300px">
+        <span class="container__image" >
+          <img mat-card-image src="{{ subeventDto.biggerImage }}">
+        </span>
       </article>
     </mat-tab>
 

@@ -1,24 +1,20 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LocationCreateDto, LocationDto } from '../models/location.model';
 import { map } from "rxjs/operators";
+import { BaseService } from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocationService {
+export class LocationService extends BaseService{
   apiUrl = `${environment.apiUrl}/locations`;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   getLocations(): Observable<LocationDto[]> {
     return this.httpClient.get<LocationDto[]>(this.apiUrl, this.httpOptions)

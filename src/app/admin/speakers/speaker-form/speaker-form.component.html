@@ -68,7 +68,7 @@
                 matInput formControlName="curriculum" rows="5" name="curriculum">
       </textarea>
       <mat-error *ngIf="fieldErrors('curriculum')?.['required']">Mini-curriculo é obrigatório</mat-error>
-      <mat-error *ngIf="fieldErrors('curriculum')?.['minlength']">Mini-curriculo deve ter no mínimo 150 caracteres</mat-error>
+      <mat-error *ngIf="fieldErrors('curriculum')?.['minlength']">Mini-curriculo deve ter no mínimo 50 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('curriculum')?.['maxlength']">Mini-curriculo deve ter no máximo 300 caracteres</mat-error>
       <mat-error *ngIf="fieldErrors('curriculum')?.['notblank']">Mini-curriculo não pode ser vazio</mat-error>
       <mat-error *ngIf="fieldErrors('curriculum')?.['serverError'] && submitted">

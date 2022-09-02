@@ -1,26 +1,21 @@
 import { AreaCreateDto } from './../models/area.model';
-import { LocationDto } from 'src/app/core/models/location.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { environment } from 'src/environments/environment';
 import { AreaDto } from '../models/area.model';
+import { BaseService } from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AreaService {
+export class AreaService extends BaseService {
   apiUrl = `${environment.apiUrl}/locations`;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   getAreas(locationId: string): Observable<AreaDto[]> {
     const url = `${this.apiUrl}/${locationId}/areas`;

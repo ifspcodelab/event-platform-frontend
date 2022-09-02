@@ -15,6 +15,6 @@ export class EventContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventDto = this.route.parent.snapshot.data['event'];
-    document.title = this.eventDto.title;
+    document.title = `${this.eventDto.title} - Contato`;
   }
 }

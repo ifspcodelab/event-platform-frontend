@@ -60,7 +60,6 @@ export class EventShowComponent implements OnInit {
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.organizerId = this.route.snapshot.paramMap.get('organizerId');
     this.fetchEvent(this.eventId);
-    this.fetchOrganizers(this.eventId);
   }
 
   fetchEvent(eventId: string) {
@@ -70,6 +69,7 @@ export class EventShowComponent implements OnInit {
         eventDto => {
           this.eventDto = eventDto;
           this.fetchSubevents(this.eventId);
+          this.fetchOrganizers(this.eventId);
         }
       );
   }
