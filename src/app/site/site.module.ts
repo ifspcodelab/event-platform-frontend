@@ -25,10 +25,10 @@ import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component
 import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { CoreModule } from "../core/core.module";
-import { AlterMyDataPasswordComponent } from './pages/alter-my-data-password/alter-my-data-password.component';
 import { SignupResendEmailComponent } from './pages/signup-resend-email/signup-resend-email.component';
 import { ForgotPasswordResendEmailComponent } from './pages/forgot-password-resend-email/forgot-password-resend-email.component';
 import { MyRegistrationComponent } from './pages/my-registration/my-registration.component';
+import { MyDataAlterPasswordComponent } from './pages/my-data-alter-password/my-data-alter-password.component';
 
 @NgModule({
   declarations: [
@@ -47,10 +47,10 @@ import { MyRegistrationComponent } from './pages/my-registration/my-registration
     AccountPageComponent,
     MyDataComponent,
     MyDataEditComponent,
-    AlterMyDataPasswordComponent,
     SignupResendEmailComponent,
     ForgotPasswordResendEmailComponent,
     MyRegistrationComponent,
+    MyDataAlterPasswordComponent,
   ],
   exports: [
     SiteHeaderComponent,

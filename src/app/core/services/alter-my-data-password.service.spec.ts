@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AlterMyDataPasswordService } from './alter-my-data-password.service';
+import { MyDataAlterPasswordService } from './my-data-alter-password.service';
 
 describe('AlterMyDataPasswordService', () => {
-  let service: AlterMyDataPasswordService;
+  let service: MyDataAlterPasswordService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AlterMyDataPasswordService);
+    service = TestBed.inject(MyDataAlterPasswordService);
   });
 
   it('should be created', () => {
