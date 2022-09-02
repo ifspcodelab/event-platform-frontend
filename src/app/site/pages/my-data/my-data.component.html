@@ -38,9 +38,9 @@
 
   <mat-tab class="my-activities" label="Minhas Atividades">
     <div class="my-activities__container">
-      <table matSort mat-table  [dataSource]="dataSource" matSortActive="no." class="mat-elevation-z0">
-        <ng-container matColumnDef="no.">
-          <th mat-header-cell *matHeaderCellDef>no.</th>
+      <table mat-table  [dataSource]="dataSource" matSortActive="no." class="mat-elevation-z0">
+        <ng-container matColumnDef="no">
+          <th mat-header-cell *matHeaderCellDef>no</th>
           <td mat-cell *matCellDef="let i = index">{{i}}</td>
         </ng-container>
 

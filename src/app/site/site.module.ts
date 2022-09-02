@@ -27,7 +27,6 @@ import { RouterModule } from "@angular/router";
 import { CoreModule } from "../core/core.module";
 import { SignupResendEmailComponent } from './pages/signup-resend-email/signup-resend-email.component';
 import { ForgotPasswordResendEmailComponent } from './pages/forgot-password-resend-email/forgot-password-resend-email.component';
-import { MyRegistrationComponent } from './pages/my-registration/my-registration.component';
 import { MyDataAlterPasswordComponent } from './pages/my-data-alter-password/my-data-alter-password.component';
 
 @NgModule({
@@ -49,7 +48,6 @@ import { MyDataAlterPasswordComponent } from './pages/my-data-alter-password/my-
     MyDataEditComponent,
     SignupResendEmailComponent,
     ForgotPasswordResendEmailComponent,
-    MyRegistrationComponent,
     MyDataAlterPasswordComponent,
   ],
   exports: [

@@ -17,7 +17,6 @@ import {
 import {
   ForgotPasswordResendEmailComponent
 } from "./site/pages/forgot-password-resend-email/forgot-password-resend-email.component";
-import { MyRegistrationComponent } from "./site/pages/my-registration/my-registration.component";
 import { MyDataAlterPasswordComponent } from "./site/pages/my-data-alter-password/my-data-alter-password.component";
 
 const routes: Routes = [
@@ -83,12 +82,6 @@ const routes: Routes = [
     component: MyDataAlterPasswordComponent,
     canActivate: [AuthGuard],
     title: 'Alterar Minha Senha - Portal de Eventos IFSP - Câmpus São Paulo',
-  },
-  {
-    path: 'minhas-inscricoes',
-    component: MyRegistrationComponent,
-    canActivate: [AuthGuard],
-    title: 'Minhas Inscrições - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'admin',
