@@ -8,8 +8,8 @@ import { BaseService } from "./base.service";
 @Injectable({
   providedIn: 'root'
 })
-export class RegistrationService extends BaseService {
-  apiUrl = `${environment.apiUrl}/accounts/registration`;
+export class SignupService extends BaseService {
+  apiUrl = `${environment.apiUrl}/accounts/signup`;
 
   constructor(private httpClient: HttpClient) {
     super();
@@ -24,5 +24,9 @@ export class RegistrationService extends BaseService {
     return this.httpClient.patch<AccountDto>(url, null, this.httpOptionsSkipInterceptor);
   }
 
-
+  postEmail(resendEmail: string): Observable<AccountDto> {
+    const url = `${this.apiUrl}/resend-email`;
+    return this.httpClient.post<AccountDto>(url, resendEmail, this.httpOptionsSkipInterceptor)
+  }
 }
+

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RegistrationService } from 'src/app/core/services/registration.service';
+import { SignupService } from 'src/app/core/services/signup.service';
 import { first } from 'rxjs';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { AccountCreateDto } from "../../../core/models/account.model";
@@ -11,11 +11,11 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { environment } from "../../../../environments/environment";
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class RegistrationComponent implements OnInit {
+export class SignupComponent implements OnInit {
   form: FormGroup = this.buildForm();
   userReCaptcha: string | undefined = '';
   hide: boolean = true;
@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnInit {
   recaptchaErrorMessage: string | null = null;
 
   constructor(
-    private registrationService: RegistrationService,
+    private registrationService: SignupService,
     private formBuilder: FormBuilder,
     private router: Router,
     private notificationService: NotificationService,
@@ -37,7 +37,9 @@ export class RegistrationComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(256), AppValidators.validName()]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
       cpf: ['', [Validators.required, AppValidators.validCpf()]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64),
+        AppValidators.hasNumber(), AppValidators.hasCapitalCase(), AppValidators.hasLowerCase(),
+        AppValidators.hasSpecialCharacter(), AppValidators.validPassword()]],
       agreed: ['', [Validators.requiredTrue]]
     });
   }
@@ -74,7 +76,8 @@ export class RegistrationComponent implements OnInit {
       .subscribe({
         next: () => {
           this.notificationService.success("Por favor, acesse o e-mail cadastrado para confirmar o cadastro");
-          this.router.navigate(['login']);
+          localStorage.setItem('email', this.form.value['email']);
+          this.router.navigate(['cadastro','reenviar-email'], {state: this.form.value['email']});
         },
         error: error => {
           this.handleError(error)
@@ -128,6 +131,10 @@ export class RegistrationComponent implements OnInit {
 
   openNewWindowToTerms() {
     window.open("/termos");
+  }
+
+  markAsTouched(field: string): void {
+    this.field(field)?.markAsTouched();
   }
 }
 

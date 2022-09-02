@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrationVerifyComponent } from './registration-verify.component';
+import { SignupVerifyComponent } from './signup-verify.component';
 
 describe('RegistrationVerifyComponent', () => {
-  let component: RegistrationVerifyComponent;
-  let fixture: ComponentFixture<RegistrationVerifyComponent>;
+  let component: SignupVerifyComponent;
+  let fixture: ComponentFixture<SignupVerifyComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RegistrationVerifyComponent ]
+      declarations: [ SignupVerifyComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RegistrationVerifyComponent);
+    fixture = TestBed.createComponent(SignupVerifyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

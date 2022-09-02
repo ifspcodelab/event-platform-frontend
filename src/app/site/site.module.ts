@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './pages/home/home.component';
-import { RegistrationComponent } from './pages/registration/registration.component';
+import { SignupComponent } from './pages/signup/signup.component';
 import { SiteHeaderComponent } from './components/site-header/site-header.component';
 import { SiteFooterComponent } from './components/site-footer/site-footer.component';
 import { SiteCardComponent } from './components/site-card/site-card.component';
@@ -11,7 +11,7 @@ import { RecaptchaFormsModule, RecaptchaModule } from "ng-recaptcha";
 import { NgxMaskModule } from "ngx-mask";
 import { LoginComponent } from "./pages/login/login.component";
 import { TermsComponent } from './pages/terms/terms.component';
-import { RegistrationVerifyComponent } from "./pages/registration-verify/registration-verify.component";
+import { SignupVerifyComponent } from "./pages/signup-verify/signup-verify.component";
 import { AccountPageComponent } from './components/account-page/account-page.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -25,33 +25,37 @@ import { MyDataEditComponent } from './pages/my-data-edit/my-data-edit.component
 import { SharedModule } from "../shared/shared.module";
 import { RouterModule } from "@angular/router";
 import { CoreModule } from "../core/core.module";
-import { AlterMyDataPasswordComponent } from './pages/alter-my-data-password/alter-my-data-password.component';
+import { SignupResendEmailComponent } from './pages/signup-resend-email/signup-resend-email.component';
+import { ForgotPasswordResendEmailComponent } from './pages/forgot-password-resend-email/forgot-password-resend-email.component';
+import { MyDataAlterPasswordComponent } from './pages/my-data-alter-password/my-data-alter-password.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    RegistrationComponent,
+    SignupComponent,
     SiteHeaderComponent,
     SiteFooterComponent,
     SiteCardComponent,
     EventHeaderComponent,
     ForgotPasswordComponent,
     PasswordResetComponent,
-    RegistrationComponent,
+    SignupComponent,
     LoginComponent,
     TermsComponent,
-    RegistrationVerifyComponent,
+    SignupVerifyComponent,
     AccountPageComponent,
     MyDataComponent,
     MyDataEditComponent,
-    AlterMyDataPasswordComponent,
+    SignupResendEmailComponent,
+    ForgotPasswordResendEmailComponent,
+    MyDataAlterPasswordComponent,
   ],
   exports: [
     SiteHeaderComponent,
     SiteFooterComponent,
     SiteCardComponent,
     EventHeaderComponent,
-    RegistrationComponent,
+    SignupComponent,
     LoginComponent,
     AccountPageComponent
   ],

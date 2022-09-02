@@ -1,4 +1,4 @@
-import {AccountRole} from "./account-role.model";
+import { AccountRole } from "./account-role.model";
 
 export interface AccountDto {
   id: string;
@@ -64,3 +64,4 @@ export interface AccountUpdateDto {
   role: AccountRole;
   verified: boolean;
 }
+

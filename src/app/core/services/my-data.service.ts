@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { AccountCreateDto, AccountDto, MyDataDto } from "../models/account.model";
+import { AccountDto, MyDataDto } from "../models/account.model";
 import { BaseService } from "./base.service";
+import { LogDto } from "../models/log.model";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,11 @@ export class MyDataService extends BaseService{
   getAccount(): Observable<AccountDto> {
     const url = `${this.apiUrl}/my-data`;
     return this.httpClient.get<AccountDto>(url, this.httpOptions);
+  }
+
+  getLogs(): Observable<LogDto[]> {
+    const url = `${this.apiUrl}/my-data/logs`;
+    return this.httpClient.get<LogDto[]>(url, this.httpOptions);
   }
 
   patchAccount(myDataDto: MyDataDto): Observable<AccountDto> {
