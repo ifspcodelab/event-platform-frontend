@@ -82,39 +82,6 @@ export class SessionFormComponent implements OnInit {
       .subscribe(activityDto => this.activityDto = activityDto)
   }
 
-  fetchEventSession() {
-    this.loadFormData();
-  }
-
-  fetchSubEventSession() {
-    this.loadFormData();
-  }
-
-  loadFormData() {
-    console.log(this.form);
-    this.form.patchValue(this.sessionDto);
-
-    this.sessionDto.sessionSchedules.forEach((sessionsSchedule, index) => {
-      this.formData[index] = { locationId: sessionsSchedule.location.id, areasDto: [], spacesDto: [] }
-
-      const scheduleFormGroup = this.buildScheduleFormGroup()
-
-      scheduleFormGroup.get("locationId").setValue(sessionsSchedule.location.id);
-
-      this.fetchArea(sessionsSchedule.location.id, index);
-
-      if(sessionsSchedule.area) {
-        scheduleFormGroup.get("areaId").setValue(sessionsSchedule.area.id);
-        this.fetchSpace(sessionsSchedule.location.id, sessionsSchedule.area.id, index);
-      }
-
-      if(sessionsSchedule.space) {
-        scheduleFormGroup.get("spaceId").setValue(sessionsSchedule.space.id);
-      }
-      this.sessionSchedules.push(scheduleFormGroup);
-    })
-  }
-
   fetchSubEventActivity() {
     this.activityService.getSubEventActivity(this.eventId, this.subeventId, this.activityId)
       .pipe(first())
@@ -150,14 +117,14 @@ export class SessionFormComponent implements OnInit {
 
     return this.formBuilder.group({
       title: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(1), Validators.maxLength(30)]],
-      seats: ['', [Validators.required, Validators.min(1)]],
+      seats: ['0', [Validators.required, Validators.min(0)]],
       sessionSchedules:  sessionSchedulesArray
     });
   }
 
   private buildScheduleFormGroup() {
     return this.formBuilder.group({
-      locationId: ['', [Validators.required]],
+      locationId: ['',],
       areaId: [''],
       spaceId: [''],
       url: [''],
@@ -206,11 +173,10 @@ export class SessionFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.form);
-    console.log(this.form.value);
-    // if(this.form.invalid) {
-    //   return;
-    // }
+
+    if(this.form.invalid) {
+      return;
+    }
 
     if(this.createMode) {
       this.createSession();
@@ -257,6 +223,7 @@ export class SessionFormComponent implements OnInit {
     if(error instanceof HttpErrorResponse) {
       if(error.status === 400) {
         const violations: Violation[] = error.error;
+        this.notificationService.error(violations[0].name  + " " +  violations[0].message);
         violations.forEach(violation => {
           const formControl = this.form.get(violation.name);
           if(formControl) {
@@ -281,8 +248,6 @@ export class SessionFormComponent implements OnInit {
       }
     }
   }
-
-
 
   field(path: string) {
     return this.form.get(path)!;

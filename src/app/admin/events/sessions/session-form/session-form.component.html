@@ -115,7 +115,7 @@
 
           <mat-form-field class="form-field-lg">
             <mat-label>URL</mat-label>
-            <mat-hint>Para atividades na modalidade Online Híbrida.</mat-hint>
+            <mat-hint>Para atividades na modalidade Online ou Híbrida. Ex: https://www.site.com</mat-hint>
             <input matInput formControlName="url" name="url">
             <mat-error *ngIf="fieldErrors('url')?.['required']">URL é obrigatório para atividades online</mat-error>
             <mat-error *ngIf="fieldErrors('url')?.['serverError'] && submitted">

@@ -1,8 +1,7 @@
 <div *ngIf="sessionDto">
   <app-admin-header title="Sessão Matutino" (backLink)="backLink()">
-    <button mat-button color="primary" (click)="openCancelDialog()">Cancelar</button>
-    <button mat-button color="primary" routerLink="edit">Editar</button>
-    <button mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+    <button *ngIf="!sessionDto.canceled" mat-button color="primary" (click)="openCancelDialog()">Cancelar</button>
+    <button *ngIf="!sessionDto.canceled"mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
 
   </app-admin-header>
 
@@ -11,6 +10,7 @@
       <article class="container">
         <p class="container__item"><b>Título:</b> {{ sessionDto.title }}</p>
         <p class="container__item"><b>Número de Vagas:</b> {{ sessionDto.seats }}</p>
+        <p class="container__item"><b>Status:</b> {{ sessionDto.canceled ? 'Cancelada' : ''}}</p>
         <p class="container__item"><b>Horários:</b></p>
         <mat-card *ngFor="let sessionSchedule of sessionDto.sessionSchedules">
           <p>
@@ -36,6 +36,18 @@
 
       </article>
     </mat-tab>
+<!--    <mat-tab label="Inscrições">-->
+
+<!--    </mat-tab>-->
+<!--    <mat-tab label="Horário 1">-->
+
+<!--    </mat-tab>-->
+<!--    <mat-tab label="Horário 2">-->
+
+<!--    </mat-tab>-->
+<!--    <mat-tab label="Horário N">-->
+
+<!--    </mat-tab>-->
   </mat-tab-group>
 
 </div>

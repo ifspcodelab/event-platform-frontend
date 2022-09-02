@@ -27,7 +27,6 @@ export class SessionShowComponent implements OnInit {
   sessionId: string;
   sessionDto: SessionDto = null;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
-  sessionSchedulesDto: SessionScheduleDto[] = []
 
   constructor(
     private sessionService: SessionService,
@@ -64,7 +63,6 @@ export class SessionShowComponent implements OnInit {
       .pipe(first())
       .subscribe(sessionDto => {
         this.sessionDto = sessionDto;
-        console.log(this.sessionDto)
       })
   }
 
