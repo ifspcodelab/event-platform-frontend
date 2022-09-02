@@ -37,7 +37,9 @@ export class SignupComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(256), AppValidators.validName()]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
       cpf: ['', [Validators.required, AppValidators.validCpf()]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64), AppValidators.validPassword()]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64),
+        AppValidators.hasNumber(), AppValidators.hasCapitalCase(), AppValidators.hasLowerCase(),
+        AppValidators.hasSpecialCharacter(), AppValidators.validPassword()]],
       agreed: ['', [Validators.requiredTrue]]
     });
   }
@@ -129,6 +131,10 @@ export class SignupComponent implements OnInit {
 
   openNewWindowToTerms() {
     window.open("/termos");
+  }
+
+  markAsTouched(field: string): void {
+    this.field(field)?.markAsTouched();
   }
 }
 

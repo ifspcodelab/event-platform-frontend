@@ -8,16 +8,16 @@ a {
   width: 100%;
 }
 
-mat-form-field {
-  padding-bottom: 17px;
-}
+//mat-form-field {
+//  padding-bottom: 17px;
+//}
 
 .visibility {
   scale: 1.5;
 }
 
 .terms {
-  margin: 20px 0 0 0;
+  margin: 15px 0 0 0;
   text-align: left;
 }
 
@@ -59,4 +59,39 @@ re-captcha {
 
 .button-white {
   color: #FFFFFF;
+}
+
+.mat-hint__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-hint, .mat-error .mat-error {
+  display: flex;
+}
+
+.mat-hint .mat-icon, .mat-error .mat-icon {
+  margin-right: 2px;
+}
+
+.mat-error {
+  color: #bc544b;
+}
+
+:host ::ng-deep .mat-form-field-subscript-wrapper {
+  position: static;
+  transition: 2s;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+  margin: 0 !important;
+  padding-bottom: 15px;
+}
+
+:host ::ng-deep .mat-form-field-wrapper.ng-tns-c89-3 {
+  padding-bottom: 0;
+}
+
+.password__check {
+  scale: 1.7;
 }

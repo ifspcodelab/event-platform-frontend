@@ -5,15 +5,19 @@
       <input matInput formControlName="name" name="name">
       <mat-error *ngIf="field('name').invalid && (field('name').dirty || field('name').touched)">
         <mat-error class="error-message" *ngIf="fieldErrors('name')?.['required']">
+          <mat-icon>priority_high</mat-icon>
           Nome é obrigatório
         </mat-error>
         <mat-error *ngIf="fieldErrors('name')?.['validname']">
+          <mat-icon>priority_high</mat-icon>
           Nome deve ser completo com nome e sobrenome
         </mat-error>
         <mat-error *ngIf="fieldErrors('name')?.['minlength']">
+          <mat-icon>priority_high</mat-icon>
           Nome deve ter no mínimo 5 caracteres
         </mat-error>
         <mat-error *ngIf="fieldErrors('name')?.['maxlength']">
+          <mat-icon>priority_high</mat-icon>
           Nome deve ter no máximo 256 caracteres
         </mat-error>
       </mat-error>
@@ -21,17 +25,20 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>E-mail</mat-label>
+      <mat-label>Email</mat-label>
       <input matInput formControlName="email" name="email">
       <mat-error *ngIf="field('email').invalid && (field('email').dirty || field('email').touched)">
         <mat-error *ngIf="fieldErrors('email')?.['required']">
-          E-mail é obrigatório
+          <mat-icon>priority_high</mat-icon>
+          Email é obrigatório
         </mat-error>
         <mat-error *ngIf="fieldErrors('email')?.['email']">
-          E-mail deve ser válido. Será utilizado para validação do cadastro e comunicação
+          <mat-icon>priority_high</mat-icon>
+          Email deve ser válido. Será utilizado para validação do cadastro e comunicação
         </mat-error>
         <mat-error *ngIf="fieldErrors('email')?.['maxlength']">
-          E-mail deve ter no máximo 350 caracteres
+          <mat-icon>priority_high</mat-icon>
+          Email deve ter no máximo 350 caracteres
         </mat-error>
         <mat-error *ngIf="fieldErrors('email')?.['serverError']">
           {{ fieldErrors('email')?.['serverError'] }}
@@ -45,9 +52,11 @@
       <input placeholder="123.456.789-01" mask="000.000.000-00" matInput formControlName="cpf" name="cpf">
       <mat-error *ngIf="field('cpf').invalid && (field('cpf').dirty || field('cpf').touched)">
         <mat-error *ngIf="fieldErrors('cpf')?.['required']">
+          <mat-icon>priority_high</mat-icon>
           CPF é obrigatório
         </mat-error>
         <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">
+          <mat-icon>priority_high</mat-icon>
           CPF deve ser válido
         </mat-error>
         <mat-error *ngIf="fieldErrors('cpf')?.['serverError']">
@@ -59,26 +68,42 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Senha</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password">
+      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password" (click)="markAsTouched('password')">
       <button class="visibility" type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon color="primary">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </button>
       <mat-error *ngIf="field('password').invalid && (field('password').dirty || field('password').touched)">
         <mat-error *ngIf="fieldErrors('password')?.['required']">
+          <mat-icon>priority_high</mat-icon>
           Senha é obrigatória
         </mat-error>
-        <mat-error *ngIf="fieldErrors('password')?.['minlength']">
-          Senha deve ter 8 caracteres no mínimo
+        <mat-error *ngIf="(fieldErrors('password')?.['minlength'] || fieldErrors('password')?.['required'])">
+          <mat-icon>priority_high</mat-icon>
+          8 caracteres no mínimo
         </mat-error>
         <mat-error *ngIf="fieldErrors('password')?.['maxlength']">
-          Senha deve ter 64 caracteres no máximo
+          <mat-icon>priority_high</mat-icon>
+          64 caracteres no máximo
         </mat-error>
-        <mat-error *ngIf="fieldErrors('password')?.['validpassword']">
-          Senha deve ser válida. Entre 8 e 64 caracteres. No mínimo uma letra minúscula e uma maiúscula, um número e um caractere especial
+        <mat-error *ngIf="fieldErrors('password')?.['hasnumber']">
+          <mat-icon>priority_high</mat-icon>
+          falta um número
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('password')?.['haslowercase']">
+          <mat-icon>priority_high</mat-icon>
+          falta uma letra minúscula
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('password')?.['hascapitalcase']">
+          <mat-icon>priority_high</mat-icon>
+          falta uma letra maiúscula
+        </mat-error>
+        <mat-error *ngIf="fieldErrors('password')?.['hasspecialcharacter']">
+          <mat-icon>priority_high</mat-icon>
+          falta um caractere especial
         </mat-error>
       </mat-error>
       <mat-hint align="start" *ngIf="fieldErrors('password')?.['validpassword']">A senha deve ter entre 8 e 64 caracteres e, no mínimo, uma letra minúscula, uma maiúscula, um número e um caractere especial</mat-hint>
-      <mat-hint style="color:#4caf50" align="start" *ngIf="!fieldErrors('password')?.['validpassword']">Senha válida</mat-hint>
+      <mat-hint style="color:#4caf50" align="start" *ngIf="!fieldErrors('password')?.['validpassword']"><mat-icon class="password__check">check</mat-icon></mat-hint>
     </mat-form-field>
 
     <p class="terms">Antes de confirmar seu cadastro você deve ler com atenção os Termos de uso</p>

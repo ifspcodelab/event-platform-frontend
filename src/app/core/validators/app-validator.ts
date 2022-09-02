@@ -53,4 +53,41 @@ export class AppValidators {
         : null;
     };
   }
+
+  static hasNumber(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valid = /\d/.test(control.value);
+      return !valid
+        ? { hasnumber: true }
+        : null;
+    };
+  }
+
+  static hasLowerCase(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valid = /[a-z]/.test(control.value);
+      return !valid
+        ? { haslowercase: true }
+        : null;
+    };
+  }
+
+  static hasCapitalCase(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valid = /[A-Z]/.test(control.value);
+      return !valid
+        ? { hascapitalcase: true }
+        : null;
+    };
+  }
+
+  static hasSpecialCharacter(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const valid = /[\W_]/.test(control.value);
+      return !valid
+        ? { hasspecialcharacter: true }
+        : null;
+    };
+  }
+
 }
