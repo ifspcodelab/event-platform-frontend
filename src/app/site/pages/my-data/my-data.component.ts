@@ -15,7 +15,7 @@ import { LogDto } from "../../../core/models/log.model";
 export class MyDataComponent implements OnInit {
   accountDto: AccountDto;
   dataSource: LogDto[];
-  displayedColumns: string[] = ['createdAt', 'resourceData'];
+  displayedColumns: string[] = ['no.', 'createdAt', 'resourceData'];
 
   constructor(
     private router: Router,

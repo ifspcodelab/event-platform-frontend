@@ -1,3 +1,16 @@
+.my-data__greetings, h1 {
+  margin: 10px;
+}
+
+.my-data__container {
+  padding: 20px;
+  max-width: 800px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -7,10 +20,10 @@ table {
 td {
   border: none;
   text-align: center;
-  padding: 8px;
+  padding: 10px;
 }
 
-tr:nth-child(odd) {
+.my-data__table > tr:nth-child(odd) {
   background-color: #93E9BE;
 }
 
@@ -42,31 +55,49 @@ tr:nth-child(odd) {
   width: 100%;
 }
 
-.container__table {
+.my-activities__container{
   overflow: auto;
   height: 337px;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  padding: 20px;
 }
 
-.container__table::-webkit-scrollbar {
+.my-activities__container::-webkit-scrollbar {
   display: none;
 }
 
-.container__table th{
+.my-activities__container th{
+  border-bottom: 2px solid black;
+}
+
+.mat-row:nth-child(2n+1){
   background-color: #93E9BE;
 }
 
-.mat-elevation-z8 * {
+.mat-elevation-z0 {
+  max-width: 800px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.mat-elevation-z0 * {
   text-align: center;
   vertical-align: center;
   border: none;
-  border-bottom: 1px solid black;
   padding: 0 !important;
 }
 
-.mat-elevation-z8 ng-container:nth-child(even) {
-  background-color: #ccc;
+td.mat-cell{
+  border-bottom-style: none;
+}
+
+th.mat-header-cell{
+  border-bottom-style: none;
 }
 
 mat-card-actions {
