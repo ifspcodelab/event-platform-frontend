@@ -7,6 +7,7 @@ import { OrganizerService } from "../../../../core/services/organizer.service";
 import { OrganizerSubeventService } from "../../../../core/services/organizer-subevent.service";
 import { first } from "rxjs";
 import { OrganizerDto, OrganizerSiteDto } from "../../../../core/models/organizer.model";
+import { SiteService } from "../../../services/site.service";
 
 @Component({
   selector: 'app-event-organizers',
@@ -20,11 +21,11 @@ export class EventOrganizersComponent implements OnInit {
   organizers: OrganizerSiteDto[] = [];
   groupOrganizers: any[] = [];
   Object = Object;
+  loading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
-    private organizerEventService: OrganizerService,
-    private organizerSubEventService: OrganizerSubeventService,
+    private siteService: SiteService,
 
   ) {
     this.eventDto = this.route.parent.snapshot.data['event'];
@@ -44,25 +45,27 @@ export class EventOrganizersComponent implements OnInit {
   }
 
   private fetchEventOrganizers() {
-    this.organizerEventService.getOrganizersForSite(this.eventDto.id)
+    this.siteService.getOrganizers(this.eventDto.id)
       .pipe(first())
       .subscribe({
         next: organizers => {
           this.organizers = organizers
           this.groupOrganizers = this.groupOrganizersReduce(this.organizers);
           document.title = `${this.eventDto.title} - Organização`;
+          this.loading = false;
         }
       })
   }
 
   private fetchSubEventOrganizers() {
-    this.organizerSubEventService.getOrganizersSubeventForSite(this.eventDto.id, this.subeventDto.id)
+    this.siteService.getOrganizersSubevent(this.eventDto.id, this.subeventDto.id)
       .pipe(first())
       .subscribe({
         next: organizers => {
           this.organizers = organizers
           this.groupOrganizers = this.groupOrganizersReduce(this.organizers);
           document.title = `${this.eventDto.title} - ${this.subeventDto.title} - Organização`;
+          this.loading = false;
         }
       })
   }

@@ -3,8 +3,6 @@ import { SpaceDto } from "./space.model";
 import { AreaDto } from "./area.model";
 import { LocationDto } from "./location.model";
 import { ActivityType } from "./activity-type.model";
-import { EventDto } from "./event.model";
-import { SubeventDto } from "./subevent.model";
 import { ActivityModality } from "./activity-modality.model";
 
 export interface ActivityCreateDto{
@@ -31,8 +29,6 @@ export interface ActivityDto{
   duration: number;
   setupTime: number;
   cancellationMessage?: string;
-  event: EventDto;
-  subevent: SubeventDto;
 }
 
 export interface ActivitySiteDto {
@@ -47,6 +43,7 @@ export interface ActivitySiteDto {
   sessionScheduleExecutionStart: string;
   sessionScheduleExecutionEnd: string;
   sessionScheduleExecutionStartDate: string;
+  speakers: string[];
 }
 
 
@@ -62,7 +59,6 @@ export interface SessionDto{
   seats: number;
   cancellationMessage?: string;
   canceled?: boolean;
-  activity?: ActivityDto;
   sessionSchedules: SessionScheduleDto[];
 }
 

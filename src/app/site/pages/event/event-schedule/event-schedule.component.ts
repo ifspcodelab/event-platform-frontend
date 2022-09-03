@@ -6,6 +6,7 @@ import { ActivityService } from "../../../../core/services/activity.service";
 import { first } from "rxjs";
 import { SubeventDtoResolved } from "../../../../core/resolvers/subevent.resolver";
 import { SubeventDto } from "../../../../core/models/subevent.model";
+import { SiteService } from "../../../services/site.service";
 
 @Component({
   selector: 'app-event-schedule',
@@ -19,10 +20,11 @@ export class EventScheduleComponent implements OnInit {
   activities: ActivitySiteDto[] = [];
   groupActivities: any[] = [];
   Object = Object;
+  loading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
-    private activityService: ActivityService
+    private siteService: SiteService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,7 @@ export class EventScheduleComponent implements OnInit {
 
 
   fetchEventActivities() {
-    this.activityService.getEventActivitiesForSite(this.eventDto.id)
+    this.siteService.getEventActivities(this.eventDto.id)
       .pipe(
         first()
       )
@@ -49,11 +51,12 @@ export class EventScheduleComponent implements OnInit {
         this.activities = activities;
         this.groupActivities = this.groupActivitiesReduce(activities);
         document.title = `${this.eventDto.title} - Programação`;
+        this.loading = false;
       });
   }
 
   fetchSubEventActivities() {
-    this.activityService.getSubEventActivitiesForSite(this.eventDto.id, this.subeventDto.id)
+    this.siteService.getSubEventActivities(this.eventDto.id, this.subeventDto.id)
       .pipe(
         first()
       )
@@ -61,6 +64,7 @@ export class EventScheduleComponent implements OnInit {
         this.activities = activities;
         this.groupActivities = this.groupActivitiesReduce(activities);
         document.title = `${this.eventDto.title} - ${this.subeventDto.title} - Programação`;
+        this.loading = false;
       });
   }
 

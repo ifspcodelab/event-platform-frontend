@@ -21,10 +21,6 @@ export class OrganizerService extends BaseService {
     return this.httpClient.get<OrganizerDto[]>(`${this.apiUrl}/${eventId}/organizers`, this.httpOptions);
   }
 
-  getOrganizersForSite(eventId: string): Observable<OrganizerSiteDto[]> {
-    return this.httpClient.get<OrganizerSiteDto[]>(`${this.apiUrl}/${eventId}/organizers/for-site`, this.httpOptionsSkipInterceptor);
-  }
-
   postOrganizer(eventId: string, accountId: string, organizerCreateDto: OrganizerCreateDto): Observable<OrganizerDto> {
     return this.httpClient.post<OrganizerDto>(`${this.apiUrl}/${eventId}/organizers`, organizerCreateDto, this.httpOptions);
   }

@@ -22,16 +22,6 @@ export class ActivityService extends BaseService{
     return this.httpClient.get<ActivityDto[]>(url, this.httpOptions);
   }
 
-  getEventActivitiesForSite(eventId: string): Observable<ActivitySiteDto[]> {
-    const url = `${this.apiUrl}/events/${eventId}/activities/for-site`;
-    return this.httpClient.get<ActivitySiteDto[]>(url, this.httpOptionsSkipInterceptor);
-  }
-
-  getSubEventActivitiesForSite(eventId: string, subeventId: string): Observable<ActivitySiteDto[]> {
-    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/for-site`;
-    return this.httpClient.get<ActivitySiteDto[]>(url, this.httpOptionsSkipInterceptor);
-  }
-
   getSubEventActivities(eventId: string, subeventId: string): Observable<ActivityDto[]> {
     const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities`;
     return this.httpClient.get<ActivityDto[]>(url, this.httpOptions);

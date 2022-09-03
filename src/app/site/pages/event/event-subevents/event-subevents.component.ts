@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { SubeventService } from "../../../../core/services/subevent.service";
 import { EventDto } from "../../../../core/models/event.model";
 import { SubeventDto } from "../../../../core/models/subevent.model";
+import { SiteService } from "../../../services/site.service";
 
 
 @Component({
@@ -13,10 +13,11 @@ import { SubeventDto } from "../../../../core/models/subevent.model";
 export class EventSubeventsComponent implements OnInit {
   eventDto: EventDto;
   subeventsDto: SubeventDto[];
+  loading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
-    private subeventService: SubeventService,
+    private siteService: SiteService,
   ) { }
 
   ngOnInit(): void {
@@ -25,10 +26,11 @@ export class EventSubeventsComponent implements OnInit {
   }
 
   fetchSubevents(eventId: string) {
-    this.subeventService.getSubevents(eventId)
+    this.siteService.getSubevents(this.eventDto.slug)
       .subscribe(subevents => {
         this.subeventsDto = subevents;
         document.title = `${this.eventDto.title} - Subeventos`;
+        this.loading = false;
       });
   }
 }

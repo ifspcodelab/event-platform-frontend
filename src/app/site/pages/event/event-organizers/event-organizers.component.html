@@ -1,4 +1,4 @@
-<main *ngIf="eventDto" class="event-page">
+<main *ngIf="!loading" class="event-page">
   <h1 class="event-page__title">Organização</h1>
   <section class="event-page__content" >
     <div *ngFor="let group of groupOrganizers | keyvalue">
