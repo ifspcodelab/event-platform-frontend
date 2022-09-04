@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {RegistrationStatus} from "../../../../../core/models/registration.status";
 import {SessionDto} from "../../../../../core/models/activity.model";
 import {SpaceType} from "../../../../../core/models/spaceType.model";
+import {RegistrationDto} from "../../../../../core/models/registration.model";
+import {RegistrationService} from "../../../../../core/services/registration.service";
+import {first} from "rxjs";
 
 @Component({
   selector: 'app-attendance-list',
@@ -11,7 +14,9 @@ import {SpaceType} from "../../../../../core/models/spaceType.model";
 export class AttendanceListComponent implements OnInit {
   @Input()
   sessionId: string;
-  displayedColumns: string[] = ['user', 'status'];
+  displayedColumns: string[] = ['present', 'user', 'status'];
+  checked = false;
+  registrationsDto: RegistrationDto[] = [];
 
   enrolledsDto: any[] = [
     {
@@ -42,10 +47,17 @@ export class AttendanceListComponent implements OnInit {
     ]
   }
 
-  constructor() { }
+  constructor(private registrationService: RegistrationService) { }
 
-  ngOnInit(): void {
-    console.log(this.enrolledsDto);
+  fetchRegistrations() {
+    this.registrationService.getEventRegistrations("", "", this.sessionId)
+      .pipe(first())
+      .subscribe({
+        next: value => this.registrationsDto = value
+      })
   }
 
+  ngOnInit(): void {
+    this.fetchRegistrations();
+  }
 }

@@ -1,1 +1,41 @@
-<p>attendance-list works!</p>
+<div *ngIf="sessionDto.schedulesSession">
+  <mat-list>
+    <mat-list-item>
+      <p><b>Id:</b> {{ sessionDto.schedulesSession }}</p>
+    </mat-list-item>
+    <mat-list-item>
+      <p><b>Local/Área/Espaço:</b> {{ sessionDto.schedulesSession}}</p>
+    </mat-list-item>
+  </mat-list>
+
+  <article class="container">
+    <header class="header">
+      <h1 class="header__title">Lista de Presença</h1>
+      <mat-checkbox [(ngModel)]="checked">Selecionar Todos</mat-checkbox>
+    </header>
+
+<!--    <p *ngIf="!registrationsDto">Nenhum inscrito cadastrado</p>-->
+
+    <table mat-table [dataSource]="registrationsDto" *ngIf="registrationsDto.length"  class="container__table">
+
+      <ng-container matColumnDef="present">
+        <th mat-header-cell *matHeaderCellDef>Presente</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [(ngModel)]="checked"></mat-checkbox>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let element">{{ element.account.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">{{ element.registrationStatus }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="container__line"></tr>
+    </table>
+  </article>
+</div>

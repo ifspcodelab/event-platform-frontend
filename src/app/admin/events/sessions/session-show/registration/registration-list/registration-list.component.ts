@@ -1,6 +1,5 @@
 import { SessionDto } from './../../../../../../core/models/activity.model';
 import { Component, Input, OnInit } from '@angular/core';
-import { RegistrationStatus } from 'src/app/core/models/registration.status';
 import { SpaceType } from 'src/app/core/models/spaceType.model';
 import {RegistrationService} from "../../../../../../core/services/registration.service";
 import {RegistrationDto} from "../../../../../../core/models/registration.model";
@@ -47,5 +46,4 @@ export class RegistrationListComponent implements OnInit {
         next: value => this.registrationsDto = value
       })
   }
-
 }
