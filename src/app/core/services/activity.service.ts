@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { ActivityCreateDto, ActivityDto, ActivitySiteDto, SessionScheduleDto } from "../models/activity.model";
-import { EventStatusModel } from "../models/event-status.model";
-import { CancellationMessageCreateDto, EventCreateDto, EventDto } from "../models/event.model";
+import { HttpClient } from "@angular/common/http";
+import { ActivityCreateDto, ActivityDto } from "../models/activity.model";
+import { CancellationMessageCreateDto } from "../models/event.model";
 import { BaseService } from "./base.service";
 
 @Injectable({

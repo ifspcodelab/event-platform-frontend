@@ -31,19 +31,27 @@ export interface ActivityDto{
   cancellationMessage?: string;
 }
 
-export interface ActivitySiteDto {
-  activityid: string;
+export interface SessionsGroupByDate {
+  day: string;
+  sessions: SessionSiteDto[];
+}
+
+export interface SessionSiteDto {
+  eventId: string;
+  subEventId: string;
+  activityId: string;
   activityTitle: string;
   activitySlug: string;
   activityType: string;
+  activityModality: string;
   activityDescription: string;
-  speakerName: string;
+  speakers: string[];
+  sessionId: string;
   sessionTitle: string;
   sessionScheduleId: string;
   sessionScheduleExecutionStart: string;
   sessionScheduleExecutionEnd: string;
   sessionScheduleExecutionStartDate: string;
-  speakers: string[];
 }
 
 

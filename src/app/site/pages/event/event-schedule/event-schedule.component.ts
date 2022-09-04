@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventDto } from "../../../../core/models/event.model";
 import { ActivatedRoute } from "@angular/router";
-import { ActivitySiteDto } from "../../../../core/models/activity.model";
-import { ActivityService } from "../../../../core/services/activity.service";
+import { SessionsGroupByDate } from "../../../../core/models/activity.model";
 import { first } from "rxjs";
 import { SubeventDtoResolved } from "../../../../core/resolvers/subevent.resolver";
 import { SubeventDto } from "../../../../core/models/subevent.model";
@@ -17,7 +16,7 @@ export class EventScheduleComponent implements OnInit {
   eventDto: EventDto;
   subeventDto: SubeventDto;
   eventMode: boolean = true;
-  activities: ActivitySiteDto[] = [];
+  sessionsGroupByDates: SessionsGroupByDate[] = [];
   groupActivities: any[] = [];
   Object = Object;
   loading: boolean = true;
@@ -47,9 +46,8 @@ export class EventScheduleComponent implements OnInit {
       .pipe(
         first()
       )
-      .subscribe(activities => {
-        this.activities = activities;
-        this.groupActivities = this.groupActivitiesReduce(activities);
+      .subscribe(sessionsGroupByDates => {
+        this.sessionsGroupByDates = sessionsGroupByDates;
         document.title = `${this.eventDto.title} - Programação`;
         this.loading = false;
       });
@@ -60,27 +58,14 @@ export class EventScheduleComponent implements OnInit {
       .pipe(
         first()
       )
-      .subscribe(activities => {
-        this.activities = activities;
-        this.groupActivities = this.groupActivitiesReduce(activities);
+      .subscribe(sessionsGroupByDates => {
+        this.sessionsGroupByDates = sessionsGroupByDates;
         document.title = `${this.eventDto.title} - ${this.subeventDto.title} - Programação`;
         this.loading = false;
       });
   }
 
-  groupActivitiesReduce(activities: ActivitySiteDto[]): any[] {
-    return activities.reduce((acc: any, item) => {
-      acc[item.sessionScheduleExecutionStartDate] = acc[item.sessionScheduleExecutionStartDate] || [];
-      acc[item.sessionScheduleExecutionStartDate][item.activityTitle] = acc[item.sessionScheduleExecutionStartDate][item.activityTitle] || [];
-
-      const isExist = acc[item.sessionScheduleExecutionStartDate][item.activityTitle]
-        .find((s: ActivitySiteDto) => s.sessionTitle === item.sessionTitle);
-
-      if(!isExist) {
-        acc[item.sessionScheduleExecutionStartDate][item.activityTitle].push(item);
-      }
-
-      return acc;
-    }, {});
+  getSpeakerNames(speakers: string[]) {
+    return speakers.reduce((text, value, i, array) => text + (i < array.length - 1 ? ', ' : ' e ') + value);
   }
 }
