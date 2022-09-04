@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, InjectionToken, OnInit } from '@angular/core';
 import { SessionDto, SessionScheduleDto } from "../../../../core/models/activity.model";
 import { LocationDto } from "../../../../core/models/location.model";
 import { AreaDto } from "../../../../core/models/area.model";
@@ -26,7 +26,7 @@ export class SessionShowComponent implements OnInit {
   sessionSchedulesDto: SessionScheduleDto[] = [
     {
       id: "",
-      start: "19/09/2022 08:00",
+      start: "2023-11-16 14:50:00.000000",
       end: "19/09/2022 10:00",
       location: { id: "", name: "IFSP Campus São Paulo", address: "" },
       // area: { id: "", name: "Bloco C", reference: null },
@@ -34,7 +34,7 @@ export class SessionShowComponent implements OnInit {
     },
     {
       id: "",
-      start: "20/09/2022 09:00",
+      start: "2023-11-16 14:50:00.000000",
       end: "20/09/2022 11:00",
       location: { id: "", name: "IFSP Campus São Paulo", address: "" },
       area: { id: "", name: "Bloco C", reference: null },
@@ -42,7 +42,7 @@ export class SessionShowComponent implements OnInit {
     },
     {
       id: "",
-      start: "21/09/2022 09:00",
+      start: "2023-11-16 14:50:00.000000",
       end: "21/09/2022 11:00",
       location: { id: "", name: "IFSP Campus São Paulo", address: "" },
       area: { id: "", name: "Bloco C", reference: null },

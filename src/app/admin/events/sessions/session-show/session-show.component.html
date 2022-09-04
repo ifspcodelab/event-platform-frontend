@@ -89,5 +89,9 @@
 
       <app-registration-list [sessionId]="sessionDto.id"></app-registration-list>
     </mat-tab>
+
+    <mat-tab *ngFor="let schedule of sessionSchedulesDto" label="{{ schedule.start | date:'dd/MM hh:mm' }}">
+      <app-registration-list [sessionId]="sessionDto.id"></app-registration-list>
+    </mat-tab>
   </mat-tab-group>
 </div>
