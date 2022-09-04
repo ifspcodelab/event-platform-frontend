@@ -46,6 +46,10 @@ export class AttendanceListComponent implements OnInit {
       }
     ]
   }
+  schedulesSessionId = this.sessionDto.schedulesSession.map((obj) => obj.id);
+  locationName = this.sessionDto.schedulesSession.map((obj) => obj.location.name);
+  areaName = this.sessionDto.schedulesSession.map((obj) => obj.area.name);
+  spaceName = this.sessionDto.schedulesSession.map((obj) => obj.space.name);
 
   constructor(private registrationService: RegistrationService) { }
 
@@ -60,4 +64,6 @@ export class AttendanceListComponent implements OnInit {
   ngOnInit(): void {
     this.fetchRegistrations();
   }
+
+
 }

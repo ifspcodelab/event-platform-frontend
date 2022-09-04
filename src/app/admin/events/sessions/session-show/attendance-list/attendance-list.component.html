@@ -4,7 +4,7 @@
       <p><b>Id:</b> {{ sessionDto.schedulesSession }}</p>
     </mat-list-item>
     <mat-list-item>
-      <p><b>Local/Área/Espaço:</b> {{ sessionDto.schedulesSession}}</p>
+      <p><b>Local/Área/Espaço:</b> {{ [locationName, areaName, spaceName] }}</p>
     </mat-list-item>
   </mat-list>
 
@@ -16,7 +16,7 @@
 
 <!--    <p *ngIf="!registrationsDto">Nenhum inscrito cadastrado</p>-->
 
-    <table mat-table [dataSource]="registrationsDto" *ngIf="registrationsDto.length"  class="container__table">
+    <table mat-table [dataSource]="registrationsDto" *ngIf="registrationsDto"  class="container__table">
 
       <ng-container matColumnDef="present">
         <th mat-header-cell *matHeaderCellDef>Presente</th>
