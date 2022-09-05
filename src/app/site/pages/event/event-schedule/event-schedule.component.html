@@ -6,7 +6,7 @@
       <mat-tab *ngFor="let group of sessionsGroupByDates" [label]="group.day | date:'dd/MM' : '' : 'pt-BR'" >
         <div class="activity-list">
           <!--            <div class="activity-card" *ngFor="let session of $any(activity).value" routerLink="/{{eventDto.slug}}/activities/{{session.activitySlug}}">-->
-          <div *ngFor="let session of group.sessions" class="activity-card">
+          <div *ngFor="let session of group.sessions" class="activity-card" [routerLink]="getLinkForActivity(session)">
             <h2 class="activity-card__title">
               {{ session.activityTitle }}
               <span class="activity-card__type">{{ session.activityType | activityTypes }}</span>

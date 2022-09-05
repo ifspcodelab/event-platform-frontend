@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventDto } from "../../../../core/models/event.model";
 import { ActivatedRoute } from "@angular/router";
-import { SessionsGroupByDate } from "../../../../core/models/activity.model";
+import { SessionsGroupByDate, SessionSiteDto } from "../../../../core/models/activity.model";
 import { first } from "rxjs";
 import { SubeventDtoResolved } from "../../../../core/resolvers/subevent.resolver";
 import { SubeventDto } from "../../../../core/models/subevent.model";
@@ -67,5 +67,11 @@ export class EventScheduleComponent implements OnInit {
 
   getSpeakerNames(speakers: string[]) {
     return speakers.reduce((text, value, i, array) => text + (i < array.length - 1 ? ', ' : ' e ') + value);
+  }
+
+  getLinkForActivity(session: SessionSiteDto): string {
+    return session.subEventId ?
+      `/${this.eventDto.slug}/sub-events/${this.subeventDto.slug}/activities/${session.activitySlug}` :
+      `/${this.eventDto.slug}/activities/${session.activitySlug}`;
   }
 }

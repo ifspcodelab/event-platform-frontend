@@ -8,6 +8,7 @@ import { map } from "rxjs/operators";
 import { SubeventDto } from "../../core/models/subevent.model";
 import { OrganizerSiteDto } from "../../core/models/organizer.model";
 import { SessionsGroupByDate } from "../../core/models/activity.model";
+import { ActivityForSiteDto } from "../models/activity.model";
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,13 @@ export class SiteService extends BaseService {
 
   getSubEventActivities(eventId: string, subeventId: string): Observable<SessionsGroupByDate[]> {
     return this.httpClient.get<SessionsGroupByDate[]>(`${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities`, this.httpOptionsSkipInterceptor);
+  }
+
+  getEventActivity(eventId: string, activitySlug: string): Observable<ActivityForSiteDto> {
+    return this.httpClient.get<ActivityForSiteDto>(`${this.apiUrl}/events/${eventId}/activities/${activitySlug}`, this.httpOptionsSkipInterceptor);
+  }
+
+  getSubEventActivity(eventId: string, subeventId: string, activitySlug: string): Observable<ActivityForSiteDto> {
+    return this.httpClient.get<ActivityForSiteDto>(`${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activitySlug}`, this.httpOptionsSkipInterceptor);
   }
 }

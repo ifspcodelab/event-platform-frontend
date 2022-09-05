@@ -25,7 +25,7 @@ const routes: Routes = [
       { path: 'schedule', component: EventScheduleComponent },
       { path: 'organization', component: EventOrganizersComponent },
       { path: 'contact', component: EventContactComponent },
-      // { path: 'activities/:activitySlug', component: ActivityShowComponent },
+      { path: 'activities/:activitySlug', component: ActivityShowComponent },
     ]
   },
   {
@@ -38,7 +38,7 @@ const routes: Routes = [
       { path: 'schedule', component: EventScheduleComponent },
       { path: 'organization', component: EventOrganizersComponent },
       { path: 'contact', component: SubeventContactComponent },
-      // { path: 'activities/:activitySlug', component: ActivityShowComponent },
+      { path: 'activities/:activitySlug', component: ActivityShowComponent },
     ]
   },
 ];

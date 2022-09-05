@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivityDto } from "../../../../core/models/activity.model";
 import { EventDto } from "../../../../core/models/event.model";
-import { ActivatedRoute, Route, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SubeventDtoResolved } from "../../../../core/resolvers/subevent.resolver";
 import { SubeventDto } from "../../../../core/models/subevent.model";
+import { ActivityForSiteDto } from "../../../models/activity.model";
+import { SiteService } from "../../../services/site.service";
+import { first } from "rxjs";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'app-activity-show',
@@ -11,30 +14,83 @@ import { SubeventDto } from "../../../../core/models/subevent.model";
   styleUrls: ['./activity-show.component.scss']
 })
 export class ActivityShowComponent implements OnInit {
-  activitySlug: string;
-  activity: ActivityDto;
   eventDto: EventDto;
   subeventDto: SubeventDto;
   eventMode: boolean = true;
+  activitySlug: string;
+  activity: ActivityForSiteDto;
+  loading: boolean = true;
 
   constructor(
-    private route: ActivatedRoute
-  ) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private siteService: SiteService
+  ) { }
+
+  ngOnInit(): void {
     this.eventDto = this.route.parent.snapshot.data['event'];
-    if(!this.eventDto) {
+    this.activitySlug = this.route.snapshot.paramMap.get('activitySlug');
+
+    if(this.eventDto) {
+      this.fetchEventActivity()
+    } else {
       this.eventMode = false;
       const subeventDtoResolved: SubeventDtoResolved = this.route.parent.snapshot.data['subevent'];
       this.eventDto = subeventDtoResolved.eventDto;
       this.subeventDto = subeventDtoResolved.subeventDto;
+      this.fetchSubEventActivity()
     }
-
-    this.activitySlug = this.route.snapshot.paramMap.get('activitySlug');
-    console.log(this.eventMode);
-    console.log(this.eventDto);
-    console.log(this.subeventDto);
   }
 
-  ngOnInit(): void {
+  private fetchEventActivity() {
+    this.siteService.getEventActivity(this.eventDto.id, this.activitySlug)
+      .pipe(first())
+      .subscribe({
+        next: activity => {
+          this.activity = activity;
+          document.title = `${this.activity.title} - ${this.eventDto.title}`;
+          this.loading = false;
+        },
+        error: error => this.handleError(error)
+      });
   }
 
+  private fetchSubEventActivity() {
+    this.siteService.getSubEventActivity(this.eventDto.id, this.subeventDto.id, this.activitySlug)
+      .pipe(first())
+      .subscribe({
+        next: activity => {
+          this.activity = activity;
+          document.title = `${this.activity.title} - ${this.subeventDto.title}`;
+          this.loading = false;
+        },
+        error: error => this.handleError(error)
+      });
+  }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 404) {
+        this.router.navigate(['/']);
+      }
+    }
+  }
+
+  getSpeakerNames(speakers: string[]) {
+    return speakers.reduce((text, value, i, array) => text + (i < array.length - 1 ? ', ' : ' e ') + value);
+  }
+
+  getBackLink(): string {
+    return this.subeventDto ?
+      `/${this.eventDto.slug}/sub-events/${this.subeventDto.slug}/schedule` :
+      `/${this.eventDto.slug}/schedule`;
+  }
+
+  registrationIsOpen() {
+    const registrationStartDate = new Date(this.eventDto.registrationPeriod.startDate.replace(/-/g, '/'));
+    let registrationEndDate = new Date(this.eventDto.registrationPeriod.endDate.replace(/-/g, '/'));
+    registrationEndDate.setDate(registrationEndDate.getDate() + 1);
+    const now = new Date();
+    return now >= registrationStartDate && now < registrationEndDate;
+  }
 }
