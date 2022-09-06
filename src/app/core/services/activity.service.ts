@@ -1,25 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { ActivityCreateDto, ActivityDto, SessionScheduleDto } from "../models/activity.model";
-import { EventStatusModel } from "../models/event-status.model";
-import { CancellationMessageCreateDto, EventCreateDto, EventDto } from "../models/event.model";
+import { HttpClient } from "@angular/common/http";
+import { ActivityCreateDto, ActivityDto } from "../models/activity.model";
+import { CancellationMessageCreateDto } from "../models/event.model";
+import { BaseService } from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActivityService {
+export class ActivityService extends BaseService{
   apiUrl = environment.apiUrl;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   getEventActivities(eventId: string): Observable<ActivityDto[]> {
     const url = `${this.apiUrl}/events/${eventId}/activities`;

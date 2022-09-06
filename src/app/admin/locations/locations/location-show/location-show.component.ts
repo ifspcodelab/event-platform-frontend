@@ -46,6 +46,7 @@ export class LocationShowComponent implements OnInit {
     this.loaderService.show()
     this.locationId = this.route.snapshot.paramMap.get('locationId');
     this.fetchLocation(this.locationId);
+    this.fetchAreas(this.locationId);
   }
 
   fetchLocation(locationId: string) {
@@ -53,7 +54,7 @@ export class LocationShowComponent implements OnInit {
       .pipe(first())
       .subscribe(locationDto => {
           this.locationDto = locationDto;
-          this.fetchAreas(locationId);
+
         }
       );
   }

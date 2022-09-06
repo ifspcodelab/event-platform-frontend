@@ -1,25 +1,21 @@
-import { OrganizerCreateDto } from './../models/organizer.model';
+import { OrganizerCreateDto, OrganizerSiteDto } from './../models/organizer.model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { OrganizerDto } from '../models/organizer.model';
 import { AccountDto } from '../models/account.model';
 import { environment } from "../../../environments/environment";
+import { BaseService } from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizerService {
+export class OrganizerService extends BaseService {
   apiUrl = `${environment.apiUrl}/events`;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept-Language': 'pt-BR'
-    })
-  };
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    super();
+  }
 
   getOrganizers(eventId: string): Observable<OrganizerDto[]> {
     return this.httpClient.get<OrganizerDto[]>(`${this.apiUrl}/${eventId}/organizers`, this.httpOptions);

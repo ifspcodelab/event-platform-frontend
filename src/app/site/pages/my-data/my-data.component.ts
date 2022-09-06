@@ -6,6 +6,7 @@ import { AccountDto } from "../../../core/models/account.model";
 import { first } from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {AccountDeletionDialogComponent} from "../account-deletion/dialog/account-deletion-dialog";
+import { LogDto } from "../../../core/models/log.model";
 
 @Component({
   selector: 'app-my-data',
@@ -14,6 +15,8 @@ import {AccountDeletionDialogComponent} from "../account-deletion/dialog/account
 })
 export class MyDataComponent implements OnInit {
   accountDto: AccountDto;
+  dataSource: LogDto[];
+  displayedColumns: string[] = ['createdAt', 'resourceData'];
 
   constructor(
     private router: Router,
@@ -33,11 +36,18 @@ export class MyDataComponent implements OnInit {
   fetchAccount() {
     this.myDataService.getAccount()
       .pipe(first())
-      .subscribe(
-      accountDto => {
-        this.accountDto = accountDto
-      }
-    );
+      .subscribe({
+        next: accountDto => {
+          this.accountDto = accountDto;
+          this.myDataService.getLogs()
+            .pipe(first())
+            .subscribe({
+              next: logs => {
+                this.dataSource = logs;
+              },
+            });
+        }
+      });
   }
 
   get accountDtoName() {

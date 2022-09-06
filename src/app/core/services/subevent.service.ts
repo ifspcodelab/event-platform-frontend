@@ -17,11 +17,7 @@ export class SubeventService extends BaseService {
   }
 
   getSubevents(eventId: string): Observable<SubeventDto[]> {
-    return this.httpClient.get<SubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events`, this.httpOptionsSkipInterceptor);
-  }
-
-  getSubeventBySlug(eventId: string, subeventSlug: string): Observable<SubeventDto[]> {
-    return this.httpClient.get<SubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events?slug=${subeventSlug}`, this.httpOptionsSkipInterceptor);
+    return this.httpClient.get<SubeventDto[]>(`${this.apiUrl}/${eventId}/sub-events`, this.httpOptions);
   }
 
   getSubeventById(eventId: string, subeventId: string): Observable<SubeventDto> {

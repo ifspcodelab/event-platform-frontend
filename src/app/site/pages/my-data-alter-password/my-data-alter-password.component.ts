@@ -1,21 +1,21 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { environment } from "../../../../environments/environment";
+import { MyDataAlterPasswordService } from "../../../core/services/my-data-alter-password.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NotificationService } from "../../../core/services/notification.service";
-import { AppValidators } from "../../../core/validators/app-validator";
+import { JwtService } from "../../../core/services/jwtservice.service";
 import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail } from "../../../core/models/problem-detail";
-import { AlterMyDataPasswordDto } from "../../../core/models/alter-my-data-password-dto.model";
-import { AlterMyDataPasswordService } from "../../../core/services/alter-my-data-password.service";
-import { JwtService } from "../../../core/services/jwtservice.service";
+import { AppValidators } from "../../../core/validators/app-validator";
+import { MyDataAlterPasswordDto } from "../../../core/models/alter-my-data-password-dto.model";
 
 @Component({
-  selector: 'app-alter-my-data-password',
-  templateUrl: './alter-my-data-password.component.html',
-  styleUrls: ['./alter-my-data-password.component.scss']
+  selector: 'app-my-data-alter-password',
+  templateUrl: './my-data-alter-password.component.html',
+  styleUrls: ['./my-data-alter-password.component.scss']
 })
-export class AlterMyDataPasswordComponent implements OnInit {
+export class MyDataAlterPasswordComponent implements OnInit {
   submitted: boolean = false;
   userRecaptcha: string | undefined;
   form: FormGroup;
@@ -26,7 +26,7 @@ export class AlterMyDataPasswordComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: AlterMyDataPasswordService,
+    private service: MyDataAlterPasswordService,
     private route: ActivatedRoute,
     private renderer: Renderer2,
     private router: Router,
@@ -45,11 +45,11 @@ export class AlterMyDataPasswordComponent implements OnInit {
     if(this.form.invalid || this.userRecaptcha == ''){
       return;
     }
-    const alterMyDataPasswordDto = new AlterMyDataPasswordDto(this.form.value['currentPassword'], this.form.value['newPassword'], this.userRecaptcha!);
+    const myDataAlterPasswordDto = new MyDataAlterPasswordDto(this.form.value['currentPassword'], this.form.value['newPassword'], this.userRecaptcha!);
 
     this.requestLoading = true;
 
-    this.service.sendAlterPasswordRequest(alterMyDataPasswordDto).subscribe(()=>{
+    this.service.sendAlterPasswordRequest(myDataAlterPasswordDto).subscribe(()=>{
         this.notificationService.success("Parabéns. Sua senha foi alterada com sucesso")
         this.jwtService.removeAccessToken();
         this.jwtService.removeRefreshToken();

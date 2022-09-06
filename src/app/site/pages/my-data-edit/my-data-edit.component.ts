@@ -50,6 +50,7 @@ export class MyDataEditComponent implements OnInit {
     return this.formBuilder.group({
       name: [this.accountDto.name, [Validators.required, Validators.minLength(5), Validators.maxLength(256), AppValidators.validName()]],
       cpf: [this.accountDto.cpf, [Validators.required, AppValidators.validCpf()]],
+      allowEmail: [this.accountDto.allowEmail, [Validators.required]],
     });
   }
 
@@ -65,7 +66,7 @@ export class MyDataEditComponent implements OnInit {
     if (this.form.invalid || this.userRecaptcha == '') {
       return;
     }
-    const myDataDto  = new MyDataDto(this.form.value['name'], this.form.value['cpf'], this.userRecaptcha!);
+    const myDataDto  = new MyDataDto(this.form.value['name'], this.form.value['cpf'], this.form.value['allowEmail'], this.userRecaptcha!);
     this.updateAccount(myDataDto);
   }
 

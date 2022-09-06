@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {EventService} from "../../../core/services/event.service";
-import {EventDto} from "../../../core/models/event.model";
+import { Component, OnInit } from '@angular/core';
+import { EventDto } from "../../../core/models/event.model";
+import { SiteService } from "../../services/site.service";
 
 @Component({
   selector: 'app-home',
@@ -14,10 +14,10 @@ export class HomeComponent implements OnInit {
   eventsDtoPublished: EventDto[] = [];
   futureEvents: EventDto[] = [];
 
-  constructor(private eventService: EventService) { }
+  constructor(private siteService: SiteService) { }
 
   ngOnInit(): void {
-    this.eventService.getEvents()
+    this.siteService.getEvents()
       .subscribe(events => {
         this.getEventsPublished(events);
       });

@@ -20,6 +20,6 @@ export class SubeventPresentationComponent implements OnInit {
     const subeventDtoResolved: SubeventDtoResolved = this.route.parent.snapshot.data['subevent'];
     this.eventDto = subeventDtoResolved.eventDto;
     this.subeventDto = subeventDtoResolved.subeventDto;
-    document.title = `${this.subeventDto.title} - ${this.eventDto.title}`;
+    document.title = `${this.eventDto.title} - ${this.subeventDto.title}`;
   }
 }

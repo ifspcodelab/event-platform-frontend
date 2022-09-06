@@ -1,31 +1,128 @@
 <app-site-header></app-site-header>
 
-<app-account-page
-  *ngIf="accountDto"
-  pageTitle="Meus Dados"
-  description="Olá {{accountDto.name}}. Você pode alterar seu nome e CPF ou redefinir a sua senha.">
+<div class="site-content">
+  <main *ngIf="accountDto" class="event-page">
+    <h1 class="event-page__title">Meus Dados</h1>
+    <div class="event-page__content">
+      <p class="my-data__greetings">
+        Olá <b>{{accountDto.name.toString().split(' ')[0]}}</b>. Você pode alterar seu nome e CPF, redefinir a sua senha ou ver o histórico das suas atividades</p>
+      <br>
+      <mat-tab-group>
+        <mat-tab label="Meus Dados">
+          <div class="my-data__container">
+            <table class="my-data__table">
+              <ng-container>
+                <tr>
+                  <td class="attribute">Nome</td>
+                  <td>{{ accountDto.name }}</td>
+                </tr>
+                <tr>
+                  <td class="attribute">E-mail</td>
+                  <td class="email">{{ accountDto.email }}</td>
+                </tr>
+                <tr>
+                  <td class="attribute">CPF</td>
+                  <td>{{ accountDto.cpf | cpfFomat }}</td>
+                </tr>
+                <tr>
+                  <td class="attribute">Preferência de comunicação</td>
+                  <td>{{ accountDto.allowEmail ? 'Aceita comunicação via e-mail' : 'Não aceita comunicação via e-mail'}}</td>
+                </tr>
+              </ng-container>
+            </table>
 
-  <table>
-    <ng-container *ngIf="accountDto">
-      <tr>
-        <td class="attribute">Nome</td>
-        <td>{{ accountDtoName }}</td>
-      </tr>
-      <tr>
-        <td class="attribute">E-mail</td>
-        <td class="email">{{ accountDtoEmail }}</td>
-      </tr>
-      <tr>
-        <td class="attribute">CPF</td>
-        <td>{{ accountDtoCpf | cpfFomat }}</td>
-      </tr>
-    </ng-container>
-  </table>
+            <mat-card-actions>
+              <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar meus dados</button>
+              <button class="alterPassword" mat-button color="" routerLink="/meus-dados/alterar-minha-senha">Alterar minha senha</button>
+              <button class="account-deletion" color="warn" mat-button (click)="openDialog()">Excluir minha conta</button>
+            </mat-card-actions>
+          </div>
+        </mat-tab>
 
-  <mat-card-actions>
-    <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar meus dados</button>
-    <button class="alterPassword" mat-button color="" routerLink="/meus-dados/alterar-minha-senha">Alterar minha senha</button>
-    <button class="account-deletion" color="warn" mat-button (click)="openDialog()">Excluir minha conta</button>
-  </mat-card-actions>
+        <mat-tab class="my-activities" label="Minhas Atividades">
+          <div class="my-activities__container">
+            <table mat-table  [dataSource]="dataSource" matSortActive="no." class="mat-elevation-z0">
 
-</app-account-page>
+              <ng-container matColumnDef="createdAt">
+                <th mat-header-cell *matHeaderCellDef>Data e hora</th>
+                <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy - HH:mm:ss'}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="resourceData">
+                <th mat-header-cell *matHeaderCellDef>Atividade</th>
+                <td mat-cell *matCellDef="let element"> {{element.resourceData}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </main>
+
+</div>
+
+
+<!--<div class="my-data" *ngIf="accountDto">-->
+<!--  <h1>Meus Dados</h1>-->
+<!--  <p class="my-data__greetings">Olá {{accountDto.name.toString().split(' ')[0]}}. Você pode alterar seu nome e-->
+<!--    CPF, redefinir a sua senha ou ver o histórico das suas atividades</p>-->
+
+<!--<mat-tab-group mat-align-tabs="center">-->
+<!--      <mat-tab label="Meus Dados">-->
+<!--        <div class="my-data__container">-->
+<!--          <table class="my-data__table">-->
+<!--            <ng-container>-->
+<!--              <tr>-->
+<!--                <td class="attribute">Nome</td>-->
+<!--                <td>{{ accountDto.name }}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <td class="attribute">E-mail</td>-->
+<!--                <td class="email">{{ accountDto.email }}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <td class="attribute">CPF</td>-->
+<!--                <td>{{ accountDto.cpf | cpfFomat }}</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <td class="attribute">Preferência de comunicação</td>-->
+<!--                <td>{{ accountDto.allowEmail ? 'Aceita comunicação via e-mail' : 'Não aceita comunicação via e-mail'}}</td>-->
+<!--              </tr>-->
+<!--            </ng-container>-->
+<!--          </table>-->
+
+<!--          <mat-card-actions>-->
+<!--            <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar meus dados</button>-->
+<!--            <button class="alterPassword" mat-button color="" routerLink="/meus-dados/alterar-minha-senha">Alterar minha senha</button>-->
+<!--          </mat-card-actions>-->
+<!--        </div>-->
+<!--  </mat-tab>-->
+
+<!--  <mat-tab class="my-activities" label="Minhas Atividades">-->
+<!--    <div class="my-activities__container">-->
+<!--      <table mat-table  [dataSource]="dataSource" matSortActive="no." class="mat-elevation-z0">-->
+<!--        <ng-container matColumnDef="no">-->
+<!--          <th mat-header-cell *matHeaderCellDef>no</th>-->
+<!--          <td mat-cell *matCellDef="let i = index">{{i}}</td>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="createdAt">-->
+<!--          <th mat-header-cell *matHeaderCellDef>Data e hora</th>-->
+<!--          <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy - hh:mm:ss'}} </td>-->
+<!--        </ng-container>-->
+
+<!--        <ng-container matColumnDef="resourceData">-->
+<!--          <th mat-header-cell *matHeaderCellDef>Minhas atividades</th>-->
+<!--          <td mat-cell *matCellDef="let element"> {{element.resourceData}} </td>-->
+<!--        </ng-container>-->
+
+<!--        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--      </table>-->
+<!--    </div>-->
+<!--  </mat-tab>-->
+<!--</mat-tab-group>-->
+<!--</div>-->

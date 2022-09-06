@@ -1,3 +1,4 @@
+<app-site-header></app-site-header>
 <app-account-page pageTitle="Editar Meus Dados" description="Você pode alterar seu nome e CPF" *ngIf="accountDto">
 
   <form id="my-data-form" [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -40,6 +41,21 @@
       </mat-error>
       <mat-hint align="start">O cpf será usado para identificação e para emitir o certificado</mat-hint>
     </mat-form-field>
+
+    <div class="form-field-lg" style="text-align: left;">
+      <mat-slide-toggle color="primary" formControlName="allowEmail">
+        <span *ngIf="field('allowEmail').value">Comunicação por e-mail habilitada</span>
+        <span *ngIf="!field('allowEmail').value">Comunicação por e-mail desabilitada</span>
+      </mat-slide-toggle>
+      <div *ngIf="!field('allowEmail').value">
+        <br>
+        <p style="color: red">
+          Caso a comunicação por e-mail estiver desabilitada você não receberá avisos de cancelamento de atividades, nem
+          notificações de vagas disponíveis para lista de espera. Você terá que verificar diretamente no site e nas
+          suas inscrições.
+        </p>
+      </div>
+    </div>
 
     <mat-error *ngIf="recaptchaErrorMessage">{{ recaptchaErrorMessage }}</mat-error>
 

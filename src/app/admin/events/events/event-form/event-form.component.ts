@@ -51,6 +51,10 @@ export class EventFormComponent implements OnInit {
         eventDto => {
           this.eventDto = eventDto;
           this.form.patchValue(this.eventDto);
+          this.form.get('registrationPeriod.startDate').patchValue(new Date(this.eventDto.registrationPeriod.startDate.replace(/-/g, '/')));
+          this.form.get('registrationPeriod.endDate').patchValue(new Date(this.eventDto.registrationPeriod.endDate.replace(/-/g, '/')));
+          this.form.get('executionPeriod.startDate').patchValue(new Date(this.eventDto.executionPeriod.startDate.replace(/-/g, '/')));
+          this.form.get('executionPeriod.endDate').patchValue(new Date(this.eventDto.executionPeriod.endDate.replace(/-/g, '/')));
         }
       );
   }
@@ -62,15 +66,15 @@ export class EventFormComponent implements OnInit {
           Validators.required,
           AppValidators.notBlank,
           Validators.minLength(3),
-          Validators.maxLength(50)
+          Validators.maxLength(100)
         ]
       ],
-      slug: ['', [Validators.required, AppValidators.notBlank]],
+      slug: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(3), Validators.maxLength(100)]],
       summary: ['',
         [
           Validators.required,
           AppValidators.notBlank,
-          Validators.minLength(100),
+          Validators.minLength(50),
           Validators.maxLength(150)
         ]
       ],
@@ -78,11 +82,11 @@ export class EventFormComponent implements OnInit {
         [
           Validators.required,
           AppValidators.notBlank,
-          Validators.minLength(1000),
+          Validators.minLength(100),
           Validators.maxLength(5000)
         ]
       ],
-      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(5000)]],
+      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(50), Validators.maxLength(5000)]],
       registrationPeriod: this.formBuilder.group({
         startDate: ['', [Validators.required]],
         endDate: ['', [Validators.required]]
@@ -154,6 +158,14 @@ export class EventFormComponent implements OnInit {
           const formControl = this.form.get(violation.name);
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
+          }
+
+          if(violation.name == "executionPeriod") {
+            this.form.get('executionPeriod.endDate').setErrors({ serverError: violation.message });
+          }
+
+          if(violation.name == "registrationPeriod") {
+            this.form.get('registrationPeriod.endDate').setErrors({ serverError: violation.message });
           }
         })
       }

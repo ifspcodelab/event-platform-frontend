@@ -1,13 +1,7 @@
-<header class="header">
-  <div class="header__titlecomponent">
-    <h1 class="header__title" *ngIf="createMode">Definir nova Sessão</h1>
-    <h1 class="header__title" *ngIf="!createMode">Editar Sessão</h1>
-  </div>
-  <div class="header__actions">
-    <button mat-button color="primary" (click)="getBackUrl()">Cancelar</button>
-    <button type="submit" form="event-form" mat-raised-button color="primary">Salvar</button>
-  </div>
-</header>
+<app-admin-header [title]="createMode ? 'Nova Sessão' : 'Editar Sessão'" (backLink)="getBackUrl()">
+  <button type="submit" form="event-form" mat-raised-button color="primary">Salvar</button>
+</app-admin-header>
+
 
 <form id="event-form" [formGroup]="form" (ngSubmit)="onSubmit()" class="app-form">
   <fieldset>
@@ -36,9 +30,9 @@
   <fieldset>
     <legend>Horários da Sessão <sub>Uma sessão pode ter um ou muitos horários, exemplos: Uma palestra tem apenas um horário,
       mas um minicurso pode ser ministrado em diversos horários em dias diferentes</sub></legend>
-    <mat-error *ngIf="fieldErrors('schedulesSession')?.['required']">A sessão deve ter pelo menos 1 horário defindo</mat-error>
-    <ng-container formArrayName="schedulesSession">
-      <ng-container *ngFor="let t of schedulesSession.controls; let i = index">
+    <mat-error *ngIf="fieldErrors('sessionSchedules')?.['required']">A sessão deve ter pelo menos 1 horário defindo</mat-error>
+    <ng-container formArrayName="sessionSchedules">
+      <ng-container *ngFor="let t of sessionSchedules.controls; let i = index">
         <mat-card [formGroupName]="i">
           <mat-card-title>Horário {{i+1}}</mat-card-title>
 
@@ -55,19 +49,19 @@
 <!--          </mat-form-field>-->
 
           <mat-form-field class="form-field-xs">
-          <mat-select placeholder="Local"  id="{{'location'+i}}" formControlName="location" (selectionChange)="locationChange($event, i)">
+          <mat-select placeholder="Local"  id="{{'locationId'+i}}" formControlName="locationId" (selectionChange)="locationChange($event, i)">
             <mat-option *ngFor="let location of locationsOf()" [value]="location.id" >{{ location.name }}</mat-option>
           </mat-select>
           </mat-form-field>
 
           <mat-form-field class="form-field-xs">
-            <mat-select placeholder="Área"  id="{{'area'+i}}" formControlName="area" (selectionChange)="areaChange($event, i)">
+            <mat-select placeholder="Área"  id="{{'areaId'+i}}" formControlName="areaId" (selectionChange)="areaChange($event, i)">
               <mat-option *ngFor="let area of areasOf(i)" [value]="area.id" >{{ area.name }}</mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field class="form-field-xs">
-            <mat-select placeholder="Espaço"  id="{{'space'+i}}" formControlName="space">
+            <mat-select placeholder="Espaço"  id="{{'spaceId'+i}}" formControlName="spaceId">
               <mat-option *ngFor="let space of spacesOf(i)" [value]="space.id" >{{ space.name }}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -87,20 +81,50 @@
 <!--            <input matInput placeholder="" formControlName="space" name="{{'space'+i}}" id="{{'space'+i}}" >-->
 <!--            <mat-hint>Será verificada a disponibilidade do espaço no dia e período selecionado.</mat-hint>-->
 <!--          </mat-form-field>-->
-          <mat-form-field class="form-field-xs">
-            <mat-label>Dia</mat-label>
-            <input matInput placeholder="" formControlName="date" name="{{'date'+i}}" id="{{'date'+i}}" type="date">
+<!--          <mat-form-field class="form-field-xs">-->
+<!--            <mat-label>Dia</mat-label>-->
+<!--            <input matInput placeholder="" formControlName="date" name="{{'date'+i}}" id="{{'date'+i}}" type="date">-->
+<!--          </mat-form-field>-->
+<!--          <mat-form-field class="form-field-xs">-->
+<!--            <mat-label>Início</mat-label>-->
+<!--            <input matInput placeholder="" formControlName="start" name="{{'start'+i}}" id="{{'start'+i}}" type="time">-->
+<!--          </mat-form-field>-->
+<!--          <mat-form-field class="form-field-xs">-->
+<!--            <mat-label>Fim</mat-label>-->
+<!--            <input matInput placeholder="" formControlName="end" name="{{'end'+i}}" id="{{'end'+i}}"  type="time">-->
+<!--          </mat-form-field>-->
+
+          <mat-form-field>
+            <input matInput
+                   type="datetime-local"
+                   name="{{'executionStart'+i}}"
+                   id="{{'executionStart'+i}}"
+                   formControlName="executionStart"
+            >
+<!--            <input matInput [ngxMatDatetimePicker]="picker1" name="{{'executionStart'+i}}" id="{{'executionStart'+i}}" formControlName="executionStart">-->
+<!--            <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>-->
+<!--            <ngx-mat-datetime-picker #picker1></ngx-mat-datetime-picker>-->
           </mat-form-field>
-          <mat-form-field class="form-field-xs">
-            <mat-label>Início</mat-label>
-            <input matInput placeholder="" formControlName="start" name="{{'start'+i}}" id="{{'start'+i}}" type="time">
+
+          <mat-form-field>
+            <input matInput type="datetime-local" name="{{'executionEnd'+i}}" id="{{'executionEnd'+i}}" formControlName="executionEnd">
+<!--            <input matInput [ngxMatDatetimePicker]="picker2" name="{{'executionEnd'+i}}" id="{{'executionEnd'+i}}" formControlName="executionEnd">-->
+<!--            <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>-->
+<!--            <ngx-mat-datetime-picker #picker2></ngx-mat-datetime-picker>-->
           </mat-form-field>
-          <mat-form-field class="form-field-xs">
-            <mat-label>Fim</mat-label>
-            <input matInput placeholder="" formControlName="end" name="{{'end'+i}}" id="{{'end'+i}}"  type="time">
+
+          <mat-form-field class="form-field-lg">
+            <mat-label>URL</mat-label>
+            <mat-hint>Para atividades na modalidade Online ou Híbrida. Ex: https://www.site.com</mat-hint>
+            <input matInput formControlName="url" name="url">
+            <mat-error *ngIf="fieldErrors('url')?.['required']">URL é obrigatório para atividades online</mat-error>
+            <mat-error *ngIf="fieldErrors('url')?.['serverError'] && submitted">
+              {{ fieldErrors('url')?.['serverError'] }}
+            </mat-error>
           </mat-form-field>
+
           <mat-card-actions>
-            <button mat-button color="warn" (click)="removeScheduleSession(i)">
+            <button mat-button color="warn" (click)="removeSessionSchedule(i)">
               <mat-icon aria-label="Delete">delete</mat-icon>
             </button>
           </mat-card-actions>
@@ -109,7 +133,7 @@
     </ng-container>
     <br>
     <div>
-      <button mat-button color="primary" (click)="addScheduleSession()">Adicionar Novo Horário</button>
+      <button mat-button color="primary" (click)="addSessionSchedule()">Adicionar Novo Horário</button>
     </div>
   </fieldset>
 </form>

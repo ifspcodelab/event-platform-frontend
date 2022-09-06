@@ -16,3 +16,9 @@ export class OrganizerCreateDto {
     this.accountId = accountId;
   }
 }
+
+export interface OrganizerSiteDto {
+  organizerId: string;
+  organizerName: string;
+  organizerType: string;
+}

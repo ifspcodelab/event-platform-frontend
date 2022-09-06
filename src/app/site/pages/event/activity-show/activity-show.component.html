@@ -1,0 +1,52 @@
+<main *ngIf="!loading" class="event-page">
+  <button mat-button color="primary" [routerLink]="getBackLink()">< Voltar a Programação</button>
+  <br>
+  <br>
+  <article class="activity-show">
+    <h1 class="activity-show__title">
+      {{ activity.title }}
+      <span class="activity-show__type">{{ activity.type | activityTypes }}</span>
+      <span class="activity-show__type">{{ activity.modality | activityModalities }}</span>
+    </h1>
+    <div class="event-page__content">
+      <p>{{ activity.description }}</p>
+      <p><span class="activity-show__hint">{{activity.speakers.length == 1 ? 'Ministrante:' : 'Ministrantes:'}}</span> {{ getSpeakerNames(activity.speakers) }}</p>
+      <p><span class="activity-show__hint">Duração:</span>  {{ activity.duration }} minutos</p>
+      <p><span class="activity-show__hint">Tempo de credenciamento:</span>  {{ activity.setupTime }} minutos</p>
+      <p><span class="activity-show__hint">Precisa de inscrição:</span>  {{ activity.needRegistration ? 'Sim' : 'Não' }}</p>
+
+      <div class="activity-show__session" *ngFor="let session of activity.sessions">
+        <h2 class="activity-show__session-title">Sessão {{ session.title }} - {{ session.seats }} vagas</h2>
+
+        <div *ngIf="session.sessionSchedules.length == 1">
+          <p>
+            <span class="activity-show__hint">Horário:</span>
+            {{ session.sessionSchedules[0].executionStart | date:'ccc dd/MM' : '' : 'pt-BR' }}
+            das {{ session.sessionSchedules[0].executionStart | date:'HH:mm' }}
+            às {{ session.sessionSchedules[0].executionEnd | date:'HH:mm' }}
+          </p>
+        </div>
+
+        <div *ngIf="session.sessionSchedules.length != 1">
+          <h4 class="activity-show__session-schedules">Horários</h4>
+          <ul>
+            <li *ngFor="let sessionSchedule of session.sessionSchedules">
+              {{ sessionSchedule.executionStart | date:'ccc dd/MM' : '' : 'pt-BR' }}
+              das {{ sessionSchedule.executionStart | date:'HH:mm' }}
+              às {{ sessionSchedule.executionEnd | date:'HH:mm' }}
+            </li>
+          </ul>
+          <p>Antes de se inscrever verifique se você tem disponibilidade para participar de todos os horários.
+            Para receber o certificado você deverá participar de todos os horários da sessão.</p>
+        </div>
+
+        <button *ngIf="registrationIsOpen() && activity.needRegistration" mat-stroked-button color="primary">Inscreva-se</button>
+        <p *ngIf="!registrationIsOpen() && activity.needRegistration">
+          <span class="activity-show__hint">Período de inscrição:</span> de {{ eventDto.registrationPeriod.startDate | date:'dd/MM/YYYY' : '' : 'pt-BR' }}
+          à {{ eventDto.registrationPeriod.endDate | date:'dd/MM/YYYY' : '' : 'pt-BR' }}.
+        </p>
+      </div>
+    </div>
+  </article>
+
+</main>

@@ -17,14 +17,7 @@ export class EventService extends BaseService {
   }
 
   getEvents(): Observable<EventDto[]> {
-    return this.httpClient.get<EventDto[]>(this.apiUrl, this.httpOptionsSkipInterceptor)
-      .pipe(
-        map(results => results.sort((a, b) => a.title.localeCompare(b.title)))
-      );
-  }
-
-  getEventsBySlug(eventSlug: string): Observable<EventDto[]> {
-    return this.httpClient.get<EventDto[]>(`${this.apiUrl}?slug=${eventSlug}`, this.httpOptionsSkipInterceptor);
+    return this.httpClient.get<EventDto[]>(this.apiUrl, this.httpOptions);
   }
 
   getEventById(eventId: string): Observable<EventDto> {

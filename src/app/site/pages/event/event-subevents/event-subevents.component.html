@@ -1,8 +1,8 @@
-<main *ngIf="eventDto">
-  <h1>Subeventos</h1>
-  <p>Eventos programados para a {{ eventDto.title }}</p>
-
-  <section>
+<main *ngIf="!loading" class="event-page">
+  <h1 class="event-page__title">Subeventos</h1>
+  <section class="event-page__content">
+    <p>Eventos programados para a {{ eventDto.title }}</p>
+    <br>
     <app-site-card
       *ngFor="let subeventDto of subeventsDto"
       [image]="subeventDto.smallerImage"

@@ -6,6 +6,7 @@ import { EventService } from "../services/event.service";
 import { SubeventService } from "../services/subevent.service";
 import { EventDto } from "../models/event.model";
 import { SubeventDto } from "../models/subevent.model";
+import { SiteService } from "../../site/services/site.service";
 
 export interface SubeventDtoResolved {
   eventDto: EventDto;
@@ -17,7 +18,7 @@ export interface SubeventDtoResolved {
 })
 export class SubeventResolver implements Resolve<SubeventDtoResolved> {
 
-  constructor(private eventService: EventService, private subeventService: SubeventService, private router: Router) { }
+  constructor(private siteService: SiteService, private subeventService: SubeventService, private router: Router) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<SubeventDtoResolved> {
     const eventSlug = route.paramMap.get('eventSlug');
@@ -28,15 +29,14 @@ export class SubeventResolver implements Resolve<SubeventDtoResolved> {
       return of(null);
     }
 
-    return this.eventService.getEventsBySlug(eventSlug)
+    return this.siteService.getEventBySlug(eventSlug)
       .pipe(
         first(),
-        map(eventsDto => eventsDto[0]),
         switchMap(eventDto => {
-          return this.subeventService.getSubeventBySlug(eventDto.id, subeventSlug)
+          return this.siteService.getSubeventBySlug(eventDto.slug, subeventSlug)
             .pipe(
               first(),
-              map(subeventsDto => ({ eventDto: eventDto, subeventDto: subeventsDto[0] })),
+              map(subeventDto => ({ eventDto: eventDto, subeventDto: subeventDto })),
               catchError(_ => {
                 this.router.navigate(['']);
                 return of(null)

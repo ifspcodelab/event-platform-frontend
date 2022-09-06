@@ -1,11 +1,11 @@
-import { SubeventDto } from './../../../../core/models/subevent.model';
-import { NotificationService } from './../../../../core/services/notification.service';
-import { ProblemDetail } from './../../../../core/models/problem-detail';
+import { SubeventDto } from '../../../../core/models/subevent.model';
+import { NotificationService } from '../../../../core/services/notification.service';
+import { ProblemDetail } from '../../../../core/models/problem-detail';
 import { AppValidators } from 'src/app/core/validators/app-validator';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SubeventService } from "../../../../core/services/subevent.service";
-import {ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Violation } from "../../../../core/models/problem-detail";
@@ -54,6 +54,8 @@ export class SubeventsFormComponent implements OnInit {
         subeventDto => {
           this.subeventDto = subeventDto;
           this.form.patchValue(subeventDto);
+          this.form.get('executionPeriod.startDate').patchValue(new Date(this.subeventDto.executionPeriod.startDate.replace(/-/g, '/')));
+          this.form.get('executionPeriod.endDate').patchValue(new Date(this.subeventDto.executionPeriod.endDate.replace(/-/g, '/')));
         }
       );
   }
@@ -65,15 +67,15 @@ export class SubeventsFormComponent implements OnInit {
           Validators.required,
           AppValidators.notBlank,
           Validators.minLength(3),
-          Validators.maxLength(50)
+          Validators.maxLength(100)
         ]
       ],
-      slug: ['', [Validators.required, AppValidators.notBlank]],
+      slug: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(3), Validators.maxLength(100)]],
       summary: ['',
         [
           Validators.required,
           AppValidators.notBlank,
-          Validators.minLength(100),
+          Validators.minLength(50),
           Validators.maxLength(150)
         ]
       ],
@@ -81,11 +83,11 @@ export class SubeventsFormComponent implements OnInit {
         [
           Validators.required,
           AppValidators.notBlank,
-          Validators.minLength(1000),
+          Validators.minLength(100),
           Validators.maxLength(5000)
         ]
       ],
-      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(100), Validators.maxLength(5000)]],
+      contact: ['', [Validators.required, AppValidators.notBlank, Validators.minLength(50), Validators.maxLength(5000)]],
       executionPeriod: this.formBuilder.group({
         startDate: ['', [Validators.required]],
         endDate: ['',[Validators.required]]
@@ -147,8 +149,13 @@ export class SubeventsFormComponent implements OnInit {
         const violations: Violation[] = error.error;
         violations.forEach(violation => {
           const formControl = this.form.get(violation.name);
+
           if(formControl) {
             formControl.setErrors({ serverError: violation.message });
+          }
+
+          if(violation.name == "executionPeriod") {
+            this.form.get('executionPeriod.endDate').setErrors({ serverError: violation.message });
           }
         })
       }

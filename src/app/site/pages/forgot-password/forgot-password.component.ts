@@ -19,8 +19,8 @@ export class ForgotPasswordComponent implements OnInit {
   requestLoading: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
-    private service: PasswordResetService,
+    private formBuilder: FormBuilder,
+    private passwordResetService: PasswordResetService,
     private renderer: Renderer2,
     private router: Router,
     private notificationService: NotificationService,
@@ -29,12 +29,12 @@ export class ForgotPasswordComponent implements OnInit {
     this.userRecaptcha = '';
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   onSubmit() {
     this.submitted = true;
+
+    localStorage.setItem('email', this.form.value['email']);
 
     if(this.form.invalid || this.userRecaptcha == ''){
       return;
@@ -44,19 +44,20 @@ export class ForgotPasswordComponent implements OnInit {
 
     this.requestLoading = true;
 
-    this.service.sendResetPasswordRequest(forgotPasswordRequest)
+    this.passwordResetService.sendResetPasswordRequest(forgotPasswordRequest)
       .subscribe({
         next: ()=> {
           this.notificationService.success("Um link será enviado ao e-mail informado. Verifique sua caixa de entrada");
           this.form.reset();
           this.submitted = false;
-          return this.router.navigate(['login']);
+          return this.router.navigate(['esqueci-minha-senha','reenviar-email']);
         },
         error: () => {
-          this.notificationService.error("Algo de errado com o recapctha. Tente novamente");
+          this.notificationService.error("Algo de errado com o recaptcha. Tente novamente");
           this.form.reset();
           this.submitted = false;
           this.requestLoading = false;
+          this.refreshRecaptcha();
         }
       });
   }
@@ -70,11 +71,15 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   buildForm(): FormGroup{
-    return this.fb.group({
+    return this.formBuilder.group({
       email: ["",
         [Validators.required,
           Validators.email,
           Validators.maxLength(349)]]
     });
+  }
+
+  refreshRecaptcha(): void {
+    grecaptcha.reset();
   }
 }

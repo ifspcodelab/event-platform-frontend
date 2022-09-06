@@ -18,7 +18,7 @@
         Nome é obrigatório
       </mat-error>
       <mat-error *ngIf="fieldErrors('name')?.['minlength'] || fieldErrors('name')?.['maxlength']">
-        Nome deve ter entre 4 e 150 caracteres
+        Nome deve ter entre 1 e 200 caracteres
       </mat-error>
       <mat-error *ngIf="fieldErrors('name')?.['serverError'] && submitted">
         {{ fieldErrors('name')?.['serverError'] }}
@@ -35,7 +35,7 @@
         Endereço é obrigatório
       </mat-error>
       <mat-error *ngIf="fieldErrors('address')?.['minlength'] || fieldErrors('address')?.['maxlength']">
-        Endereço deve ter entre 20 e 300 caracteres
+        Endereço deve ter entre 10 e 500 caracteres
       </mat-error>
       <mat-error *ngIf="fieldErrors('address')?.['serverError'] && submitted">
         {{ fieldErrors('address')?.['serverError'] }}

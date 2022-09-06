@@ -16,7 +16,7 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Senha</mat-label>
        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" name="password">
-      <button class="visibility" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <button type="button" class="visibility" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon color="primary">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </button>
 
@@ -41,8 +41,8 @@
     <mat-card-actions>
       <button class="button button-white" mat-raised-button color="primary" type="submit" style="color: #FFFFFF" [disabled]="requestLoading">Entrar</button>
       <mat-progress-spinner *ngIf="requestLoading" color="primary" mode="indeterminate" diameter="20"></mat-progress-spinner>
-      <button class="button" mat-button color="" type="submit" routerLink="/esqueci-minha-senha">Esqueci minha senha</button>
-      <button class="button" mat-button color="" type="submit" routerLink="/cadastro">Não tem uma conta? Cadastre-se</button>
+      <button class="button" mat-button color="" type="button" routerLink="/esqueci-minha-senha">Esqueci minha senha</button>
+      <button class="button" mat-button color="" type="button" routerLink="/cadastro">Não tem uma conta? Cadastre-se</button>
     </mat-card-actions>
   </form>
 </app-account-page>

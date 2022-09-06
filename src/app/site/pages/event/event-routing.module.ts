@@ -9,6 +9,9 @@ import { EventResolver } from "../../../core/resolvers/event.resolver";
 import { SubeventResolver } from "../../../core/resolvers/subevent.resolver";
 import { EventContactComponent } from "./event-contact/event-contact.component";
 import { SubeventContactComponent } from "./subevent-contact/subevent-contact.component";
+import { EventScheduleComponent } from "./event-schedule/event-schedule.component";
+import { ActivityShowComponent } from "./activity-show/activity-show.component";
+import { EventOrganizersComponent } from "./event-organizers/event-organizers.component";
 
 const routes: Routes = [
   {
@@ -19,7 +22,10 @@ const routes: Routes = [
       { path: '', redirectTo: 'presentation', pathMatch: 'full' },
       { path: 'presentation', component: EventPresentationComponent },
       { path: 'sub-events', component: EventSubeventsComponent },
+      { path: 'schedule', component: EventScheduleComponent },
+      { path: 'organization', component: EventOrganizersComponent },
       { path: 'contact', component: EventContactComponent },
+      { path: 'activities/:activitySlug', component: ActivityShowComponent },
     ]
   },
   {
@@ -29,8 +35,10 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'presentation', pathMatch: 'full' },
       { path: 'presentation', component: SubeventPresentationComponent },
-      { path: 'schedule', component: EventSubeventsComponent },
+      { path: 'schedule', component: EventScheduleComponent },
+      { path: 'organization', component: EventOrganizersComponent },
       { path: 'contact', component: SubeventContactComponent },
+      { path: 'activities/:activitySlug', component: ActivityShowComponent },
     ]
   },
 ];

@@ -1,0 +1,83 @@
+.activity-show {
+
+  p {
+    margin: 0;
+    margin-top: 10px;
+  }
+
+  &__title {
+    font-size: 24px !important;
+    font-weight: 500 !important;
+    margin-bottom: 20px;
+
+    @media screen and (max-width: 750px) {
+      font-size: 20px !important;
+    }
+  }
+
+  &__type {
+    display: inline;
+    padding: 6px 10px;
+    margin: 0 6px 0 0;
+    border-radius: 100px;
+    font-size: 13px !important;
+    background-color: #559f90;
+    color: #FFF;
+  }
+
+  &__session {
+    margin: 15px 0 0 0;
+    padding: 15px;
+    border: 1px solid #C9CCCB80;
+    border-radius: 7px;
+
+    &-title {
+      font-size: 16px;
+      font-weight: 500;
+    }
+    &-schedules {
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    color: #333;
+
+    @media screen and (max-width: 750px) {
+      font-size: 16px;
+    }
+  }
+
+  &__hint {
+    font-weight: 500;
+  }
+
+  &__subtitle {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: #666;
+
+    b {
+      font-weight: 500;
+    }
+
+  }
+
+  &__date {
+    margin: 0;
+    padding: 0;
+    font-size: 13px;
+    color: #888;
+  }
+
+  &__description {
+    margin: 0;
+    padding: 0;
+
+  }
+}
