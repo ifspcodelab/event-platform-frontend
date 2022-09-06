@@ -28,6 +28,9 @@ import { CoreModule } from "../core/core.module";
 import { SignupResendEmailComponent } from './pages/signup-resend-email/signup-resend-email.component';
 import { ForgotPasswordResendEmailComponent } from './pages/forgot-password-resend-email/forgot-password-resend-email.component';
 import { MyDataAlterPasswordComponent } from './pages/my-data-alter-password/my-data-alter-password.component';
+import { MyRegistrationComponent } from './pages/my-registration/my-registration.component';
+import { MyRegistrationAcceptSeatComponent } from './pages/my-registration-accept-seat/my-registration-accept-seat.component';
+import { MyRegistrationDenySeatComponent } from './pages/my-registration-deny-seat/my-registration-deny-seat.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import { MyDataAlterPasswordComponent } from './pages/my-data-alter-password/my-
     SignupResendEmailComponent,
     ForgotPasswordResendEmailComponent,
     MyDataAlterPasswordComponent,
+    MyRegistrationComponent,
+    MyRegistrationAcceptSeatComponent,
+    MyRegistrationDenySeatComponent,
   ],
   exports: [
     SiteHeaderComponent,
