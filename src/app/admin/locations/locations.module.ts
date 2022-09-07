@@ -9,7 +9,6 @@ import { LocationFormComponent } from './locations/location-form/location-form.c
 import { AreaShowComponent } from './areas/area-show/area-show.component';
 import { AreaFormComponent } from './areas/area-form/area-form.component';
 import { SpaceShowComponent } from './spaces/space-show/space-show.component';
-import { SpaceTypesPipe } from "../../core/pipes/space-types.pipe";
 import { SpaceFormComponent } from './spaces/space-form/space-form.component';
 import { CoreModule } from "../../core/core.module";
 import { SharedModule } from "../../shared/shared.module";
@@ -24,7 +23,6 @@ import { SharedModule } from "../../shared/shared.module";
     AreaFormComponent,
     SpaceShowComponent,
     SpaceFormComponent,
-    SpaceTypesPipe
   ],
   imports: [
     CommonModule,
