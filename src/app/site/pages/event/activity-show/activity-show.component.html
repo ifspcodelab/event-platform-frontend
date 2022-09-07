@@ -65,15 +65,31 @@
 
             </li>
           </ul>
-          <p>Antes de se inscrever verifique se você tem disponibilidade para participar de todos os horários.
+          <p *ngIf="needRegistration()">Antes de se inscrever verifique se você tem disponibilidade para participar de todos os horários.
             Para receber o certificado você deverá participar de todos os horários da sessão.</p>
         </div>
+        <br>
+        <div *ngIf="needRegistration()">
+          <div *ngIf="registrationIsOpen()">
+            <button *ngIf="hasSeats(session)" mat-stroked-button color="primary" (click)="register(session)">Inscreva-se</button>
+            <div *ngIf="!hasSeats(session)">
+              <p class="activity-show__hint">Vagas Esgotadas. Como funciona a lista de espera?</p>
+              <p>A lista de espera NÃO garante uma vaga na atividade.
+                Caso um participante com vaga confirmada na sessão cancele a inscrição, o primeiro usuário da lista de espera
+                poderá ser avisado via e-mail sobre a vaga liberada na sessão. Este usuário terá 12 horas para aceitar ou
+                cancelar a vaga liberada, após este período o sistema cancelará automaticamente a inscrição e enviará um
+                e-mail para o próximo usuário da lista de espera.
+              </p>
+              <br>
+              <button mat-stroked-button color="primary" (click)="registerOnWaitingList(session)">Entrar na Lista de Espera</button>
+            </div>
 
-        <button *ngIf="registrationIsOpen() && activity.needRegistration" mat-stroked-button color="primary">Inscreva-se</button>
-        <p *ngIf="!registrationIsOpen() && activity.needRegistration">
-          <span class="activity-show__hint">Período de inscrição:</span> de {{ eventDto.registrationPeriod.startDate | date:'dd/MM/YYYY' : '' : 'pt-BR' }}
-          à {{ eventDto.registrationPeriod.endDate | date:'dd/MM/YYYY' : '' : 'pt-BR' }}.
-        </p>
+          </div>
+          <p *ngIf="!registrationIsOpen() && activity.needRegistration">
+            <span class="activity-show__hint">Período de inscrição:</span> de {{ eventDto.registrationPeriod.startDate | date:'dd/MM/YYYY' : '' : 'pt-BR' }}
+            à {{ eventDto.registrationPeriod.endDate | date:'dd/MM/YYYY' : '' : 'pt-BR' }}.
+          </p>
+        </div>
       </div>
     </div>
   </article>

@@ -22,6 +22,7 @@ export interface SessionForSiteDto {
   id: string;
   title: string,
   seats: number,
+  confirmedSeats: number,
   sessionSchedules: SessionScheduleForSiteDto[]
 }
 
