@@ -25,15 +25,44 @@
             das {{ session.sessionSchedules[0].executionStart | date:'HH:mm' }}
             às {{ session.sessionSchedules[0].executionEnd | date:'HH:mm' }}
           </p>
+          <p *ngIf="showUrl()">
+            <span class="activity-show__hint">URL:</span> {{ session.sessionSchedules[0].url }}
+          </p>
+
+          <p *ngIf="showLocation()">
+            <span class="activity-show__hint">Local:</span>
+            {{ session.sessionSchedules[0].locationName }} ({{ session.sessionSchedules[0].locationAddress }})
+
+            <span *ngIf="session.sessionSchedules[0].areaName"> - {{ session.sessionSchedules[0].areaName }}</span>
+
+            <span *ngIf="session.sessionSchedules[0].spaceName"> - {{ session.sessionSchedules[0].spaceType | spaceTypes }} {{ session.sessionSchedules[0].spaceName }}</span>
+
+          </p>
         </div>
 
         <div *ngIf="session.sessionSchedules.length != 1">
           <h4 class="activity-show__session-schedules">Horários</h4>
           <ul>
             <li *ngFor="let sessionSchedule of session.sessionSchedules">
-              {{ sessionSchedule.executionStart | date:'ccc dd/MM' : '' : 'pt-BR' }}
-              das {{ sessionSchedule.executionStart | date:'HH:mm' }}
-              às {{ sessionSchedule.executionEnd | date:'HH:mm' }}
+              <p>
+                <span class="activity-show__hint">Horário:</span> {{ sessionSchedule.executionStart | date:'ccc dd/MM' : '' : 'pt-BR' }}
+                das {{ sessionSchedule.executionStart | date:'HH:mm' }}
+                às {{ sessionSchedule.executionEnd | date:'HH:mm' }}
+              </p>
+              <p *ngIf="showUrl()">
+                <span class="activity-show__hint">URL:</span> {{ session.sessionSchedules[0].url }}
+              </p>
+
+              <p *ngIf="showLocation()">
+                <span class="activity-show__hint">Local:</span>
+                {{ session.sessionSchedules[0].locationName }} ({{ session.sessionSchedules[0].locationAddress }})
+
+                <span *ngIf="session.sessionSchedules[0].areaName"> - {{ session.sessionSchedules[0].areaName }}</span>
+
+                <span *ngIf="session.sessionSchedules[0].spaceName"> - {{ session.sessionSchedules[0].spaceType | spaceTypes }} {{ session.sessionSchedules[0].spaceName }}</span>
+
+              </p>
+
             </li>
           </ul>
           <p>Antes de se inscrever verifique se você tem disponibilidade para participar de todos os horários.

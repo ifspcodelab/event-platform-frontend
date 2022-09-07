@@ -7,6 +7,7 @@ import { ActivityForSiteDto } from "../../../models/activity.model";
 import { SiteService } from "../../../services/site.service";
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
+import { ActivityModality } from "../../../../core/models/activity-modality.model";
 
 @Component({
   selector: 'app-activity-show',
@@ -20,6 +21,7 @@ export class ActivityShowComponent implements OnInit {
   activitySlug: string;
   activity: ActivityForSiteDto;
   loading: boolean = true;
+  ActivityModality = ActivityModality;
 
   constructor(
     private route: ActivatedRoute,
@@ -92,5 +94,15 @@ export class ActivityShowComponent implements OnInit {
     registrationEndDate.setDate(registrationEndDate.getDate() + 1);
     const now = new Date();
     return now >= registrationStartDate && now < registrationEndDate;
+  }
+
+  showUrl() {
+    const modality = ActivityModality[this.activity.modality];
+    return modality == ActivityModality.ONLINE.toString() || modality == ActivityModality.HYBRID.toString();
+  }
+
+  showLocation() {
+    const modality = ActivityModality[this.activity.modality];
+    return modality == ActivityModality.IN_PERSON.toString() || modality == ActivityModality.HYBRID.toString();
   }
 }
