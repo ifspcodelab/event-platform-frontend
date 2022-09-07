@@ -1,0 +1,48 @@
+.registration-content {
+  margin: 20px auto 0;
+  max-width: 1000px;
+
+  h1 {
+    margin-bottom: 5px;
+  }
+}
+
+.registrantion-container {
+  margin: 20px auto;
+  max-width: 1000px;
+
+  p {
+    margin-bottom: 20px;
+  }
+}
+
+.registration-card {
+  border: 1px solid rgb(169,169,169);
+  width: 935px;
+  height: auto;
+  padding: 22px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+  h3 {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+
+  h4 {
+    margin-bottom: 20px;
+  }
+
+  &__schedules {
+    margin-bottom: 16px;
+
+    p {
+      margin-bottom: 5px;
+    }
+  }
+
+  button {
+    align-self: flex-end;
+  }
+}

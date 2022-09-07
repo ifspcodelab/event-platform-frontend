@@ -1,1 +1,97 @@
-<p>my-registration works!</p>
+<app-site-header></app-site-header>
+
+<div class="registration-content">
+  <h1>Minhas inscrições</h1>
+  <p>Olá Fulano de Ciclano. Você pode administrar suas inscrições.</p>
+
+  <form [formGroup]="form">
+    <mat-form-field class="form-field-sm">
+      <mat-label>Eventos</mat-label>
+      <mat-select formControlName="event">
+        <mat-option *ngFor="let event of eventsDto" [value]="event.title">{{ event.title }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<mat-tab-group mat-align-tabs="center">
+  <mat-tab label="Confirmadas">
+    <section class="registrantion-container">
+      <p>
+        <b>Seja um participante responsável.</b><br>
+        Caso não for participar de um evento cancele sua inscrição na sessão e libere a vaga para outra pessoa.
+      </p>
+
+      <div class="registration-card">
+        <h3>Título da atividade aqui</h3>
+        <h4>Título da sessão aqui</h4>
+        <div class="registration-card__schedules">
+          <p>19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+          <p>20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+        </div>
+        <button mat-button color="warn" routerLink="#">Cancelar inscrição</button>
+      </div>
+
+      <div class="registration-card">
+        <h3 class="registration-card__title-activity">Título da atividade aqui</h3>
+        <h4 class="registrantion-card__title-session">Título da sessão aqui</h4>
+        <div class="registration-card__schedules">
+          <p>19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+          <p>20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+        </div>
+        <div class="registration-card__action">
+          <button mat-button color="warn" routerLink="#">Cancelar inscrição</button>
+        </div>
+      </div>
+    </section>
+  </mat-tab>
+
+  <mat-tab label="Lista de espera">
+    <section class="registrantion-container">
+      <p>A lista de espera funciona como um meio de ...</p>
+
+      <div class="registration-card">
+        <h3>Título da atividade aqui</h3>
+        <h4>Título da sessão aqui</h4>
+        <div class="registration-card__schedules">
+          <p>19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+          <p>20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+        </div>
+        <button mat-button color="primary" routerLink="#">Sair da lista de espera</button>
+      </div>
+
+      <div class="registration-card">
+        <h3 class="registration-card__title-activity">Título da atividade aqui</h3>
+        <h4 class="registrantion-card__title-session">Título da sessão aqui</h4>
+        <div class="registration-card__schedules">
+          <p class="registration-card__schedule">19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+          <p class="registration-card__schedule">20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+        </div>
+        <button mat-button color="primary" routerLink="#">Sair da lista de espera</button>
+      </div>
+    </section>
+  </mat-tab>
+
+  <mat-tab label="Canceladas">
+    <section class="registrantion-container">
+      <p>Suas inscrições canceladas:</p>
+      <div class="registration-card">
+        <h3>Título da atividade aqui</h3>
+        <h4>Título da sessão aqui</h4>
+        <div class="registration-card__schedules">
+          <p>19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+          <p>20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+        </div>
+      </div>
+
+      <div class="registration-card">
+        <h3 class="registration-card__title-activity">Título da atividade aqui</h3>
+        <h4 class="registrantion-card__title-session">Título da sessão aqui</h4>
+        <div class="registration-card__schedules">
+          <p class="registration-card__schedule">19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+          <p class="registration-card__schedule">20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
+        </div>
+      </div>
+    </section>
+  </mat-tab>
+</mat-tab-group>

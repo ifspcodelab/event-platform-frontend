@@ -11,13 +11,12 @@ import { AuthGuard } from "./core/security/auth.guard";
 import { AdminGuard } from "./core/security/admin.guard";
 import { MyDataComponent } from "./site/pages/my-data/my-data.component";
 import { MyDataEditComponent } from "./site/pages/my-data-edit/my-data-edit.component";
-import {
-  SignupResendEmailComponent
-} from "./site/pages/signup-resend-email/signup-resend-email.component";
-import {
-  ForgotPasswordResendEmailComponent
-} from "./site/pages/forgot-password-resend-email/forgot-password-resend-email.component";
+import { SignupResendEmailComponent } from "./site/pages/signup-resend-email/signup-resend-email.component";
+import { ForgotPasswordResendEmailComponent } from "./site/pages/forgot-password-resend-email/forgot-password-resend-email.component";
 import { MyDataAlterPasswordComponent } from "./site/pages/my-data-alter-password/my-data-alter-password.component";
+import { MyRegistrationAcceptSeatComponent } from "./site/pages/my-registration-accept-seat/my-registration-accept-seat.component";
+import { MyRegistrationComponent } from "./site/pages/my-registration/my-registration.component";
+import { MyRegistrationDenySeatComponent } from "./site/pages/my-registration-deny-seat/my-registration-deny-seat.component";
 
 const routes: Routes = [
   {
@@ -82,6 +81,24 @@ const routes: Routes = [
     component: MyDataAlterPasswordComponent,
     canActivate: [AuthGuard],
     title: 'Alterar Minha Senha - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'minhas-inscricoes',
+    component: MyRegistrationComponent,
+    canActivate: [AuthGuard],
+    title: 'Minhas Inscrições - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'minhas-inscricoes/aceitar-vaga/:registrationId',
+    component:  MyRegistrationAcceptSeatComponent,
+    canActivate: [AuthGuard],
+    title: 'Aceitar Vaga - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'minhas-inscricoes/recusar-vaga/:registrationId',
+    component: MyRegistrationDenySeatComponent,
+    canActivate: [AuthGuard],
+    title: 'Recusar Vaga - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'admin',
