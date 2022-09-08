@@ -9,6 +9,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { ProblemDetail, Violation } from "../../../core/models/problem-detail";
 import { AccountService } from "../../../core/services/account.service";
 import { AccountDto } from "../../../core/models/account.model";
+import {AccountStatus} from "../../../core/models/account-status.model";
 
 
 @Component({
@@ -23,7 +24,9 @@ export class AccountFormComponent implements OnInit {
   accountId: string;
   accountDto: AccountDto;
   accountRole = AccountRole;
-  enumKeys: any = [];
+  accountStatus = AccountStatus;
+  roleKeys: any = [];
+  statusKeys: any = [];
 
   constructor(
     protected accountService: AccountService,
@@ -32,7 +35,8 @@ export class AccountFormComponent implements OnInit {
     private route: ActivatedRoute,
     private notificationService: NotificationService
   ) {
-    this.enumKeys = Object.keys(this.accountRole);
+    this.roleKeys = Object.keys(this.accountRole);
+    this.statusKeys = Object.keys(this.accountStatus);
   }
 
   ngOnInit(): void {
@@ -58,7 +62,7 @@ export class AccountFormComponent implements OnInit {
       cpf: ['', [Validators.required, AppValidators.validCpf()]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
       role: ['', []],
-      verified: ['', []],
+      status: ['', []],
     });
   }
 

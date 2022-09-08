@@ -33,9 +33,8 @@
         </mat-error>
       </mat-error>
     </mat-form-field>
-  </fieldset>
 
-  <fieldset>
+
     <mat-form-field class="form-field-md">
       <mat-label>E-mail</mat-label>
       <input matInput placeholder="" formControlName="email" name="email">
@@ -46,29 +45,28 @@
         {{ fieldErrors('email')?.['serverError'] }}
       </mat-error>
     </mat-form-field>
-    <br>
+  </fieldset>
+
+
+  <fieldset>
     <mat-form-field class="modal__input__sm" >
       <mat-label>Perfil</mat-label>
       <mat-select formControlName="role" name="role" placeholder="Perfil">
-        <mat-option *ngFor="let roleType of enumKeys" [value]="roleType">
+        <mat-option *ngFor="let roleType of roleKeys" [value]="roleType">
           {{roleType | accountRole | titlecase}}
         </mat-option>
       </mat-select>
     </mat-form-field>
+
+
+    <mat-form-field class="modal__input__sm" >
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" name="status" placeholder="Status">
+        <mat-option *ngFor="let statusType of statusKeys" [value]="statusType">
+          {{statusType | accountStatus | titlecase}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </fieldset>
-
-  <fieldset>
-    <div>
-      <mat-label class="mat-hint">Verificado</mat-label>
-      <br>
-      <mat-slide-toggle class="mat-slide-toggle-content" formControlName="verified">
-        <mat-hint>Informa se o usuário possui conta confirmada através do e-mail</mat-hint>
-      </mat-slide-toggle>
-    </div>
-  </fieldset>
-
-
-
-
 
 </form>

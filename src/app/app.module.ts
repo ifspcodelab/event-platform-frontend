@@ -40,6 +40,7 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     HttpClientModule,
     MatSnackBarModule,
     MatDialogModule,
+
   ],
   providers: [
     {

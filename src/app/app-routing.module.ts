@@ -11,6 +11,7 @@ import { AuthGuard } from "./core/security/auth.guard";
 import { AdminGuard } from "./core/security/admin.guard";
 import { MyDataComponent } from "./site/pages/my-data/my-data.component";
 import { MyDataEditComponent } from "./site/pages/my-data-edit/my-data-edit.component";
+import { AccountDeletionComponent } from "./site/pages/account-deletion/account-deletion.component";
 import { SignupResendEmailComponent } from "./site/pages/signup-resend-email/signup-resend-email.component";
 import { ForgotPasswordResendEmailComponent } from "./site/pages/forgot-password-resend-email/forgot-password-resend-email.component";
 import { MyDataAlterPasswordComponent } from "./site/pages/my-data-alter-password/my-data-alter-password.component";
@@ -81,6 +82,12 @@ const routes: Routes = [
     component: MyDataAlterPasswordComponent,
     canActivate: [AuthGuard],
     title: 'Alterar Minha Senha - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'meus-dados/solicitar-exclusao-de-conta',
+    component: AccountDeletionComponent,
+    canActivate: [AuthGuard],
+    title: 'Excluir Minha Conta - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'minhas-inscricoes',

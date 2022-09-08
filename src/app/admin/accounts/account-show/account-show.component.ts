@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {LoaderService} from "../../loader.service";
-import {NotificationService} from "../../../core/services/notification.service";
-import {MatDialog} from "@angular/material/dialog";
-import {first} from "rxjs";
-import {ConfirmationDialogComponent} from "../../../core/components/confirmation-dialog/confirmation-dialog.component";
-import {HttpErrorResponse} from "@angular/common/http";
-import {ProblemDetail} from "../../../core/models/problem-detail";
-import {AccountService} from "../../../core/services/account.service";
-import {AccountDto} from "../../../core/models/account.model";
+import { ActivatedRoute, Router } from "@angular/router";
+import { LoaderService } from "../../loader.service";
+import { NotificationService } from "../../../core/services/notification.service";
+import { MatDialog } from "@angular/material/dialog";
+import { first } from "rxjs";
+import { ConfirmationDialogComponent } from "../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import { HttpErrorResponse } from "@angular/common/http";
+import { ProblemDetail } from "../../../core/models/problem-detail";
+import { AccountService } from "../../../core/services/account.service";
+import { AccountDto } from "../../../core/models/account.model";
 
 @Component({
   selector: 'app-account-show',

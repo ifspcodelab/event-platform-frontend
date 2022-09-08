@@ -1,4 +1,5 @@
 import { AccountRole } from "./account-role.model";
+import { AccountStatus } from "./account-status.model";
 
 export interface AccountDto {
   id: string;
@@ -8,7 +9,7 @@ export interface AccountDto {
   agreed: boolean;
   allowEmail: boolean;
   role: AccountRole;
-  verified: boolean;
+  status: AccountStatus;
   registrationTimestamp: string;
 }
 
@@ -55,13 +56,11 @@ export class AccountCreateDto {
     this.userRecaptcha = userRecaptcha;
   }
 }
-
 export interface AccountUpdateDto {
   id: string;
   name: string;
   email: string;
   cpf: string;
   role: AccountRole;
-  verified: boolean;
+  status: AccountStatus;
 }
-

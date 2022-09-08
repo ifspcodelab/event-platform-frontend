@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AccountsComponent} from "./accounts.component";
-import {AccountListComponent} from "./account-list/account-list.component";
-import {SpeakerShowComponent} from "../speakers/speaker-show/speaker-show.component";
-import {AccountShowComponent} from "./account-show/account-show.component";
-import {AccountFormComponent} from "./account-form/account-form.component";
+import { AccountsComponent } from "./accounts.component";
+import { AccountListComponent } from "./account-list/account-list.component";
+import { AccountShowComponent } from "./account-show/account-show.component";
+import { AccountFormComponent } from "./account-form/account-form.component";
 
 const routes: Routes = [
   {

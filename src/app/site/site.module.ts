@@ -28,6 +28,8 @@ import { CoreModule } from "../core/core.module";
 import { SignupResendEmailComponent } from './pages/signup-resend-email/signup-resend-email.component';
 import { ForgotPasswordResendEmailComponent } from './pages/forgot-password-resend-email/forgot-password-resend-email.component';
 import { MyDataAlterPasswordComponent } from './pages/my-data-alter-password/my-data-alter-password.component';
+import { AccountDeletionComponent } from './pages/account-deletion/account-deletion.component';
+import { AccountDeletionDialogComponent } from "./pages/account-deletion/dialog/account-deletion-dialog";
 import { MyRegistrationComponent } from './pages/my-registration/my-registration.component';
 import { MyRegistrationAcceptSeatComponent } from './pages/my-registration-accept-seat/my-registration-accept-seat.component';
 import { MyRegistrationDenySeatComponent } from './pages/my-registration-deny-seat/my-registration-deny-seat.component';
@@ -50,6 +52,8 @@ import { RegistrationCardComponent } from './components/registration-card/regist
     AccountPageComponent,
     MyDataComponent,
     MyDataEditComponent,
+    AccountDeletionComponent,
+    AccountDeletionDialogComponent,
     SignupResendEmailComponent,
     ForgotPasswordResendEmailComponent,
     MyDataAlterPasswordComponent,
