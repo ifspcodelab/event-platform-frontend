@@ -1,0 +1,68 @@
+<app-site-header></app-site-header>
+
+<main class="my-account">
+  <div class="my-account__header-wrap">
+    <header class="my-account__header">
+      <h1 class="my-account__title">Minhas Inscrições</h1>
+      <p class="my-account__subtitle">Aqui você pode administrar suas inscrições.</p>
+    </header>
+  </div>
+
+  <div *ngIf="!loading" class="my-account__content">
+    <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
+      <mat-tab label="Confirmadas">
+        <section class="registrantion-container">
+          <div *ngIf="registrationsConfirmed.length == 0">Nenhuma inscrição confirmada</div>
+          <div *ngIf="registrationsConfirmed.length != 0">
+            <h2>Seja um participante responsável.</h2>
+            <p>Caso não for participar de um evento cancele sua inscrição na sessão e libere a vaga para outra pessoa.</p>
+          </div>
+          <div *ngFor="let registration of registrationsConfirmed">
+            <app-registration-card
+              [registration]="registration"
+              registrationType="confirmed"
+              primaryEventName="Cancelar Inscrição"
+              (primaryEvent)="cancelRegistration($event)"
+            ></app-registration-card>
+          </div>
+        </section>
+      </mat-tab>
+
+      <mat-tab label="Lista de espera">
+        <section class="registrantion-container">
+          <div *ngIf="registrationsWaitingConfirmation.length == 0 && registrationsWaitingList.length == 0">Nenhuma inscrição em lista de espera</div>
+          <div *ngFor="let registration of registrationsWaitingConfirmation">
+            <app-registration-card
+              [registration]="registration"
+              registrationType="waiting_confirmation"
+              primaryEventName="Aceitar Vaga"
+              (primaryEvent)="acceptRegistration($event)"
+              secondaryEventName="Não vou participar"
+              (secondaryEvent)="denyRegistration($event)"
+            ></app-registration-card>
+          </div>
+          <div *ngFor="let registration of registrationsWaitingList">
+            <app-registration-card
+              [registration]="registration"
+              registrationType="wait_list"
+              primaryEventName="Sair da lista de espera"
+              (primaryEvent)="cancelRegistration($event)"
+            ></app-registration-card>
+          </div>
+        </section>
+      </mat-tab>
+
+      <mat-tab label="Canceladas">
+        <section class="registrantion-container">
+          <div *ngIf="registrationsCanceled.length == 0">Nenhuma inscrição cancelada</div>
+          <div *ngFor="let registration of registrationsCanceled">
+            <app-registration-card
+              [registration]="registration"
+              registrationType="canceled"
+            ></app-registration-card>
+          </div>
+        </section>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</main>

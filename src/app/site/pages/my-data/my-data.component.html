@@ -1,68 +1,57 @@
 <app-site-header></app-site-header>
+<main class="my-account">
+  <div class="my-account__header-wrap">
+    <header class="my-account__header">
+      <h1 class="my-account__title">Meus Dados</h1>
+      <p class="my-account__subtitle">Aqui você pode alterar seu nome e CPF, redefinir a sua senha ou ver o histórico das suas atividades</p>
+    </header>
+  </div>
 
-<div class="site-content">
-  <main *ngIf="accountDto" class="event-page">
-    <h1 class="event-page__title">Meus Dados</h1>
-    <div class="event-page__content">
-      <p class="my-data__greetings">
-        Olá <b>{{accountDto.name.toString().split(' ')[0]}}</b>. Você pode alterar seu nome e CPF, redefinir a sua senha ou ver o histórico das suas atividades</p>
-      <br>
-      <mat-tab-group>
-        <mat-tab label="Meus Dados">
-          <div class="my-data__container">
-            <table class="my-data__table">
-              <ng-container>
-                <tr>
-                  <td class="attribute">Nome</td>
-                  <td>{{ accountDto.name }}</td>
-                </tr>
-                <tr>
-                  <td class="attribute">E-mail</td>
-                  <td class="email">{{ accountDto.email }}</td>
-                </tr>
-                <tr>
-                  <td class="attribute">CPF</td>
-                  <td>{{ accountDto.cpf | cpfFomat }}</td>
-                </tr>
-                <tr>
-                  <td class="attribute">Preferência de comunicação</td>
-                  <td>{{ accountDto.allowEmail ? 'Aceita comunicação via e-mail' : 'Não aceita comunicação via e-mail'}}</td>
-                </tr>
-              </ng-container>
-            </table>
+  <div *ngIf="accountDto" class="my-account__content">
+    <mat-tab-group>
+      <mat-tab label="Meus Dados">
+        <div class="my-data__container">
+          <p><b>Nome:</b> {{ accountDto.name }}</p>
+          <p><b>E-mail:</b> {{ accountDto.email }}</p>
+          <p><b>CPF:</b> {{ accountDto.cpf | cpfFomat }}</p>
+          <p><b>Preferência de comunicação:</b> {{ accountDto.allowEmail ? 'Aceita comunicação via e-mail' : 'Não aceita comunicação via e-mail'}}</p>
+          <br>
+          <mat-card-actions>
+            <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar meus dados</button>
+            <button class="alterPassword" mat-button color="" routerLink="/meus-dados/alterar-minha-senha">Alterar minha senha</button>
+            <button class="account-deletion" color="warn" mat-button (click)="openDialog()">Excluir minha conta</button>
+          </mat-card-actions>
+        </div>
+      </mat-tab>
 
-            <mat-card-actions>
-              <button class="edit" mat-raised-button color="primary" (click)="editMyData()">Editar meus dados</button>
-              <button class="alterPassword" mat-button color="" routerLink="/meus-dados/alterar-minha-senha">Alterar minha senha</button>
-              <button class="account-deletion" color="warn" mat-button (click)="openDialog()">Excluir minha conta</button>
-            </mat-card-actions>
-          </div>
-        </mat-tab>
+      <mat-tab class="my-activities" label="Minhas Atividades">
+        <div class="my-activities__container">
+          <table mat-table  [dataSource]="dataSource" matSortActive="no." class="mat-elevation-z0">
 
-        <mat-tab class="my-activities" label="Minhas Atividades">
-          <div class="my-activities__container">
-            <table mat-table  [dataSource]="dataSource" matSortActive="no." class="mat-elevation-z0">
+            <ng-container matColumnDef="createdAt">
+              <th mat-header-cell *matHeaderCellDef>Data e hora</th>
+              <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy - HH:mm:ss'}} </td>
+            </ng-container>
 
-              <ng-container matColumnDef="createdAt">
-                <th mat-header-cell *matHeaderCellDef>Data e hora</th>
-                <td mat-cell *matCellDef="let element"> {{element.createdAt | date:'dd/MM/yyyy - HH:mm:ss'}} </td>
-              </ng-container>
+            <ng-container matColumnDef="resourceData">
+              <th mat-header-cell *matHeaderCellDef>Atividade</th>
+              <td mat-cell *matCellDef="let element"> {{element.resourceData}} </td>
+            </ng-container>
 
-              <ng-container matColumnDef="resourceData">
-                <th mat-header-cell *matHeaderCellDef>Atividade</th>
-                <td mat-cell *matCellDef="let element"> {{element.resourceData}} </td>
-              </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-  </main>
+</main>
 
-</div>
+<!--<div class="site-content">-->
+<!-- -->
+
+<!--</div>-->
 
 
 <!--<div class="my-data" *ngIf="accountDto">-->

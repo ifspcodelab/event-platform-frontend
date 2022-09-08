@@ -29,16 +29,21 @@
     margin: 15px 0 0 0;
     padding: 15px 20px;
     border: 1px solid #C9CCCB80;
-    border-left: 3px solid #2b9441;
-    border-radius: 7px;
+    border-left: 2px solid #2b9441;
 
     &-title {
       font-size: 16px;
       font-weight: 500;
+      margin: 0;
     }
     &-schedules {
       font-size: 14px;
       font-weight: 500;
+    }
+
+    &--canceled {
+      border: 1px solid #cccccc;
+      background-color: #ededed;
     }
   }
 

@@ -3,10 +3,15 @@ import { EventDto } from "../../../../core/models/event.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { SubeventDtoResolved } from "../../../../core/resolvers/subevent.resolver";
 import { SubeventDto } from "../../../../core/models/subevent.model";
-import { ActivityForSiteDto } from "../../../models/activity.model";
+import { ActivityForSiteDto, SessionForSiteDto } from "../../../models/activity.model";
 import { SiteService } from "../../../services/site.service";
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
+import { ActivityModality } from "../../../../core/models/activity-modality.model";
+import { RegistrationService } from "../../../../core/services/registration.service";
+import { JwtService } from "../../../../core/services/jwtservice.service";
+import { NotificationService } from "../../../../core/services/notification.service";
+import { ProblemDetail } from "../../../../core/models/problem-detail";
 
 @Component({
   selector: 'app-activity-show',
@@ -20,11 +25,15 @@ export class ActivityShowComponent implements OnInit {
   activitySlug: string;
   activity: ActivityForSiteDto;
   loading: boolean = true;
+  ActivityModality = ActivityModality;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private siteService: SiteService
+    private siteService: SiteService,
+    private registrationService: RegistrationService,
+    private jwtService: JwtService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -68,10 +77,54 @@ export class ActivityShowComponent implements OnInit {
       });
   }
 
+  register(session: SessionForSiteDto) {
+    if(!this.jwtService.isAuthenticated()) {
+      this.router.navigate(['login']);
+    }
+
+    this.registrationService.postUserSessionRegistration(session.id)
+      .pipe(first())
+      .subscribe({
+        next: registrationDto => {
+          console.log(registrationDto)
+          this.router.navigate(['/minhas-inscricoes']);
+        },
+        error: error => this.handleError(error)
+        }
+      )
+  }
+
+  registerOnWaitingList(session: SessionForSiteDto) {
+    if(!this.jwtService.isAuthenticated()) {
+      this.router.navigate(['login']);
+    }
+
+    this.registrationService.postUserSessionRegistrationWaitList(session.id)
+      .pipe(first())
+      .subscribe({
+          next: registrationDto => {
+            console.log(registrationDto)
+            this.router.navigate(['/minhas-inscricoes']);
+          },
+          error: error => this.handleError(error)
+        }
+      )
+  }
+
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
       if(error.status === 404) {
         this.router.navigate(['/']);
+      }
+
+      if(error.status === 409) {
+        const problem: ProblemDetail = error.error;
+
+        if(problem.violations[0].name == "REGISTRATION_CREATE_WITH_NO_SEATS_AVAILABLE") {
+          this.notificationService.error("Vagas esgotadas. Recarregue a página.");
+        } else {
+          this.notificationService.error(problem.violations[0].message);
+        }
       }
     }
   }
@@ -92,5 +145,23 @@ export class ActivityShowComponent implements OnInit {
     registrationEndDate.setDate(registrationEndDate.getDate() + 1);
     const now = new Date();
     return now >= registrationStartDate && now < registrationEndDate;
+  }
+
+  needRegistration() {
+    return this.activity.needRegistration
+  }
+
+  hasSeats(session: SessionForSiteDto) {
+    return session.seats > session.confirmedSeats;
+  }
+
+  showUrl() {
+    const modality = ActivityModality[this.activity.modality];
+    return modality == ActivityModality.ONLINE.toString() || modality == ActivityModality.HYBRID.toString();
+  }
+
+  showLocation() {
+    const modality = ActivityModality[this.activity.modality];
+    return modality == ActivityModality.IN_PERSON.toString() || modality == ActivityModality.HYBRID.toString();
   }
 }

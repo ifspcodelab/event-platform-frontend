@@ -1,0 +1,73 @@
+<div class="activity-show__session {{ isCanceled() ? 'activity-show__session--canceled ' : ''}}">
+  <h2 class="activity-show__session-title">{{ registration.session.activity.type | activityTypes }} {{ registration.session.activity.title }}</h2>
+  <p>Sessão: {{ registration.session.title }} </p>
+  <div *ngIf="registration.session.sessionSchedules.length == 1">
+    <p>
+      <span class="activity-show__hint">Horário:</span>
+      {{ registration.session.sessionSchedules[0].executionStart | date:'ccc dd/MM' : '' : 'pt-BR' }}
+      das {{ registration.session.sessionSchedules[0].executionStart | date:'HH:mm' }}
+      às {{ registration.session.sessionSchedules[0].executionEnd | date:'HH:mm' }}
+    </p>
+    <p *ngIf="!isCanceled() && showUrl()">
+      <span class="activity-show__hint">URL:</span> {{ registration.session.sessionSchedules[0].url }}
+    </p>
+
+    <p *ngIf="!isCanceled() && showLocation()">
+      <span class="activity-show__hint">Local:</span>
+      {{ registration.session.sessionSchedules[0].location.name }} ({{ registration.session.sessionSchedules[0].location.address }})
+
+      <span *ngIf="registration.session.sessionSchedules[0].area.name"> - {{ registration.session.sessionSchedules[0].area.name }}</span>
+
+      <span *ngIf="registration.session.sessionSchedules[0].space.name">
+        - {{ registration.session.sessionSchedules[0].space.type | spaceTypes }}
+        {{ registration.session.sessionSchedules[0].space.name }}
+      </span>
+
+    </p>
+  </div>
+
+  <div *ngIf="registration.session.sessionSchedules.length != 1">
+    <h4 class="activity-show__session-schedules">Horários</h4>
+    <ul>
+      <li *ngFor="let sessionSchedule of registration.session.sessionSchedules">
+        <p>
+          <span class="activity-show__hint">Horário:</span> {{ sessionSchedule.executionStart | date:'ccc dd/MM' : '' : 'pt-BR' }}
+          das {{ sessionSchedule.executionStart | date:'HH:mm' }}
+          às {{ sessionSchedule.executionEnd | date:'HH:mm' }}
+        </p>
+        <p *ngIf="!isCanceled() && showUrl()">
+          <span class="activity-show__hint">URL:</span> {{ registration.session.sessionSchedules[0].url }}
+        </p>
+
+        <p *ngIf="!isCanceled() && showLocation()">
+          <span class="activity-show__hint">Local:</span>
+          {{ registration.session.sessionSchedules[0].location.name }}
+          ({{ registration.session.sessionSchedules[0].location.address }})
+
+          <span *ngIf="registration.session.sessionSchedules[0].area.name">
+            - {{ registration.session.sessionSchedules[0].area.name }}
+          </span>
+
+          <span *ngIf="registration.session.sessionSchedules[0].space.name">
+            - {{ registration.session.sessionSchedules[0].space.type | spaceTypes }}
+            {{ registration.session.sessionSchedules[0].space.name }}
+          </span>
+        </p>
+
+      </li>
+    </ul>
+  </div>
+  <p *ngIf="isConfirmed() && !isActivityOnline()">
+    <span class="activity-show__hint">ATENÇÃO: </span>Você deve se dirigir ao local no horário inicial da sessão para realizar o crendenciamento com o seu CPF, ou
+    documento que contenha o número de seu CPF. Caso você se atrase sua inscrição será cancelada e sua vaga será liberada para a lista de espera.
+  </p>
+  <p *ngIf="isConfirmed() && isActivityOnline()">
+    <span class="activity-show__hint">ATENÇÃO: </span>Você deve acessar a URL da atividade no horário inicial da sessão para realizar o crendenciamento.
+    Caso você se atrase sua inscrição será cancelada e sua vaga será liberada para a lista de espera.
+  </p>
+  <br>
+  <div>
+    <button *ngIf="primaryEventName" mat-stroked-button color="{{secondaryEventName ? 'primary' : 'warn' }}" (click)="primaryEventExecute(registration.id)">{{ primaryEventName }}</button>
+    <button *ngIf="secondaryEventName" mat-stroked-button color="warn" (click)="secondaryEventExecute(registration.id)">{{ secondaryEventName }}</button>
+  </div>
+</div>

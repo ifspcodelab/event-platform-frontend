@@ -15,6 +15,9 @@ import { AccountDeletionComponent } from "./site/pages/account-deletion/account-
 import { SignupResendEmailComponent } from "./site/pages/signup-resend-email/signup-resend-email.component";
 import { ForgotPasswordResendEmailComponent } from "./site/pages/forgot-password-resend-email/forgot-password-resend-email.component";
 import { MyDataAlterPasswordComponent } from "./site/pages/my-data-alter-password/my-data-alter-password.component";
+import { MyRegistrationAcceptSeatComponent } from "./site/pages/my-registration-accept-seat/my-registration-accept-seat.component";
+import { MyRegistrationComponent } from "./site/pages/my-registration/my-registration.component";
+import { MyRegistrationDenySeatComponent } from "./site/pages/my-registration-deny-seat/my-registration-deny-seat.component";
 
 const routes: Routes = [
   {
@@ -35,7 +38,7 @@ const routes: Routes = [
   {
     path: 'cadastro/verificacao/:token',
     component: SignupVerifyComponent,
-    title: 'Verificação cadastro - Portal de Eventos IFSP - Câmpus São Paulo',
+    title: 'Verificação do cadastro - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'esqueci-minha-senha',
@@ -85,6 +88,24 @@ const routes: Routes = [
     component: AccountDeletionComponent,
     canActivate: [AuthGuard],
     title: 'Excluir Minha Conta - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'minhas-inscricoes',
+    component: MyRegistrationComponent,
+    canActivate: [AuthGuard],
+    title: 'Minhas Inscrições - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'minhas-inscricoes/aceitar-vaga/:registrationId',
+    component:  MyRegistrationAcceptSeatComponent,
+    canActivate: [AuthGuard],
+    title: 'Aceitar Vaga - Portal de Eventos IFSP - Câmpus São Paulo',
+  },
+  {
+    path: 'minhas-inscricoes/recusar-vaga/:registrationId',
+    component: MyRegistrationDenySeatComponent,
+    canActivate: [AuthGuard],
+    title: 'Recusar Vaga - Portal de Eventos IFSP - Câmpus São Paulo',
   },
   {
     path: 'admin',

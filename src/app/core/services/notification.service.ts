@@ -15,4 +15,12 @@ export class NotificationService {
   error(message: string) {
     this.snackBar.open(message, 'Fechar', { duration: 5000 })
   }
+
+  successTop(message: string) {
+    this.snackBar.open(message, 'Fechar', { duration: 5000, verticalPosition: 'top', horizontalPosition: 'center' })
+  }
+
+  errorTop(message: string) {
+    this.snackBar.open(message, 'Fechar', { duration: 5000, verticalPosition: 'top', horizontalPosition: 'center' })
+  }
 }

@@ -1,5 +1,39 @@
+.my-account {
+
+  &__header-wrap {
+    background-color: #2b9441;
+  }
+
+  &__header {
+    margin: auto;
+    max-width: 1100px;
+    padding: 40px 20px;
+  }
+
+  &__title {
+    color: #FFFFFF;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  &__subtitle {
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  &__content {
+    margin: auto;
+    max-width: 1100px;
+    padding: 30px 20px;
+  }
+}
+
 .my-data__container {
   padding: 30px;
+
+  b {
+    font-weight: 500;
+  }
 }
 
 .my-activities__container {

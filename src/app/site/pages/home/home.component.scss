@@ -1,9 +1,10 @@
 .home-page-header-content {
   padding: 15px 20px;
   background-color: #195128;
-  background-image: url("/assets/img/header-background.jpg");
+  background-image: url("/assets/img/header-background2.jpg");
   background-position: center;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
+  background-size: cover;
 
 }
 
@@ -37,9 +38,9 @@
 
   &__subtitle {
     font-size: 1.3rem;
-    font-weight: 300;
+    font-weight: 400;
     margin: 0;
-    color: #b5e7c8;
+    color: #c6f6d9;
 
     @media screen and (max-width: 600px) {
       font-size: 0.9rem;
