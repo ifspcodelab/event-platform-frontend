@@ -1,97 +1,68 @@
 <app-site-header></app-site-header>
 
-<div class="registration-content">
-  <h1>Minhas inscrições</h1>
-  <p>Olá Fulano de Ciclano. Você pode administrar suas inscrições.</p>
+<main class="my-account">
+  <div class="my-account__header-wrap">
+    <header class="my-account__header">
+      <h1 class="my-account__title">Minhas Inscrições</h1>
+      <p class="my-account__subtitle">Aqui você pode administrar suas inscrições.</p>
+    </header>
+  </div>
 
-  <form [formGroup]="form">
-    <mat-form-field class="form-field-sm">
-      <mat-label>Eventos</mat-label>
-      <mat-select formControlName="event">
-        <mat-option *ngFor="let event of eventsDto" [value]="event.title">{{ event.title }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </form>
-</div>
+  <div *ngIf="!loading" class="my-account__content">
+    <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
+      <mat-tab label="Confirmadas">
+        <section class="registrantion-container">
+          <div *ngIf="registrationsConfirmed.length == 0">Nenhuma inscrição confirmada</div>
+          <div *ngIf="registrationsConfirmed.length != 0">
+            <h2>Seja um participante responsável.</h2>
+            <p>Caso não for participar de um evento cancele sua inscrição na sessão e libere a vaga para outra pessoa.</p>
+          </div>
+          <div *ngFor="let registration of registrationsConfirmed">
+            <app-registration-card
+              [registration]="registration"
+              registrationType="confirmed"
+              primaryEventName="Cancelar Inscrição"
+              (primaryEvent)="cancelRegistration($event)"
+            ></app-registration-card>
+          </div>
+        </section>
+      </mat-tab>
 
-<mat-tab-group mat-align-tabs="center">
-  <mat-tab label="Confirmadas">
-    <section class="registrantion-container">
-      <p>
-        <b>Seja um participante responsável.</b><br>
-        Caso não for participar de um evento cancele sua inscrição na sessão e libere a vaga para outra pessoa.
-      </p>
+      <mat-tab label="Lista de espera">
+        <section class="registrantion-container">
+          <div *ngIf="registrationsWaitingConfirmation.length == 0 && registrationsWaitingList.length == 0">Nenhuma inscrição em lista de espera</div>
+          <div *ngFor="let registration of registrationsWaitingConfirmation">
+            <app-registration-card
+              [registration]="registration"
+              registrationType="waiting_confirmation"
+              primaryEventName="Aceitar Vaga"
+              (primaryEvent)="acceptRegistration($event)"
+              secondaryEventName="Não vou participar"
+              (secondaryEvent)="denyRegistration($event)"
+            ></app-registration-card>
+          </div>
+          <div *ngFor="let registration of registrationsWaitingList">
+            <app-registration-card
+              [registration]="registration"
+              registrationType="wait_list"
+              primaryEventName="Sair da lista de espera"
+              (primaryEvent)="cancelRegistration($event)"
+            ></app-registration-card>
+          </div>
+        </section>
+      </mat-tab>
 
-      <div class="registration-card">
-        <h3>Título da atividade aqui</h3>
-        <h4>Título da sessão aqui</h4>
-        <div class="registration-card__schedules">
-          <p>19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-          <p>20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-        </div>
-        <button mat-button color="warn" routerLink="#">Cancelar inscrição</button>
-      </div>
-
-      <div class="registration-card">
-        <h3 class="registration-card__title-activity">Título da atividade aqui</h3>
-        <h4 class="registrantion-card__title-session">Título da sessão aqui</h4>
-        <div class="registration-card__schedules">
-          <p>19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-          <p>20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-        </div>
-        <div class="registration-card__action">
-          <button mat-button color="warn" routerLink="#">Cancelar inscrição</button>
-        </div>
-      </div>
-    </section>
-  </mat-tab>
-
-  <mat-tab label="Lista de espera">
-    <section class="registrantion-container">
-      <p>A lista de espera funciona como um meio de ...</p>
-
-      <div class="registration-card">
-        <h3>Título da atividade aqui</h3>
-        <h4>Título da sessão aqui</h4>
-        <div class="registration-card__schedules">
-          <p>19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-          <p>20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-        </div>
-        <button mat-button color="primary" routerLink="#">Sair da lista de espera</button>
-      </div>
-
-      <div class="registration-card">
-        <h3 class="registration-card__title-activity">Título da atividade aqui</h3>
-        <h4 class="registrantion-card__title-session">Título da sessão aqui</h4>
-        <div class="registration-card__schedules">
-          <p class="registration-card__schedule">19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-          <p class="registration-card__schedule">20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-        </div>
-        <button mat-button color="primary" routerLink="#">Sair da lista de espera</button>
-      </div>
-    </section>
-  </mat-tab>
-
-  <mat-tab label="Canceladas">
-    <section class="registrantion-container">
-      <p>Suas inscrições canceladas:</p>
-      <div class="registration-card">
-        <h3>Título da atividade aqui</h3>
-        <h4>Título da sessão aqui</h4>
-        <div class="registration-card__schedules">
-          <p>19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-          <p>20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-        </div>
-      </div>
-
-      <div class="registration-card">
-        <h3 class="registration-card__title-activity">Título da atividade aqui</h3>
-        <h4 class="registrantion-card__title-session">Título da sessão aqui</h4>
-        <div class="registration-card__schedules">
-          <p class="registration-card__schedule">19/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-          <p class="registration-card__schedule">20/09/2022 - 14:00 - 16:00 - Bloco C - Laboratório 2</p>
-        </div>
-      </div>
-    </section>
-  </mat-tab>
-</mat-tab-group>
+      <mat-tab label="Canceladas">
+        <section class="registrantion-container">
+          <div *ngIf="registrationsCanceled.length == 0">Nenhuma inscrição cancelada</div>
+          <div *ngFor="let registration of registrationsCanceled">
+            <app-registration-card
+              [registration]="registration"
+              registrationType="canceled"
+            ></app-registration-card>
+          </div>
+        </section>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</main>

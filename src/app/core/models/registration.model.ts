@@ -23,3 +23,10 @@ export interface RegistrationDto {
   timeEmailWasSent: string;
   emailReplyDate: string;
 }
+
+export interface AccountEventQueryDto {
+  eventId: string;
+  eventTitle: string;
+  subEventId: string;
+  subEventTitle: string;
+}

@@ -31,6 +31,7 @@ import { MyDataAlterPasswordComponent } from './pages/my-data-alter-password/my-
 import { MyRegistrationComponent } from './pages/my-registration/my-registration.component';
 import { MyRegistrationAcceptSeatComponent } from './pages/my-registration-accept-seat/my-registration-accept-seat.component';
 import { MyRegistrationDenySeatComponent } from './pages/my-registration-deny-seat/my-registration-deny-seat.component';
+import { RegistrationCardComponent } from './components/registration-card/registration-card.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MyRegistrationDenySeatComponent } from './pages/my-registration-deny-se
     MyRegistrationComponent,
     MyRegistrationAcceptSeatComponent,
     MyRegistrationDenySeatComponent,
+    RegistrationCardComponent,
   ],
   exports: [
     SiteHeaderComponent,

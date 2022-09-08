@@ -1,3 +1,48 @@
+.my-account {
+
+  &__header-wrap {
+    background-color: #2b9441;
+  }
+
+  &__header {
+    margin: auto;
+    max-width: 1100px;
+    padding: 40px 20px;
+  }
+
+  &__title {
+    color: #FFFFFF;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  &__subtitle {
+    color: #FFFFFF;
+    margin: 0;
+  }
+
+  &__content {
+    margin: auto;
+    max-width: 1100px;
+    padding: 30px 20px;
+  }
+}
+
+.my-data__container {
+  padding: 30px;
+
+  b {
+    font-weight: 500;
+  }
+}
+
+.my-activities__container {
+  padding: 30px;
+}
+
+
+
+
 .registration-content {
   margin: 20px auto 0;
   max-width: 1000px;
@@ -9,7 +54,8 @@
 
 .registrantion-container {
   margin: 20px auto;
-  max-width: 1000px;
+  //max-width: 1000px;
+  padding: 10px 20px;
 
   p {
     margin-bottom: 20px;
@@ -18,8 +64,6 @@
 
 .registration-card {
   border: 1px solid rgb(169,169,169);
-  width: 935px;
-  height: auto;
   padding: 22px;
   margin-bottom: 20px;
   display: flex;

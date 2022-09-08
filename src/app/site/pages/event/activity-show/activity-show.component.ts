@@ -87,7 +87,7 @@ export class ActivityShowComponent implements OnInit {
       .subscribe({
         next: registrationDto => {
           console.log(registrationDto)
-          this.router.navigate(['/meus-dados']);
+          this.router.navigate(['/minhas-inscricoes']);
         },
         error: error => this.handleError(error)
         }
@@ -104,7 +104,7 @@ export class ActivityShowComponent implements OnInit {
       .subscribe({
           next: registrationDto => {
             console.log(registrationDto)
-            this.router.navigate(['/meus-dados']);
+            this.router.navigate(['/minhas-inscricoes']);
           },
           error: error => this.handleError(error)
         }
@@ -126,7 +126,6 @@ export class ActivityShowComponent implements OnInit {
           this.notificationService.error(problem.violations[0].message);
         }
       }
-
     }
   }
 
