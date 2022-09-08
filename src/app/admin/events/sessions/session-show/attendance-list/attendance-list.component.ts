@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RegistrationStatus } from "../../../../../core/models/registration.status";
-import { SessionDto } from "../../../../../core/models/activity.model";
+import {ActivityDto, SessionDto} from "../../../../../core/models/activity.model";
 import { SpaceType } from "../../../../../core/models/spaceType.model";
 import { RegistrationDto } from "../../../../../core/models/registration.model";
 import { RegistrationService } from "../../../../../core/services/registration.service";
 import { first } from "rxjs";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-attendance-list',
@@ -13,10 +14,19 @@ import { first } from "rxjs";
 })
 export class AttendanceListComponent implements OnInit {
   @Input()
+  eventId: string;
+  @Input()
+  subeventId: string;
+  @Input()
+  activityId: string;
+  @Input()
   sessionId: string;
-  displayedColumns: string[] = ['present', 'user', 'status'];
-  checked = false;
   registrationsDto: RegistrationDto[] = [];
+  displayedColumns: string[] = ['present', 'user', 'status'];
+  dataSource: MatTableDataSource<RegistrationDto>
+  checked = false;
+
+
 
   sessionDto: SessionDto = {
     id: "",
@@ -41,15 +51,23 @@ export class AttendanceListComponent implements OnInit {
 
   constructor(private registrationService: RegistrationService) { }
 
-  fetchRegistrations() {
-    this.registrationService.getEventRegistrations("", "", this.sessionId)
-      .pipe(first())
-      .subscribe({
-        next: value => this.registrationsDto = value
+  fetchEventRegistrations() {
+    this.registrationService.getEventRegistrations(this.eventId, this.activityId, this.sessionId)
+      .subscribe(registrations => {
+        this.registrationsDto = registrations
+        this.dataSource = new MatTableDataSource<RegistrationDto>(this.registrationsDto);
       })
   }
 
+  // fetchEventActivitiesWithSubEvent() {
+  //   this.activityService.getEventActivities(this.eventId)
+  //     .subscribe(activities => {
+  //       this.activitiesDto = activities
+  //       this.dataSource = new MatTableDataSource<ActivityDto>(this.activitiesDto);
+  //     });
+  // }
+
   ngOnInit(): void {
-    this.fetchRegistrations();
+    this.fetchEventRegistrations();
   }
 }

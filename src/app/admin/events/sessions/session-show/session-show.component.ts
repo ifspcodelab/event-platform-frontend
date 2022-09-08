@@ -14,7 +14,9 @@ export class SessionShowComponent implements OnInit {
   // displayedColumns: string[] = ['location', 'area', 'space', 'start', 'end', 'actions'];
   tabSelectedIndex: number = 0;
   displayedColumns: string[] = ['location', 'start', 'end', 'actions'];
-  eventId: string = null;
+  eventId: string = "fc64e57a-aaf5-45a8-beb6-90066a21a217";
+  activityId: string = "5632547d-ac27-4fe2-8d1b-0de8697e45f5";
+  sessionId: string = "5632547d-ac27-4fe2-8d1b-0de8697e45f6";
   subEventId: string = null;
   sessionDto: SessionDto = {
     id: "d7b09a41-6b9e-40e1-8c19-fd655a0ce8c5",

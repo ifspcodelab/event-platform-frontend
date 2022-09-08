@@ -91,5 +91,9 @@
     <mat-tab label="Inscritos">
       <app-registration-list [sessionId]="sessionDto.id"></app-registration-list>
     </mat-tab>
+
+    <mat-tab label="Presença">
+      <app-attendance-list [eventId]="eventId" [activityId]="activityId" [sessionId]="sessionId"></app-attendance-list>
+    </mat-tab>
   </mat-tab-group>
 </div>
