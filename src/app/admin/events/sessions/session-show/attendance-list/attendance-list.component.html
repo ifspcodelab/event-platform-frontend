@@ -1,20 +1,20 @@
-<!--<div *ngIf="sessionDto.schedulesSession">-->
-<!--  <mat-list>-->
+<!--<div *ngIf="sessionDto.sessionSchedules">-->
+  <mat-list>
 <!--    <mat-list-item>-->
 <!--      <p><b>Id:</b> {{ schedulesSessionId }}</p>-->
 <!--    </mat-list-item>-->
 <!--    <mat-list-item>-->
 <!--      <p><b>Local/Área/Espaço:</b> {{ [locationName, areaName, spaceName] }}</p>-->
 <!--    </mat-list-item>-->
-<!--  </mat-list>-->
+  </mat-list>
 
   <article class="container">
     <header class="header">
       <h1 class="header__title">Lista de Presença</h1>
-      <mat-checkbox [(ngModel)]="checked">Selecionar Todos</mat-checkbox>
+<!--      <mat-checkbox [(ngModel)]="checked">Selecionar Todos</mat-checkbox>-->
     </header>
 
-<!--    <p *ngIf="!registrationsDto">Nenhum inscrito cadastrado</p>-->
+    <p *ngIf="!registrationsDto">Nenhum inscrito cadastrado</p>
 
     <table mat-table [dataSource]="registrationsDto" *ngIf="registrationsDto"  class="container__table">
 
