@@ -9,6 +9,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { NotificationService } from "../../../core/services/notification.service";
 import { ProblemDetail } from "../../../core/models/problem-detail";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-my-registration',
@@ -25,11 +26,13 @@ export class MyRegistrationComponent implements OnInit {
   registrationsCanceled: RegistrationDto[] = [];
   loading: boolean = true;
   actionLoading: boolean = false;
+  tabSelectedIndex: number = 0;
 
   constructor(
     private registrationService: RegistrationService,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +47,7 @@ export class MyRegistrationComponent implements OnInit {
           this.registrationsDto = registrationsDto;
           this.groupRegistrations();
           this.loading = false;
+          this.route.queryParams.subscribe(params => this.tabSelectedIndex = params['tab']);
         },
         error: err => {
           this.registrationsDto = []

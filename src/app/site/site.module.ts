@@ -71,23 +71,23 @@ import { RegistrationCardComponent } from './components/registration-card/regist
     LoginComponent,
     AccountPageComponent
   ],
-    imports: [
-        CommonModule,
-        SharedModule,
-        EventsModule,
-        RouterModule,
-        MatToolbarModule,
-        FormsModule,
-        MatInputModule,
-        MatButtonModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        RecaptchaFormsModule,
-        RecaptchaModule,
-        SharedModule,
-        RouterModule,
-        NgxMaskModule.forRoot(),
-        CoreModule,
-    ]
+  imports: [
+    CommonModule,
+    SharedModule,
+    EventsModule,
+    RouterModule,
+    MatToolbarModule,
+    FormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    RecaptchaFormsModule,
+    RecaptchaModule,
+    SharedModule,
+    RouterModule,
+    NgxMaskModule.forRoot(),
+    CoreModule,
+  ]
 })
 export class SiteModule { }

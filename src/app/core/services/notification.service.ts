@@ -9,18 +9,10 @@ export class NotificationService {
   constructor(private snackBar: MatSnackBar) {}
 
   success(message: string) {
-    this.snackBar.open(message, 'Fechar', { duration: 5000 })
+    this.snackBar.open(message, 'Fechar', { duration: 8000 })
   }
 
   error(message: string) {
-    this.snackBar.open(message, 'Fechar', { duration: 5000 })
-  }
-
-  successTop(message: string) {
-    this.snackBar.open(message, 'Fechar', { duration: 5000, verticalPosition: 'top', horizontalPosition: 'center' })
-  }
-
-  errorTop(message: string) {
-    this.snackBar.open(message, 'Fechar', { duration: 5000, verticalPosition: 'top', horizontalPosition: 'center' })
+    this.snackBar.open(message, 'Fechar', { duration: 8000 })
   }
 }

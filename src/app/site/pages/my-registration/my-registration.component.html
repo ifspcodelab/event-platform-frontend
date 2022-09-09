@@ -9,7 +9,7 @@
   </div>
 
   <div *ngIf="!loading" class="my-account__content">
-    <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
+    <mat-tab-group mat-align-tabs="left" animationDuration="0ms" [selectedIndex]="tabSelectedIndex">
       <mat-tab label="Confirmadas">
         <section class="registrantion-container">
           <div *ngIf="registrationsConfirmed.length == 0">Nenhuma inscrição confirmada</div>

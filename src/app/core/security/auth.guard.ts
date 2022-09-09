@@ -23,7 +23,14 @@ export class AuthGuard implements CanActivate {
       this.jwtService.removeAccessToken();
       this.jwtService.removeRefreshToken();
 
-      this.router.navigate(['login']);
+      if(
+        state.url.startsWith("/minhas-inscricoes/recusar-vaga") ||
+        state.url.startsWith("/minhas-inscricoes/aceitar-vaga")
+      ) {
+        this.router.navigate(['login'], { queryParams: { redirect: 'waitingConfirmation' }});
+      } else {
+        this.router.navigate(['login']);
+      }
 
       return false;
     }

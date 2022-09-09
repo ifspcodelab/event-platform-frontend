@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "../../../core/services/authentication.service";
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { JwtService } from "../../../core/services/jwtservice.service";
 import { JwtTokensDto } from "../../../core/models/jwt-tokens.model";
 import { LoginCreateDto } from "../../../core/models/login.model";
@@ -24,17 +24,24 @@ export class LoginComponent implements OnInit {
   recaptchaSiteKey: string = environment.recaptchaSiteKey;
   requestLoading: boolean = false;
   hide: boolean = true;
+  redirectTo: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private jwtService: JwtService,
     private router: Router,
+    private route: ActivatedRoute,
     private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
-
+    this.route.queryParams.subscribe(params => {
+      if(params['redirect'] == 'waitingConfirmation') {
+        this.redirectTo = 'minhas-inscricoes'
+        this.notificationService.error("Você precisa estar logado para aceitar ou negar uma vaga. Realize o login e selecione o link novamente.")
+      }
+    });
   }
 
   private buildForm() {
@@ -77,10 +84,14 @@ export class LoginComponent implements OnInit {
 
             const accountRoles = this.jwtService.getAccessTokenRoles();
 
-            if (accountRoles == AccountRole.ADMIN) {
-              this.router.navigate(['admin']);
+            if(this.redirectTo) {
+              this.router.navigate([this.redirectTo], { queryParams: { tab: '1' }});
             } else {
-              this.router.navigate(['']);
+              if (accountRoles == AccountRole.ADMIN) {
+                this.router.navigate(['admin']);
+              } else {
+                this.router.navigate(['']);
+              }
             }
           },
           error: error => {
