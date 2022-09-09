@@ -23,6 +23,7 @@
               registrationType="confirmed"
               primaryEventName="Cancelar Inscrição"
               (primaryEvent)="cancelRegistration($event)"
+              [actionLoading]="actionLoading"
             ></app-registration-card>
           </div>
         </section>
@@ -39,6 +40,7 @@
               (primaryEvent)="acceptRegistration($event)"
               secondaryEventName="Não vou participar"
               (secondaryEvent)="denyRegistration($event)"
+              [actionLoading]="actionLoading"
             ></app-registration-card>
           </div>
           <div *ngFor="let registration of registrationsWaitingList">
@@ -47,6 +49,7 @@
               registrationType="wait_list"
               primaryEventName="Sair da lista de espera"
               (primaryEvent)="cancelRegistration($event)"
+              [actionLoading]="actionLoading"
             ></app-registration-card>
           </div>
         </section>
@@ -59,6 +62,7 @@
             <app-registration-card
               [registration]="registration"
               registrationType="canceled"
+              [actionLoading]="actionLoading"
             ></app-registration-card>
           </div>
         </section>

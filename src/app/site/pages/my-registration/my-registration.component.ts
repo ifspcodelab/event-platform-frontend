@@ -24,6 +24,7 @@ export class MyRegistrationComponent implements OnInit {
   registrationsWaitingConfirmation: RegistrationDto[] = [];
   registrationsCanceled: RegistrationDto[] = [];
   loading: boolean = true;
+  actionLoading: boolean = false;
 
   constructor(
     private registrationService: RegistrationService,
@@ -82,12 +83,14 @@ export class MyRegistrationComponent implements OnInit {
 
   submitCancelRegistration(result: any, registrationId: string) {
     if(result) {
+      this.actionLoading = true;
       this.registrationService.cancelRegistration(registrationId)
         .pipe(first())
         .subscribe({
           next: _ => {
             this.notificationService.success("Inscrição cancelada com sucesso");
             this.fetchUserRegistrations();
+            this.actionLoading = false;
           },
           error: error => this.handleError(error)
         });
@@ -109,12 +112,14 @@ export class MyRegistrationComponent implements OnInit {
 
   submitAcceptRegistration(result: any, registrationId: string) {
     if(result) {
+      this.actionLoading = true;
       this.registrationService.acceptRegistration(registrationId)
         .pipe(first())
         .subscribe({
           next: _ => {
             this.notificationService.success("Vaga aceita com sucesso!");
             this.fetchUserRegistrations();
+            this.actionLoading = false;
           },
           error: error => this.handleError(error)
         });
@@ -136,12 +141,14 @@ export class MyRegistrationComponent implements OnInit {
 
   submitDenyRegistration(result: any, registrationId: string) {
     if(result) {
+      this.actionLoading = true;
       this.registrationService.denyRegistration(registrationId)
         .pipe(first())
         .subscribe({
           next: _ => {
             this.notificationService.success("Vaga liberada com sucesso!");
             this.fetchUserRegistrations();
+            this.actionLoading = false;
           },
           error: error => this.handleError(error)
         });
@@ -153,6 +160,7 @@ export class MyRegistrationComponent implements OnInit {
       if(error.status === 409) {
         this.notificationService.error(error.error.violations[0].message);
       }
+      this.actionLoading = false;
     }
   }
 

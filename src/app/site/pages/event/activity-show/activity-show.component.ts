@@ -26,6 +26,7 @@ export class ActivityShowComponent implements OnInit {
   activity: ActivityForSiteDto;
   loading: boolean = true;
   ActivityModality = ActivityModality;
+  actionLoading: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -81,12 +82,12 @@ export class ActivityShowComponent implements OnInit {
     if(!this.jwtService.isAuthenticated()) {
       this.router.navigate(['login']);
     }
-
+    this.actionLoading = true;
     this.registrationService.postUserSessionRegistration(session.id)
       .pipe(first())
       .subscribe({
-        next: registrationDto => {
-          console.log(registrationDto)
+        next: _ => {
+          this.actionLoading = false;
           this.router.navigate(['/minhas-inscricoes']);
         },
         error: error => this.handleError(error)
@@ -98,12 +99,12 @@ export class ActivityShowComponent implements OnInit {
     if(!this.jwtService.isAuthenticated()) {
       this.router.navigate(['login']);
     }
-
+    this.actionLoading = true;
     this.registrationService.postUserSessionRegistrationWaitList(session.id)
       .pipe(first())
       .subscribe({
-          next: registrationDto => {
-            console.log(registrationDto)
+          next: _ => {
+            this.actionLoading = false;
             this.router.navigate(['/minhas-inscricoes']);
           },
           error: error => this.handleError(error)
@@ -126,6 +127,7 @@ export class ActivityShowComponent implements OnInit {
           this.notificationService.error(problem.violations[0].message);
         }
       }
+      this.actionLoading = false;
     }
   }
 

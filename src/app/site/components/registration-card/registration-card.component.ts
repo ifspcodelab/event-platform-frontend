@@ -20,6 +20,8 @@ export class RegistrationCardComponent implements OnInit {
   primaryEvent = new EventEmitter<string>();
   @Output()
   secondaryEvent = new EventEmitter<string>();
+  @Input()
+  actionLoading: boolean;
 
   constructor() { }
 

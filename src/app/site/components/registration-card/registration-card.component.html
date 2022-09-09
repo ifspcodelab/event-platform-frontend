@@ -67,7 +67,7 @@
   </p>
   <br>
   <div>
-    <button *ngIf="primaryEventName" mat-stroked-button color="{{secondaryEventName ? 'primary' : 'warn' }}" (click)="primaryEventExecute(registration.id)">{{ primaryEventName }}</button>
-    <button *ngIf="secondaryEventName" mat-stroked-button color="warn" (click)="secondaryEventExecute(registration.id)">{{ secondaryEventName }}</button>
+    <button *ngIf="primaryEventName" [disabled]="actionLoading" mat-stroked-button color="{{secondaryEventName ? 'primary' : 'warn' }}" (click)="primaryEventExecute(registration.id)">{{ primaryEventName }}</button>
+    <button *ngIf="secondaryEventName" [disabled]="actionLoading" mat-stroked-button color="warn" (click)="secondaryEventExecute(registration.id)">{{ secondaryEventName }}</button>
   </div>
 </div>

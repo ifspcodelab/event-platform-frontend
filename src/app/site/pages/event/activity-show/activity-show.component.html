@@ -71,7 +71,7 @@
         <br>
         <div *ngIf="needRegistration()">
           <div *ngIf="registrationIsOpen()">
-            <button *ngIf="hasSeats(session)" mat-stroked-button color="primary" (click)="register(session)">Inscreva-se</button>
+            <button *ngIf="hasSeats(session)" [disabled]="actionLoading" mat-stroked-button color="primary" (click)="register(session)">Inscreva-se</button>
             <div *ngIf="!hasSeats(session)">
               <p class="activity-show__hint">Vagas Esgotadas. Como funciona a lista de espera?</p>
               <p>A lista de espera NÃO garante uma vaga na atividade.
@@ -81,7 +81,7 @@
                 e-mail para o próximo usuário da lista de espera.
               </p>
               <br>
-              <button mat-stroked-button color="primary" (click)="registerOnWaitingList(session)">Entrar na Lista de Espera</button>
+              <button mat-stroked-button [disabled]="actionLoading" color="primary" (click)="registerOnWaitingList(session)">Entrar na Lista de Espera</button>
             </div>
 
           </div>
