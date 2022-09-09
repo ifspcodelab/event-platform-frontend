@@ -33,6 +33,16 @@ export class RegistrationService extends BaseService {
     return this.httpClient.get<AccountEventQueryDto[]>(`${this.apiUrl}/accounts/events`, this.httpOptions);
   }
 
+  getEventRegistrations(eventId: string, activityId: string, sessionId: string): Observable<RegistrationDto[]> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/sessions/${sessionId}/registrations`;
+    return this.httpClient.get<RegistrationDto[]>(url, this.httpOptions);
+  }
+
+  getSubEventRegistrations(eventId: string, subeventId: string, activityId: string, sessionId: string): Observable<RegistrationDto[]> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subeventId}/activities/${activityId}/sessions/${sessionId}/registrations`;
+    return this.httpClient.get<RegistrationDto[]>(url, this.httpOptions);
+  }
+
   cancelRegistration(registrationId: string): Observable<RegistrationDto> {
     const url = `${this.apiUrl}/accounts/registrations/${registrationId}/cancel`;
     return this.httpClient.patch<RegistrationDto>(url, this.httpOptions);
