@@ -21,7 +21,7 @@
       <ng-container matColumnDef="present">
         <th mat-header-cell *matHeaderCellDef>Presente</th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox [(ngModel)]="checked"></mat-checkbox>
+          <mat-checkbox (click)="createAttendance(row.id)"></mat-checkbox>
         </td>
       </ng-container>
       <ng-container matColumnDef="user">

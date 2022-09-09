@@ -1,9 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { RegistrationDto } from "../../../../../core/models/registration.model";
 import { RegistrationService } from "../../../../../core/services/registration.service";
+import { AttendanceService} from "../../../../../core/services/attendance.service";
 import {MatTableDataSource} from "@angular/material/table";
-import {SessionDto} from "../../../../../core/models/activity.model";
 import {ActivatedRoute} from "@angular/router";
+import {first} from "rxjs";
+import {AttendanceCreateDto} from "../../../../../core/models/attendance.model";
 
 @Component({
   selector: 'app-attendance-list',
@@ -15,7 +17,8 @@ export class AttendanceListComponent implements OnInit {
   subeventId: string = null;
   activityId: string;
   sessionId: string;
-  sessionDto: SessionDto = null;
+  @Input()
+  sessionScheduleId = "4b9c6dc7-a4c4-461b-9d92-3c7e16b360b0";
   registrationsDto: RegistrationDto[] = [];
   displayedColumns: string[] = ['present', 'user', 'status'];
   dataSource: MatTableDataSource<RegistrationDto>
@@ -23,6 +26,7 @@ export class AttendanceListComponent implements OnInit {
 
   constructor(
     private registrationService: RegistrationService,
+    private attendanceService: AttendanceService,
     private route: ActivatedRoute,
   ) { }
 
@@ -40,6 +44,15 @@ export class AttendanceListComponent implements OnInit {
         this.registrationsDto = registrations
         this.dataSource = new MatTableDataSource<RegistrationDto>(this.registrationsDto);
       })
+  }
+
+  createAttendance(attendanceCreateDto: AttendanceCreateDto)  {
+
+    this.attendanceService.postAttendance(this.eventId, this.activityId, this.sessionId, "8a59e2fb-9e12-49d7-94e1-36f10397ddcc", attendanceCreateDto )
+      .pipe(first())
+      .subscribe( {
+
+      });
   }
 
   // fetchEventActivitiesWithSubEvent() {
