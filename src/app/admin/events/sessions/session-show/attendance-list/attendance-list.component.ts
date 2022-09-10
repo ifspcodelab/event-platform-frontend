@@ -17,6 +17,7 @@ export class AttendanceListComponent implements OnInit {
   subeventId: string = null;
   activityId: string;
   sessionId: string;
+  attendanceCreateDto: AttendanceCreateDto;
   @Input()
   sessionScheduleId = "4b9c6dc7-a4c4-461b-9d92-3c7e16b360b0";
   registrationsDto: RegistrationDto[] = [];
@@ -46,9 +47,9 @@ export class AttendanceListComponent implements OnInit {
       })
   }
 
-  createAttendance(attendanceCreateDto: AttendanceCreateDto)  {
+  createAttendance()  {
 
-    this.attendanceService.postAttendance(this.eventId, this.activityId, this.sessionId, "8a59e2fb-9e12-49d7-94e1-36f10397ddcc", attendanceCreateDto )
+    this.attendanceService.postAttendance(this.eventId, this.activityId, this.sessionId, "26060f89-0793-4b49-b25e-e9e7dfb02a68", this.attendanceCreateDto )
       .pipe(first())
       .subscribe( {
 
