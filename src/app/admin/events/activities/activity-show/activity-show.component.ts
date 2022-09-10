@@ -9,6 +9,7 @@ import { NotificationService } from "../../../../core/services/notification.serv
 import { HttpErrorResponse } from "@angular/common/http";
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 import { CancellationMessageCreateDto } from "../../../../core/models/event.model";
+import { EventStatusModel } from "../../../../core/models/event-status.model";
 
 @Component({
   selector: 'app-activity-show',
@@ -78,7 +79,6 @@ export class ActivityShowComponent implements OnInit {
     } else {
       return this.router.navigate(['admin', 'events', this.eventId, 'sub-events', this.subeventId], { queryParams: { tab: 1 } });
     }
-
   }
 
   publishActivity() {
@@ -224,6 +224,35 @@ export class ActivityShowComponent implements OnInit {
       });
   }
 
+  openEditActivityForm() {
+    if (EventStatusModel[this.activityDto.status] === EventStatusModel.CANCELED.toString()) {
+      this.notificationService.error('Não é possível editar uma atividade cancelada');
+    } else {
+      this.router.navigate((['admin', 'events', this.eventId, 'activities', this.activityId, 'edit']));
+    }
+  }
+
+  // openEditActivityForm() {
+  //     let canceled = typeof EventStatusModel.CANCELED
+  //   // console.log(this.activityDto.status.toString() == "CANCELED");
+  //     console.log("toString: ", this.activityDto.status.toString() );
+  //     console.log("apenas status", this.activityDto.status );
+  //     console.log("apenas status", EventStatusModel[this.activityDto.status] );
+  //     console.log(this.activityDto.status as EventStatusModel);
+  //     console.log(this.activityDto.status as EventStatusModel);
+  //     console.log(this.activityDto.status.valueOf());
+  //     console.log("------------------");
+  //     console.log(EventStatusModel.CANCELED);
+  //     console.log(EventStatusModel[EventStatusModel.CANCELED]);
+  //     console.log("foi?", EventStatusModel["CANCELED"]);
+  //     console.log(EventStatusModel.CANCELED.valueOf());
+  //     console.log(typeof EventStatusModel.CANCELED);
+  //     console.log(typeof canceled);
+  //     // this.notificationService.success("Não é possível editar uma atividade cancelada");
+  //   // } else {
+  //   //   this.router.navigate((['admin', 'events', this.eventId, 'activities', this.activityId, 'edit']));
+  //   // }
+  // }
 
   handleError(error: any) {
     if(error instanceof HttpErrorResponse) {
