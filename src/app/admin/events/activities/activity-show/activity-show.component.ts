@@ -188,16 +188,20 @@ export class ActivityShowComponent implements OnInit {
   }
 
   openDeleteConfirmationDialog() {
-    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfig()).afterClosed()
-      .subscribe( result => {
-        if (result) {
-          if(this.eventMode) {
-            this.deleteEventActivity();
-          } else {
-            this.deleteSubEventActivity();
+    if(EventStatusModel[this.activityDto.status] === EventStatusModel.CANCELED.toString()) {
+      this.notificationService.error('Não é possível excluir uma atividade cancelada');
+    } else {
+      this.dialog.open(ConfirmationDialogComponent, this.getConfirmationDialogConfig()).afterClosed()
+        .subscribe(result => {
+          if (result) {
+            if (this.eventMode) {
+              this.deleteEventActivity();
+            } else {
+              this.deleteSubEventActivity();
+            }
           }
-        }
-      });
+        });
+    }
   }
 
   deleteEventActivity() {
@@ -225,7 +229,7 @@ export class ActivityShowComponent implements OnInit {
   }
 
   openEditActivityForm() {
-    if (EventStatusModel[this.activityDto.status] === EventStatusModel.CANCELED.toString()) {
+    if(EventStatusModel[this.activityDto.status] === EventStatusModel.CANCELED.toString()) {
       this.notificationService.error('Não é possível editar uma atividade cancelada');
     } else {
       this.router.navigate((['admin', 'events', this.eventId, 'activities', this.activityId, 'edit']));
