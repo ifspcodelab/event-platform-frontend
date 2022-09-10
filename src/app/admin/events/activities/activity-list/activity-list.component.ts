@@ -17,7 +17,7 @@ export class ActivityListComponent implements OnInit {
   @Input()
   subeventId: string;
   activitiesDto: ActivityDto[] = [];
-  activitiesDisplayedColumns: string[] = ['title', 'type', 'modality', 'duration', 'registrationRequired', 'status'];
+  activitiesDisplayedColumns: string[] = ['title', 'type', 'modality', 'duration', 'needRegistration', 'status'];
   dataSource: MatTableDataSource<ActivityDto>;
   @ViewChild(MatSort)
   sort: MatSort;
