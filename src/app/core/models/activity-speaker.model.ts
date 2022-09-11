@@ -6,5 +6,5 @@ export interface ActivitySpeakerCreateDto{
 
 export interface ActivitySpeakerDto{
   id: string;
-  speakerDto: SpeakerDto;
+  speaker: SpeakerDto;
 }

@@ -8,6 +8,9 @@ import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { MatDialog } from "@angular/material/dialog";
 import { NotificationService } from "../../../../core/services/notification.service";
 import { ActivitySpeakerFormComponent } from "../activity-speaker-form/activity-speaker-form.component";
+import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import { first } from "rxjs";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'app-activity-speakers',
@@ -22,7 +25,7 @@ export class ActivitySpeakersComponent implements OnInit {
   @Input()
   activityId: string;
   activitySpeakersDto: ActivitySpeakerDto[] = [];
-  activitiesDisplayedColumns: string[] = ['name', 'email', 'phoneNumber'];
+  activitiesDisplayedColumns: string[] = ['name', 'email', 'phoneNumber', 'action'];
   dataSource: MatTableDataSource<ActivitySpeakerDto>;
   @ViewChild(MatSort)
   sort: MatSort;
@@ -78,6 +81,64 @@ export class ActivitySpeakersComponent implements OnInit {
       });
   }
 
+  private getDeleteConfirmationDialog(activitySpeakerDto: ActivitySpeakerDto) {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Remover ministrante",
+        text: `O ministrante  ${activitySpeakerDto.speaker.name} será removido da atividade.`,
+        cancelText: "Cancelar",
+        okText: "Remover"
+      }
+    }
+  }
+
+  openDeleteConfirmationDialog(activitySpeakerDto: ActivitySpeakerDto) {
+    this.dialog.open(ConfirmationDialogComponent, this.getDeleteConfirmationDialog(activitySpeakerDto))
+      .afterClosed()
+      .subscribe(result => {
+        if(result) {
+          if(this.subeventId) {
+            this.deleteSubEventActivitySpeaker(activitySpeakerDto.id);
+          } else {
+            this.deleteEventActivitySpeaker(activitySpeakerDto.id);
+          }
+        }
+      });
+  }
+
+  deleteEventActivitySpeaker(activitySpeakerId: string) {
+    this.activitySpeakerService.deleteEventActivitySpeaker(this.eventId, this.activityId, activitySpeakerId)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.notificationService.success("Ministrante removido com sucesso");
+          this.activitySpeakersDto = this.activitySpeakersDto.filter(s => s.id != activitySpeakerId);
+          this.dataSource = new MatTableDataSource<ActivitySpeakerDto>(this.activitySpeakersDto);
+        },
+        error: err => this.handleError(err)
+      });
+  }
+
+  deleteSubEventActivitySpeaker(activitySpeakerId: string) {
+    this.activitySpeakerService.deleteSubEventActivitySpeaker(this.eventId, this.subeventId, this.activityId, activitySpeakerId)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.notificationService.success("Ministrante removido com sucesso");
+          this.activitySpeakersDto = this.activitySpeakersDto.filter(s => s.id != activitySpeakerId);
+          this.dataSource = new MatTableDataSource<ActivitySpeakerDto>(this.activitySpeakersDto);
+        },
+        error: err => this.handleError(err)
+      });
+  }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      this.notificationService.error(error.error.violations[0].message);
+    }
+  }
+
   announceSortChange(sort: Sort) {
     this.dataSource.sort = this.sort;
     if (sort.direction) {
@@ -87,5 +148,4 @@ export class ActivitySpeakersComponent implements OnInit {
     }
     console.log(this.activitySpeakersDto)
   }
-
 }
