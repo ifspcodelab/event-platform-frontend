@@ -31,6 +31,9 @@
         <mat-error *ngIf="fieldErrors('cpf')?.['validcpf']">
           CPF deve ser válido
         </mat-error>
+        <mat-error *ngIf="fieldErrors('cpf')?.['serverError'] && submitted">
+          {{ fieldErrors('cpf')?.['serverError'] }}
+        </mat-error>
       </mat-error>
     </mat-form-field>
 
