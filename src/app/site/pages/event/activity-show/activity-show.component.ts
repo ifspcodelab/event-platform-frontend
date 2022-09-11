@@ -105,7 +105,7 @@ export class ActivityShowComponent implements OnInit {
       .subscribe({
           next: _ => {
             this.actionLoading = false;
-            this.router.navigate(['/minhas-inscricoes']);
+            this.router.navigate(['/minhas-inscricoes'], { queryParams: { tab: '1' }});
           },
           error: error => this.handleError(error)
         }
