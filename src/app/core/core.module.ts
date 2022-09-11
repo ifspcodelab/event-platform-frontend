@@ -15,6 +15,7 @@ import { ActivityModalitiesPipe } from "./pipes/activity-modalities.pipe";
 import { CpfFomatPipe } from './pipes/cpfFomat.pipe';
 import { AccountStatusPipe } from './pipes/account-status.pipe';
 import { SpaceTypesPipe } from "./pipes/space-types.pipe";
+import { RegistrationStatusPipe } from "./pipes/registration-status.pipe";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SpaceTypesPipe } from "./pipes/space-types.pipe";
     SearchTypesPipe,
     SpaceTypesPipe,
     AccountStatusPipe,
+    RegistrationStatusPipe,
   ],
   imports: [
     CommonModule,
@@ -50,6 +52,7 @@ import { SpaceTypesPipe } from "./pipes/space-types.pipe";
     CpfFomatPipe,
     AccountStatusPipe,
     SpaceTypesPipe,
+    RegistrationStatusPipe,
   ]
 })
 export class CoreModule { }

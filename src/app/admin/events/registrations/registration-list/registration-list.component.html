@@ -1,0 +1,47 @@
+<article class="container">
+  <p *ngIf="registrationsDto.length">
+    <b>Confirmadas:</b>  {{ confirmedRegistrations() }}.
+    <b>Lista de Espera:</b> {{ waitListRegistrations() }}.
+    <b>Aguardando Confirmação:</b> {{ waitConfirmationRegistrations() }}.
+    <b>Canceladas:</b> {{ canceledRegistrations() }}.
+  </p>
+
+  <header class="container__header">
+    <h1 class="container__header__title">Inscrições</h1>
+<!--    <button mat-button color="primary" routerLink="sessions/new">Nova Inscrição</button>-->
+  </header>
+
+  <p *ngIf="!registrationsDto.length">A sessão não possui inscritos</p>
+
+  <table class="container__table" *ngIf="registrationsDto.length" mat-table [dataSource]="dataSource"
+         matSort (matSortChange)="announceSortChange($event)">
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Data">Data</th>
+      <td mat-cell *matCellDef="let element"> {{ element.date | date: 'dd/MM/yyyy HH:mm' : '' : 'pt-BR' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="account.name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Nome">None</th>
+      <td mat-cell *matCellDef="let element"> {{ element.account.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="account.email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por E-mail">Email</th>
+      <td mat-cell *matCellDef="let element"> {{ element.account.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Status">Status</th>
+      <td mat-cell *matCellDef="let element"> {{ element.registrationStatus | registrationStatus }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeEmailWasSent">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Horário que saiu da lista">Saiu da Lista de Espera em:</th>
+      <td mat-cell *matCellDef="let element"> {{ element.timeEmailWasSent | date: 'dd/MM/yyyy HH:mm' : '' : 'pt-BR' }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</article>

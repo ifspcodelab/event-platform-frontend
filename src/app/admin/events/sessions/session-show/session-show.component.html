@@ -37,9 +37,14 @@
 
       </article>
     </mat-tab>
-<!--    <mat-tab label="Inscrições">-->
-
-<!--    </mat-tab>-->
+    <mat-tab label="Inscrições">
+      <app-registration-list
+        [eventId]="eventId"
+        [subeventId]="subeventId"
+        [activityId]="activityId"
+        [sessionId]="sessionId">
+      </app-registration-list>
+    </mat-tab>
 <!--    <mat-tab label="Horário 1">-->
 
 <!--    </mat-tab>-->

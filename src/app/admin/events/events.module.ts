@@ -27,6 +27,7 @@ import {
   NgxMatTimepickerModule
 } from "@angular-material-components/datetime-picker";
 import { SessionListComponent } from './sessions/session-list/session-list.component';
+import { RegistrationListComponent } from './registrations/registration-list/registration-list.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { SessionListComponent } from './sessions/session-list/session-list.compo
     OrganizerSubeventFormComponent,
     OrganizerTypePipe,
     SessionListComponent,
+    RegistrationListComponent,
   ],
   imports: [
     CommonModule,

@@ -3,7 +3,7 @@ import { BaseService } from "./base.service";
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { AccountEventQueryDto, RegistrationCreateDto, RegistrationDto } from "../models/registration.model";
+import { AccountEventQueryDto, RegistrationDto } from "../models/registration.model";
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +46,15 @@ export class RegistrationService extends BaseService {
   denyRegistration(registrationId: string): Observable<RegistrationDto> {
     const url = `${this.apiUrl}/accounts/registrations/${registrationId}/deny`;
     return this.httpClient.patch<RegistrationDto>(url, this.httpOptions);
+  }
+
+  getEventRegistrations(eventId: string, activityId: string, sessionId: string): Observable<RegistrationDto[]> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/sessions/${sessionId}/registrations`;
+    return this.httpClient.get<RegistrationDto[]>(url, this.httpOptions);
+  }
+
+  getSubEventRegistrations(eventId: string, subEventId: string, activityId: string, sessionId: string): Observable<RegistrationDto[]> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subEventId}/activities/${activityId}/sessions/${sessionId}/registrations`;
+    return this.httpClient.get<RegistrationDto[]>(url, this.httpOptions);
   }
 }
