@@ -19,6 +19,11 @@
       <td mat-cell *matCellDef="let element"> {{ element.seats }} </td>
     </ng-container>
 
+    <ng-container matColumnDef="confirmedSeats">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Número de Vagas">Inscritos Confirmados</th>
+      <td mat-cell *matCellDef="let element"> {{ element.confirmedSeats }} </td>
+    </ng-container>
+
     <ng-container matColumnDef="schedules">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Horários">Horários</th>
       <td mat-cell *matCellDef="let element">

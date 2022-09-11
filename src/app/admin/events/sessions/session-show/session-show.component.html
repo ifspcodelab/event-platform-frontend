@@ -10,6 +10,7 @@
       <article class="container">
         <p class="container__item"><b>Título:</b> {{ sessionDto.title }}</p>
         <p class="container__item"><b>Número de Vagas:</b> {{ sessionDto.seats }}</p>
+        <p class="container__item"><b>Inscritos Confirmados:</b> {{ sessionDto.confirmedSeats }}</p>
         <p class="container__item"><b>Status:</b> {{ sessionDto.canceled ? 'Cancelada' : ''}}</p>
         <p class="container__item"><b>Horários:</b></p>
         <mat-card *ngFor="let sessionSchedule of sessionDto.sessionSchedules">

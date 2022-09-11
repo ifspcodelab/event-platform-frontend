@@ -65,6 +65,7 @@ export interface SessionDto{
   id: string;
   title: string;
   seats: number;
+  confirmedSeats: number;
   cancellationMessage?: string;
   canceled?: boolean;
   activity: ActivityDto;

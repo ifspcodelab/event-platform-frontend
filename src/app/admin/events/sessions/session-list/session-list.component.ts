@@ -19,7 +19,7 @@ export class SessionListComponent implements OnInit {
   @Input()
   activityId: string;
   sessionsDto: SessionDto[] = [];
-  displayedColumns: string[] = ['title', 'seats', 'schedules', 'space', 'canceled'];
+  displayedColumns: string[] = ['title', 'seats', 'confirmedSeats', 'schedules', 'space', 'canceled'];
   dataSource: MatTableDataSource<SessionDto>;
   @ViewChild(MatSort)
   sort: MatSort;
