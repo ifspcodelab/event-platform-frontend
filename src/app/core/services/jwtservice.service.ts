@@ -61,6 +61,24 @@ export class JwtService {
     return null;
   }
 
+  getCollaboratorClaim() {
+    const accessToken = this.getAccessToken();
+    if(accessToken) {
+      const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
+      return accessTokenData.collaborator;
+    }
+    return null;
+  }
+
+  getCoordinatorClaim() {
+    const accessToken = this.getAccessToken();
+    if(accessToken) {
+      const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
+      return accessTokenData.coordinator;
+    }
+    return null;
+  }
+
   isAuthenticated() {
     const refreshToken = this.getRefreshToken();
 
@@ -78,5 +96,9 @@ export class JwtService {
 
   isAdmin() {
     return this.getAccessTokenRoles() == AccountRole.ADMIN;
+  }
+
+  isOrganizer() {
+    return !!(this.getCollaboratorClaim() || this.getCoordinatorClaim());
   }
 }
