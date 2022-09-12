@@ -14,13 +14,13 @@
 
     <p *ngIf="!isCanceled() && showLocation()">
       <span class="activity-show__hint">Local:</span>
-      {{ registration.session.sessionSchedules[0].location.name }} ({{ registration.session.sessionSchedules[0].location.address }})
+      {{ registration.session.sessionSchedules[0].location?.name }} ({{ registration.session.sessionSchedules[0].location?.address }})
 
-      <span *ngIf="registration.session.sessionSchedules[0].area.name"> - {{ registration.session.sessionSchedules[0].area.name }}</span>
+      <span *ngIf="registration.session.sessionSchedules[0].area?.name"> - {{ registration.session.sessionSchedules[0].area?.name }}</span>
 
-      <span *ngIf="registration.session.sessionSchedules[0].space.name">
-        - {{ registration.session.sessionSchedules[0].space.type | spaceTypes }}
-        {{ registration.session.sessionSchedules[0].space.name }}
+      <span *ngIf="registration.session.sessionSchedules[0].space?.name">
+        - {{ registration.session.sessionSchedules[0].space?.type | spaceTypes }}
+        {{ registration.session.sessionSchedules[0].space?.name }}
       </span>
 
     </p>
@@ -41,16 +41,16 @@
 
         <p *ngIf="!isCanceled() && showLocation()">
           <span class="activity-show__hint">Local:</span>
-          {{ registration.session.sessionSchedules[0].location.name }}
-          ({{ registration.session.sessionSchedules[0].location.address }})
+          {{ registration.session.sessionSchedules[0].location?.name }}
+          ({{ registration.session.sessionSchedules[0].location?.address }})
 
-          <span *ngIf="registration.session.sessionSchedules[0].area.name">
-            - {{ registration.session.sessionSchedules[0].area.name }}
+          <span *ngIf="registration.session.sessionSchedules[0].area?.name">
+            - {{ registration.session.sessionSchedules[0].area?.name }}
           </span>
 
-          <span *ngIf="registration.session.sessionSchedules[0].space.name">
-            - {{ registration.session.sessionSchedules[0].space.type | spaceTypes }}
-            {{ registration.session.sessionSchedules[0].space.name }}
+          <span *ngIf="registration.session.sessionSchedules[0].space?.name">
+            - {{ registration.session.sessionSchedules[0].space?.type | spaceTypes }}
+            {{ registration.session.sessionSchedules[0].space?.name }}
           </span>
         </p>
 
