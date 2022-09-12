@@ -1,1 +1,17 @@
-<p>organizer works!</p>
+<mat-toolbar color="primary" class="app-toolbar">
+  <a class="app-toolbar__title" routerLink="/admin">Plataforma de Eventos</a>
+  <nav class="app-toolbar__nav">
+    <button color="accent" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Admin menu">
+      <mat-icon class="app-toolbar__icon">account_circle</mat-icon>
+      <mat-icon class="app-toolbar__icon__dropdown">arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/">Voltar para o site</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item routerLink="/meus-dados">Meus Dados</button>
+      <button mat-menu-item (click)="logout()">Sair</button>
+    </mat-menu>
+  </nav>
+</mat-toolbar>
+<mat-progress-bar mode="indeterminate" *ngIf="show"></mat-progress-bar>
+<router-outlet></router-outlet>

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { OrganizerRoutingModule } from './organizer-routing.module';
 import { OrganizerComponent } from './organizer.component';
+import { CoreModule } from "../core/core.module";
+import { SharedModule } from "../shared/shared.module";
 
 
 @NgModule({
@@ -11,7 +13,9 @@ import { OrganizerComponent } from './organizer.component';
   ],
   imports: [
     CommonModule,
-    OrganizerRoutingModule
+    OrganizerRoutingModule,
+    CoreModule,
+    SharedModule,
   ]
 })
 export class OrganizerModule { }
