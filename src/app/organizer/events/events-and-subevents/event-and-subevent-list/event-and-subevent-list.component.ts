@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { EventService } from "../../../../core/services/event.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
+import { OrganizerAreaService } from "../../../../core/services/organizer-area.service";
 
 @Component({
   selector: 'app-event-and-subevent-list',
@@ -21,6 +22,7 @@ export class EventAndSubeventListComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
+    private organizerAreaService: OrganizerAreaService,
     private router: Router,
     private loaderService: LoaderService,
     private _liveAnnouncer: LiveAnnouncer,
@@ -34,6 +36,8 @@ export class EventAndSubeventListComponent implements OnInit {
         this.dataSource = new MatTableDataSource<EventDto>(this.eventsDto);
         this.loaderService.hide();
       });
+
+    this.organizerAreaService.getEvents()
   }
 
   openEventShow(eventDto: EventDto) {
