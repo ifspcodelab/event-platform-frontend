@@ -12,6 +12,7 @@ import {first} from "rxjs";
 export class SiteHeaderComponent implements OnInit {
   isLoggedIn: boolean;
   isAdmin: boolean;
+  isOrganizer: boolean;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -22,6 +23,7 @@ export class SiteHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = this.jwtService.isAuthenticated();
     this.isAdmin = this.jwtService.isAdmin();
+    this.isOrganizer = this.jwtService.isOrganizer();
   }
 
   logout() {
