@@ -114,7 +114,8 @@ const routes: Routes = [
   },
   {
     path: 'organizer',
-    loadChildren: () => import('./organizer/organizer.module').then(m => m.OrganizerModule)
+    loadChildren: () => import('./organizer/organizer.module').then(m => m.OrganizerModule),
+    title: 'Área Organizador',
   },
   {
     path: '',
