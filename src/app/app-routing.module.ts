@@ -18,6 +18,7 @@ import { MyDataAlterPasswordComponent } from "./site/pages/my-data-alter-passwor
 import { MyRegistrationAcceptSeatComponent } from "./site/pages/my-registration-accept-seat/my-registration-accept-seat.component";
 import { MyRegistrationComponent } from "./site/pages/my-registration/my-registration.component";
 import { MyRegistrationDenySeatComponent } from "./site/pages/my-registration-deny-seat/my-registration-deny-seat.component";
+import { OrganizerGuard } from "./core/security/organizer.guard";
 
 const routes: Routes = [
   {
@@ -114,7 +115,7 @@ const routes: Routes = [
   },
   {
     path: 'organizer',
-    loadChildren: () => import('./organizer/organizer.module').then(m => m.OrganizerModule),
+    loadChildren: () => import('./organizer/organizer.module').then(m => m.OrganizerModule), canActivate: [AuthGuard, OrganizerGuard],
     title: 'Área Organizador',
   },
   {
