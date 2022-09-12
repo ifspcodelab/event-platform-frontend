@@ -89,6 +89,8 @@ export class LoginComponent implements OnInit {
             } else {
               if (accountRoles == AccountRole.ADMIN) {
                 this.router.navigate(['admin']);
+              } else if(this.jwtService.isOrganizer()) {
+                this.router.navigate(['organizer']);
               } else {
                 this.router.navigate(['']);
               }
