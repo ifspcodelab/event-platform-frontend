@@ -20,13 +20,13 @@ import { AccountRolePipe } from "../../core/pipes/account-role.pipe";
     AccountFormComponent,
     AccountRolePipe,
   ],
-    imports: [
-        CommonModule,
-        CoreModule,
-        SharedModule,
-        AccountsRoutingModule,
-        MatSlideToggleModule,
-        NgxMaskModule,
-    ]
+  imports: [
+    CommonModule,
+    CoreModule,
+    SharedModule,
+    AccountsRoutingModule,
+    MatSlideToggleModule,
+    NgxMaskModule,
+  ]
 })
 export class AccountsModule { }
