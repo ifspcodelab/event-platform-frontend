@@ -113,6 +113,10 @@ const routes: Routes = [
     title: 'Área Administrativa',
   },
   {
+    path: 'organizer',
+    loadChildren: () => import('./organizer/organizer.module').then(m => m.OrganizerModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./site/pages/event/event.module').then(m => m.EventModule),
     title: 'Eventos',
