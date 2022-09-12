@@ -17,7 +17,8 @@ export class SpeakerService extends BaseService {
   }
 
   getSpeakers(): Observable<PageDto<SpeakerDto>> {
-    return this.httpClient.get<PageDto<SpeakerDto>>(this.apiUrl, this.httpOptions);
+    const url = `${this.apiUrl}?size=2000`;
+    return this.httpClient.get<PageDto<SpeakerDto>>(url, this.httpOptions);
   }
 
   getSpeakerById(speakerId: string): Observable<SpeakerDto> {
