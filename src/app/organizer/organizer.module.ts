@@ -10,9 +10,6 @@ import {
 import { SessionListComponent } from "./sessions/session-list/session-list.component";
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
 import { EventShowComponent } from "./events/event-show/event-show.component";
-import { OrganizerTypePipe } from "../core/pipes/organizer-type.pipe";
-
-
 
 @NgModule({
   declarations: [
@@ -21,7 +18,6 @@ import { OrganizerTypePipe } from "../core/pipes/organizer-type.pipe";
     SessionListComponent,
     SessionShowComponent,
     EventShowComponent,
-    OrganizerTypePipe,
   ],
   imports: [
     CommonModule,

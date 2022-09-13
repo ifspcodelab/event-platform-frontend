@@ -20,7 +20,6 @@ import { ActivitySpeakerFormComponent } from './activities/activity-speaker-form
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
 import { SessionFormComponent } from "./sessions/session-form/session-form.component";
 import { OrganizerFormComponent } from './events/organizer-form/organizer-form/organizer-form.component';
-import { OrganizerTypePipe } from "../../core/pipes/organizer-type.pipe";
 import {
   NgxMatDatetimePickerModule,
   NgxMatNativeDateModule,
@@ -47,7 +46,6 @@ import { RegistrationListComponent } from './registrations/registration-list/reg
     SessionFormComponent,
     OrganizerFormComponent,
     OrganizerSubeventFormComponent,
-    OrganizerTypePipe,
     SessionListComponent,
     RegistrationListComponent,
   ],
@@ -63,9 +61,6 @@ import { RegistrationListComponent } from './registrations/registration-list/reg
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
-  ],
-  exports: [
-    OrganizerTypePipe
   ]
 })
 export class EventsModule { }
