@@ -17,7 +17,7 @@
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item routerLink="/admin" *ngIf="isAdmin">Área administrativa</button>
-            <button mat-menu-item routerLink="/admin" *ngIf="isOrganizer">Área organizador</button>
+            <button mat-menu-item routerLink="/organizer" *ngIf="isOrganizer">Área organizador</button>
             <mat-divider *ngIf="isAdmin || isOrganizer"></mat-divider>
             <button mat-menu-item routerLink="/meus-dados">Meus Dados</button>
             <button mat-menu-item routerLink="/minhas-inscricoes">Minhas Inscrições</button>
