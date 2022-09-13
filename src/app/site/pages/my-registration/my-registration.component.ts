@@ -56,20 +56,30 @@ export class MyRegistrationComponent implements OnInit {
   }
 
   groupRegistrations() {
-    this.registrationsConfirmed = this.registrationsDto.filter(r =>
-      RegistrationStatus[r.registrationStatus] == RegistrationStatus.CONFIRMED.toString()
-    );
-    this.registrationsWaitingList = this.registrationsDto.filter(r =>
-      RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_LIST.toString()
-    );
-    this.registrationsWaitingConfirmation = this.registrationsDto.filter(r =>
-      RegistrationStatus[ r.registrationStatus] == RegistrationStatus.WAITING_CONFIRMATION.toString()
-    );
-    this.registrationsCanceled = this.registrationsDto.filter(r =>
-      RegistrationStatus[r.registrationStatus] == RegistrationStatus.CANCELED_BY_USER.toString() ||
-      RegistrationStatus[r.registrationStatus] == RegistrationStatus.CANCELED_BY_ADMIN.toString() ||
-      RegistrationStatus[r.registrationStatus] == RegistrationStatus.CANCELED_BY_SYSTEM.toString()
-    );
+    this.registrationsConfirmed = this.registrationsDto
+      .filter(r => RegistrationStatus[r.registrationStatus] == RegistrationStatus.CONFIRMED.toString())
+      .sort((a, b) => this.sortBySessionScheduler(a, b));
+
+    this.registrationsWaitingList = this.registrationsDto
+      .filter(r => RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_LIST.toString())
+      .sort((a, b) => this.sortBySessionScheduler(a, b));
+
+    this.registrationsWaitingConfirmation = this.registrationsDto
+      .filter(r => RegistrationStatus[ r.registrationStatus] == RegistrationStatus.WAITING_CONFIRMATION.toString())
+      .sort((a, b) => this.sortBySessionScheduler(a, b));
+
+    this.registrationsCanceled = this.registrationsDto
+      .filter(r =>
+        RegistrationStatus[r.registrationStatus] == RegistrationStatus.CANCELED_BY_USER.toString() ||
+        RegistrationStatus[r.registrationStatus] == RegistrationStatus.CANCELED_BY_ADMIN.toString() ||
+        RegistrationStatus[r.registrationStatus] == RegistrationStatus.CANCELED_BY_SYSTEM.toString()
+      )
+      .sort((a, b) => this.sortBySessionScheduler(a, b));
+  }
+
+  sortBySessionScheduler(a: RegistrationDto, b: RegistrationDto): number {
+    return (a.session.sessionSchedules[0].executionStart > b.session.sessionSchedules[0].executionStart) ? 1
+      : ((b.session.sessionSchedules[0].executionStart > a.session.sessionSchedules[0].executionStart) ? -1 : 0);
   }
 
   cancelRegistration(registrationId: string) {

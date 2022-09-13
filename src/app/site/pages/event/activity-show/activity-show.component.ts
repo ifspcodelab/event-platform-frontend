@@ -12,6 +12,7 @@ import { RegistrationService } from "../../../../core/services/registration.serv
 import { JwtService } from "../../../../core/services/jwtservice.service";
 import { NotificationService } from "../../../../core/services/notification.service";
 import { ProblemDetail } from "../../../../core/models/problem-detail";
+import { RegistrationDto } from "../../../../core/models/registration.model";
 
 @Component({
   selector: 'app-activity-show',
@@ -58,6 +59,7 @@ export class ActivityShowComponent implements OnInit {
       .subscribe({
         next: activity => {
           this.activity = activity;
+          this.activity.sessions = this.activity.sessions.sort((a, b) => this.sortBySessionScheduler(a, b));
           document.title = `${this.activity.title} - ${this.eventDto.title}`;
           this.loading = false;
         },
@@ -71,11 +73,17 @@ export class ActivityShowComponent implements OnInit {
       .subscribe({
         next: activity => {
           this.activity = activity;
+          this.activity.sessions = this.activity.sessions.sort((a, b) => this.sortBySessionScheduler(a, b));
           document.title = `${this.activity.title} - ${this.subeventDto.title}`;
           this.loading = false;
         },
         error: error => this.handleError(error)
       });
+  }
+
+  sortBySessionScheduler(a: SessionForSiteDto, b: SessionForSiteDto): number {
+    return (a.sessionSchedules[0].executionStart > b.sessionSchedules[0].executionStart) ? 1
+      : ((b.sessionSchedules[0].executionStart > a.sessionSchedules[0].executionStart) ? -1 : 0);
   }
 
   register(session: SessionForSiteDto) {
