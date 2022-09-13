@@ -79,6 +79,24 @@ export class JwtService {
     return null;
   }
 
+  getOrganizerClaim() {
+    const accessToken = this.getAccessToken();
+    if(accessToken) {
+      const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
+      return accessTokenData.organizer;
+    }
+    return null;
+  }
+
+  getOrganizerSubeventClaim() {
+    const accessToken = this.getAccessToken();
+    if(accessToken) {
+      const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
+      return accessTokenData.organizer_subevent;
+    }
+    return null;
+  }
+
   isAuthenticated() {
     const refreshToken = this.getRefreshToken();
 
@@ -99,6 +117,6 @@ export class JwtService {
   }
 
   isOrganizer() {
-    return !!(this.getCollaboratorClaim() || this.getCoordinatorClaim());
+    return !!(this.getCollaboratorClaim() || this.getCoordinatorClaim() || this.getOrganizerClaim() || this.getOrganizerSubeventClaim());
   }
 }
