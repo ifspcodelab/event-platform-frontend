@@ -36,31 +36,3 @@
   </mat-tab-group>
 
 </div>
-
-
-<!--&lt;!&ndash;Como fazer a separação por data pega do site/pages/events/eventSchedule&ndash;&gt;-->
-
-<!--&lt;!&ndash;<p class="event-page__content" *ngIf="sessionsGroupByDates.length == 0">A programação deste evento ainda não foi definida.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;<section class="event-page__content" *ngIf="sessionsGroupByDates.length != 0">&ndash;&gt;-->
-<!--&lt;!&ndash;  <mat-tab-group animationDuration="0ms" style="min-height:300px">&ndash;&gt;-->
-<!--&lt;!&ndash;    <mat-tab *ngFor="let group of sessionsGroupByDates" [label]="group.day | date:'dd/MM' : '' : 'pt-BR'" >&ndash;&gt;-->
-<!--&lt;!&ndash;      <div class="activity-list">&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash;            <div class="activity-card" *ngFor="let session of $any(activity).value" routerLink="/{{eventDto.slug}}/activities/{{session.activitySlug}}">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <div *ngFor="let session of group.sessions" class="activity-card" [routerLink]="getLinkForActivity(session)">&ndash;&gt;-->
-<!--&lt;!&ndash;          <h2 class="activity-card__title">&ndash;&gt;-->
-<!--&lt;!&ndash;            {{ session.activityTitle }}&ndash;&gt;-->
-<!--&lt;!&ndash;            <span class="activity-card__type">{{ session.activityType | activityTypes }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;            <span class="activity-card__type">{{ session.activityModality | activityModalities }}</span>&ndash;&gt;-->
-<!--&lt;!&ndash;          </h2>&ndash;&gt;-->
-<!--&lt;!&ndash;          <p class="activity-card__date">&ndash;&gt;-->
-<!--&lt;!&ndash;            {{ session.sessionScheduleExecutionStart | date:'ccc' : '' : 'pt-BR' }}&ndash;&gt;-->
-<!--&lt;!&ndash;            {{ session.sessionScheduleExecutionStart | date:'HH:mm' }}&ndash;&gt;-->
-<!--&lt;!&ndash;            - {{ session.sessionScheduleExecutionEnd | date:'HH:mm' }}&ndash;&gt;-->
-<!--&lt;!&ndash;          </p>&ndash;&gt;-->
-<!--&lt;!&ndash;          <p class="activity-card__subtitle"><b>Ministrantes:</b> {{ getSpeakerNames(session.speakers) }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;          <p class="activity-card__subtitle">{{ session.activityDescription }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;      </div>&ndash;&gt;-->
-<!--&lt;!&ndash;    </mat-tab>&ndash;&gt;-->
-<!--&lt;!&ndash;  </mat-tab-group>&ndash;&gt;-->
-<!--&lt;!&ndash;</section>&ndash;&gt;-->

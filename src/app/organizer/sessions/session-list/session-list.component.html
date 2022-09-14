@@ -50,4 +50,30 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSessionShow(row)"></tr>
   </table>
+
+
+<!--  <p class="event-page__content" *ngIf="sessionsGroupByDates.length == 0">As sessões deste evento ainda não foram definidas.</p>-->
+<!--  <section class="event-page__content" *ngIf="sessionsGroupByDates.length != 0">-->
+<!--    <mat-tab-group animationDuration="0ms" style="min-height:300px">-->
+<!--      <mat-tab *ngFor="let group of sessionsGroupByDates" [label]="group.day | date:'dd/MM' : '' : 'pt-BR'" >-->
+<!--        <div class="activity-list">-->
+<!--          &lt;!&ndash;            <div class="activity-card" *ngFor="let session of $any(activity).value" routerLink="/{{eventDto.slug}}/activities/{{session.activitySlug}}">&ndash;&gt;-->
+<!--          <div *ngFor="let session of group.sessions" class="activity-card">-->
+<!--            <h2 class="activity-card__title">-->
+<!--              {{ session.activityTitle }}-->
+<!--              <span class="activity-card__type">{{ session.activityType | activityTypes }}</span>-->
+<!--              <span class="activity-card__type">{{ session.activityModality | activityModalities }}</span>-->
+<!--            </h2>-->
+<!--            <p class="activity-card__date">-->
+<!--              {{ session.sessionScheduleExecutionStart | date:'ccc' : '' : 'pt-BR' }}-->
+<!--              {{ session.sessionScheduleExecutionStart | date:'HH:mm' }}-->
+<!--              - {{ session.sessionScheduleExecutionEnd | date:'HH:mm' }}-->
+<!--            </p>-->
+<!--            <p class="activity-card__subtitle"><b>Ministrantes:</b> {{ getSpeakerNames(session.speakers) }}</p>-->
+<!--            <p class="activity-card__subtitle">{{ session.activityDescription }}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </mat-tab>-->
+<!--    </mat-tab-group>-->
+<!--  </section>-->
 </article>

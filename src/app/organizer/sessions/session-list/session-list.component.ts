@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionDto } from "../../../core/models/activity.model";
+import { SessionDto, SessionsGroupByDate } from "../../../core/models/activity.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatTableDataSource } from "@angular/material/table";
 import { SubeventDto } from "../../../core/models/subevent.model";
 import { OrganizerAreaService } from "../../../core/services/organizer-area.service";
 import { SubeventService } from "../../../core/services/subevent.service";
+// import { EventService } from "../../../core/services/event.service";
+// import { EventDto } from "../../../core/models/event.model";
+// import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-session-list',
@@ -13,14 +16,18 @@ import { SubeventService } from "../../../core/services/subevent.service";
 })
 export class SessionListComponent implements OnInit {
   eventId: string;
+  // eventDto$: Observable<EventDto>;
+  // eventDto: EventDto;
   subeventId: string;
   subeventDto: SubeventDto;
   sessionsDto: SessionDto[] = [];
   displayedColumns: string[] = ['title', 'seats', 'confirmedSeats', 'schedules', 'space', 'canceled'];
   dataSource: MatTableDataSource<SessionDto>;
+  // sessionsGroupByDates: SessionsGroupByDate[] = [];
 
   constructor(
     private organizerAreaService: OrganizerAreaService,
+    // private eventService: EventService,
     private subeventService: SubeventService,
     private router: Router,
     private route: ActivatedRoute,
@@ -30,6 +37,7 @@ export class SessionListComponent implements OnInit {
     this.eventId = localStorage.getItem('eventId');
     localStorage.removeItem('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
+    // this.eventDto$ = this.eventService.getEventById(this.eventId);
 
     if(this.subeventId) {
       this.fetchSubEventSessions();
@@ -40,16 +48,16 @@ export class SessionListComponent implements OnInit {
 
   private fetchSubEventSessions() {
     this.organizerAreaService.getSubeventSessions(this.subeventId)
-      .subscribe(sessionsDto => {
-        this.sessionsDto = sessionsDto
+      .subscribe(sessions => {
+        this.sessionsDto = sessions
         this.dataSource = new MatTableDataSource<SessionDto>(this.sessionsDto);
       });
   }
 
   private fetchEventSessions() {
     this.organizerAreaService.getEventSessions(this.eventId)
-      .subscribe(sessionsDto => {
-        this.sessionsDto = sessionsDto
+      .subscribe(sessions => {
+        this.sessionsDto = sessions
         this.dataSource = new MatTableDataSource<SessionDto>(this.sessionsDto);
       });
   }
@@ -66,6 +74,10 @@ export class SessionListComponent implements OnInit {
       );
     }
   }
+
+  // getSpeakerNames(speakers: string[]) {
+  //   return speakers.reduce((text, value, i, array) => text + (i < array.length - 1 ? ', ' : ' e ') + value);
+  // }
 
   getBackUrl() {
     if(this.eventId) {

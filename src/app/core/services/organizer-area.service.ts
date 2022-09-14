@@ -6,6 +6,7 @@ import { Observable } from "rxjs";
 import { EventDto } from "../models/event.model";
 import { SubeventDto } from "../models/subevent.model";
 import { SessionDto } from "../models/activity.model";
+import { SessionsGroupByDate } from "../models/activity.model";
 
 @Injectable({
   providedIn: 'root'

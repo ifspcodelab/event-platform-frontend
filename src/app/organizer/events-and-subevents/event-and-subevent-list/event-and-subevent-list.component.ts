@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoaderService } from "../../../admin/loader.service";
 import { EventDto } from "../../../core/models/event.model";
 import { Router } from "@angular/router";
