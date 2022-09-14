@@ -24,6 +24,7 @@ import { EventShowComponent } from "./events/event-show/event-show.component";
     OrganizerRoutingModule,
     CoreModule,
     SharedModule,
+
   ]
 })
 export class OrganizerModule { }

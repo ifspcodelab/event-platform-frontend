@@ -23,7 +23,7 @@ const routes: Routes = [
         component: EventAndSubeventListComponent,
       },
       {
-        path: 'events/:eventId',
+        path: 'events/:eventId/sessions',
         component: SessionListComponent,
       },
       {
@@ -31,7 +31,7 @@ const routes: Routes = [
         component: EventShowComponent,
       },
       {
-        path: 'sub-events/:subeventId',
+        path: 'sub-events/:subeventId/sessions',
         component: SessionListComponent,
       },
       {
@@ -39,7 +39,7 @@ const routes: Routes = [
         component: SessionShowComponent,
       },
       {
-        path: 'sub-events/:subeventId/:sessionId',
+        path: 'sub-events/:subeventId/sessions/:sessionId',
         component: SessionShowComponent,
       }
     ]
