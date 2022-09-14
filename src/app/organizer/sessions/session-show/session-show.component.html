@@ -1,87 +1,66 @@
-<!--<div *ngIf="sessionDto">-->
-<!--  <app-admin-header title="Sessão Matutino" (backLink)="backLink()">-->
-<!--    <button *ngIf="!sessionDto.canceled" mat-button color="primary" (click)="openCancelDialog()">Cancelar</button>-->
-<!--    <button *ngIf="!sessionDto.canceled"mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>-->
+<div *ngIf="sessionDto">
+  <app-admin-header title="Sessão Matutino" (backLink)="backLink()"></app-admin-header>
 
-<!--  </app-admin-header>-->
+  <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
+    <mat-tab label="Dados Principais">
+      <article class="container">
+        <p class="container__item"><b>Título:</b> {{ sessionDto.title }}</p>
+        <p class="container__item"><b>Número de Vagas:</b> {{ sessionDto.seats }}</p>
+        <p class="container__item"><b>Inscritos Confirmados:</b> {{ sessionDto.confirmedSeats }}</p>
+        <p class="container__item"><b>Status:</b> {{ sessionDto.canceled ? 'Cancelada' : ''}}</p>
+        <p class="container__item"><b>Horários:</b></p>
+        <mat-card *ngFor="let sessionSchedule of sessionDto.sessionSchedules">
+          <p>
+            <b>Horário</b>
+            {{ sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm' }} às
+            {{ sessionSchedule.executionEnd | date: 'dd/MM/yyyy HH:mm'  }}</p>
+          <p>
+            <b>Local:</b>
+            {{ sessionSchedule.location ? sessionSchedule.location.name : 'Local não definido'  }}
+          </p>
+          <p>
+            <b>Área:</b>
+            {{ sessionSchedule.area ? sessionSchedule.area.name : 'Área não definida'  }}
+          </p>
+          <p>
+            <b>Espaço:</b>
+            {{ sessionSchedule.space ? sessionSchedule.space.name : 'Espaço não definido'  }}
+          </p>
+          <p>
+            <b>URL: {{ sessionSchedule.url }}</b>
+          </p>
+        </mat-card>
 
-<!--  <mat-tab-group mat-align-tabs="left" animationDuration="0ms">-->
-<!--    <mat-tab label="Dados Principais">-->
-<!--      <article class="container">-->
-<!--        <p class="container__item"><b>Título:</b> {{ sessionDto.title }}</p>-->
-<!--        <p class="container__item"><b>Número de Vagas:</b> {{ sessionDto.seats }}</p>-->
-<!--        <p class="container__item"><b>Inscritos Confirmados:</b> {{ sessionDto.confirmedSeats }}</p>-->
-<!--        <p class="container__item"><b>Status:</b> {{ sessionDto.canceled ? 'Cancelada' : ''}}</p>-->
-<!--        <p class="container__item"><b>Horários:</b></p>-->
-<!--        <mat-card *ngFor="let sessionSchedule of sessionDto.sessionSchedules">-->
-<!--          <p>-->
-<!--            <b>Horário</b>-->
-<!--            {{ sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm' }} às-->
-<!--            {{ sessionSchedule.executionEnd | date: 'dd/MM/yyyy HH:mm'  }}</p>-->
-<!--          <p>-->
-<!--            <b>Local:</b>-->
-<!--            {{ sessionSchedule.location ? sessionSchedule.location.name : 'Local não definido'  }}-->
-<!--          </p>-->
-<!--          <p>-->
-<!--            <b>Área:</b>-->
-<!--            {{ sessionSchedule.area ? sessionSchedule.area.name : 'Área não definida'  }}-->
-<!--          </p>-->
-<!--          <p>-->
-<!--            <b>Espaço:</b>-->
-<!--            {{ sessionSchedule.space ? sessionSchedule.space.name : 'Espaço não definido'  }}-->
-<!--          </p>-->
-<!--          <p>-->
-<!--            <b>URL: {{ sessionSchedule.url }}</b>-->
-<!--          </p>-->
-<!--        </mat-card>-->
+      </article>
+    </mat-tab>
+  </mat-tab-group>
 
-<!--      </article>-->
-<!--    </mat-tab>-->
-<!--    <mat-tab label="Inscrições">-->
-<!--      <app-registration-list-->
-<!--        [eventId]="eventId"-->
-<!--        [subeventId]="subeventId"-->
-<!--        [activityId]="activityId"-->
-<!--        [sessionId]="sessionId">-->
-<!--      </app-registration-list>-->
-<!--    </mat-tab>-->
-<!--    &lt;!&ndash;    <mat-tab label="Horário 1">&ndash;&gt;-->
-
-<!--    &lt;!&ndash;    </mat-tab>&ndash;&gt;-->
-<!--    &lt;!&ndash;    <mat-tab label="Horário 2">&ndash;&gt;-->
-
-<!--    &lt;!&ndash;    </mat-tab>&ndash;&gt;-->
-<!--    &lt;!&ndash;    <mat-tab label="Horário N">&ndash;&gt;-->
-
-<!--    &lt;!&ndash;    </mat-tab>&ndash;&gt;-->
-<!--  </mat-tab-group>-->
-
-<!--</div>-->
+</div>
 
 
-<!--Como fazer a separação por data pega do site/pages/events/eventSchedule-->
+<!--&lt;!&ndash;Como fazer a separação por data pega do site/pages/events/eventSchedule&ndash;&gt;-->
 
-<!--<p class="event-page__content" *ngIf="sessionsGroupByDates.length == 0">A programação deste evento ainda não foi definida.</p>-->
-<!--<section class="event-page__content" *ngIf="sessionsGroupByDates.length != 0">-->
-<!--  <mat-tab-group animationDuration="0ms" style="min-height:300px">-->
-<!--    <mat-tab *ngFor="let group of sessionsGroupByDates" [label]="group.day | date:'dd/MM' : '' : 'pt-BR'" >-->
-<!--      <div class="activity-list">-->
-<!--        &lt;!&ndash;            <div class="activity-card" *ngFor="let session of $any(activity).value" routerLink="/{{eventDto.slug}}/activities/{{session.activitySlug}}">&ndash;&gt;-->
-<!--        <div *ngFor="let session of group.sessions" class="activity-card" [routerLink]="getLinkForActivity(session)">-->
-<!--          <h2 class="activity-card__title">-->
-<!--            {{ session.activityTitle }}-->
-<!--            <span class="activity-card__type">{{ session.activityType | activityTypes }}</span>-->
-<!--            <span class="activity-card__type">{{ session.activityModality | activityModalities }}</span>-->
-<!--          </h2>-->
-<!--          <p class="activity-card__date">-->
-<!--            {{ session.sessionScheduleExecutionStart | date:'ccc' : '' : 'pt-BR' }}-->
-<!--            {{ session.sessionScheduleExecutionStart | date:'HH:mm' }}-->
-<!--            - {{ session.sessionScheduleExecutionEnd | date:'HH:mm' }}-->
-<!--          </p>-->
-<!--          <p class="activity-card__subtitle"><b>Ministrantes:</b> {{ getSpeakerNames(session.speakers) }}</p>-->
-<!--          <p class="activity-card__subtitle">{{ session.activityDescription }}</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </mat-tab>-->
-<!--  </mat-tab-group>-->
-<!--</section>-->
+<!--&lt;!&ndash;<p class="event-page__content" *ngIf="sessionsGroupByDates.length == 0">A programação deste evento ainda não foi definida.</p>&ndash;&gt;-->
+<!--&lt;!&ndash;<section class="event-page__content" *ngIf="sessionsGroupByDates.length != 0">&ndash;&gt;-->
+<!--&lt;!&ndash;  <mat-tab-group animationDuration="0ms" style="min-height:300px">&ndash;&gt;-->
+<!--&lt;!&ndash;    <mat-tab *ngFor="let group of sessionsGroupByDates" [label]="group.day | date:'dd/MM' : '' : 'pt-BR'" >&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="activity-list">&ndash;&gt;-->
+<!--&lt;!&ndash;        &lt;!&ndash;            <div class="activity-card" *ngFor="let session of $any(activity).value" routerLink="/{{eventDto.slug}}/activities/{{session.activitySlug}}">&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;        <div *ngFor="let session of group.sessions" class="activity-card" [routerLink]="getLinkForActivity(session)">&ndash;&gt;-->
+<!--&lt;!&ndash;          <h2 class="activity-card__title">&ndash;&gt;-->
+<!--&lt;!&ndash;            {{ session.activityTitle }}&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="activity-card__type">{{ session.activityType | activityTypes }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;            <span class="activity-card__type">{{ session.activityModality | activityModalities }}</span>&ndash;&gt;-->
+<!--&lt;!&ndash;          </h2>&ndash;&gt;-->
+<!--&lt;!&ndash;          <p class="activity-card__date">&ndash;&gt;-->
+<!--&lt;!&ndash;            {{ session.sessionScheduleExecutionStart | date:'ccc' : '' : 'pt-BR' }}&ndash;&gt;-->
+<!--&lt;!&ndash;            {{ session.sessionScheduleExecutionStart | date:'HH:mm' }}&ndash;&gt;-->
+<!--&lt;!&ndash;            - {{ session.sessionScheduleExecutionEnd | date:'HH:mm' }}&ndash;&gt;-->
+<!--&lt;!&ndash;          </p>&ndash;&gt;-->
+<!--&lt;!&ndash;          <p class="activity-card__subtitle"><b>Ministrantes:</b> {{ getSpeakerNames(session.speakers) }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;          <p class="activity-card__subtitle">{{ session.activityDescription }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </mat-tab>&ndash;&gt;-->
+<!--&lt;!&ndash;  </mat-tab-group>&ndash;&gt;-->
+<!--&lt;!&ndash;</section>&ndash;&gt;-->
