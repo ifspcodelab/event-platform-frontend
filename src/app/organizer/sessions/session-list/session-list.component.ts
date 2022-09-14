@@ -27,6 +27,8 @@ export class SessionListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.eventId = localStorage.getItem('eventId');
+    localStorage.removeItem('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
 
     if(this.subeventId) {
@@ -62,6 +64,14 @@ export class SessionListComponent implements OnInit {
       return this.router.navigate(
         ['organizer', 'events', this.eventId, 'sessions', sessionDto.id]
       );
+    }
+  }
+
+  getBackUrl() {
+    if(this.eventId) {
+      this.router.navigate(['organizer', 'events', this.eventId, 'sub-events']);
+    } else {
+      this.router.navigate(['organizer']);
     }
   }
 }

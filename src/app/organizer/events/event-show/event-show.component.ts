@@ -64,6 +64,7 @@ export class EventShowComponent implements OnInit {
   }
 
   openSubeventShow(subeventDto: SubeventDto) {
+    localStorage.setItem('eventId', this.eventId);
     return this.router.navigate(['organizer', 'sub-events', subeventDto.id, 'sessions']);
   }
 
