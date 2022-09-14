@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from "../../../core/services/session.service";
 import { SessionDto } from "../../../core/models/activity.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatTableDataSource } from "@angular/material/table";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { SubeventDto } from "../../../core/models/subevent.model";
 import { EventDto } from "../../../core/models/event.model";
+import { OrganizerAreaService } from "../../../core/services/organizer-area.service";
 
 @Component({
   selector: 'app-session-list',
@@ -23,7 +23,7 @@ export class SessionListComponent implements OnInit {
   dataSource: MatTableDataSource<SessionDto>;
 
   constructor(
-    private sessionService: SessionService,
+    private organizerAreaService: OrganizerAreaService,
     private router: Router,
     private route: ActivatedRoute,
     private _liveAnnouncer: LiveAnnouncer,
@@ -41,7 +41,7 @@ export class SessionListComponent implements OnInit {
   }
 
   private fetchSubEventSessions() {
-    this.sessionService.getSubEventSessions(this.eventId, this.subeventId, this.activityId)
+    this.organizerAreaService.getSubeventSessions(this.subeventId)
       .subscribe(sessionsDto => {
         this.sessionsDto = sessionsDto
         this.dataSource = new MatTableDataSource<SessionDto>(this.sessionsDto);
@@ -49,7 +49,7 @@ export class SessionListComponent implements OnInit {
   }
 
   private fetchEventSessions() {
-    this.sessionService.getEventSessions(this.eventId, this.activityId)
+    this.organizerAreaService.getEventSessions(this.eventId)
       .subscribe(sessionsDto => {
         this.sessionsDto = sessionsDto
         this.dataSource = new MatTableDataSource<SessionDto>(this.sessionsDto);
@@ -60,6 +60,7 @@ export class SessionListComponent implements OnInit {
     if(this.subeventId) {
       return this.router.navigate(
         ['organizer', 'sub-events', this.subeventId, 'sessions', sessionDto.id]
+
       );
     } else {
       return this.router.navigate(

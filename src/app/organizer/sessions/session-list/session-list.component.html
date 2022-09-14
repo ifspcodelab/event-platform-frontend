@@ -33,7 +33,7 @@
     </ng-container>
 
     <ng-container matColumnDef="space">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Espaço Reservado">Espaços Reservados</th>
+      <th mat-header-cell *matHeaderCellDef>Espaços Reservados</th>
       <td mat-cell *matCellDef="let element">
         <p style="margin: 0" *ngFor="let sessionSchedule of element.sessionSchedules">
           {{ sessionSchedule.space ? sessionSchedule.space.name : ''  }}
@@ -42,7 +42,7 @@
     </ng-container>
 
     <ng-container matColumnDef="canceled">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Cancelada">Cancelada</th>
+      <th mat-header-cell *matHeaderCellDef>Cancelada</th>
       <td mat-cell *matCellDef="let element"> {{ element.canceled ? 'Cancelada' : '' }} </td>
     </ng-container>
 
