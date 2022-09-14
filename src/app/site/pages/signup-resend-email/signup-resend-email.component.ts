@@ -26,6 +26,7 @@ export class SignupResendEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = localStorage.getItem('email');
+    localStorage.removeItem('email');
     if (typeof this.email != 'string') {
       this.router.navigate(['/']);
     }
@@ -41,11 +42,9 @@ export class SignupResendEmailComponent implements OnInit {
           this.notificationService.success("Email reenviado. Em caso de não ter recebido entre em contato com a comissão");
           this.requestLoading = false;
           this.email = null;
-          localStorage.removeItem('email');
         },
         error: error => {
           this.handleError(error);
-          localStorage.removeItem('email');
         }
       })
   }

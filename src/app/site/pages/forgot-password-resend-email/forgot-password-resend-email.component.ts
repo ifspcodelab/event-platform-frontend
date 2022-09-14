@@ -27,6 +27,7 @@ export class ForgotPasswordResendEmailComponent implements OnInit {
 
   ngOnInit(): void {
     this.email = localStorage.getItem('email');
+    localStorage.removeItem('email');
     if (typeof this.email != 'string') {
       this.router.navigate(['/']);
     }
@@ -60,7 +61,6 @@ export class ForgotPasswordResendEmailComponent implements OnInit {
           this.notificationService.success("Email reenviado. Em caso de não ter recebido entre em contato com a comissão");
           this.requestLoading = false;
           this.email = null;
-          localStorage.removeItem('email');
           this.router.navigate(['login']);
           this.intervalSubscription$.unsubscribe();
         },
