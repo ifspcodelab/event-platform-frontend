@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
   buildForm(): FormGroup {
     return this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(256), AppValidators.validName()]],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(350)]],
+      email: ['', [AppValidators.isEmailDomainValid(), Validators.required, Validators.email, Validators.maxLength(350)]],
       cpf: ['', [Validators.required, AppValidators.validCpf()]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64),
         AppValidators.hasNumber(), AppValidators.hasCapitalCase(), AppValidators.hasLowerCase(),

@@ -90,4 +90,19 @@ export class AppValidators {
     };
   }
 
+  static isEmailDomainValid(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const invalidDomains = ['@gnail.com', '@alino.ifsp.edu.br', '@aluno.ifsp.com.br'];
+      const domainIndex = control.value.indexOf('@');
+      if (domainIndex == -1) {
+        return null;
+      }
+      const domain = control.value.slice(domainIndex).trim();
+      const includes = invalidDomains.includes(domain);
+      return includes
+        ? { isemaildomainvalid: true }
+        : null;
+    };
+  }
+
 }
