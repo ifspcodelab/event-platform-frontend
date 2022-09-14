@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SessionDto } from "../../../core/models/activity.model";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatTableDataSource } from "@angular/material/table";
-import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { SubeventDto } from "../../../core/models/subevent.model";
-import { EventDto } from "../../../core/models/event.model";
 import { OrganizerAreaService } from "../../../core/services/organizer-area.service";
+import { SubeventService } from "../../../core/services/subevent.service";
 
 @Component({
   selector: 'app-session-list',
@@ -14,23 +13,20 @@ import { OrganizerAreaService } from "../../../core/services/organizer-area.serv
 })
 export class SessionListComponent implements OnInit {
   eventId: string;
-  eventDto: EventDto;
   subeventId: string;
   subeventDto: SubeventDto;
-  activityId: string;
   sessionsDto: SessionDto[] = [];
   displayedColumns: string[] = ['title', 'seats', 'confirmedSeats', 'schedules', 'space', 'canceled'];
   dataSource: MatTableDataSource<SessionDto>;
 
   constructor(
     private organizerAreaService: OrganizerAreaService,
+    private subeventService: SubeventService,
     private router: Router,
     private route: ActivatedRoute,
-    private _liveAnnouncer: LiveAnnouncer,
   ) { }
 
   ngOnInit(): void {
-    this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
 
     if(this.subeventId) {
