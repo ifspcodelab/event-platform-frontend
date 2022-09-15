@@ -121,7 +121,7 @@ export class LoginComponent implements OnInit {
         this.notificationService.error("Sua conta foi bloqueada");
       }
       if (problem.title == "Incorrect email or password"){
-        this.notificationService.error("Login falhou");
+        this.notificationService.error("E-mail ou senha incorreta");
       }
       if (problem.title == "Invalid recaptcha"){
         this.notificationService.error("Recaptcha inválido. Atualize e tente novamente");
