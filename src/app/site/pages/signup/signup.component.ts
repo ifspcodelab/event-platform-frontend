@@ -116,6 +116,10 @@ export class SignupComponent implements OnInit {
         if(problem.title === "Invalid recaptcha") {
           this.recaptchaErrorMessage = "Recaptcha inválido, por favor realize novamente o desafio ou atualize a página";
         }
+
+        if(problem.title === "Business rule exception") {
+          this.field('email').setErrors({ serverError: problem.violations[0].message });
+        }
       }
     }
   }
