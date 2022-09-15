@@ -1,7 +1,7 @@
 <div *ngIf="sessionDto">
-  <app-admin-header title="Sessão Matutino" (backLink)="backLink()">
+  <app-admin-header title="Sessão {{ sessionDto.title }}" (backLink)="backLink()">
     <button *ngIf="!sessionDto.canceled" mat-button color="primary" (click)="openCancelDialog()">Cancelar</button>
-    <button *ngIf="!sessionDto.canceled"mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
+    <button *ngIf="!sessionDto.canceled" mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
 
   </app-admin-header>
 
