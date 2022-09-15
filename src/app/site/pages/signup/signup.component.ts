@@ -116,6 +116,15 @@ export class SignupComponent implements OnInit {
         if(problem.title === "Invalid recaptcha") {
           this.recaptchaErrorMessage = "Recaptcha inválido, por favor realize novamente o desafio ou atualize a página";
         }
+
+        if(
+          problem.title === "SIGNUP_ACCOUNT_WITH_EXISTENT_CPF_NOT_VERIFIED" ||
+          problem.title === "SIGNUP_ACCOUNT_WITH_EXISTENT_EMAIL_NOT_VERIFIED"
+        ) {
+          this.notificationService.error("Conta ainda não verificada, verifique seu email para ativar a sua conta");
+        }
+
+
       }
     }
   }
