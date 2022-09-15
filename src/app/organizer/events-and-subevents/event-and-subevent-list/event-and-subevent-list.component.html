@@ -25,7 +25,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEventShow(row)" class="container__line"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEventSessionList(row)" class="container__line"></tr>
   </table>
 
   <table class="container__table" *ngIf="eventsDto.length" mat-table [dataSource]="dataSourceSubevent">
@@ -50,6 +50,6 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSessionList(row)" class="container__line"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSubeventSessionList(row)" class="container__line"></tr>
   </table>
 </article>

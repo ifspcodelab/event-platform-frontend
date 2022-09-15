@@ -39,7 +39,7 @@ export class OrganizerAreaService extends BaseService{
   }
 
   getEventSession(eventId: string, sessionId: string): Observable<SessionDto> {
-    const url = `${this.apiUrl}/sub-events/${eventId}/sessions/${sessionId}`;
+    const url = `${this.apiUrl}/events/${eventId}/sessions/${sessionId}`;
     return this.httpClient.get<SessionDto>(url, this.httpOptions);
   }
 

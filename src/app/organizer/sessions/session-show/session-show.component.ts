@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionDto } from "../../../core/models/activity.model";
-import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NotificationService } from "../../../core/services/notification.service";
 import { HttpErrorResponse } from "@angular/common/http";
@@ -22,7 +21,6 @@ export class SessionShowComponent implements OnInit {
     private organizerAreaService: OrganizerAreaService,
     private router: Router,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
     private notificationService: NotificationService,
   ) { }
 

@@ -61,38 +61,45 @@ export class JwtService {
     return null;
   }
 
-  getCollaboratorClaim() {
+  getCollaboratorEventClaim() {
     const accessToken = this.getAccessToken();
     if(accessToken) {
       const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
-      return accessTokenData.collaborator;
+      if(accessTokenData.collaboratorEvent.length > 0) {
+        return accessTokenData.collaboratorEvent;
+      }
     }
     return null;
   }
 
-  getCoordinatorClaim() {
+  getCollaboratorSubeventClaim() {
     const accessToken = this.getAccessToken();
     if(accessToken) {
       const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
-      return accessTokenData.coordinator;
+      if(accessTokenData.collaboratorSubevent.length > 0) {
+        return accessTokenData.collaboratorSubevent;
+      }
     }
     return null;
   }
 
-  getOrganizerClaim() {
+  getCoordinatorEventClaim() {
     const accessToken = this.getAccessToken();
     if(accessToken) {
       const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
-      return accessTokenData.organizer;
+      if(accessTokenData.coordinatorEvent.length > 0)
+        return accessTokenData.coordinatorEvent;
     }
     return null;
   }
 
-  getOrganizerSubeventClaim() {
+  getCoordinatorSubeventClaim() {
     const accessToken = this.getAccessToken();
     if(accessToken) {
       const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
-      return accessTokenData.organizer_subevent;
+      if(accessTokenData.coordinatorSubevent.length > 0) {
+        return accessTokenData.coordinatorSubevent;
+      }
     }
     return null;
   }
@@ -117,6 +124,9 @@ export class JwtService {
   }
 
   isOrganizer() {
-    return !!(this.getCollaboratorClaim() || this.getCoordinatorClaim() || this.getOrganizerClaim() || this.getOrganizerSubeventClaim());
+    return !!(this.getCollaboratorEventClaim() ||
+      this.getCollaboratorSubeventClaim() ||
+      this.getCoordinatorEventClaim() ||
+      this.getCoordinatorSubeventClaim());
   }
 }

@@ -6,7 +6,6 @@ import {
 } from "./events-and-subevents/event-and-subevent-list/event-and-subevent-list.component";
 import { SessionListComponent } from "./sessions/session-list/session-list.component";
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
-import { EventShowComponent } from "./events/event-show/event-show.component";
 
 const routes: Routes = [
   {
@@ -25,10 +24,6 @@ const routes: Routes = [
       {
         path: 'events/:eventId/sessions',
         component: SessionListComponent,
-      },
-      {
-        path: 'events/:eventId/sub-events',
-        component: EventShowComponent,
       },
       {
         path: 'sub-events/:subeventId/sessions',

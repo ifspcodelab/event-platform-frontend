@@ -1,5 +1,5 @@
 <div *ngIf="sessionDto">
-  <app-admin-header title="Sessão Matutino" (backLink)="backLink()"></app-admin-header>
+  <app-admin-header title="Sessão {{sessionDto.title}}" (backLink)="backLink()"></app-admin-header>
 
   <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
     <mat-tab label="Dados Principais">

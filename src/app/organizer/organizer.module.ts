@@ -9,7 +9,6 @@ import {
 } from "./events-and-subevents/event-and-subevent-list/event-and-subevent-list.component";
 import { SessionListComponent } from "./sessions/session-list/session-list.component";
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
-import { EventShowComponent } from "./events/event-show/event-show.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { EventShowComponent } from "./events/event-show/event-show.component";
     EventAndSubeventListComponent,
     SessionListComponent,
     SessionShowComponent,
-    EventShowComponent,
   ],
   imports: [
     CommonModule,
