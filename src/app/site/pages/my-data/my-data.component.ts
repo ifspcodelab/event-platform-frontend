@@ -50,18 +50,6 @@ export class MyDataComponent implements OnInit {
       });
   }
 
-  get accountDtoName() {
-    return (this.accountDto && this.accountDto.name) ? this.accountDto.name : null;
-  }
-
-  get accountDtoEmail() {
-    return (this.accountDto && this.accountDto.email) ? this.accountDto.email : null;
-  }
-
-  get accountDtoCpf() {
-    return (this.accountDto && this.accountDto.cpf) ? this.accountDto.cpf : null;
-  }
-
   openDialog() {
     this.dialog.open(AccountDeletionDialogComponent);
   }
