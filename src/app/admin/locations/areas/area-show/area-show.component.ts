@@ -116,7 +116,7 @@ export class AreaShowComponent implements OnInit {
 
   openDeleteConfirmationDialog() {
     if(this.spacesDto.length != 0) {
-      this.notificationService.error('Não é possível deletar uma área com espaço associado');
+      this.notificationService.error('Não é possível excluir uma área que está associada a um espaço');
     } else {
       this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig())
         .afterClosed()
@@ -133,10 +133,15 @@ export class AreaShowComponent implements OnInit {
             this.notificationService.success("Área excluída com sucesso");
             this.router.navigate(['admin', 'locations', this.locationId])
           },
-          error: error => {
+          error: error => { 
             if(error instanceof HttpErrorResponse) {
               if(error.status === 409) {
-                this.notificationService.error("Não é possível deletar uma área com espaço associado");
+                if(error.error.violations[1].name === "Space") {
+                  this.notificationService.error("Não é possível excluir uma área que está associada a um espaço");
+                }
+                if(error.error.violations[1].name === "Session schedule") {
+                  this.notificationService.error("Não é possível excluir uma área que está associada a um horário de uma sessão");
+                }
               }
             }
           }

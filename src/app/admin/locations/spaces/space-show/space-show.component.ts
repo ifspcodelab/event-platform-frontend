@@ -8,6 +8,7 @@ import { SpaceFormComponent } from "../space-form/space-form.component";
 import { NotificationService } from "../../../../core/services/notification.service";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { LoaderService } from "../../../loader.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'app-space-show',
@@ -98,6 +99,15 @@ export class SpaceShowComponent implements OnInit {
           next: _ => {
             this.notificationService.success("Espaço excluido com sucesso");
             this.router.navigate(['admin', 'locations', this.locationId, 'areas', this.areaId]);
+          },
+          error: error => { 
+            if(error instanceof HttpErrorResponse) {
+              if(error.status === 409) {
+                if(error.error.violations[1].name === "Session schedule") {
+                  this.notificationService.error("Não é possível excluir um espaço que está associado a um horário de uma sessão");
+                }
+              }
+            }
           }
         });
     }

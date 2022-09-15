@@ -16,6 +16,7 @@ import { MatSort, Sort } from "@angular/material/sort";
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { LoaderService } from "../../../loader.service";
 
+
 @Component({
   selector: 'app-location-show',
   templateUrl: './location-show.component.html',
@@ -143,7 +144,7 @@ export class LocationShowComponent implements OnInit {
 
   openDeleteConfirmationDialog() {
     if(this.areasDto.length != 0) {
-      this.notificationService.error('Não é possível deletar um local com área associada');
+      this.notificationService.error('Não é possível excluir um local que está associado a uma área');
     } else {
       this.dialog.open(ConfirmationDialogComponent,  this.getConfirmationDialogConfig())
         .afterClosed()
@@ -163,7 +164,12 @@ export class LocationShowComponent implements OnInit {
           error: error => {
             if(error instanceof HttpErrorResponse) {
               if(error.status === 409) {
-                this.notificationService.error("Não é possível deletar um local com área associada");
+                if(error.error.violations[1].name === "Area") {
+                  this.notificationService.error("Não é possível excluir um local que está associado a uma área");
+                }
+                if(error.error.violations[1].name === "Session schedule") {
+                  this.notificationService.error("Não é possível excluir um local que está associado a um horário de uma sessão");
+                }
               }
             }
           }
