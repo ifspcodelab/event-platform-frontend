@@ -20,6 +20,7 @@ export class RegistrationListComponent implements OnInit {
   activityId: string;
   @Input()
   sessionId: string;
+  @Input()
   registrationsDto: RegistrationDto[] = [];
   displayedColumns: string[] = ['date', 'account.name', 'account.email', 'status', 'timeEmailWasSent'];
   dataSource: MatTableDataSource<RegistrationDto>;
@@ -33,11 +34,13 @@ export class RegistrationListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.subeventId) {
-      this.fetchSubEventRegistrations();
-    } else {
-      this.fetchEventRegistrations();
-    }
+    // if(this.subeventId) {
+    //   this.fetchSubEventRegistrations();
+    // } else {
+    //   this.fetchEventRegistrations();
+    // }
+    this.dataSource = new MatTableDataSource<RegistrationDto>(this.registrationsDto);
+    this.setSortingDataAccessor();
   }
 
   private fetchSubEventRegistrations() {
