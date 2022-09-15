@@ -5,6 +5,8 @@ import { MatTableDataSource } from "@angular/material/table";
 import { SubeventDto } from "../../../core/models/subevent.model";
 import { OrganizerAreaService } from "../../../core/services/organizer-area.service";
 import { SubeventService } from "../../../core/services/subevent.service";
+import {LoaderService} from "../../../admin/loader.service";
+import {HttpErrorResponse} from "@angular/common/http";
 // import { EventService } from "../../../core/services/event.service";
 // import { EventDto } from "../../../core/models/event.model";
 // import { Observable } from "rxjs";
@@ -31,9 +33,11 @@ export class SessionListComponent implements OnInit {
     private subeventService: SubeventService,
     private router: Router,
     private route: ActivatedRoute,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show();
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
     // this.eventDto$ = this.eventService.getEventById(this.eventId);
@@ -50,6 +54,7 @@ export class SessionListComponent implements OnInit {
       .subscribe(sessions => {
         this.sessionsDto = sessions
         this.dataSource = new MatTableDataSource<SessionDto>(this.sessionsDto);
+        this.loaderService.hide();
       });
   }
 
@@ -58,12 +63,12 @@ export class SessionListComponent implements OnInit {
       .subscribe(sessions => {
         this.sessionsDto = sessions
         this.dataSource = new MatTableDataSource<SessionDto>(this.sessionsDto);
+        this.loaderService.hide();
       });
   }
 
   openSessionShow(sessionDto: SessionDto) {
     if(this.subeventId) {
-      console.log('oi');
       return this.router.navigate(
         ['organizer', 'sub-events', this.subeventId, 'sessions', sessionDto.id]
       );

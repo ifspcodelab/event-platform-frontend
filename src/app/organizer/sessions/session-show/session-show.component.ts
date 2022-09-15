@@ -5,6 +5,7 @@ import { NotificationService } from "../../../core/services/notification.service
 import { HttpErrorResponse } from "@angular/common/http";
 import { first } from "rxjs";
 import { OrganizerAreaService } from "../../../core/services/organizer-area.service";
+import {LoaderService} from "../../../admin/loader.service";
 
 @Component({
   selector: 'app-session-show',
@@ -22,9 +23,11 @@ export class SessionShowComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private notificationService: NotificationService,
+    private loaderService: LoaderService,
   ) { }
 
   ngOnInit(): void {
+    this.loaderService.show();
     this.eventId = this.route.snapshot.paramMap.get('eventId');
     this.subeventId = this.route.snapshot.paramMap.get('subeventId');
     this.sessionId = this.route.snapshot.paramMap.get('sessionId');
@@ -41,6 +44,7 @@ export class SessionShowComponent implements OnInit {
       .pipe(first())
       .subscribe(sessionDto => {
         this.sessionDto = sessionDto;
+        this.loaderService.hide();
       })
   }
 
@@ -49,6 +53,7 @@ export class SessionShowComponent implements OnInit {
       .pipe(first())
       .subscribe(sessionDto => {
         this.sessionDto = sessionDto;
+        this.loaderService.hide();
       })
   }
 

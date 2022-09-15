@@ -1,7 +1,7 @@
 <app-admin-header title="Eventos e Subeventos"></app-admin-header>
 
 <article class="container">
-  <p *ngIf="!eventsDto.length">Nenhum evento cadastrado</p>
+  <p *ngIf="!eventsDto.length && !subeventsDto.length">Nenhum evento ou subevento associado</p>
 
   <table class="container__table" *ngIf="eventsDto.length" mat-table [dataSource]="dataSourceEvent">
     <ng-container matColumnDef="title">
@@ -28,7 +28,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openEventSessionList(row)" class="container__line"></tr>
   </table>
 
-  <table class="container__table" *ngIf="eventsDto.length" mat-table [dataSource]="dataSourceSubevent">
+  <table class="container__table" *ngIf="subeventsDto.length" mat-table [dataSource]="dataSourceSubevent">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Título</th>
       <td mat-cell *matCellDef="let element"> {{ element.title }} </td>
