@@ -1,5 +1,6 @@
 import { EventStatusModel } from "./event-status.model";
 import { Period } from "./period.model";
+import { EventDto } from "./event.model";
 
 export interface SubeventDto {
   id: string;
@@ -13,6 +14,7 @@ export interface SubeventDto {
   biggerImage: string;
   status: EventStatusModel;
   cancellationMessage: string;
+  event: EventDto;
 }
 
 export class SubeventCreateDto {

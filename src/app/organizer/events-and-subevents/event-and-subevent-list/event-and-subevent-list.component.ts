@@ -66,7 +66,7 @@ export class EventAndSubeventListComponent implements OnInit {
   }
 
   openSubeventSessionList(subeventDto: SubeventDto) {
-    return this.router.navigate(['organizer', 'sub-events', subeventDto.id, 'sessions']);
+    return this.router.navigate(['organizer',  'events', subeventDto.event.id, 'sub-events', subeventDto.id, 'sessions']);
   }
 
   handleError(error: any) {
