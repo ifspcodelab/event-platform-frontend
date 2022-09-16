@@ -7,6 +7,10 @@ import { first } from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {AccountDeletionDialogComponent} from "../account-deletion/dialog/account-deletion-dialog";
 import { LogDto } from "../../../core/models/log.model";
+import {MatTableDataSource} from "@angular/material/table";
+import {PageDto} from "../../../core/models/page.model";
+import {MatPaginatorIntl} from "@angular/material/paginator";
+import {LoaderService} from "../../../admin/loader.service";
 
 @Component({
   selector: 'app-my-data',
@@ -15,35 +19,49 @@ import { LogDto } from "../../../core/models/log.model";
 })
 export class MyDataComponent implements OnInit {
   accountDto: AccountDto;
-  dataSource: LogDto[];
+  logsDto: LogDto[] = [];
+  dataSource: MatTableDataSource<LogDto>;
+  page: PageDto<LogDto>;
   displayedColumns: string[] = ['createdAt', 'resourceData'];
 
   constructor(
+    private loaderService: LoaderService,
     private router: Router,
     private jwtService: JwtService,
     private myDataService: MyDataService,
     private dialog: MatDialog,
+    private _MatPaginatorIntl: MatPaginatorIntl,
   ) { }
 
   ngOnInit(): void {
-    this.fetchAccount();
+    this.loaderService.show();
+    this.fetchLogs(0);
+
+    this._MatPaginatorIntl.firstPageLabel = 'Primeira página';
+    this._MatPaginatorIntl.itemsPerPageLabel = 'Usuários por página';
+    this._MatPaginatorIntl.lastPageLabel = 'Última página';
+    this._MatPaginatorIntl.nextPageLabel = 'Próxima página';
+    this._MatPaginatorIntl.previousPageLabel = 'Página anterior';
   }
 
   editMyData() {
     this.router.navigate(['meus-dados', 'editar']);
   }
 
-  fetchAccount() {
+  fetchLogs(page: number) {
     this.myDataService.getAccount()
       .pipe(first())
       .subscribe({
         next: accountDto => {
           this.accountDto = accountDto;
-          this.myDataService.getLogs()
+          this.myDataService.getLogs(page)
             .pipe(first())
             .subscribe({
-              next: logs => {
-                this.dataSource = logs;
+              next: pageDto => {
+                this.page = pageDto;
+                this.logsDto = this.page.content;
+                this.dataSource = new MatTableDataSource<LogDto>(this.logsDto);
+                this.loaderService.hide();
               },
             });
         }

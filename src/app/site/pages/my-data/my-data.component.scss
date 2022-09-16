@@ -38,9 +38,22 @@
 
 .my-activities__container {
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+
+  @media screen and (max-width: 400px){
+    padding: 0;
+  }
 }
 
 .account-deletion {
   margin: -5px 0 15px 0 !important;;
   border: none;
+}
+
+@media screen and(max-width: 400px) {
+
+  .mat-row > * {
+    padding: 0;
+  }
 }

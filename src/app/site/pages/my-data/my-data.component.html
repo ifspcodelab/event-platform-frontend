@@ -25,8 +25,8 @@
       </mat-tab>
 
       <mat-tab class="my-activities" label="Minhas Atividades">
-        <div class="my-activities__container">
-          <table mat-table  [dataSource]="dataSource" matSortActive="no." class="mat-elevation-z0">
+        <div class="my-activities__container" *ngIf="page">
+          <table mat-table  [dataSource]="dataSource" class="mat-elevation-z0">
 
             <ng-container matColumnDef="createdAt">
               <th mat-header-cell *matHeaderCellDef>Data e hora</th>
@@ -41,6 +41,15 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
+
+          <mat-paginator class="mat-elevation-z0"
+                         [length]="this.page.totalElements"
+                         [pageIndex]="this.page.number"
+                         [pageSize]="this.page.size"
+                         (page)="fetchLogs($event.pageIndex)"
+                         aria-label="Select page">
+          </mat-paginator>
+
         </div>
       </mat-tab>
     </mat-tab-group>
