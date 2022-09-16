@@ -40,7 +40,7 @@
           <mat-icon>priority_high</mat-icon>
           Email deve ter no máximo 350 caracteres
         </mat-error>
-        <mat-error *ngIf="fieldErrors('email')?.['isemaildomainvalid']">
+        <mat-error *ngIf="fieldErrors('email')?.['validdomain']">
           <mat-icon>priority_high</mat-icon>
           O domínio do e-mail deve ser válido. Exemplo "@aluno.ifsp.edu.br ou @gmail.com"
         </mat-error>

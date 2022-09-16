@@ -90,7 +90,7 @@ export class AppValidators {
     };
   }
 
-  static isEmailDomainValid(): ValidatorFn {
+  static validDomain(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const domainIndex = control.value.indexOf('@');
       if (domainIndex == -1) {
@@ -99,7 +99,7 @@ export class AppValidators {
       const domain = control.value.slice(domainIndex);
       const includes = this.invalidDomains.includes(domain);
       return includes
-        ? { isemaildomainvalid: true }
+        ? { validdomain: true }
         : null;
     };
   }
