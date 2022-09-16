@@ -9,8 +9,8 @@
           <div *ngFor="let session of group.sessions" class="activity-card" [routerLink]="getLinkForActivity(session)">
             <h2 class="activity-card__title">
               {{ session.activityTitle }}
-              <span class="activity-card__type">{{ session.activityType | activityTypes }}</span>
-              <span class="activity-card__type">{{ session.activityModality | activityModalities }}</span>
+              <br>
+              <span class="activity-card__type">{{ session.activityType | activityTypes }}</span> <span class="activity-card__type">{{ session.activityModality | activityModalities }}</span>
             </h2>
             <p class="activity-card__date">
               {{ session.sessionScheduleExecutionStart | date:'ccc' : '' : 'pt-BR' }}

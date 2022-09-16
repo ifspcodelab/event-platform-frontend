@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivityDto, SessionDto, SessionScheduleDto } from "../../../../core/models/activity.model";
-import { LocationDto } from "../../../../core/models/location.model";
-import { AreaDto } from "../../../../core/models/area.model";
-import { SpaceDto } from "../../../../core/models/space.model";
+import { SessionDto, SessionScheduleDto } from "../../../../core/models/activity.model";
 import { CancellationMessageCreateDto } from "../../../../core/models/event.model";
-import { ActivityService } from "../../../../core/services/activity.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { NotificationService } from "../../../../core/services/notification.service";
@@ -13,6 +9,8 @@ import { first } from "rxjs";
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { HttpErrorResponse } from "@angular/common/http";
+import { RegistrationDto } from "../../../../core/models/registration.model";
+import { RegistrationService } from "../../../../core/services/registration.service";
 
 @Component({
   selector: 'app-session-show',
@@ -27,9 +25,13 @@ export class SessionShowComponent implements OnInit {
   sessionId: string;
   sessionDto: SessionDto = null;
   cancellationMessageCreateDto: CancellationMessageCreateDto;
+  loading: boolean = true;
+
+  registrationsDto: RegistrationDto[] = [];
 
   constructor(
     private sessionService: SessionService,
+    private registrationService: RegistrationService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -55,6 +57,7 @@ export class SessionShowComponent implements OnInit {
       .pipe(first())
       .subscribe(sessionDto => {
         this.sessionDto = sessionDto;
+        this.fetchSubEventRegistrations();
       })
   }
 
@@ -63,7 +66,24 @@ export class SessionShowComponent implements OnInit {
       .pipe(first())
       .subscribe(sessionDto => {
         this.sessionDto = sessionDto;
+        this.fetchEventRegistrations()
       })
+  }
+
+  private fetchSubEventRegistrations() {
+    this.registrationService.getSubEventRegistrations(this.eventId, this.subeventId, this.activityId, this.sessionId)
+      .subscribe(registrationsDto => {
+        this.registrationsDto = registrationsDto
+        this.loading = false;
+      });
+  }
+
+  private fetchEventRegistrations() {
+    this.registrationService.getEventRegistrations(this.eventId, this.activityId, this.sessionId)
+      .subscribe(registrationsDto => {
+        this.registrationsDto = registrationsDto
+        this.loading = false;
+      });
   }
 
   backLink() {
@@ -173,5 +193,13 @@ export class SessionShowComponent implements OnInit {
         this.notificationService.error(error.error.violations[0].message);
       }
     }
+  }
+
+  sessionSchedulesOrderByDate() {
+    return this.sessionDto.sessionSchedules.sort((a, b) => this.sortBySessionScheduler(a, b));
+  }
+
+  sortBySessionScheduler(a: SessionScheduleDto, b: SessionScheduleDto): number {
+    return (a.executionStart > b.executionStart) ? 1 : ((b.executionStart > a.executionStart) ? -1 : 0);
   }
 }

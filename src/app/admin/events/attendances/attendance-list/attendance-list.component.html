@@ -1,0 +1,35 @@
+<article class="container">
+  <header class="container__header">
+    <h1 class="container__header__title">
+      Lista {{ sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm' }}
+      <span *ngIf="attendanceDisabled()"> - O registro de presença inicia no dia do horário da sessão.</span>
+    </h1>
+
+  </header>
+
+  <p *ngIf="!registrationsDto.length">A sessão não possui inscritos</p>
+  <div style="overflow-x:auto;">
+    <table class="container__table container__table--not_clickable" *ngIf="registrationsDto.length" mat-table [dataSource]="registrationsDto">
+
+    <ng-container matColumnDef="attendance">
+      <th mat-header-cell *matHeaderCellDef>None</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-checkbox color="primary" [checked]="hasAttendance(element)" (change)="toggle(element)" [disabled]="attendanceDisabled()"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="account.name">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td mat-cell *matCellDef="let element"> {{ element.account.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="account.cpf">
+      <th mat-header-cell *matHeaderCellDef>CPF</th>
+      <td mat-cell *matCellDef="let element"> {{ element.account.cpf | cpfFomat }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  </div>
+</article>

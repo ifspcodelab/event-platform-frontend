@@ -27,6 +27,7 @@ import {
 } from "@angular-material-components/datetime-picker";
 import { SessionListComponent } from './sessions/session-list/session-list.component';
 import { RegistrationListComponent } from './registrations/registration-list/registration-list.component';
+import { AttendanceListComponent } from './attendances/attendance-list/attendance-list.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { RegistrationListComponent } from './registrations/registration-list/reg
     OrganizerSubeventFormComponent,
     SessionListComponent,
     RegistrationListComponent,
+    AttendanceListComponent,
   ],
   imports: [
     CommonModule,

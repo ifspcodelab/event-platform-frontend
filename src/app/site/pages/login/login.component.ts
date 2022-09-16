@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
     if(error instanceof HttpErrorResponse) {
       const problem: ProblemDetail = error.error;
       if (problem.title == "The account for this email is not yet verified"){
-        this.notificationService.error("Por favor verifique sua conta");
+        this.notificationService.error("Antes de fazer o login você deve verificar sua conta. Entre no seu e-mail e clique no link enviado.");
       }
       if (problem.title == "The account for this email is blocked by admin"){
         this.notificationService.error("Sua conta foi bloqueada");
@@ -123,7 +123,7 @@ export class LoginComponent implements OnInit {
         this.notificationService.error("Sua conta foi bloqueada");
       }
       if (problem.title == "Incorrect email or password"){
-        this.notificationService.error("Login falhou");
+        this.notificationService.error("E-mail ou senha incorreta");
       }
       if (problem.title == "Invalid recaptcha"){
         this.notificationService.error("Recaptcha inválido. Atualize e tente novamente");

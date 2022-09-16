@@ -121,10 +121,12 @@ export class SignupComponent implements OnInit {
           problem.title === "SIGNUP_ACCOUNT_WITH_EXISTENT_CPF_NOT_VERIFIED" ||
           problem.title === "SIGNUP_ACCOUNT_WITH_EXISTENT_EMAIL_NOT_VERIFIED"
         ) {
-          this.notificationService.error("Conta ainda não verificada, verifique seu email para ativar a sua conta");
+          this.notificationService.error("Já existe um cadastro não verificado com esse e-mail. Entre no seu e-mail e clique no link enviado.");
         }
 
-
+        if(problem.title === "Business rule exception") {
+          this.field('email').setErrors({ serverError: problem.violations[0].message });
+        }
       }
     }
   }

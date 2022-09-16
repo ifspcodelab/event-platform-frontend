@@ -1,8 +1,7 @@
-<div *ngIf="sessionDto">
+<div *ngIf="!loading">
   <app-admin-header title="Sessão {{ sessionDto.title }}" (backLink)="backLink()">
     <button *ngIf="!sessionDto.canceled" mat-button color="primary" (click)="openCancelDialog()">Cancelar</button>
     <button *ngIf="!sessionDto.canceled" mat-button color="primary" (click)="openDeleteConfirmationDialog()">Excluir</button>
-
   </app-admin-header>
 
   <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
@@ -34,26 +33,30 @@
             <b>URL: {{ sessionSchedule.url }}</b>
           </p>
         </mat-card>
-
       </article>
     </mat-tab>
-    <mat-tab label="Inscrições">
+    <mat-tab label="Inscrições" *ngIf="sessionDto.activity.needRegistration">
       <app-registration-list
         [eventId]="eventId"
         [subeventId]="subeventId"
         [activityId]="activityId"
-        [sessionId]="sessionId">
+        [sessionId]="sessionId"
+        [session]="sessionDto"
+        [registrationsDto]="registrationsDto">
       </app-registration-list>
     </mat-tab>
-<!--    <mat-tab label="Horário 1">-->
-
-<!--    </mat-tab>-->
-<!--    <mat-tab label="Horário 2">-->
-
-<!--    </mat-tab>-->
-<!--    <mat-tab label="Horário N">-->
-
-<!--    </mat-tab>-->
+    <div *ngIf="sessionDto.activity.needRegistration">
+      <mat-tab *ngFor="let sessionSchedule of sessionSchedulesOrderByDate()" [label]="sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm'">
+        <app-attendance-list
+          [eventId]="eventId"
+          [subeventId]="subeventId"
+          [activityId]="activityId"
+          [sessionId]="sessionId"
+          [registrationsDto]="registrationsDto"
+          [sessionSchedule]="sessionSchedule">
+        </app-attendance-list>
+      </mat-tab>
+    </div>
   </mat-tab-group>
 
 </div>
