@@ -19,19 +19,14 @@
     </ng-container>
 
     <ng-container matColumnDef="account.name">
-      <th mat-header-cell *matHeaderCellDef>None</th>
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
       <td mat-cell *matCellDef="let element"> {{ element.account.name }} </td>
     </ng-container>
 
     <ng-container matColumnDef="account.cpf">
       <th mat-header-cell *matHeaderCellDef>CPF</th>
-      <td mat-cell *matCellDef="let element"> {{ element.account.cpf | cpfFomat}} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.account.cpf | cpfFomat }} </td>
     </ng-container>
-
-<!--    <ng-container matColumnDef="status">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Status">Status</th>-->
-<!--      <td mat-cell *matCellDef="let element"> {{ element.registrationStatus | registrationStatus }} </td>-->
-<!--    </ng-container>-->
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

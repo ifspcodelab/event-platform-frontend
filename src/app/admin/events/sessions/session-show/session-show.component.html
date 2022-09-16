@@ -36,25 +36,28 @@
         </mat-card>
       </article>
     </mat-tab>
-    <mat-tab label="Inscrições">
+    <mat-tab label="Inscrições" *ngIf="sessionDto.activity.needRegistration">
       <app-registration-list
         [eventId]="eventId"
         [subeventId]="subeventId"
         [activityId]="activityId"
         [sessionId]="sessionId"
+        [session]="sessionDto"
         [registrationsDto]="registrationsDto">
       </app-registration-list>
     </mat-tab>
-    <mat-tab *ngFor="let sessionSchedule of sessionSchedulesOrderByDate()" [label]="sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm'">
-      <app-attendance-list
-        [eventId]="eventId"
-        [subeventId]="subeventId"
-        [activityId]="activityId"
-        [sessionId]="sessionId"
-        [registrationsDto]="registrationsDto"
-        [sessionSchedule]="sessionSchedule">
-      </app-attendance-list>
-    </mat-tab>
+    <div *ngIf="sessionDto.activity.needRegistration">
+      <mat-tab *ngFor="let sessionSchedule of sessionSchedulesOrderByDate()" [label]="sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm'">
+        <app-attendance-list
+          [eventId]="eventId"
+          [subeventId]="subeventId"
+          [activityId]="activityId"
+          [sessionId]="sessionId"
+          [registrationsDto]="registrationsDto"
+          [sessionSchedule]="sessionSchedule">
+        </app-attendance-list>
+      </mat-tab>
+    </div>
   </mat-tab-group>
 
 </div>
