@@ -11,6 +11,7 @@ import { ConfirmationDialogComponent } from "../../../../core/components/confirm
 import { HttpErrorResponse } from "@angular/common/http";
 import { RegistrationDto } from "../../../../core/models/registration.model";
 import { RegistrationService } from "../../../../core/services/registration.service";
+import { JwtService } from "../../../../core/services/jwtservice.service";
 
 @Component({
   selector: 'app-session-show',
@@ -36,6 +37,7 @@ export class SessionShowComponent implements OnInit {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private notificationService: NotificationService,
+    private jwtService: JwtService,
   ) { }
 
   ngOnInit(): void {
@@ -87,6 +89,14 @@ export class SessionShowComponent implements OnInit {
   }
 
   backLink() {
+    if(this.router.url.includes("admin")) {
+      this.backLinkForAdminArea();
+    } else {
+      this.backLinkForOrganizerArea();
+    }
+  }
+
+  backLinkForAdminArea() {
     if(this.eventMode) {
       return this.router.navigate(
         ['admin', 'events', this.eventId, 'activities', this.activityId], { queryParams: { tab: 2 } }
@@ -96,7 +106,18 @@ export class SessionShowComponent implements OnInit {
         ['admin', 'events', this.eventId, 'sub-events', this.subeventId, 'activities', this.activityId], { queryParams: { tab: 2 } }
       );
     }
+  }
 
+  backLinkForOrganizerArea() {
+    if(this.eventMode) {
+      return this.router.navigate(
+        ['organizer', 'events', this.eventId, 'sessions']
+      );
+    } else {
+      return this.router.navigate(
+        ['organizer', 'events', this.eventId, 'sub-events', this.subeventId, 'sessions']
+      );
+    }
   }
 
   openCancelDialog() {
@@ -201,5 +222,9 @@ export class SessionShowComponent implements OnInit {
 
   sortBySessionScheduler(a: SessionScheduleDto, b: SessionScheduleDto): number {
     return (a.executionStart > b.executionStart) ? 1 : ((b.executionStart > a.executionStart) ? -1 : 0);
+  }
+
+  isAdmin(): boolean {
+    return this.jwtService.isAdmin();
   }
 }
