@@ -89,4 +89,10 @@ export class SessionListPrintComponent implements OnInit {
       )
       .sort((a,b) => (a.date > b.date) ? 1 : ((b.date> a.date) ? -1 : 0));
   }
+
+  sessionSchedulesOrderByDate() {
+    return this.sessionDto.sessionSchedules.sort(
+      (a,b) => (a.executionStart > b.executionStart) ? 1 : ((b.executionStart> a.executionStart) ? -1 : 0)
+    )
+  }
 }

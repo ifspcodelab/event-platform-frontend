@@ -1,5 +1,5 @@
 <div *ngIf="sessionDto">
-  <div *ngFor="let sessionSchedule of sessionDto.sessionSchedules">
+  <div *ngFor="let sessionSchedule of sessionSchedulesOrderByDate()">
     <h1>Atividade: {{ sessionDto.activity.type | activityTypes }} {{ sessionDto.activity.title }}</h1>
     <p>Sessão: {{ sessionDto.title }}</p>
     <p>
@@ -70,7 +70,7 @@
 
     <br><br>
 
-    <div *ngIf="waitingList().length > 0">
+    <div *ngIf="confirmedRegistrations().length > 0">
       <h2>Observações</h2>
       <div class="notes">
 
