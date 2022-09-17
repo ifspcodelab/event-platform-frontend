@@ -124,6 +124,14 @@ export class JwtService {
   }
 
   isOrganizer() {
+    const accessToken = this.getAccessToken();
+    if(accessToken) {
+      const accessTokenData = this.decodeAccessToken(accessToken) as AccessTokenData;
+      if(accessTokenData.collaboratorSubevent == null) {
+        this.logout();
+      }
+    }
+
     return !!(this.getCollaboratorEventClaim() ||
       this.getCollaboratorSubeventClaim() ||
       this.getCoordinatorEventClaim() ||
