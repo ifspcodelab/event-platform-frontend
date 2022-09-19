@@ -30,12 +30,12 @@ export class RegistrationListComponent implements OnInit {
   registrationsDto: RegistrationDto[] = [];
 
   confirmedListDto: RegistrationDto[] = [];
-  confirmedColumns: string[] = ['date', 'account.name', 'account.cpf', 'action'];
+  confirmedColumns: string[] = ['date', 'account.name', 'account.email', 'account.cpf', 'action'];
 
-  waitingListDisplayedColumns: string[] = ['date', 'account.name', 'account.cpf', 'action'];
+  waitingListDisplayedColumns: string[] = ['date', 'account.name', 'account.email', 'account.cpf', 'action'];
   waitingListDto: RegistrationDto[] = [];
 
-  canceledListDisplayedColumns: string[] = ['date', 'account.name', 'account.cpf', 'status'];
+  canceledListDisplayedColumns: string[] = ['date', 'account.name', 'account.email', 'account.cpf', 'status'];
   canceledListDto: RegistrationDto[] = [];
 
   constructor(
