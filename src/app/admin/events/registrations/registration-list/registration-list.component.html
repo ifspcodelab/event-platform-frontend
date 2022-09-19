@@ -8,7 +8,7 @@
 
   <header class="container__header">
     <h1 class="container__header__title">Inscrições Confirmadas</h1>
-    <button mat-button color="primary" (click)="openSessionRegistrationForm()">Nova Inscrição</button>
+    <button mat-button color="primary" (click)="openSessionRegistrationForm()" [disabled]="sessionScheduleDisabled()">Nova Inscrição</button>
   </header>
 
   <p *ngIf="!confirmedListDto.length">A sessão não possui inscritos</p>
@@ -34,7 +34,7 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Ação</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button color="warn" (click)="openCancelConfirmationDialog(element)" [disabled]="cancelDisabled()">Cancelar</button>
+          <button mat-button color="warn" (click)="openCancelConfirmationDialog(element)" [disabled]="sessionScheduleDisabled()">Cancelar</button>
         </td>
       </ng-container>
 
@@ -69,8 +69,8 @@
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Ação</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-button color="warn" (click)="openCancelConfirmationDialog(element)" [disabled]="cancelDisabled()">Cancelar</button>
-        <button mat-button color="primary" (click)="openCancelConfirmationDialog(element)" [disabled]="cancelDisabled()">Confirmar</button>
+        <button mat-button color="warn" (click)="openCancelConfirmationDialog(element)" [disabled]="sessionScheduleDisabled()">Cancelar</button>
+        <button mat-button color="primary" (click)="openCancelConfirmationDialog(element)" [disabled]="sessionScheduleDisabled()">Confirmar</button>
       </td>
     </ng-container>
 

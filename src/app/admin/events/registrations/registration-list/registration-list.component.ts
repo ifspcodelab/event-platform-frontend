@@ -151,7 +151,7 @@ export class RegistrationListComponent implements OnInit {
     // this.dataSource = new MatTableDataSource<RegistrationDto>(this.confirmedListDto);
   }
 
-  cancelDisabled(): boolean {
+  sessionScheduleDisabled(): boolean {
     const sessionDate = new Date(this.session.sessionSchedules[0].executionStart.substr(0, 10).replace(/-/g, '/'));
     const today = new Date();
     return today < sessionDate
