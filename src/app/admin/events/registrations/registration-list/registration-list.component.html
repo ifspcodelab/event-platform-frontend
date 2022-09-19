@@ -13,21 +13,20 @@
 
   <p *ngIf="!confirmedListDto.length">A sessão não possui inscritos</p>
   <div style="overflow-x:auto;">
-    <table class="container__table" *ngIf="confirmedListDto.length" mat-table [dataSource]="dataSource"
-           matSort (matSortChange)="announceSortChange($event)">
+    <table class="container__table" *ngIf="confirmedListDto.length" mat-table [dataSource]="confirmedListDto">
 
       <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Data">Data</th>
+        <th mat-header-cell *matHeaderCellDef>Data</th>
         <td mat-cell *matCellDef="let element"> {{ element.date | date: 'dd/MM - HH:mm' : '' : 'pt-BR' }} </td>
       </ng-container>
 
       <ng-container matColumnDef="account.name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Nome">None</th>
+        <th mat-header-cell *matHeaderCellDef>None</th>
         <td mat-cell *matCellDef="let element"> {{ element.account.name }} </td>
       </ng-container>
 
       <ng-container matColumnDef="account.cpf">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Cpf">CPF</th>
+        <th mat-header-cell *matHeaderCellDef>CPF</th>
         <td mat-cell *matCellDef="let element"> {{ element.account.cpf | cpfFomat }} </td>
       </ng-container>
 

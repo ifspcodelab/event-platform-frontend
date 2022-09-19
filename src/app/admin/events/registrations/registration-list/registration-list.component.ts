@@ -1,9 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from "@angular/material/table";
-import { MatSort, Sort } from "@angular/material/sort";
+import { Component, Input, OnInit } from '@angular/core';
 import { RegistrationDto, RegistrationStatus } from "../../../../core/models/registration.model";
 import { Router } from "@angular/router";
-import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { RegistrationService } from "../../../../core/services/registration.service";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -29,9 +26,6 @@ export class RegistrationListComponent implements OnInit {
   session: SessionDto;
   @Input()
   registrationsDto: RegistrationDto[] = [];
-  dataSource: MatTableDataSource<RegistrationDto>;
-  @ViewChild(MatSort)
-  sort: MatSort;
 
   confirmedListDto: RegistrationDto[] = [];
   confirmedColumns: string[] = ['date', 'account.name', 'account.cpf', 'action'];
@@ -45,7 +39,6 @@ export class RegistrationListComponent implements OnInit {
   constructor(
     private registrationService: RegistrationService,
     private router: Router,
-    private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
     private notificationService: NotificationService,
   ) { }
@@ -54,7 +47,6 @@ export class RegistrationListComponent implements OnInit {
     this.confirmedListDto = this.registrationsDto
       .filter(r => RegistrationStatus[r.registrationStatus] == RegistrationStatus.CONFIRMED.toString())
       .sort((a,b) => this.sortByDate(a,b))
-    this.dataSource = new MatTableDataSource<RegistrationDto>(this.confirmedListDto);
 
     this.waitingListDto = this.registrationsDto
       .filter(r =>
@@ -70,26 +62,10 @@ export class RegistrationListComponent implements OnInit {
         RegistrationStatus[r.registrationStatus] == RegistrationStatus.CANCELED_BY_SYSTEM.toString()
       )
       .sort((a,b) => this.sortByDate(a,b));
-
-    this.setSortingDataAccessor();
   }
 
   private sortByDate(a: RegistrationDto, b: RegistrationDto): number {
     return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);
-  }
-
-  private setSortingDataAccessor() {
-    this.dataSource.sortingDataAccessor = (item, property) => {
-      switch(property) {
-        case 'date': return item.date;
-        case 'account.name': return item.account.name;
-        case 'account.cpf': return item.account.cpf;
-        case 'status': return item.registrationStatus;
-        case 'timeEmailWasSent': return item.timeEmailWasSent;
-        default: return item.id;
-      }
-    };
-    this.dataSource.sort = this.sort;
   }
 
   confirmedRegistrations(): number {
@@ -110,15 +86,6 @@ export class RegistrationListComponent implements OnInit {
 
   waitConfirmationRegistrations(): number {
     return this.registrationsDto.filter(r => RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_CONFIRMATION.toString()).length;
-  }
-
-  announceSortChange(sort: Sort) {
-    this.dataSource.sort = this.sort;
-    if (sort.direction) {
-      this._liveAnnouncer.announce(`Ordenado ${sort.direction}final`);
-    } else {
-      this._liveAnnouncer.announce('Ordenação removida');
-    }
   }
 
   private getConfirmationDialogConfig(registration: RegistrationDto) {
@@ -171,7 +138,6 @@ export class RegistrationListComponent implements OnInit {
         if (registrationDto) {
           this.notificationService.success("Participante adicionado com sucesso");
           this.confirmedListDto = [...this.confirmedListDto, registrationDto];
-          this.dataSource = new MatTableDataSource<RegistrationDto>(this.confirmedListDto);
         }
       });
   }
