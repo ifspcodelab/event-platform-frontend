@@ -8,7 +8,6 @@ import { AttendanceCreateDto, AttendanceDto } from "../../../../core/models/atte
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { NotificationService } from "../../../../core/services/notification.service";
-import { SessionForSiteDto } from "../../../../site/models/activity.model";
 
 @Component({
   selector: 'app-attendance-list',
@@ -41,6 +40,7 @@ export class AttendanceListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.registrationsDto = this.confirmedRegistrations();
     if(this.subeventId) {
       this.getSubEventAttendances();
     } else {
@@ -54,8 +54,6 @@ export class AttendanceListComponent implements OnInit {
       .subscribe({
         next: attendancesDto => {
           this.attendances = attendancesDto;
-          console.log(attendancesDto)
-          this.registrationsDto = this.confirmedRegistrations();
         },
         error: err => this.handleError(err)
       });
@@ -67,8 +65,6 @@ export class AttendanceListComponent implements OnInit {
       .subscribe({
         next: attendancesDto => {
           this.attendances = attendancesDto;
-          console.log(attendancesDto)
-          this.registrationsDto = this.confirmedRegistrations();
         },
         error: err => this.handleError(err)
       });
@@ -82,7 +78,7 @@ export class AttendanceListComponent implements OnInit {
 
   toggle(registrationDto: RegistrationDto) {
     if(this.hasAttendance(registrationDto)) {
-      const attendance = this.attendances.find(a => a.registrationId = registrationDto.id);
+      const attendance = this.attendances.find(a => a.registrationId == registrationDto.id);
       if(this.subeventId) {
         this.deleteSubEventAttendance(attendance);
       } else {
@@ -149,5 +145,11 @@ export class AttendanceListComponent implements OnInit {
 
   hasAttendance(registrationDto: RegistrationDto) {
     return this.attendances.some(a => a.registrationId == registrationDto.id);
+  }
+
+  attendanceDisabled(): boolean {
+    const sessionDate = new Date(this.sessionSchedule.executionStart.substr(0, 10).replace(/-/g, '/'));
+    const today = new Date();
+    return today < sessionDate
   }
 }

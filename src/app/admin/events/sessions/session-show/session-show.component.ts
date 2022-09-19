@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivityDto, SessionDto, SessionScheduleDto } from "../../../../core/models/activity.model";
-import { LocationDto } from "../../../../core/models/location.model";
-import { AreaDto } from "../../../../core/models/area.model";
-import { SpaceDto } from "../../../../core/models/space.model";
+import { SessionDto, SessionScheduleDto } from "../../../../core/models/activity.model";
 import { CancellationMessageCreateDto } from "../../../../core/models/event.model";
-import { ActivityService } from "../../../../core/services/activity.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { NotificationService } from "../../../../core/services/notification.service";
@@ -15,7 +11,6 @@ import { ConfirmationDialogComponent } from "../../../../core/components/confirm
 import { HttpErrorResponse } from "@angular/common/http";
 import { RegistrationDto } from "../../../../core/models/registration.model";
 import { RegistrationService } from "../../../../core/services/registration.service";
-import { SessionForSiteDto } from "../../../../site/models/activity.model";
 
 @Component({
   selector: 'app-session-show',
@@ -82,6 +77,7 @@ export class SessionShowComponent implements OnInit {
         this.loading = false;
       });
   }
+
   private fetchEventRegistrations() {
     this.registrationService.getEventRegistrations(this.eventId, this.activityId, this.sessionId)
       .subscribe(registrationsDto => {

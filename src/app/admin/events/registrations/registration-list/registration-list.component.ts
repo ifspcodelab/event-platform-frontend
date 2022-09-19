@@ -5,6 +5,7 @@ import { RegistrationDto, RegistrationStatus } from "../../../../core/models/reg
 import { Router } from "@angular/router";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
 import { RegistrationService } from "../../../../core/services/registration.service";
+import { SessionScheduleDto } from "../../../../core/models/activity.model";
 
 @Component({
   selector: 'app-registration-list',
@@ -34,30 +35,12 @@ export class RegistrationListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // if(this.subeventId) {
-    //   this.fetchSubEventRegistrations();
-    // } else {
-    //   this.fetchEventRegistrations();
-    // }
-    this.dataSource = new MatTableDataSource<RegistrationDto>(this.registrationsDto);
+    this.dataSource = new MatTableDataSource<RegistrationDto>(this.registrationsDto.sort((a,b) => this.sortByDate(a,b)));
     this.setSortingDataAccessor();
   }
 
-  private fetchSubEventRegistrations() {
-    this.registrationService.getSubEventRegistrations(this.eventId, this.subeventId, this.activityId, this.sessionId)
-      .subscribe(registrationsDto => {
-        this.registrationsDto = registrationsDto
-        this.dataSource = new MatTableDataSource<RegistrationDto>(this.registrationsDto);
-        this.setSortingDataAccessor();
-      });
-  }
-  private fetchEventRegistrations() {
-    this.registrationService.getEventRegistrations(this.eventId, this.activityId, this.sessionId)
-      .subscribe(registrationsDto => {
-        this.registrationsDto = registrationsDto
-        this.dataSource = new MatTableDataSource<RegistrationDto>(this.registrationsDto);
-        this.setSortingDataAccessor();
-      });
+  private sortByDate(a: RegistrationDto, b: RegistrationDto): number {
+    return (a.date > b.date) ? 1 : ((b.date > a.date) ? -1 : 0);
   }
 
   private setSortingDataAccessor() {

@@ -6,16 +6,6 @@
   </app-admin-header>
 
   <mat-tab-group mat-align-tabs="left" animationDuration="0ms">
-<!--    <mat-tab *ngFor="let sessionSchedule of sessionSchedulesOrderByDate()" [label]="sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm'">-->
-<!--      <app-attendance-list-->
-<!--        [eventId]="eventId"-->
-<!--        [subeventId]="subeventId"-->
-<!--        [activityId]="activityId"-->
-<!--        [sessionId]="sessionId"-->
-<!--        [registrationsDto]="registrationsDto"-->
-<!--        [sessionSchedule]="sessionSchedule">-->
-<!--      </app-attendance-list>-->
-<!--    </mat-tab>-->
     <mat-tab label="Dados Principais">
       <article class="container">
         <p class="container__item"><b>Título:</b> {{ sessionDto.title }}</p>
@@ -44,7 +34,6 @@
             <b>URL: {{ sessionSchedule.url }}</b>
           </p>
         </mat-card>
-
       </article>
     </mat-tab>
     <mat-tab label="Inscrições">
@@ -55,6 +44,16 @@
         [sessionId]="sessionId"
         [registrationsDto]="registrationsDto">
       </app-registration-list>
+    </mat-tab>
+    <mat-tab *ngFor="let sessionSchedule of sessionSchedulesOrderByDate()" [label]="sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm'">
+      <app-attendance-list
+        [eventId]="eventId"
+        [subeventId]="subeventId"
+        [activityId]="activityId"
+        [sessionId]="sessionId"
+        [registrationsDto]="registrationsDto"
+        [sessionSchedule]="sessionSchedule">
+      </app-attendance-list>
     </mat-tab>
   </mat-tab-group>
 
