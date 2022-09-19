@@ -25,6 +25,26 @@ export class RegistrationService extends BaseService {
     return this.httpClient.post<RegistrationDto>(url, registrationCreateDto, this.httpOptions);
   }
 
+  cancelEventRegistration(eventId: string, activityId: string, sessionId: string, registrationId: string): Observable<RegistrationDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/sessions/${sessionId}/registrations/${registrationId}/cancel`;
+    return this.httpClient.patch<RegistrationDto>(url, this.httpOptions);
+  }
+
+  cancelSubEventRegistration(eventId: string, subEventId: string, activityId: string, sessionId: string, registrationId: string): Observable<RegistrationDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subEventId}/activities/${activityId}/sessions/${sessionId}/registrations/${registrationId}/cancel`;
+    return this.httpClient.patch<RegistrationDto>(url, this.httpOptions);
+  }
+
+  confirmEventRegistration(eventId: string, activityId: string, sessionId: string, registrationId: string): Observable<RegistrationDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/sessions/${sessionId}/registrations/${registrationId}/confirm`;
+    return this.httpClient.patch<RegistrationDto>(url, this.httpOptions);
+  }
+
+  confirmSubEventRegistration(eventId: string, subEventId: string, activityId: string, sessionId: string, registrationId: string): Observable<RegistrationDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subEventId}/activities/${activityId}/sessions/${sessionId}/registrations/${registrationId}/confirm`;
+    return this.httpClient.patch<RegistrationDto>(url, this.httpOptions);
+  }
+
   postUserSessionRegistration(sessionId: string): Observable<RegistrationDto> {
     const url = `${this.apiUrl}/sessions/${sessionId}/registrations`;
     return this.httpClient.post<RegistrationDto>(url, this.httpOptions);

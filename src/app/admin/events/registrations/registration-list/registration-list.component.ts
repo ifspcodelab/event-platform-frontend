@@ -7,6 +7,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { SessionDto } from "../../../../core/models/activity.model";
 import { SessionRegistrationFormComponent } from "../../sessions/session-registration-form/session-registration-form.component";
 import { NotificationService } from "../../../../core/services/notification.service";
+import { first } from "rxjs";
+import { HttpErrorResponse } from "@angular/common/http";
 
 @Component({
   selector: 'app-registration-list',
@@ -111,11 +113,87 @@ export class RegistrationListComponent implements OnInit {
   }
 
   cancelRegistration(registration: RegistrationDto) {
-    console.log(registration)
-    const registrationDto = this.confirmedListDto.find(r => r.id != registration.id);
-    registrationDto.registrationStatus = RegistrationStatus.CANCELED_BY_ADMIN;
+    if(this.subeventId) {
+      this.registrationService.cancelSubEventRegistration(this.eventId, this.subeventId, this.activityId, this.sessionId, registration.id)
+        .pipe(first())
+        .subscribe({
+          next: registrationDto => {
+            this.confirmedListDto = this.confirmedListDto.filter(r => r.id != registration.id);
+            this.waitingListDto = this.waitingListDto.filter(r => r.id != registration.id);
+            this.canceledListDto = [...this.canceledListDto, registrationDto];
+            this.canceledListDto = this.canceledListDto.sort((a,b) => this.sortByDate(a,b));
+          },
+          error: err => this.handleError(err)
+        })
+    } else {
+      this.registrationService.cancelEventRegistration(this.eventId, this.activityId, this.sessionId, registration.id)
+        .pipe(first())
+        .subscribe({
+          next: registrationDto => {
+            this.confirmedListDto = this.confirmedListDto.filter(r => r.id != registration.id).sort((a,b) => this.sortByDate(a,b));
+            this.waitingListDto = this.waitingListDto.filter(r => r.id != registration.id);
+            this.canceledListDto = [...this.canceledListDto, registrationDto];
+            this.canceledListDto = this.canceledListDto.sort((a,b) => this.sortByDate(a,b));
+          },
+          error: err => this.handleError(err)
+        })
+    }
+  }
 
-    // this.dataSource = new MatTableDataSource<RegistrationDto>(this.confirmedListDto);
+  private getConfirmationWaitListDialogConfig(registration: RegistrationDto) {
+    return {
+      autoFocus: true,
+      data: {
+        name: "Confirmar Participação",
+        text: `O participante ${registration.account.name} será retirado da lista de espera e adicionado na lista de confirmados.`,
+        cancelText: "Cancelar",
+        okText: "Confirmar Participação"
+      }
+    }
+  }
+
+  openWaitListConfirmationDialog(registration: RegistrationDto) {
+    this.dialog.open(ConfirmationDialogComponent, this.getConfirmationWaitListDialogConfig(registration))
+      .afterClosed()
+      .subscribe(result => {
+        if(result) {
+          this.confirmWaitListRegistration(registration)
+        }
+      });
+  }
+
+  private confirmWaitListRegistration(registration: RegistrationDto) {
+    if(this.subeventId) {
+      this.registrationService.confirmSubEventRegistration(this.eventId, this.subeventId, this.activityId, this.sessionId, registration.id)
+        .pipe(first())
+        .subscribe({
+          next: registrationDto => {
+            this.waitingListDto = this.waitingListDto.filter(r => r.id != registration.id);
+            this.confirmedListDto = [...this.confirmedListDto, registrationDto];
+            this.confirmedListDto = this.confirmedListDto.sort((a,b) => this.sortByDate(a,b));
+          },
+          error: err => this.handleError(err)
+        })
+    } else {
+      this.registrationService.confirmEventRegistration(this.eventId, this.activityId, this.sessionId, registration.id)
+        .pipe(first())
+        .subscribe({
+          next: registrationDto => {
+            this.waitingListDto = this.waitingListDto.filter(r => r.id != registration.id);
+            this.confirmedListDto = [...this.confirmedListDto, registrationDto];
+            this.confirmedListDto = this.confirmedListDto.sort((a,b) => this.sortByDate(a,b));
+          },
+          error: err => this.handleError(err)
+        })
+    }
+  }
+
+  handleError(error: any) {
+    if(error instanceof HttpErrorResponse) {
+      if(error.status === 409) {
+        this.notificationService.error(error.error.violations[0].message);
+      }
+    }
   }
 
   sessionScheduleDisabled(): boolean {

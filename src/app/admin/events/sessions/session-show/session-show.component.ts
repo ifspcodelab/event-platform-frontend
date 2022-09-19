@@ -9,9 +9,10 @@ import { first } from "rxjs";
 import { CancelDialogComponent } from "../../../../core/components/cancel-dialog/cancel-dialog.component";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { HttpErrorResponse } from "@angular/common/http";
-import { RegistrationDto } from "../../../../core/models/registration.model";
+import { RegistrationDto, RegistrationStatus } from "../../../../core/models/registration.model";
 import { RegistrationService } from "../../../../core/services/registration.service";
 import { JwtService } from "../../../../core/services/jwtservice.service";
+import { MatTabChangeEvent } from "@angular/material/tabs";
 
 @Component({
   selector: 'app-session-show',
@@ -226,5 +227,21 @@ export class SessionShowComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.jwtService.isAdmin();
+  }
+
+  confirmedRegistrations(): RegistrationDto[] {
+    return this.registrationsDto
+      .filter(r => RegistrationStatus[r.registrationStatus] == RegistrationStatus.CONFIRMED.toString())
+      .sort((a,b) => (a.account.name > b.account.name) ? 1 : ((b.account.name > a.account.name) ? -1 : 0));
+  }
+
+  onTabChanged(matTabChangeEvent: MatTabChangeEvent) {
+    if(matTabChangeEvent.index > 1) {
+      if(this.subeventId) {
+        this.fetchSubEventRegistrations();
+      } else {
+        this.fetchEventRegistrations();
+      }
+    }
   }
 }

@@ -1,9 +1,8 @@
 <article class="container">
   <p *ngIf="registrationsDto.length">
-    <b>Confirmadas:</b>  {{ confirmedRegistrations() }}.
-    <b>Lista de Espera:</b> {{ waitListRegistrations() }}.
-    <b>Aguardando Confirmação:</b> {{ waitConfirmationRegistrations() }}.
-    <b>Canceladas:</b> {{ canceledRegistrations() }}.
+    <b>Confirmadas:</b>  {{ confirmedListDto.length }}.
+    <b>Lista de Espera:</b> {{ waitingListDto.length }}.
+    <b>Canceladas:</b> {{ canceledListDto.length }}.
   </p>
 
   <header class="container__header">
@@ -69,7 +68,7 @@
       <th mat-header-cell *matHeaderCellDef>Ação</th>
       <td mat-cell *matCellDef="let element">
         <button mat-button color="warn" (click)="openCancelConfirmationDialog(element)" [disabled]="sessionScheduleDisabled()">Cancelar</button>
-        <button mat-button color="primary" (click)="openCancelConfirmationDialog(element)" [disabled]="sessionScheduleDisabled()">Confirmar</button>
+        <button mat-button color="primary" (click)="openWaitListConfirmationDialog(element)" [disabled]="sessionScheduleDisabled()">Confirmar</button>
       </td>
     </ng-container>
 
