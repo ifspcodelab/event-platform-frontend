@@ -3,6 +3,7 @@
 </app-admin-header>
 
 <article class="container">
+  <div style="overflow-x:auto;">
     <table class="container__table" *ngIf="locationsDto.length" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por nome">Nome</th>
@@ -17,4 +18,5 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openLocationShow(row)" class="container__line"></tr>
     </table>
+  </div>
 </article>

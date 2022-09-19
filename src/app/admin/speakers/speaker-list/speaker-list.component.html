@@ -3,7 +3,8 @@
 </app-admin-header>
 
 <article class="container" *ngIf="speakersDto.length" >
-  <table class="container__table" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+  <div style="overflow-x:auto;">
+    <table class="container__table" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por nome">Nome</th>
       <td mat-cell *matCellDef="let element">{{ element.name }}</td>
@@ -32,4 +33,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openSpeakerShow(row)" class="container__line"></tr>
   </table>
+  </div>
 </article>
