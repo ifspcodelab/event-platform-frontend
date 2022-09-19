@@ -8,6 +8,8 @@ import { RegistrationService } from "../../../../core/services/registration.serv
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import { MatDialog } from "@angular/material/dialog";
 import { SessionDto } from "../../../../core/models/activity.model";
+import { SessionRegistrationFormComponent } from "../../sessions/session-registration-form/session-registration-form.component";
+import { NotificationService } from "../../../../core/services/notification.service";
 
 @Component({
   selector: 'app-registration-list',
@@ -45,6 +47,7 @@ export class RegistrationListComponent implements OnInit {
     private router: Router,
     private _liveAnnouncer: LiveAnnouncer,
     public dialog: MatDialog,
+    private notificationService: NotificationService,
   ) { }
 
   ngOnInit(): void {
@@ -148,10 +151,28 @@ export class RegistrationListComponent implements OnInit {
     // this.dataSource = new MatTableDataSource<RegistrationDto>(this.confirmedListDto);
   }
 
-
   cancelDisabled(): boolean {
     const sessionDate = new Date(this.session.sessionSchedules[0].executionStart.substr(0, 10).replace(/-/g, '/'));
     const today = new Date();
     return today < sessionDate
+  }
+
+  private getDialogConfig() {
+    return {
+      autoFocus: true,
+      width: '450px',
+      data: { eventId: this.eventId, subeventId: this.subeventId, activityId: this.activityId, sessionId: this.sessionId }
+    };
+  }
+
+  openSessionRegistrationForm() {
+    this.dialog.open(SessionRegistrationFormComponent, this.getDialogConfig()).afterClosed()
+      .subscribe(registrationDto => {
+        if (registrationDto) {
+          this.notificationService.success("Participante adicionado com sucesso");
+          this.confirmedListDto = [...this.confirmedListDto, registrationDto];
+          this.dataSource = new MatTableDataSource<RegistrationDto>(this.confirmedListDto);
+        }
+      });
   }
 }

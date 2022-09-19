@@ -28,6 +28,7 @@ import {
 import { SessionListComponent } from './sessions/session-list/session-list.component';
 import { RegistrationListComponent } from './registrations/registration-list/registration-list.component';
 import { AttendanceListComponent } from './attendances/attendance-list/attendance-list.component';
+import { SessionRegistrationFormComponent } from './sessions/session-registration-form/session-registration-form.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { AttendanceListComponent } from './attendances/attendance-list/attendanc
     SessionListComponent,
     RegistrationListComponent,
     AttendanceListComponent,
+    SessionRegistrationFormComponent,
   ],
   imports: [
     CommonModule,

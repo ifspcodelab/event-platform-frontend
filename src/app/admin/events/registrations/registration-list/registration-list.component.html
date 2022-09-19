@@ -8,7 +8,7 @@
 
   <header class="container__header">
     <h1 class="container__header__title">Inscrições Confirmadas</h1>
-<!--    <button mat-button color="primary" routerLink="sessions/new">Nova Inscrição</button>-->
+    <button mat-button color="primary" (click)="openSessionRegistrationForm()">Nova Inscrição</button>
   </header>
 
   <p *ngIf="!confirmedListDto.length">A sessão não possui inscritos</p>

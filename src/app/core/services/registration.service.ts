@@ -3,7 +3,7 @@ import { BaseService } from "./base.service";
 import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { AccountEventQueryDto, RegistrationDto } from "../models/registration.model";
+import { AccountEventQueryDto, RegistrationCreateDto, RegistrationDto } from "../models/registration.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,16 @@ export class RegistrationService extends BaseService {
 
   constructor(private httpClient: HttpClient) {
     super();
+  }
+
+  postEventRegistrations(eventId: string, activityId: string, sessionId: string, registrationCreateDto: RegistrationCreateDto): Observable<RegistrationDto> {
+    const url = `${this.apiUrl}/events/${eventId}/activities/${activityId}/sessions/${sessionId}/registrations`;
+    return this.httpClient.post<RegistrationDto>(url, registrationCreateDto, this.httpOptions);
+  }
+
+  postSubEventRegistrations(eventId: string, subEventId: string, activityId: string, sessionId: string, registrationCreateDto: RegistrationCreateDto): Observable<RegistrationDto> {
+    const url = `${this.apiUrl}/events/${eventId}/sub-events/${subEventId}/activities/${activityId}/sessions/${sessionId}/registrations`;
+    return this.httpClient.post<RegistrationDto>(url, registrationCreateDto, this.httpOptions);
   }
 
   postUserSessionRegistration(sessionId: string): Observable<RegistrationDto> {

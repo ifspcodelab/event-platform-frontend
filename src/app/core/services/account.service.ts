@@ -13,11 +13,9 @@ import {BaseService} from "./base.service";
 export class AccountService extends BaseService{
   apiUrl = `${environment.apiUrl}/accounts`;
 
-
   constructor(private httpClient: HttpClient) {
     super();
   }
-
 
   getAccounts(page: number, query: string, type: string): Observable<PageDto<AccountDto>> {
     let queryUrl = this.apiUrl +
@@ -44,10 +42,12 @@ export class AccountService extends BaseService{
     return this.httpClient.get<unknown>(url, this.httpOptionsSkipInterceptor);
   }
 
-
   transform(cpf: string): string {
     cpf = cpf.replace(/[^\d]/g, "");
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
   }
 
+  findByName(name: string): Observable<AccountDto[]> {
+    return this.httpClient.get<AccountDto[]>(`${environment.apiUrl}/accounts/searchName/${name}`, this.httpOptions);
+  }
 }
