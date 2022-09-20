@@ -232,7 +232,7 @@ export class SessionShowComponent implements OnInit {
   confirmedRegistrations(): RegistrationDto[] {
     return this.registrationsDto
       .filter(r => RegistrationStatus[r.registrationStatus] == RegistrationStatus.CONFIRMED.toString())
-      .sort((a,b) => (a.account.name > b.account.name) ? 1 : ((b.account.name > a.account.name) ? -1 : 0));
+      .sort((a,b) => (a.account.name.localeCompare(b.account.name)));
   }
 
   onTabChanged(matTabChangeEvent: MatTabChangeEvent) {
