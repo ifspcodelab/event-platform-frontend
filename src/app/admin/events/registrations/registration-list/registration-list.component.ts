@@ -219,4 +219,16 @@ export class RegistrationListComponent implements OnInit {
         }
       });
   }
+
+  printAttendanceList() {
+    if(this.subeventId) {
+      const url =`/organizer/print/events/${this.eventId}/sub-events/${this.subeventId}/activities/${this.activityId}/sessions/${this.sessionId}`;
+      window.open(url, '_blank');
+      console.log(url);
+    } else {
+      const url =`/organizer/print/events/${this.eventId}/activities/${this.activityId}/sessions/${this.sessionId}`;
+      window.open(url, '_blank');
+      console.log(url);
+    }
+  }
 }

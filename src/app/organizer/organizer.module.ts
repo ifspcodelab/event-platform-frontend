@@ -9,6 +9,7 @@ import {
 } from "./events-and-subevents/event-and-subevent-list/event-and-subevent-list.component";
 import { SessionListComponent } from "./sessions/session-list/session-list.component";
 import { SessionShowComponent } from "./sessions/session-show/session-show.component";
+import { SessionListPrintComponent } from './sessions/session-list-print/session-list-print.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,13 @@ import { SessionShowComponent } from "./sessions/session-show/session-show.compo
     EventAndSubeventListComponent,
     SessionListComponent,
     SessionShowComponent,
+    SessionListPrintComponent,
   ],
   imports: [
     CommonModule,
     OrganizerRoutingModule,
     CoreModule,
     SharedModule,
-
   ]
 })
 export class OrganizerModule { }

@@ -1,0 +1,18 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.notes {
+  height: 500px;
+  border: 1px solid black;
+}

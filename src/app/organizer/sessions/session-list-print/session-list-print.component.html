@@ -1,0 +1,83 @@
+<div *ngIf="sessionDto">
+  <div *ngFor="let sessionSchedule of sessionDto.sessionSchedules">
+    <h1>Atividade: {{ sessionDto.activity.type | activityTypes }} {{ sessionDto.activity.title }}</h1>
+    <p>Sessão: {{ sessionDto.title }}</p>
+    <p>
+      Número de Vagas: {{ sessionDto.seats }}
+      Inscritos Confirmados: {{ confirmedRegistrations().length }}
+      Lista de Espera: {{ waitingList().length }}
+    </p>
+    <p>Colaborador Responsável: ________________________________________________________________</p>
+    <br>
+    <h2>Lista de Presença</h2>
+    <p>
+      Horário:
+      {{ sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm' }} às
+      {{ sessionSchedule.executionEnd | date: 'dd/MM/yyyy HH:mm'  }}</p>
+    <p>
+      Local: {{ sessionSchedule.location ? sessionSchedule.location.name : 'Local não definido'  }}
+      Área: {{ sessionSchedule.area ? sessionSchedule.area.name : 'Área não definida'  }}
+      Espaço: {{ sessionSchedule.space ? sessionSchedule.space.name : 'Espaço não definido'  }}
+    </p>
+    <div *ngIf="confirmedRegistrations().length > 0">
+      <h2>Confirmados</h2>
+      <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Assinatura</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registration of confirmedRegistrations()">
+          <td>{{ registration.account.name }}</td>
+          <td width="13%">{{ registration.account.cpf | cpfFomat }}</td>
+          <td width="40%"></td>
+        </tr>
+        <tr *ngFor="let x of [].constructor(15)">
+          <td></td>
+          <td><span style="color:#FFFFFF;">.</span></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <br><br>
+
+    <div *ngIf="waitingList().length > 0">
+      <h2>Lista de Espera</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Data:</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Assinatura</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let registration of waitingList()">
+          <td width="12%">{{ registration.date | date: 'dd/MM - HH:mm' : '' : 'pt-BR' }}</td>
+          <td>{{ registration.account.name }}</td>
+          <td width="13%">{{ registration.account.cpf | cpfFomat }}</td>
+          <td width="40%"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br><br>
+
+    <div *ngIf="waitingList().length > 0">
+      <h2>Observações</h2>
+      <div class="notes">
+
+      </div>
+    </div>
+
+    <div style="break-after:page"></div>
+  </div>
+
+</div>

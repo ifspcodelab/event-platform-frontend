@@ -3,7 +3,9 @@
     <b>Confirmadas:</b>  {{ confirmedListDto.length }}.
     <b>Lista de Espera:</b> {{ waitingListDto.length }}.
     <b>Canceladas:</b> {{ canceledListDto.length }}.
+    <button mat-button color="primary" (click)="printAttendanceList()">Imprimir Lista</button>
   </p>
+
 
   <header class="container__header">
     <h1 class="container__header__title">Inscrições Confirmadas</h1>

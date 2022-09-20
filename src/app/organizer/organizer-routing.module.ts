@@ -6,6 +6,7 @@ import {
 } from "./events-and-subevents/event-and-subevent-list/event-and-subevent-list.component";
 import { SessionListComponent } from "./sessions/session-list/session-list.component";
 import { SessionShowComponent } from "../admin/events/sessions/session-show/session-show.component";
+import { SessionListPrintComponent } from "./sessions/session-list-print/session-list-print.component";
 
 const routes: Routes = [
   {
@@ -38,6 +39,14 @@ const routes: Routes = [
         component: SessionShowComponent,
       }
     ]
+  },
+  {
+    path: 'print/events/:eventId/activities/:activityId/sessions/:sessionId',
+    component: SessionListPrintComponent,
+  },
+  {
+    path: 'print/events/:eventId/sub-events/:subeventId/activities/:activityId/sessions/:sessionId',
+    component: SessionListPrintComponent,
   }
 ];
 
