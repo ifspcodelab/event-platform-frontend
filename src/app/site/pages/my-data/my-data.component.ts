@@ -38,7 +38,7 @@ export class MyDataComponent implements OnInit {
     this.fetchLogs(0);
 
     this._MatPaginatorIntl.firstPageLabel = 'Primeira página';
-    this._MatPaginatorIntl.itemsPerPageLabel = 'Usuários por página';
+    this._MatPaginatorIntl.itemsPerPageLabel = 'Atividades por página';
     this._MatPaginatorIntl.lastPageLabel = 'Última página';
     this._MatPaginatorIntl.nextPageLabel = 'Próxima página';
     this._MatPaginatorIntl.previousPageLabel = 'Página anterior';
