@@ -53,7 +53,7 @@ export class RegistrationListComponent implements OnInit {
     this.waitingListDto = this.registrationsDto
       .filter(r =>
         RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_LIST.toString() ||
-        RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_LIST.toString()
+        RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_CONFIRMATION.toString()
       )
       .sort((a,b) => this.sortByDate(a,b));
 
@@ -75,7 +75,10 @@ export class RegistrationListComponent implements OnInit {
   }
 
   waitListRegistrations(): number {
-    return this.registrationsDto.filter(r => RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_LIST.toString()).length;
+    return this.registrationsDto.filter(r =>
+      RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_LIST.toString() ||
+      RegistrationStatus[r.registrationStatus] == RegistrationStatus.WAITING_CONFIRMATION.toString()
+    ).length;
   }
 
   canceledRegistrations(): number {
