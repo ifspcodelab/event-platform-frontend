@@ -168,7 +168,7 @@ export class AttendanceListComponent implements OnInit {
         email: registration.account.email,
         perfil: this.accountTypePipe.transform(registration.account.type)
       }
-    });
+    }).sort((a,b) => (a.name.localeCompare(b.name)));
 
     const worksheet = XLSX.utils.json_to_sheet(jsonData, { header: [], skipHeader: true });
     const workbook = XLSX.utils.book_new();
