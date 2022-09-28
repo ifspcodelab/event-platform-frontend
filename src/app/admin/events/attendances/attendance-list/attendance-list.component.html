@@ -4,7 +4,7 @@
       Lista {{ sessionSchedule.executionStart | date: 'dd/MM/yyyy HH:mm' }}
       <span *ngIf="attendanceDisabled()"> - O registro de presença inicia no dia do horário da sessão.</span>
     </h1>
-
+    <button *ngIf="!attendanceDisabled()" [disabled]="attendances.length == 0" mat-button color="primary" (click)="downloadCertificationData()">Gerar Dados Certificados</button>
   </header>
 
   <p *ngIf="!registrationsDto.length">A sessão não possui inscritos</p>

@@ -1,5 +1,6 @@
 import { AccountRole } from "./account-role.model";
 import { AccountStatus } from "./account-status.model";
+import { AccountType } from "./account-type.model";
 
 export interface AccountDto {
   id: string;
@@ -9,6 +10,7 @@ export interface AccountDto {
   agreed: boolean;
   allowEmail: boolean;
   role: AccountRole;
+  type: AccountType;
   status: AccountStatus;
   registrationTimestamp: string;
 }

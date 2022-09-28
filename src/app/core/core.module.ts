@@ -17,6 +17,7 @@ import { AccountStatusPipe } from './pipes/account-status.pipe';
 import { SpaceTypesPipe } from "./pipes/space-types.pipe";
 import { RegistrationStatusPipe } from "./pipes/registration-status.pipe";
 import { OrganizerTypePipe } from "./pipes/organizer-type.pipe";
+import { AccountTypePipe } from "./pipes/account-type.pipe";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { OrganizerTypePipe } from "./pipes/organizer-type.pipe";
     SearchTypesPipe,
     SpaceTypesPipe,
     AccountStatusPipe,
+    AccountTypePipe,
     RegistrationStatusPipe,
     OrganizerTypePipe,
   ],
@@ -53,9 +55,14 @@ import { OrganizerTypePipe } from "./pipes/organizer-type.pipe";
     ActivityModalitiesPipe,
     CpfFomatPipe,
     AccountStatusPipe,
+    AccountTypePipe,
     SpaceTypesPipe,
     RegistrationStatusPipe,
     OrganizerTypePipe,
+  ],
+  providers: [
+    CpfFomatPipe,
+    AccountTypePipe
   ]
 })
 export class CoreModule { }

@@ -1,13 +1,16 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RegistrationDto, RegistrationStatus } from "../../../../core/models/registration.model";
 import { Router } from "@angular/router";
 import { LiveAnnouncer } from "@angular/cdk/a11y";
-import { SessionScheduleDto } from "../../../../core/models/activity.model";
+import { SessionDto, SessionScheduleDto } from "../../../../core/models/activity.model";
 import { AttendanceService } from "../../../../core/services/attendance.service";
 import { AttendanceCreateDto, AttendanceDto } from "../../../../core/models/attendance.model";
 import { first } from "rxjs";
 import { HttpErrorResponse } from "@angular/common/http";
 import { NotificationService } from "../../../../core/services/notification.service";
+import * as XLSX from 'xlsx';
+import { CpfFomatPipe } from "../../../../core/pipes/cpfFomat.pipe"
+import { AccountTypePipe } from "../../../../core/pipes/account-type.pipe";
 
 @Component({
   selector: 'app-attendance-list',
@@ -25,10 +28,11 @@ export class AttendanceListComponent implements OnInit {
   sessionId: string;
   @Input()
   registrationsDto: RegistrationDto[] = [];
-  // displayedColumns: string[] = ['attendance', 'account.name', 'account.cpf', 'status'];
   displayedColumns: string[] = ['attendance', 'account.name', 'account.cpf'];
   @Input()
   sessionSchedule: SessionScheduleDto;
+  @Input()
+  session: SessionDto;
 
   attendances: AttendanceDto[] = [];
 
@@ -37,6 +41,8 @@ export class AttendanceListComponent implements OnInit {
     private router: Router,
     private notificationService: NotificationService,
     private _liveAnnouncer: LiveAnnouncer,
+    private cpfFormatPipe: CpfFomatPipe,
+    private accountTypePipe: AccountTypePipe,
   ) { }
 
   ngOnInit(): void {
@@ -151,5 +157,25 @@ export class AttendanceListComponent implements OnInit {
     const sessionDate = new Date(this.sessionSchedule.executionStart.substr(0, 10).replace(/-/g, '/'));
     const today = new Date();
     return today < sessionDate
+  }
+
+  downloadCertificationData() {
+    const jsonData = this.attendances.map(attendance => {
+      const registration = this.registrationsDto.find(r => r.id == attendance.registrationId);
+      return {
+        cpf: this.cpfFormatPipe.transform(registration.account.cpf),
+        name: registration.account.name,
+        email: registration.account.email,
+        perfil: this.accountTypePipe.transform(registration.account.type)
+      }
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(jsonData, { header: [], skipHeader: true });
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Dates');
+
+    const fileName = `${this.session.activity.title} - ${this.session.title} - ${new Date().toISOString()}.xlsx`
+
+    XLSX.writeFile(workbook, fileName);
   }
 }
