@@ -61,8 +61,9 @@ export class LocationListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       locationDto => {
         if (locationDto) {
+          this.notificationService.success("Local cadastrado com sucesso");
           this.locationsDto = [...this.locationsDto, locationDto];
-          this.notificationService.success("Cadastrado com sucesso");
+          this.dataSource = new MatTableDataSource<LocationDto>(this.locationsDto);
         }
       }
     );
