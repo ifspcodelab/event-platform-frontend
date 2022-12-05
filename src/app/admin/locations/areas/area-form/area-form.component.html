@@ -19,6 +19,9 @@
       <mat-error *ngIf="fieldErrors('name')?.['minlength'] || fieldErrors('name')?.['maxlength']">
         Nome deve ter entre 1 e 200 caracteres
       </mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['validName']">
+        Nome deve ter um nome válido
+      </mat-error>
       <mat-error *ngIf="fieldErrors('name')?.['serverError'] && submitted">
         {{ fieldErrors('name')?.['serverError'] }}
       </mat-error>
@@ -27,7 +30,7 @@
     <mat-form-field class="modal__input">
       <mat-label>Referência</mat-label>
       <mat-error *ngIf="fieldErrors('reference')?.['optional']">
-        Referência deve ter entre 1 e 20 caracteres
+        Referência deve ter entre 1 e 200 caracteres
       </mat-error>
       <input appearance="fill" matInput placeholder="" formControlName="reference" name="reference">
       <mat-error *ngIf="fieldErrors('reference')?.['serverError'] && submitted">

@@ -39,7 +39,7 @@ export class AreaFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200), AppValidators.notBlank]],
+      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200), AppValidators.notBlank]], //, Validators.pattern(/[a-z0-9_.+-]/i)
       reference: ['', [AppValidators.optional({ minLength: 1, maxLength: 200 })]]
     });
   }
@@ -93,6 +93,7 @@ export class AreaFormComponent implements OnInit {
 
       if(error.status === 409) {
         const nameField = this.field('name');
+        // nameField.equalsIgnoreCase(this.field('name'));
         nameField.setErrors({ serverError: `Área já existente com nome ${nameField.value}` })
       }
     }
