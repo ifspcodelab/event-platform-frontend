@@ -19,8 +19,8 @@
       <mat-error *ngIf="fieldErrors('name')?.['minlength'] || fieldErrors('name')?.['maxlength']">
         Nome deve ter entre 1 e 200 caracteres
       </mat-error>
-      <mat-error *ngIf="fieldErrors('name')?.['validName']">
-        Nome deve ter um nome válido
+      <mat-error *ngIf="fieldErrors('name')?.['alpha']">
+        Nome deve ser válido
       </mat-error>
       <mat-error *ngIf="fieldErrors('name')?.['serverError'] && submitted">
         {{ fieldErrors('name')?.['serverError'] }}

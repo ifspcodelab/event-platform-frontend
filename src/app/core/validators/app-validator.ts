@@ -5,6 +5,11 @@ export class AppValidators {
     return (control.value || '').trim().length === 0 ? { 'notblank': true } : null;
   }
 
+  static alpha(control: AbstractControl): ValidationErrors | null {
+    const pattern = /^[A-Za-z\u00C0-\u00FF ]*$/;
+    return pattern.test(control.value) ? null : { 'alpha': true };
+  }
+
   static numeric(control: AbstractControl): ValidationErrors | null {
     const pattern = /^\d+$/;
     return pattern.test(control.value) ? null : { 'numeric': true };

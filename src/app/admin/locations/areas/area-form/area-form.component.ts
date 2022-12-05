@@ -39,7 +39,7 @@ export class AreaFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200), AppValidators.notBlank]], //, Validators.pattern(/[a-z0-9_.+-]/i)
+      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200), AppValidators.notBlank, AppValidators.alpha]], //, Validators.pattern(/[a-z0-9_.+-]/i)
       reference: ['', [AppValidators.optional({ minLength: 1, maxLength: 200 })]]
     });
   }
