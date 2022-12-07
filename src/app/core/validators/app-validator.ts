@@ -6,7 +6,7 @@ export class AppValidators {
   }
 
   static alpha(control: AbstractControl): ValidationErrors | null {
-    const pattern = /^[A-Za-z\u00C0-\u00FF ]*$/;
+    const pattern = /^[0-9a-zA-ZÀ-ü]*$/;
     return pattern.test(control.value) ? null : { 'alpha': true };
   }
 

@@ -20,7 +20,7 @@
         Nome deve ter entre 1 e 200 caracteres
       </mat-error>
       <mat-error *ngIf="fieldErrors('name')?.['alpha']">
-        Nome deve ser válido
+        Nome não pode conter caracteres especiais
       </mat-error>
       <mat-error *ngIf="fieldErrors('name')?.['serverError'] && submitted">
         {{ fieldErrors('name')?.['serverError'] }}
