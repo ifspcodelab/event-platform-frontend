@@ -19,7 +19,7 @@ export class LocationService extends BaseService{
   getLocations(): Observable<LocationDto[]> {
     return this.httpClient.get<LocationDto[]>(this.apiUrl, this.httpOptions)
     .pipe(
-      map(results => results.sort((a, b) => a.name.localeCompare(b.name)))
+      map(results => results.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase())))
     );
   }
 
