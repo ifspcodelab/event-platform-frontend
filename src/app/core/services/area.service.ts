@@ -21,7 +21,7 @@ export class AreaService extends BaseService {
     const url = `${this.apiUrl}/${locationId}/areas`;
     return this.httpClient.get<AreaDto[]>(url, this.httpOptions)
       .pipe(
-        map(results => results.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase())))
+        map(results => results.sort((a, b) => a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase()))) //Intl.Collator().compare não suportado por browsers antigos
       );
   }
 

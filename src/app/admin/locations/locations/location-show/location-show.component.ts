@@ -65,6 +65,17 @@ export class LocationShowComponent implements OnInit {
       .subscribe(areasDto => {
         this.areasDto = areasDto;
         this.dataSource = new MatTableDataSource<AreaDto>(this.areasDto)
+        // const caseInsensitive = (data: any, sortHeaderId: string): string | number => {
+        //   const value = data[sortHeaderId];
+        //   return typeof value === 'string' ? value.toLowerCase(): value;
+        // }
+        
+        // this.dataSource.sortingDataAccessor(this.areaDto, this.areaDto.name)
+        
+        // switch(this.areaDto.name) {
+        //   case 'name':
+        //   { return caseInsensitive(this.areaDto, this.areaDto.name);}
+        // }
         this.loaderService.hide();
       });
   }
@@ -76,6 +87,18 @@ export class LocationShowComponent implements OnInit {
   openAreaShow(areaDto: AreaDto) {
     this.router.navigate(['admin', 'locations', this.locationId, 'areas', areaDto.id]);
   }
+
+  // const caseInsensitive = (data: any, sortHeaderId: string): string | number => {
+  //   const value = data[sortHeaderId];
+  //   return typeof value === 'string' ? value.toLowerCase(): value;
+  // }
+  
+  // this.dataSource.sortingDataAccessor(this.areaDto, this.areaDto.name)
+  
+  // switch(this.areaDto.name) {
+  //   case 'name':
+  //   { return caseInsensitive(this.areaDto, this.areaDto.name);}
+  // }
 
   openEditLocationFormDialog() {
     this.dialog.open(LocationFormComponent, this.getDialogConfigLocation())
