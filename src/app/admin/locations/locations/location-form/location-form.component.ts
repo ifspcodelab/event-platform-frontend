@@ -38,8 +38,8 @@ export class LocationFormComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200), AppValidators.notBlank]],
-      address: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500), AppValidators.notBlank]]
+      name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200), AppValidators.notBlank, AppValidators.alpha]],
+      address: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500), AppValidators.notBlank, AppValidators.alpha]]
     });
   }
 

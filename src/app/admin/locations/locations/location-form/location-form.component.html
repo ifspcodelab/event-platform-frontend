@@ -20,6 +20,9 @@
       <mat-error *ngIf="fieldErrors('name')?.['minlength'] || fieldErrors('name')?.['maxlength']">
         Nome deve ter entre 1 e 200 caracteres
       </mat-error>
+      <mat-error *ngIf="fieldErrors('name')?.['alpha']">
+        Nome não pode conter somente números ou caracteres especiais
+      </mat-error>
       <mat-error *ngIf="fieldErrors('name')?.['serverError'] && submitted">
         {{ fieldErrors('name')?.['serverError'] }}
       </mat-error>
@@ -36,6 +39,9 @@
       </mat-error>
       <mat-error *ngIf="fieldErrors('address')?.['minlength'] || fieldErrors('address')?.['maxlength']">
         Endereço deve ter entre 10 e 500 caracteres
+      </mat-error>
+      <mat-error *ngIf="fieldErrors('address')?.['alpha']">
+        Endereço não pode conter somente números ou caracteres especiais
       </mat-error>
       <mat-error *ngIf="fieldErrors('address')?.['serverError'] && submitted">
         {{ fieldErrors('address')?.['serverError'] }}
